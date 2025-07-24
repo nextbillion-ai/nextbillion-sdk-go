@@ -38,7 +38,7 @@ func NewFleetifyRouteService(opts ...option.RequestOption) (r FleetifyRouteServi
 	return
 }
 
-// Dispatch a new route foobar
+// Dispatch a new route
 func (r *FleetifyRouteService) New(ctx context.Context, params FleetifyRouteNewParams, opts ...option.RequestOption) (res *FleetifyRouteNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "fleetify/routes"

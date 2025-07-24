@@ -567,7 +567,6 @@ Methods:
 Methods:
 
 - <code title="post /map/segments">client.Maps.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapService.NewSegment">NewSegment</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
-- <code title="get /maps/{mapId}/{tileSize}/{z}/{x}/{y}{scale}.{format}">client.Maps.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapService.GetTile">GetTile</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, format <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapGetTileParamsFormat">MapGetTileParamsFormat</a>, params <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapGetTileParams">MapGetTileParams</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
 
 ## Static
 
