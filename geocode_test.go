@@ -43,7 +43,7 @@ func TestGeocodeGetWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestGeocodeBatchNew(t *testing.T) {
+func TestGeocodeNewBatch(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -56,9 +56,9 @@ func TestGeocodeBatchNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geocode.BatchNew(context.TODO(), nextbillionsdk.GeocodeBatchNewParams{
+	_, err := client.Geocode.NewBatch(context.TODO(), nextbillionsdk.GeocodeNewBatchParams{
 		Key: "key=API_KEY",
-		Body: []nextbillionsdk.GeocodeBatchNewParamsBody{{
+		Body: []nextbillionsdk.GeocodeNewBatchParamsBody{{
 			Q:     `"q":"125, Berliner, berlin"`,
 			At:    nextbillionsdk.String(`"at": "52.5308,13.3856"`),
 			In:    nextbillionsdk.String(`"in":"countryCode:CAN,MEX,USA"`),
@@ -75,7 +75,7 @@ func TestGeocodeBatchNew(t *testing.T) {
 	}
 }
 
-func TestGeocodeStructuredGetWithOptionalParams(t *testing.T) {
+func TestGeocodeGetStructuredWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -88,7 +88,7 @@ func TestGeocodeStructuredGetWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geocode.StructuredGet(context.TODO(), nextbillionsdk.GeocodeStructuredGetParams{
+	_, err := client.Geocode.GetStructured(context.TODO(), nextbillionsdk.GeocodeGetStructuredParams{
 		CountryCode: "countryCode",
 		Key:         "key=API_KEY",
 		At:          nextbillionsdk.String("at=52.5308,13.3856"),

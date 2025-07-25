@@ -44,7 +44,7 @@ func (r *GeocodeService) Get(ctx context.Context, query GeocodeGetParams, opts .
 }
 
 // Batch Geocode
-func (r *GeocodeService) BatchNew(ctx context.Context, params GeocodeBatchNewParams, opts ...option.RequestOption) (res *GeocodeBatchNewResponse, err error) {
+func (r *GeocodeService) NewBatch(ctx context.Context, params GeocodeNewBatchParams, opts ...option.RequestOption) (res *GeocodeNewBatchResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "geocode/batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
@@ -52,7 +52,7 @@ func (r *GeocodeService) BatchNew(ctx context.Context, params GeocodeBatchNewPar
 }
 
 // Structured Geocode
-func (r *GeocodeService) StructuredGet(ctx context.Context, query GeocodeStructuredGetParams, opts ...option.RequestOption) (res *GeocodeStructuredGetResponse, err error) {
+func (r *GeocodeService) GetStructured(ctx context.Context, query GeocodeGetStructuredParams, opts ...option.RequestOption) (res *GeocodeGetStructuredResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "geocode/structured"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
@@ -453,10 +453,10 @@ func (r *GeocodeGetResponseItemScoring) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type GeocodeBatchNewResponse struct {
+type GeocodeNewBatchResponse struct {
 	// The results are presented as a JSON list of candidates in ranked order
 	// (most-likely to least-likely) based on the matched location criteria.
-	Items []GeocodeBatchNewResponseItem `json:"items"`
+	Items []GeocodeNewBatchResponseItem `json:"items"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -466,12 +466,12 @@ type GeocodeBatchNewResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeocodeBatchNewResponse) RawJSON() string { return r.JSON.raw }
-func (r *GeocodeBatchNewResponse) UnmarshalJSON(data []byte) error {
+func (r GeocodeNewBatchResponse) RawJSON() string { return r.JSON.raw }
+func (r *GeocodeNewBatchResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type GeocodeBatchNewResponseItem struct {
+type GeocodeNewBatchResponseItem struct {
 	// The unique identifier for the result item.
 	ID string `json:"id"`
 	// An array returning the location coordinates of all the access points of the
@@ -492,7 +492,7 @@ type GeocodeBatchNewResponseItem struct {
 	// Returns the location coordinates of the result.
 	Position Position `json:"position"`
 	// Score of the result. A higher score indicates a closer match.
-	Scoring GeocodeBatchNewResponseItemScoring `json:"scoring"`
+	Scoring GeocodeNewBatchResponseItemScoring `json:"scoring"`
 	// The localized display name of this result item.
 	Title string `json:"title"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -513,13 +513,13 @@ type GeocodeBatchNewResponseItem struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeocodeBatchNewResponseItem) RawJSON() string { return r.JSON.raw }
-func (r *GeocodeBatchNewResponseItem) UnmarshalJSON(data []byte) error {
+func (r GeocodeNewBatchResponseItem) RawJSON() string { return r.JSON.raw }
+func (r *GeocodeNewBatchResponseItem) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Score of the result. A higher score indicates a closer match.
-type GeocodeBatchNewResponseItemScoring struct {
+type GeocodeNewBatchResponseItemScoring struct {
 	// A breakdown of how closely individual field of the result matched with the
 	// provided query `q`.
 	FieldScore any `json:"fieldScore"`
@@ -536,15 +536,15 @@ type GeocodeBatchNewResponseItemScoring struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeocodeBatchNewResponseItemScoring) RawJSON() string { return r.JSON.raw }
-func (r *GeocodeBatchNewResponseItemScoring) UnmarshalJSON(data []byte) error {
+func (r GeocodeNewBatchResponseItemScoring) RawJSON() string { return r.JSON.raw }
+func (r *GeocodeNewBatchResponseItemScoring) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type GeocodeStructuredGetResponse struct {
+type GeocodeGetStructuredResponse struct {
 	// The results are presented as a JSON list of candidates in ranked order
 	// (most-likely to least-likely) based on the matched location criteria.
-	Items []GeocodeStructuredGetResponseItem `json:"items"`
+	Items []GeocodeGetStructuredResponseItem `json:"items"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -554,12 +554,12 @@ type GeocodeStructuredGetResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeocodeStructuredGetResponse) RawJSON() string { return r.JSON.raw }
-func (r *GeocodeStructuredGetResponse) UnmarshalJSON(data []byte) error {
+func (r GeocodeGetStructuredResponse) RawJSON() string { return r.JSON.raw }
+func (r *GeocodeGetStructuredResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type GeocodeStructuredGetResponseItem struct {
+type GeocodeGetStructuredResponseItem struct {
 	// The unique identifier for the result item.
 	ID string `json:"id"`
 	// An array returning the location coordinates of all the access points of the
@@ -578,11 +578,11 @@ type GeocodeStructuredGetResponseItem struct {
 	// result covers. `place` typed results have no `mapView`.
 	MapView MapView `json:"mapView"`
 	// Returns the operating hours of the place, if available.
-	OpeningHours GeocodeStructuredGetResponseItemOpeningHours `json:"openingHours"`
+	OpeningHours GeocodeGetStructuredResponseItemOpeningHours `json:"openingHours"`
 	// Returns the location coordinates of the result.
 	Position Position `json:"position"`
 	// Score of the result. A higher score indicates a closer match.
-	Scoring GeocodeStructuredGetResponseItemScoring `json:"scoring"`
+	Scoring GeocodeGetStructuredResponseItemScoring `json:"scoring"`
 	// The localized display name of this result item.
 	Title string `json:"title"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -604,16 +604,16 @@ type GeocodeStructuredGetResponseItem struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeocodeStructuredGetResponseItem) RawJSON() string { return r.JSON.raw }
-func (r *GeocodeStructuredGetResponseItem) UnmarshalJSON(data []byte) error {
+func (r GeocodeGetStructuredResponseItem) RawJSON() string { return r.JSON.raw }
+func (r *GeocodeGetStructuredResponseItem) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Returns the operating hours of the place, if available.
-type GeocodeStructuredGetResponseItemOpeningHours struct {
+type GeocodeGetStructuredResponseItemOpeningHours struct {
 	// A collection of attributes with details about the opening and closing hours for
 	// each day of the week.
-	TimeRanges []GeocodeStructuredGetResponseItemOpeningHoursTimeRange `json:"timeRanges"`
+	TimeRanges []GeocodeGetStructuredResponseItemOpeningHoursTimeRange `json:"timeRanges"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		TimeRanges  respjson.Field
@@ -623,16 +623,16 @@ type GeocodeStructuredGetResponseItemOpeningHours struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeocodeStructuredGetResponseItemOpeningHours) RawJSON() string { return r.JSON.raw }
-func (r *GeocodeStructuredGetResponseItemOpeningHours) UnmarshalJSON(data []byte) error {
+func (r GeocodeGetStructuredResponseItemOpeningHours) RawJSON() string { return r.JSON.raw }
+func (r *GeocodeGetStructuredResponseItemOpeningHours) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type GeocodeStructuredGetResponseItemOpeningHoursTimeRange struct {
+type GeocodeGetStructuredResponseItemOpeningHoursTimeRange struct {
 	// Returns the closing time details.
-	EndTime GeocodeStructuredGetResponseItemOpeningHoursTimeRangeEndTime `json:"endTime"`
+	EndTime GeocodeGetStructuredResponseItemOpeningHoursTimeRangeEndTime `json:"endTime"`
 	// Returns the open time details.
-	StartTime GeocodeStructuredGetResponseItemOpeningHoursTimeRangeStartTime `json:"startTime"`
+	StartTime GeocodeGetStructuredResponseItemOpeningHoursTimeRangeStartTime `json:"startTime"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		EndTime     respjson.Field
@@ -643,13 +643,13 @@ type GeocodeStructuredGetResponseItemOpeningHoursTimeRange struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeocodeStructuredGetResponseItemOpeningHoursTimeRange) RawJSON() string { return r.JSON.raw }
-func (r *GeocodeStructuredGetResponseItemOpeningHoursTimeRange) UnmarshalJSON(data []byte) error {
+func (r GeocodeGetStructuredResponseItemOpeningHoursTimeRange) RawJSON() string { return r.JSON.raw }
+func (r *GeocodeGetStructuredResponseItemOpeningHoursTimeRange) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Returns the closing time details.
-type GeocodeStructuredGetResponseItemOpeningHoursTimeRangeEndTime struct {
+type GeocodeGetStructuredResponseItemOpeningHoursTimeRangeEndTime struct {
 	// The date to which the subsequent closing time details belong to.
 	Date string `json:"date"`
 	// The hour of the day when the place closes.
@@ -667,15 +667,15 @@ type GeocodeStructuredGetResponseItemOpeningHoursTimeRangeEndTime struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeocodeStructuredGetResponseItemOpeningHoursTimeRangeEndTime) RawJSON() string {
+func (r GeocodeGetStructuredResponseItemOpeningHoursTimeRangeEndTime) RawJSON() string {
 	return r.JSON.raw
 }
-func (r *GeocodeStructuredGetResponseItemOpeningHoursTimeRangeEndTime) UnmarshalJSON(data []byte) error {
+func (r *GeocodeGetStructuredResponseItemOpeningHoursTimeRangeEndTime) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Returns the open time details.
-type GeocodeStructuredGetResponseItemOpeningHoursTimeRangeStartTime struct {
+type GeocodeGetStructuredResponseItemOpeningHoursTimeRangeStartTime struct {
 	// The date to which the subsequent open time details belong to.
 	Date string `json:"date"`
 	// The hour of the day when the place opens.
@@ -693,15 +693,15 @@ type GeocodeStructuredGetResponseItemOpeningHoursTimeRangeStartTime struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeocodeStructuredGetResponseItemOpeningHoursTimeRangeStartTime) RawJSON() string {
+func (r GeocodeGetStructuredResponseItemOpeningHoursTimeRangeStartTime) RawJSON() string {
 	return r.JSON.raw
 }
-func (r *GeocodeStructuredGetResponseItemOpeningHoursTimeRangeStartTime) UnmarshalJSON(data []byte) error {
+func (r *GeocodeGetStructuredResponseItemOpeningHoursTimeRangeStartTime) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Score of the result. A higher score indicates a closer match.
-type GeocodeStructuredGetResponseItemScoring struct {
+type GeocodeGetStructuredResponseItemScoring struct {
 	// A breakdown of how closely individual field of the result matched with the
 	// provided query `q`.
 	FieldScore any `json:"fieldScore"`
@@ -718,8 +718,8 @@ type GeocodeStructuredGetResponseItemScoring struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeocodeStructuredGetResponseItemScoring) RawJSON() string { return r.JSON.raw }
-func (r *GeocodeStructuredGetResponseItemScoring) UnmarshalJSON(data []byte) error {
+func (r GeocodeGetStructuredResponseItemScoring) RawJSON() string { return r.JSON.raw }
+func (r *GeocodeGetStructuredResponseItemScoring) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -781,23 +781,23 @@ func (r GeocodeGetParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-type GeocodeBatchNewParams struct {
+type GeocodeNewBatchParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key  string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	Body []GeocodeBatchNewParamsBody
+	Body []GeocodeNewBatchParamsBody
 	paramObj
 }
 
-func (r GeocodeBatchNewParams) MarshalJSON() (data []byte, err error) {
+func (r GeocodeNewBatchParams) MarshalJSON() (data []byte, err error) {
 	return json.Marshal(r.Body)
 }
-func (r *GeocodeBatchNewParams) UnmarshalJSON(data []byte) error {
+func (r *GeocodeNewBatchParams) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &r.Body)
 }
 
-// URLQuery serializes [GeocodeBatchNewParams]'s query parameters as `url.Values`.
-func (r GeocodeBatchNewParams) URLQuery() (v url.Values, err error) {
+// URLQuery serializes [GeocodeNewBatchParams]'s query parameters as `url.Values`.
+func (r GeocodeNewBatchParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -805,7 +805,7 @@ func (r GeocodeBatchNewParams) URLQuery() (v url.Values, err error) {
 }
 
 // The property Q is required.
-type GeocodeBatchNewParamsBody struct {
+type GeocodeNewBatchParamsBody struct {
 	// Specify the free-text search query. Please note that whitespace, urls, email
 	// addresses, or other out-of-scope queries will yield no results.
 	Q string `json:"q,required"`
@@ -851,15 +851,15 @@ type GeocodeBatchNewParamsBody struct {
 	paramObj
 }
 
-func (r GeocodeBatchNewParamsBody) MarshalJSON() (data []byte, err error) {
-	type shadow GeocodeBatchNewParamsBody
+func (r GeocodeNewBatchParamsBody) MarshalJSON() (data []byte, err error) {
+	type shadow GeocodeNewBatchParamsBody
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *GeocodeBatchNewParamsBody) UnmarshalJSON(data []byte) error {
+func (r *GeocodeNewBatchParamsBody) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type GeocodeStructuredGetParams struct {
+type GeocodeGetStructuredParams struct {
 	// Specify a valid
 	// [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country
 	// code in which the place being searched should be located. Please note that this
@@ -912,9 +912,9 @@ type GeocodeStructuredGetParams struct {
 	paramObj
 }
 
-// URLQuery serializes [GeocodeStructuredGetParams]'s query parameters as
+// URLQuery serializes [GeocodeGetStructuredParams]'s query parameters as
 // `url.Values`.
-func (r GeocodeStructuredGetParams) URLQuery() (v url.Values, err error) {
+func (r GeocodeGetStructuredParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
