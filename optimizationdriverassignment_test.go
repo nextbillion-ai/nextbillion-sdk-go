@@ -13,7 +13,7 @@ import (
 	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestOptimizationDriverAssignmentAssignDriversWithOptionalParams(t *testing.T) {
+func TestOptimizationDriverAssignmentAssignWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,38 +26,38 @@ func TestOptimizationDriverAssignmentAssignDriversWithOptionalParams(t *testing.
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Optimization.DriverAssignment.AssignDrivers(context.TODO(), nextbillionsdk.OptimizationDriverAssignmentAssignDriversParams{
+	_, err := client.Optimization.DriverAssignment.Assign(context.TODO(), nextbillionsdk.OptimizationDriverAssignmentAssignParams{
 		Key: "key=API_KEY",
-		Filter: nextbillionsdk.OptimizationDriverAssignmentAssignDriversParamsFilter{
+		Filter: nextbillionsdk.OptimizationDriverAssignmentAssignParamsFilter{
 			DrivingDistance: nextbillionsdk.Float(0),
 			PickupEta:       nextbillionsdk.Int(0),
 			Radius:          nextbillionsdk.Float(0),
 		},
-		Orders: []nextbillionsdk.OptimizationDriverAssignmentAssignDriversParamsOrder{{
+		Orders: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrder{{
 			ID: "id",
-			Pickup: nextbillionsdk.OptimizationDriverAssignmentAssignDriversParamsOrderPickup{
+			Pickup: nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderPickup{
 				Lat: nextbillionsdk.Float(0),
 				Lng: nextbillionsdk.Float(0),
 			},
 			Attributes: map[string]interface{}{},
-			Dropoffs: []nextbillionsdk.OptimizationDriverAssignmentAssignDriversParamsOrderDropoff{{
+			Dropoffs: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderDropoff{{
 				Lat: nextbillionsdk.Float(0),
 				Lng: nextbillionsdk.Float(0),
 			}},
 			Priority:    nextbillionsdk.Int(0),
 			ServiceTime: nextbillionsdk.Int(0),
-			VehiclePreferences: nextbillionsdk.OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferences{
-				ExcludeAllOfAttributes: []nextbillionsdk.OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesExcludeAllOfAttribute{{
+			VehiclePreferences: nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferences{
+				ExcludeAllOfAttributes: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesExcludeAllOfAttribute{{
 					Attribute: `"attribute": "driver_rating"`,
 					Operator:  `"operator":"<"`,
 					Value:     `"value": "4"`,
 				}},
-				RequiredAllOfAttributes: []nextbillionsdk.OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAllOfAttribute{{
+				RequiredAllOfAttributes: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAllOfAttribute{{
 					Attribute: `"attribute": "driver_rating"`,
 					Operator:  `"operator":"=="`,
 					Value:     `"value": "4"`,
 				}},
-				RequiredAnyOfAttributes: []nextbillionsdk.OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAnyOfAttribute{{
+				RequiredAnyOfAttributes: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAnyOfAttribute{{
 					Attribute: `"attribute": "driver_rating"`,
 					Operator:  `"operator":">"`,
 					Value:     `"value": "4"`,
@@ -77,17 +77,17 @@ func TestOptimizationDriverAssignmentAssignDriversWithOptionalParams(t *testing.
 				Lon: -180,
 			}},
 		}},
-		Options: nextbillionsdk.OptimizationDriverAssignmentAssignDriversParamsOptions{
+		Options: nextbillionsdk.OptimizationDriverAssignmentAssignParamsOptions{
 			AlternateAssignments: nextbillionsdk.Int(0),
 			DropoffDetails:       nextbillionsdk.Bool(true),
-			OrderAttributePriorityMappings: []nextbillionsdk.OptimizationDriverAssignmentAssignDriversParamsOptionsOrderAttributePriorityMapping{{
+			OrderAttributePriorityMappings: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOptionsOrderAttributePriorityMapping{{
 				Attribute: `"attribute": "driver_rating"`,
 				Operator:  `"operator":"=="`,
 				Priority:  "priority",
 				Value:     `"value": "4"`,
 			}},
 			TravelCost: "driving_eta",
-			VehicleAttributePriorityMappings: []nextbillionsdk.OptimizationDriverAssignmentAssignDriversParamsOptionsVehicleAttributePriorityMapping{{
+			VehicleAttributePriorityMappings: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOptionsVehicleAttributePriorityMapping{{
 				Attribute: `"attribute": "driver_rating"`,
 				Operator:  `"operator":"=="`,
 				Priority:  "priority",
