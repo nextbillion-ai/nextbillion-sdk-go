@@ -13,7 +13,7 @@ import (
 	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestSkynetAssetEventGetListWithOptionalParams(t *testing.T) {
+func TestSkynetAssetEventListWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,12 +26,12 @@ func TestSkynetAssetEventGetListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Asset.Event.GetList(
+	_, err := client.Skynet.Asset.Event.List(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetAssetEventGetListParams{
+		nextbillionsdk.SkynetAssetEventListParams{
 			Key:       "key=API_KEY",
-			Cluster:   nextbillionsdk.SkynetAssetEventGetListParamsClusterAmerica,
+			Cluster:   nextbillionsdk.SkynetAssetEventListParamsClusterAmerica,
 			EndTime:   nextbillionsdk.Int(0),
 			MonitorID: nextbillionsdk.String("monitor_id"),
 			Pn:        nextbillionsdk.Int(0),
