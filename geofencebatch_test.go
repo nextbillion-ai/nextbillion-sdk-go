@@ -66,32 +66,6 @@ func TestGeofenceBatchNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestGeofenceBatchList(t *testing.T) {
-	t.Skip("skipped: tests are disabled for the time being")
-	baseURL := "http://localhost:4010"
-	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
-		baseURL = envURL
-	}
-	if !testutil.CheckTestServer(t, baseURL) {
-		return
-	}
-	client := nextbillionsdk.NewClient(
-		option.WithBaseURL(baseURL),
-		option.WithAPIKey("My API Key"),
-	)
-	_, err := client.Geofence.Batch.List(context.TODO(), nextbillionsdk.GeofenceBatchListParams{
-		IDs: "ids",
-		Key: "key=API_KEY",
-	})
-	if err != nil {
-		var apierr *nextbillionsdk.Error
-		if errors.As(err, &apierr) {
-			t.Log(string(apierr.DumpRequest(true)))
-		}
-		t.Fatalf("err should be nil: %s", err.Error())
-	}
-}
-
 func TestGeofenceBatchDeleteWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
@@ -108,6 +82,32 @@ func TestGeofenceBatchDeleteWithOptionalParams(t *testing.T) {
 	_, err := client.Geofence.Batch.Delete(context.TODO(), nextbillionsdk.GeofenceBatchDeleteParams{
 		Key: "key=API_KEY",
 		IDs: []string{"string"},
+	})
+	if err != nil {
+		var apierr *nextbillionsdk.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
+func TestGeofenceBatchQuery(t *testing.T) {
+	t.Skip("skipped: tests are disabled for the time being")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nextbillionsdk.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.Geofence.Batch.Query(context.TODO(), nextbillionsdk.GeofenceBatchQueryParams{
+		IDs: "ids",
+		Key: "key=API_KEY",
 	})
 	if err != nil {
 		var apierr *nextbillionsdk.Error
