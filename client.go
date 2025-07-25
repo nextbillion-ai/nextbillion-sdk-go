@@ -24,13 +24,13 @@ type Client struct {
 	Discover          DiscoverService
 	Browse            BrowseService
 	Mdm               MdmService
-	Tiles             TileService
 	Isochrone         IsochroneService
 	Restrictions      RestrictionService
 	RestrictionsItems RestrictionsItemService
 	Distancematrix    DistancematrixService
 	Autocomplete      AutocompleteService
 	Navigation        NavigationService
+	Map               MapService
 	Autosuggest       AutosuggestService
 	Directions        DirectionService
 	Batch             BatchService
@@ -41,7 +41,6 @@ type Client struct {
 	Postalcode        PostalcodeService
 	Areas             AreaService
 	Lookup            LookupService
-	Maps              MapService
 }
 
 // DefaultClientOptions read from the environment (NEXTBILLION_SDK_API_KEY,
@@ -74,13 +73,13 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.Discover = NewDiscoverService(opts...)
 	r.Browse = NewBrowseService(opts...)
 	r.Mdm = NewMdmService(opts...)
-	r.Tiles = NewTileService(opts...)
 	r.Isochrone = NewIsochroneService(opts...)
 	r.Restrictions = NewRestrictionService(opts...)
 	r.RestrictionsItems = NewRestrictionsItemService(opts...)
 	r.Distancematrix = NewDistancematrixService(opts...)
 	r.Autocomplete = NewAutocompleteService(opts...)
 	r.Navigation = NewNavigationService(opts...)
+	r.Map = NewMapService(opts...)
 	r.Autosuggest = NewAutosuggestService(opts...)
 	r.Directions = NewDirectionService(opts...)
 	r.Batch = NewBatchService(opts...)
@@ -91,7 +90,6 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.Postalcode = NewPostalcodeService(opts...)
 	r.Areas = NewAreaService(opts...)
 	r.Lookup = NewLookupService(opts...)
-	r.Maps = NewMapService(opts...)
 
 	return
 }

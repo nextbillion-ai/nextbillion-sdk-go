@@ -26,7 +26,7 @@ func TestMapNewSegment(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.Maps.NewSegment(context.TODO())
+	err := client.Map.NewSegment(context.TODO())
 	if err != nil {
 		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
