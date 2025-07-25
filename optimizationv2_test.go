@@ -13,7 +13,7 @@ import (
 	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestOptimizationV2NewRequestWithOptionalParams(t *testing.T) {
+func TestOptimizationV2GetResult(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,9 +26,35 @@ func TestOptimizationV2NewRequestWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Optimization.V2.NewRequest(context.TODO(), nextbillionsdk.OptimizationV2NewRequestParams{
+	_, err := client.Optimization.V2.GetResult(context.TODO(), nextbillionsdk.OptimizationV2GetResultParams{
+		ID:  "id",
 		Key: "key=API_KEY",
-		Locations: nextbillionsdk.OptimizationV2NewRequestParamsLocations{
+	})
+	if err != nil {
+		var apierr *nextbillionsdk.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
+func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
+	t.Skip("skipped: tests are disabled for the time being")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nextbillionsdk.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.Optimization.V2.Submit(context.TODO(), nextbillionsdk.OptimizationV2SubmitParams{
+		Key: "key=API_KEY",
+		Locations: nextbillionsdk.OptimizationV2SubmitParamsLocations{
 			Location:   []string{"string"},
 			ID:         nextbillionsdk.Int(0),
 			Approaches: []string{"`unrestricted`"},
@@ -47,7 +73,7 @@ func TestOptimizationV2NewRequestWithOptionalParams(t *testing.T) {
 			}},
 		}},
 		CostMatrix: [][]int64{{0}},
-		Depots: []nextbillionsdk.OptimizationV2NewRequestParamsDepot{{
+		Depots: []nextbillionsdk.OptimizationV2SubmitParamsDepot{{
 			ID:            `"id":"depot 1"`,
 			LocationIndex: 0,
 			Description:   nextbillionsdk.String("“description”:”Los_Angeles_depot”"),
@@ -87,26 +113,26 @@ func TestOptimizationV2NewRequestWithOptionalParams(t *testing.T) {
 			},
 			Zones: []int64{0},
 		}},
-		Options: nextbillionsdk.OptimizationV2NewRequestParamsOptions{
-			Constraint: nextbillionsdk.OptimizationV2NewRequestParamsOptionsConstraint{
+		Options: nextbillionsdk.OptimizationV2SubmitParamsOptions{
+			Constraint: nextbillionsdk.OptimizationV2SubmitParamsOptionsConstraint{
 				MaxActivityWaitingTime: nextbillionsdk.Int(0),
 				MaxVehicleOvertime:     nextbillionsdk.Int(0),
 				MaxVisitLateness:       nextbillionsdk.Int(0),
 			},
-			Grouping: nextbillionsdk.OptimizationV2NewRequestParamsOptionsGrouping{
-				OrderGrouping: nextbillionsdk.OptimizationV2NewRequestParamsOptionsGroupingOrderGrouping{
+			Grouping: nextbillionsdk.OptimizationV2SubmitParamsOptionsGrouping{
+				OrderGrouping: nextbillionsdk.OptimizationV2SubmitParamsOptionsGroupingOrderGrouping{
 					GroupingDiameter: nextbillionsdk.Float(0),
 				},
 				ProximityFactor: nextbillionsdk.Float(0),
-				RouteGrouping: nextbillionsdk.OptimizationV2NewRequestParamsOptionsGroupingRouteGrouping{
+				RouteGrouping: nextbillionsdk.OptimizationV2SubmitParamsOptionsGroupingRouteGrouping{
 					PenaltyFactor: nextbillionsdk.Float(0),
 					ZoneDiameter:  nextbillionsdk.Float(0),
 					ZoneSource:    "`system_generated`",
 				},
 			},
-			Objective: nextbillionsdk.OptimizationV2NewRequestParamsOptionsObjective{
+			Objective: nextbillionsdk.OptimizationV2SubmitParamsOptionsObjective{
 				AllowEarlyArrival: nextbillionsdk.Bool(true),
-				Custom: nextbillionsdk.OptimizationV2NewRequestParamsOptionsObjectiveCustom{
+				Custom: nextbillionsdk.OptimizationV2SubmitParamsOptionsObjectiveCustom{
 					Type:  "`min`",
 					Value: "`vehicles`",
 				},
@@ -115,7 +141,7 @@ func TestOptimizationV2NewRequestWithOptionalParams(t *testing.T) {
 				SolvingTimeLimit:  nextbillionsdk.Int(0),
 				TravelCost:        "`duration`",
 			},
-			Routing: nextbillionsdk.OptimizationV2NewRequestParamsOptionsRouting{
+			Routing: nextbillionsdk.OptimizationV2SubmitParamsOptionsRouting{
 				Allow:            []string{"taxi"},
 				Avoid:            []string{"`toll`"},
 				Context:          "`avgspeed`",
@@ -130,8 +156,8 @@ func TestOptimizationV2NewRequestWithOptionalParams(t *testing.T) {
 				TruckWeight:      nextbillionsdk.Int(0),
 			},
 		},
-		Relations: []nextbillionsdk.OptimizationV2NewRequestParamsRelation{{
-			Steps: []nextbillionsdk.OptimizationV2NewRequestParamsRelationStep{{
+		Relations: []nextbillionsdk.OptimizationV2SubmitParamsRelation{{
+			Steps: []nextbillionsdk.OptimizationV2SubmitParamsRelationStep{{
 				Type: "`start`",
 				ID:   nextbillionsdk.String(`"id":"Job 1"`),
 			}},
@@ -182,9 +208,9 @@ func TestOptimizationV2NewRequestWithOptionalParams(t *testing.T) {
 			},
 			Zones: []int64{0},
 		}},
-		Solution: []nextbillionsdk.OptimizationV2NewRequestParamsSolution{{
+		Solution: []nextbillionsdk.OptimizationV2SubmitParamsSolution{{
 			Cost: 0,
-			Steps: []nextbillionsdk.OptimizationV2NewRequestParamsSolutionStep{{
+			Steps: []nextbillionsdk.OptimizationV2SubmitParamsSolutionStep{{
 				ID:            `"id": "Job 10"`,
 				Arrival:       0,
 				Type:          "`start`",
@@ -210,45 +236,19 @@ func TestOptimizationV2NewRequestWithOptionalParams(t *testing.T) {
 			Setup:       nextbillionsdk.Int(0),
 			WaitingTime: nextbillionsdk.Int(0),
 		}},
-		Unassigned: nextbillionsdk.OptimizationV2NewRequestParamsUnassigned{
+		Unassigned: nextbillionsdk.OptimizationV2SubmitParamsUnassigned{
 			Jobs:      []string{"string"},
 			Shipments: [][]string{{"string"}},
 		},
-		Zones: []nextbillionsdk.OptimizationV2NewRequestParamsZone{{
+		Zones: []nextbillionsdk.OptimizationV2SubmitParamsZone{{
 			ID:         0,
 			GeofenceID: nextbillionsdk.String("geofence_id"),
-			Geometry: nextbillionsdk.OptimizationV2NewRequestParamsZoneGeometry{
+			Geometry: nextbillionsdk.OptimizationV2SubmitParamsZoneGeometry{
 				Coordinates: [][]float64{{0}},
 				Description: nextbillionsdk.String("description"),
 				Type:        "`Polygon`",
 			},
 		}},
-	})
-	if err != nil {
-		var apierr *nextbillionsdk.Error
-		if errors.As(err, &apierr) {
-			t.Log(string(apierr.DumpRequest(true)))
-		}
-		t.Fatalf("err should be nil: %s", err.Error())
-	}
-}
-
-func TestOptimizationV2GetResult(t *testing.T) {
-	t.Skip("skipped: tests are disabled for the time being")
-	baseURL := "http://localhost:4010"
-	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
-		baseURL = envURL
-	}
-	if !testutil.CheckTestServer(t, baseURL) {
-		return
-	}
-	client := nextbillionsdk.NewClient(
-		option.WithBaseURL(baseURL),
-		option.WithAPIKey("My API Key"),
-	)
-	_, err := client.Optimization.V2.GetResult(context.TODO(), nextbillionsdk.OptimizationV2GetResultParams{
-		ID:  "id",
-		Key: "key=API_KEY",
 	})
 	if err != nil {
 		var apierr *nextbillionsdk.Error

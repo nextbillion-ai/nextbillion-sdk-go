@@ -13,7 +13,7 @@ import (
 	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestSkynetSearchAroundWithOptionalParams(t *testing.T) {
+func TestSkynetSearchGetAroundWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,7 +26,7 @@ func TestSkynetSearchAroundWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Search.Around(context.TODO(), nextbillionsdk.SkynetSearchAroundParams{
+	_, err := client.Skynet.Search.GetAround(context.TODO(), nextbillionsdk.SkynetSearchGetAroundParams{
 		Center:                 "56.597801,43.967836",
 		Key:                    "key=API_KEY",
 		Radius:                 0,
@@ -36,9 +36,9 @@ func TestSkynetSearchAroundWithOptionalParams(t *testing.T) {
 		MaxSearchLimit:         nextbillionsdk.Bool(true),
 		Pn:                     nextbillionsdk.Int(0),
 		Ps:                     nextbillionsdk.Int(100),
-		SortBy:                 nextbillionsdk.SkynetSearchAroundParamsSortByDistance,
+		SortBy:                 nextbillionsdk.SkynetSearchGetAroundParamsSortByDistance,
 		SortDestination:        nextbillionsdk.String("sort_destination= 34.0241,-118.2550"),
-		SortDrivingMode:        nextbillionsdk.SkynetSearchAroundParamsSortDrivingModeCar,
+		SortDrivingMode:        nextbillionsdk.SkynetSearchGetAroundParamsSortDrivingModeCar,
 	})
 	if err != nil {
 		var apierr *nextbillionsdk.Error
@@ -49,7 +49,7 @@ func TestSkynetSearchAroundWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestSkynetSearchBoundWithOptionalParams(t *testing.T) {
+func TestSkynetSearchGetBoundWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -62,7 +62,7 @@ func TestSkynetSearchBoundWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Search.Bound(context.TODO(), nextbillionsdk.SkynetSearchBoundParams{
+	_, err := client.Skynet.Search.GetBound(context.TODO(), nextbillionsdk.SkynetSearchGetBoundParams{
 		Bound:                  "bounds=44.7664,-0.6941|44.9206,-0.4639",
 		Key:                    "key=API_KEY",
 		Filter:                 nextbillionsdk.String("filter=tag:delivery,truck"),
@@ -71,9 +71,9 @@ func TestSkynetSearchBoundWithOptionalParams(t *testing.T) {
 		MaxSearchLimit:         nextbillionsdk.Bool(true),
 		Pn:                     nextbillionsdk.Int(0),
 		Ps:                     nextbillionsdk.Int(100),
-		SortBy:                 nextbillionsdk.SkynetSearchBoundParamsSortByDistance,
+		SortBy:                 nextbillionsdk.SkynetSearchGetBoundParamsSortByDistance,
 		SortDestination:        nextbillionsdk.String("sort_destination= 34.0241,-118.2550"),
-		SortDrivingMode:        nextbillionsdk.SkynetSearchBoundParamsSortDrivingModeCar,
+		SortDrivingMode:        nextbillionsdk.SkynetSearchGetBoundParamsSortDrivingModeCar,
 	})
 	if err != nil {
 		var apierr *nextbillionsdk.Error
