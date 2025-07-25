@@ -42,19 +42,19 @@ func (r *GeofenceBatchService) New(ctx context.Context, params GeofenceBatchNewP
 	return
 }
 
-// Batch Query of Geofence
-func (r *GeofenceBatchService) List(ctx context.Context, query GeofenceBatchListParams, opts ...option.RequestOption) (res *GeofenceBatchListResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	path := "geofence/batch"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
-}
-
 // Delete Batch Geofence
 func (r *GeofenceBatchService) Delete(ctx context.Context, params GeofenceBatchDeleteParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "geofence/batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, params, &res, opts...)
+	return
+}
+
+// Batch Query of Geofence
+func (r *GeofenceBatchService) Query(ctx context.Context, query GeofenceBatchQueryParams, opts ...option.RequestOption) (res *GeofenceBatchQueryResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "geofence/batch"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
@@ -97,8 +97,8 @@ func (r *GeofenceBatchNewResponseData) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type GeofenceBatchListResponse struct {
-	Data GeofenceBatchListResponseData `json:"data,required"`
+type GeofenceBatchQueryResponse struct {
+	Data GeofenceBatchQueryResponseData `json:"data,required"`
 	// A string indicating the state of the response. On successful responses, the
 	// value will be `Ok`. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
@@ -113,12 +113,12 @@ type GeofenceBatchListResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeofenceBatchListResponse) RawJSON() string { return r.JSON.raw }
-func (r *GeofenceBatchListResponse) UnmarshalJSON(data []byte) error {
+func (r GeofenceBatchQueryResponse) RawJSON() string { return r.JSON.raw }
+func (r *GeofenceBatchQueryResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type GeofenceBatchListResponseData struct {
+type GeofenceBatchQueryResponseData struct {
 	// An array of objects containing the details of the geofences returned matching
 	// the IDs provided. Each object represents one geofence.
 	List []Geofence `json:"list,required"`
@@ -131,8 +131,8 @@ type GeofenceBatchListResponseData struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r GeofenceBatchListResponseData) RawJSON() string { return r.JSON.raw }
-func (r *GeofenceBatchListResponseData) UnmarshalJSON(data []byte) error {
+func (r GeofenceBatchQueryResponseData) RawJSON() string { return r.JSON.raw }
+func (r *GeofenceBatchQueryResponseData) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -162,24 +162,6 @@ func (r GeofenceBatchNewParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-type GeofenceBatchListParams struct {
-	// Comma(`,`) separated list of IDs of the geofences to be searched.
-	IDs string `query:"ids,required" format:"ID_1,ID_2,ID_3,...." json:"-"`
-	// A key is a unique identifier that is required to authenticate a request to the
-	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	paramObj
-}
-
-// URLQuery serializes [GeofenceBatchListParams]'s query parameters as
-// `url.Values`.
-func (r GeofenceBatchListParams) URLQuery() (v url.Values, err error) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
-}
-
 type GeofenceBatchDeleteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
@@ -201,6 +183,24 @@ func (r *GeofenceBatchDeleteParams) UnmarshalJSON(data []byte) error {
 // URLQuery serializes [GeofenceBatchDeleteParams]'s query parameters as
 // `url.Values`.
 func (r GeofenceBatchDeleteParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+type GeofenceBatchQueryParams struct {
+	// Comma(`,`) separated list of IDs of the geofences to be searched.
+	IDs string `query:"ids,required" format:"ID_1,ID_2,ID_3,...." json:"-"`
+	// A key is a unique identifier that is required to authenticate a request to the
+	// API.
+	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [GeofenceBatchQueryParams]'s query parameters as
+// `url.Values`.
+func (r GeofenceBatchQueryParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
