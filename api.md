@@ -360,10 +360,6 @@ Methods:
 
 # Tiles
 
-Methods:
-
-- <code title="get /tiles/{tilesId}/{z}/{x}/{y}.{format}?{key}">client.Tiles.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#TileService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, key <a href="https://pkg.go.dev/builtin#string">string</a>, params <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#TileGetParams">TileGetParams</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
-
 # Isochrone
 
 Response Types:
@@ -572,13 +568,4 @@ Methods:
 
 ### X
 
-Methods:
-
-- <code title="get /maps/{mapId}/static/{miny},{minx},{maxy},{maxx}/{width}x{height}{scale}.{format}">client.Maps.Static.X.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapStaticXService.GetBoundsImage">GetBoundsImage</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, format <a href="https://pkg.go.dev/builtin#string">string</a>, params <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapStaticXGetBoundsImageParams">MapStaticXGetBoundsImageParams</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
-- <code title="get /maps/{mapId}/static/{lat},{lon},{zoom}/{width}x{height}{scale}.{format}">client.Maps.Static.X.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapStaticXService.GetCenteredImage">GetCenteredImage</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, format <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapStaticXGetCenteredImageParamsFormat">MapStaticXGetCenteredImageParamsFormat</a>, params <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapStaticXGetCenteredImageParams">MapStaticXGetCenteredImageParams</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
-
 ### Auto
-
-Methods:
-
-- <code title="get /maps/{mapId}/static/auto/{width}x{height}{scale}.{format}">client.Maps.Static.Auto.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapStaticAutoService.GetAutoImage">GetAutoImage</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, format <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapStaticAutoGetAutoImageParamsFormat">MapStaticAutoGetAutoImageParamsFormat</a>, params <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#MapStaticAutoGetAutoImageParams">MapStaticAutoGetAutoImageParams</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
