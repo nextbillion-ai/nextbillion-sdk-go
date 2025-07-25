@@ -110,38 +110,6 @@ func TestSkynetAssetUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestSkynetAssetListWithOptionalParams(t *testing.T) {
-	t.Skip("skipped: tests are disabled for the time being")
-	baseURL := "http://localhost:4010"
-	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
-		baseURL = envURL
-	}
-	if !testutil.CheckTestServer(t, baseURL) {
-		return
-	}
-	client := nextbillionsdk.NewClient(
-		option.WithBaseURL(baseURL),
-		option.WithAPIKey("My API Key"),
-	)
-	_, err := client.Skynet.Asset.List(context.TODO(), nextbillionsdk.SkynetAssetListParams{
-		Key:                    "key=API_KEY",
-		Cluster:                nextbillionsdk.SkynetAssetListParamsClusterAmerica,
-		IncludeAllOfAttributes: nextbillionsdk.String("include_all_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
-		IncludeAnyOfAttributes: nextbillionsdk.String("include_any_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
-		Pn:                     nextbillionsdk.Int(0),
-		Ps:                     nextbillionsdk.Int(100),
-		Sort:                   nextbillionsdk.String("updated_at:desc"),
-		Tags:                   nextbillionsdk.String("tags=tag_1,tag_2"),
-	})
-	if err != nil {
-		var apierr *nextbillionsdk.Error
-		if errors.As(err, &apierr) {
-			t.Log(string(apierr.DumpRequest(true)))
-		}
-		t.Fatalf("err should be nil: %s", err.Error())
-	}
-}
-
 func TestSkynetAssetDeleteWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
@@ -163,6 +131,38 @@ func TestSkynetAssetDeleteWithOptionalParams(t *testing.T) {
 			Cluster: nextbillionsdk.SkynetAssetDeleteParamsClusterAmerica,
 		},
 	)
+	if err != nil {
+		var apierr *nextbillionsdk.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
+func TestSkynetAssetGetListWithOptionalParams(t *testing.T) {
+	t.Skip("skipped: tests are disabled for the time being")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nextbillionsdk.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.Skynet.Asset.GetList(context.TODO(), nextbillionsdk.SkynetAssetGetListParams{
+		Key:                    "key=API_KEY",
+		Cluster:                nextbillionsdk.SkynetAssetGetListParamsClusterAmerica,
+		IncludeAllOfAttributes: nextbillionsdk.String("include_all_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
+		IncludeAnyOfAttributes: nextbillionsdk.String("include_any_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
+		Pn:                     nextbillionsdk.Int(0),
+		Ps:                     nextbillionsdk.Int(100),
+		Sort:                   nextbillionsdk.String("updated_at:desc"),
+		Tags:                   nextbillionsdk.String("tags=tag_1,tag_2"),
+	})
 	if err != nil {
 		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
