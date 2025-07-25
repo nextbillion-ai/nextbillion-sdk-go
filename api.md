@@ -457,7 +457,7 @@ Response Types:
 
 Methods:
 
-- <code title="post /directions/json">client.Directions.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DirectionService.ComputeRoute">ComputeRoute</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, params <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DirectionComputeRouteParams">DirectionComputeRouteParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DirectionComputeRouteResponse">DirectionComputeRouteResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="post /directions/json">client.Directions.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DirectionService.ComputeRoute">ComputeRoute</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DirectionComputeRouteParams">DirectionComputeRouteParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DirectionComputeRouteResponse">DirectionComputeRouteResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 # Batch
 
