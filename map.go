@@ -18,7 +18,6 @@ import (
 // the [NewMapService] method instead.
 type MapService struct {
 	Options []option.RequestOption
-	Static  MapStaticService
 }
 
 // NewMapService generates a new service that applies the given options to each
@@ -27,7 +26,6 @@ type MapService struct {
 func NewMapService(opts ...option.RequestOption) (r MapService) {
 	r = MapService{}
 	r.Options = opts
-	r.Static = NewMapStaticService(opts...)
 	return
 }
 
