@@ -13,7 +13,7 @@ import (
 	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestLookupGetByID(t *testing.T) {
+func TestLookupGet(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,7 +26,7 @@ func TestLookupGetByID(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Lookup.GetByID(context.TODO(), nextbillionsdk.LookupGetByIDParams{
+	_, err := client.Lookup.Get(context.TODO(), nextbillionsdk.LookupGetParams{
 		ID:  "id",
 		Key: "key=API_KEY",
 	})

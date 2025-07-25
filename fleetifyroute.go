@@ -65,7 +65,7 @@ func (r *FleetifyRouteService) Redispatch(ctx context.Context, routeID string, p
 // Please note the routing characteristics returned here are the same as those
 // configured in the input request. The fields which were not specified in the
 // input will be returned as blanks.
-type Response struct {
+type Routing struct {
 	// Returns the configuration of approaches for each step, that is used when
 	// generating the route to help the driver with turn-by-turn navigation.
 	Approaches string `json:"approaches"`
@@ -104,8 +104,8 @@ type Response struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r Response) RawJSON() string { return r.JSON.raw }
-func (r *Response) UnmarshalJSON(data []byte) error {
+func (r Routing) RawJSON() string { return r.JSON.raw }
+func (r *Routing) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -158,7 +158,7 @@ type FleetifyRouteNewResponseData struct {
 	// Please note the routing characteristics returned here are the same as those
 	// configured in the input request. The fields which were not specified in the
 	// input will be returned as blanks.
-	Routing Response `json:"routing"`
+	Routing Routing `json:"routing"`
 	// Returns a shorter unique ID of the dispatched route for easier referencing and
 	// displaying purposes.
 	ShortID string `json:"short_id"`
@@ -284,7 +284,7 @@ type FleetifyRouteRedispatchResponseData struct {
 	// Please note the routing characteristics returned here are the same as those
 	// configured in the input request. The fields which were not specified in the
 	// input will be returned as blanks.
-	Routing Response `json:"routing"`
+	Routing Routing `json:"routing"`
 	// Returns a shorter unique ID of the route for easier referencing and displaying
 	// purposes.
 	ShortID string                                   `json:"short_id"`

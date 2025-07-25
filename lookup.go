@@ -34,17 +34,17 @@ func NewLookupService(opts ...option.RequestOption) (r LookupService) {
 }
 
 // Lookup By ID
-func (r *LookupService) GetByID(ctx context.Context, query LookupGetByIDParams, opts ...option.RequestOption) (res *LookupGetByIDResponse, err error) {
+func (r *LookupService) Get(ctx context.Context, query LookupGetParams, opts ...option.RequestOption) (res *LookupGetResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "lookup"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
-type LookupGetByIDResponse struct {
+type LookupGetResponse struct {
 	// The results are presented as a JSON list of candidates in ranked order
 	// (most-likely to least-likely) based on the matched location criteria.
-	Items []LookupGetByIDResponseItem `json:"items"`
+	Items []LookupGetResponseItem `json:"items"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -54,12 +54,12 @@ type LookupGetByIDResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r LookupGetByIDResponse) RawJSON() string { return r.JSON.raw }
-func (r *LookupGetByIDResponse) UnmarshalJSON(data []byte) error {
+func (r LookupGetResponse) RawJSON() string { return r.JSON.raw }
+func (r *LookupGetResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type LookupGetByIDResponseItem struct {
+type LookupGetResponseItem struct {
 	// The unique identifier for the result item.
 	ID string `json:"id"`
 	// An array returning the location coordinates of all the access points of the
@@ -94,12 +94,12 @@ type LookupGetByIDResponseItem struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r LookupGetByIDResponseItem) RawJSON() string { return r.JSON.raw }
-func (r *LookupGetByIDResponseItem) UnmarshalJSON(data []byte) error {
+func (r LookupGetResponseItem) RawJSON() string { return r.JSON.raw }
+func (r *LookupGetResponseItem) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type LookupGetByIDParams struct {
+type LookupGetParams struct {
 	// Specify the unique identifier of a specific POI, Street, Geography, Point
 	// Address or other entities to retrieve its details.
 	ID string `query:"id,required" json:"-"`
@@ -109,8 +109,8 @@ type LookupGetByIDParams struct {
 	paramObj
 }
 
-// URLQuery serializes [LookupGetByIDParams]'s query parameters as `url.Values`.
-func (r LookupGetByIDParams) URLQuery() (v url.Values, err error) {
+// URLQuery serializes [LookupGetParams]'s query parameters as `url.Values`.
+func (r LookupGetParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
