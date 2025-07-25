@@ -102,15 +102,29 @@ func TestFleetifyRouteStepUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.Fleetify.Routes.Steps.Update(
+	_, err := client.Fleetify.Routes.Steps.Update(
 		context.TODO(),
 		"stepsID",
 		nextbillionsdk.FleetifyRouteStepUpdateParams{
-			RuoteID:  "ruoteID",
-			Key:      "key",
-			Document: map[string]interface{}{},
-			Mode:     nextbillionsdk.String("mode"),
-			Status:   nextbillionsdk.String("status"),
+			RuoteID:            "ruoteID",
+			Key:                "key",
+			Arrival:            0,
+			Position:           0,
+			Address:            nextbillionsdk.String(`"address": "503, Dublin Drive, Los Angeles, California - 500674",`),
+			CompletionMode:     nextbillionsdk.RouteStepCompletionModeManual,
+			DocumentTemplateID: nextbillionsdk.String("document_template_id"),
+			Duration:           nextbillionsdk.Int(0),
+			GeofenceConfig: nextbillionsdk.RouteStepGeofenceConfigParam{
+				Radius: nextbillionsdk.Float(0),
+				Type:   nextbillionsdk.RouteStepGeofenceConfigTypeCircle,
+			},
+			Location: []float64{0},
+			Meta: nextbillionsdk.FleetifyRouteStepUpdateParamsMeta{
+				CustomerName:        nextbillionsdk.String(`"customer_name": "Chandler Bing"`),
+				CustomerPhoneNumber: nextbillionsdk.String(`"customer_phone_number": "+1 707 234 1234"`),
+				Instructions:        nextbillionsdk.String(`"instructions": "Customer asked not to ring the doorbell."`),
+			},
+			Type: nextbillionsdk.FleetifyRouteStepUpdateParamsTypeStart,
 		},
 	)
 	if err != nil {
@@ -137,9 +151,9 @@ func TestFleetifyRouteStepDelete(t *testing.T) {
 	)
 	_, err := client.Fleetify.Routes.Steps.Delete(
 		context.TODO(),
-		"stepsID",
+		"stepID",
 		nextbillionsdk.FleetifyRouteStepDeleteParams{
-			RuoteID: "ruoteID",
+			RouteID: "routeID",
 			Key:     "key",
 		},
 	)
