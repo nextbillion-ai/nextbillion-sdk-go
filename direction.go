@@ -540,7 +540,10 @@ func (r *DirectionComputeRouteResponseRouteStartLocation) UnmarshalJSON(data []b
 
 type DirectionComputeRouteParams struct {
 	Destination string `json:"destination,required"`
-	Origin      string `json:"origin,required"`
+	// A key is a unique identifier that is required to authenticate a request to the
+	// API.
+	Key    string `json:"key,required"`
+	Origin string `json:"origin,required"`
 	// Sets the number of alternative routes to return. It is effective only when
 	// alternatives=true. Default to 3.
 	//
