@@ -27,9 +27,8 @@ func TestDirectionComputeRouteWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-		QueryKey:        "key",
 		Destination:     "41.349302,2.136480",
-		BodyKey:         "key",
+		Key:             "key",
 		Origin:          "41.349302,2.136480",
 		Altcount:        nextbillionsdk.Int(1),
 		Alternatives:    nextbillionsdk.Bool(true),

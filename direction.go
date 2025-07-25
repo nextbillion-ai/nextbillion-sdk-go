@@ -5,10 +5,8 @@ package nextbillionsdk
 import (
 	"context"
 	"net/http"
-	"net/url"
 
 	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apijson"
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apiquery"
 	"github.com/stainless-sdks/nextbillion-sdk-go/internal/requestconfig"
 	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
@@ -35,10 +33,10 @@ func NewDirectionService(opts ...option.RequestOption) (r DirectionService) {
 }
 
 // Directions API is a service that computes a route with given coordinates.
-func (r *DirectionService) ComputeRoute(ctx context.Context, params DirectionComputeRouteParams, opts ...option.RequestOption) (res *DirectionComputeRouteResponse, err error) {
+func (r *DirectionService) ComputeRoute(ctx context.Context, body DirectionComputeRouteParams, opts ...option.RequestOption) (res *DirectionComputeRouteResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "directions/json"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
@@ -541,13 +539,11 @@ func (r *DirectionComputeRouteResponseRouteStartLocation) UnmarshalJSON(data []b
 }
 
 type DirectionComputeRouteParams struct {
-	// API Key
-	QueryKey    string `query:"key,required" json:"-"`
 	Destination string `json:"destination,required"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	BodyKey string `json:"key,required"`
-	Origin  string `json:"origin,required"`
+	Key    string `json:"key,required"`
+	Origin string `json:"origin,required"`
 	// Sets the number of alternative routes to return. It is effective only when
 	// alternatives=true. Default to 3.
 	//
@@ -842,15 +838,6 @@ func (r DirectionComputeRouteParams) MarshalJSON() (data []byte, err error) {
 }
 func (r *DirectionComputeRouteParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-// URLQuery serializes [DirectionComputeRouteParams]'s query parameters as
-// `url.Values`.
-func (r DirectionComputeRouteParams) URLQuery() (v url.Values, err error) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
 }
 
 // When option=fast (by default):
