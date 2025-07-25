@@ -13,7 +13,7 @@ import (
 	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestSkynetNamespacedApikeyDeleteNamespacedApikeysWithOptionalParams(t *testing.T) {
+func TestSkynetNamespacedApikeyDeleteNamespacedApikeys(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -27,10 +27,9 @@ func TestSkynetNamespacedApikeyDeleteNamespacedApikeysWithOptionalParams(t *test
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.NamespacedApikeys.DeleteNamespacedApikeys(context.TODO(), nextbillionsdk.SkynetNamespacedApikeyDeleteNamespacedApikeysParams{
-		QueryKey1:   "key=API_KEY",
+		Key:         "key=API_KEY",
 		KeyToDelete: "key_to_delete",
 		Namespace:   "namespace",
-		QueryKey2:   nextbillionsdk.String("{key}"),
 	})
 	if err != nil {
 		var apierr *nextbillionsdk.Error
@@ -41,7 +40,7 @@ func TestSkynetNamespacedApikeyDeleteNamespacedApikeysWithOptionalParams(t *test
 	}
 }
 
-func TestSkynetNamespacedApikeyNamespacedApikeysWithOptionalParams(t *testing.T) {
+func TestSkynetNamespacedApikeyNamespacedApikeys(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -55,9 +54,8 @@ func TestSkynetNamespacedApikeyNamespacedApikeysWithOptionalParams(t *testing.T)
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.NamespacedApikeys.NamespacedApikeys(context.TODO(), nextbillionsdk.SkynetNamespacedApikeyNamespacedApikeysParams{
-		QueryKey1: "key=API_KEY",
+		Key:       "key=API_KEY",
 		Namespace: "namespace=test_name",
-		QueryKey2: nextbillionsdk.String("{key}"),
 	})
 	if err != nil {
 		var apierr *nextbillionsdk.Error

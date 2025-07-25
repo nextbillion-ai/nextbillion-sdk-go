@@ -142,13 +142,12 @@ type SkynetNamespacedApikeyDeleteNamespacedApikeysParams struct {
 	// The namespace created using this key can be managed using the APIs & Services >
 	// Credentials section of user’s
 	// [NextBillion Console](https://console.nextbillion.ai).
-	QueryKey1 string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the key to be deleted.
 	KeyToDelete string `query:"key_to_delete,required" json:"-"`
 	// Specify the name of the `namespace` to which the \`key_to_delete\` belongs.
 	// Please note that a namespace key cannot be deleted using another namespace key.
-	Namespace string            `query:"namespace,required" json:"-"`
-	QueryKey2 param.Opt[string] `query:"{key},omitzero" json:"-"`
+	Namespace string `query:"namespace,required" json:"-"`
 	paramObj
 }
 
@@ -164,14 +163,13 @@ func (r SkynetNamespacedApikeyDeleteNamespacedApikeysParams) URLQuery() (v url.V
 type SkynetNamespacedApikeyNamespacedApikeysParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	QueryKey1 string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
 	// Specify a name for the `namespace`. If the namespace specified is unique then a
 	// new namespace along with a new key is created. Whereas if the specified
 	// `namespace` is not unique, a new key will be created in the existing
 	// `namespace`. Please note that a `namespace` cannot be created using another
 	// namespace key.
-	Namespace string            `query:"namespace,required" json:"-"`
-	QueryKey2 param.Opt[string] `query:"{key},omitzero" json:"-"`
+	Namespace string `query:"namespace,required" json:"-"`
 	paramObj
 }
 
