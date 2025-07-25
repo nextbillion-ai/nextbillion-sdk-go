@@ -34,33 +34,33 @@ func NewSkynetConfigService(opts ...option.RequestOption) (r SkynetConfigService
 	return
 }
 
-// Get webhook configuration
-func (r *SkynetConfigService) Get(ctx context.Context, query SkynetConfigGetParams, opts ...option.RequestOption) (res *SkynetConfigGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	path := "skynet/config"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
-}
-
 // Update webhook configuration
-func (r *SkynetConfigService) Update(ctx context.Context, params SkynetConfigUpdateParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
+func (r *SkynetConfigService) New(ctx context.Context, params SkynetConfigNewParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "skynet/config"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
 	return
 }
 
+// Get webhook configuration
+func (r *SkynetConfigService) List(ctx context.Context, query SkynetConfigListParams, opts ...option.RequestOption) (res *SkynetConfigListResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "skynet/config"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	return
+}
+
 // Test webhook configurations
-func (r *SkynetConfigService) TestWebhook(ctx context.Context, body SkynetConfigTestWebhookParams, opts ...option.RequestOption) (res *SkynetConfigTestWebhookResponse, err error) {
+func (r *SkynetConfigService) Testwebhook(ctx context.Context, body SkynetConfigTestwebhookParams, opts ...option.RequestOption) (res *SkynetConfigTestwebhookResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "skynet/config/testwebhook"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
-type SkynetConfigGetResponse struct {
+type SkynetConfigListResponse struct {
 	// A data object containing the `config` response.
-	Data SkynetConfigGetResponseData `json:"data"`
+	Data SkynetConfigListResponseData `json:"data"`
 	// Displays the error message in case of a failed request. If the request is
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
@@ -79,14 +79,14 @@ type SkynetConfigGetResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetConfigGetResponse) RawJSON() string { return r.JSON.raw }
-func (r *SkynetConfigGetResponse) UnmarshalJSON(data []byte) error {
+func (r SkynetConfigListResponse) RawJSON() string { return r.JSON.raw }
+func (r *SkynetConfigListResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // A data object containing the `config` response.
-type SkynetConfigGetResponseData struct {
-	Config SkynetConfigGetResponseDataConfig `json:"config"`
+type SkynetConfigListResponseData struct {
+	Config SkynetConfigListResponseDataConfig `json:"config"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Config      respjson.Field
@@ -96,12 +96,12 @@ type SkynetConfigGetResponseData struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetConfigGetResponseData) RawJSON() string { return r.JSON.raw }
-func (r *SkynetConfigGetResponseData) UnmarshalJSON(data []byte) error {
+func (r SkynetConfigListResponseData) RawJSON() string { return r.JSON.raw }
+func (r *SkynetConfigListResponseData) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type SkynetConfigGetResponseDataConfig struct {
+type SkynetConfigListResponseDataConfig struct {
 	// An array of strings representing the list of webhooks. Webhooks are used to
 	// receive information, through POST requests, whenever any event is triggered.
 	Webhook []string `json:"webhook"`
@@ -114,12 +114,12 @@ type SkynetConfigGetResponseDataConfig struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetConfigGetResponseDataConfig) RawJSON() string { return r.JSON.raw }
-func (r *SkynetConfigGetResponseDataConfig) UnmarshalJSON(data []byte) error {
+func (r SkynetConfigListResponseDataConfig) RawJSON() string { return r.JSON.raw }
+func (r *SkynetConfigListResponseDataConfig) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type SkynetConfigTestWebhookResponse struct {
+type SkynetConfigTestwebhookResponse struct {
 	// A string indicating the state of the response. Please note this value will
 	// always be `Ok`.
 	//
@@ -137,62 +137,35 @@ type SkynetConfigTestWebhookResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetConfigTestWebhookResponse) RawJSON() string { return r.JSON.raw }
-func (r *SkynetConfigTestWebhookResponse) UnmarshalJSON(data []byte) error {
+func (r SkynetConfigTestwebhookResponse) RawJSON() string { return r.JSON.raw }
+func (r *SkynetConfigTestwebhookResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type SkynetConfigGetParams struct {
+type SkynetConfigNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
-	Cluster SkynetConfigGetParamsCluster `query:"cluster,omitzero" json:"-"`
-	paramObj
-}
-
-// URLQuery serializes [SkynetConfigGetParams]'s query parameters as `url.Values`.
-func (r SkynetConfigGetParams) URLQuery() (v url.Values, err error) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
-}
-
-// the cluster of the region you want to use
-type SkynetConfigGetParamsCluster string
-
-const (
-	SkynetConfigGetParamsClusterAmerica SkynetConfigGetParamsCluster = "america"
-)
-
-type SkynetConfigUpdateParams struct {
-	// A key is a unique identifier that is required to authenticate a request to the
-	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// the cluster of the region you want to use
-	//
-	// Any of "america".
-	Cluster SkynetConfigUpdateParamsCluster `query:"cluster,omitzero" json:"-"`
+	Cluster SkynetConfigNewParamsCluster `query:"cluster,omitzero" json:"-"`
 	// Use this array to update information about the webhooks. Please note that the
 	// webhooks will be overwritten every time this method is used.
 	Webhook []string `json:"webhook,omitzero"`
 	paramObj
 }
 
-func (r SkynetConfigUpdateParams) MarshalJSON() (data []byte, err error) {
-	type shadow SkynetConfigUpdateParams
+func (r SkynetConfigNewParams) MarshalJSON() (data []byte, err error) {
+	type shadow SkynetConfigNewParams
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *SkynetConfigUpdateParams) UnmarshalJSON(data []byte) error {
+func (r *SkynetConfigNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// URLQuery serializes [SkynetConfigUpdateParams]'s query parameters as
-// `url.Values`.
-func (r SkynetConfigUpdateParams) URLQuery() (v url.Values, err error) {
+// URLQuery serializes [SkynetConfigNewParams]'s query parameters as `url.Values`.
+func (r SkynetConfigNewParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -200,22 +173,48 @@ func (r SkynetConfigUpdateParams) URLQuery() (v url.Values, err error) {
 }
 
 // the cluster of the region you want to use
-type SkynetConfigUpdateParamsCluster string
+type SkynetConfigNewParamsCluster string
 
 const (
-	SkynetConfigUpdateParamsClusterAmerica SkynetConfigUpdateParamsCluster = "america"
+	SkynetConfigNewParamsClusterAmerica SkynetConfigNewParamsCluster = "america"
 )
 
-type SkynetConfigTestWebhookParams struct {
+type SkynetConfigListParams struct {
+	// A key is a unique identifier that is required to authenticate a request to the
+	// API.
+	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	// the cluster of the region you want to use
+	//
+	// Any of "america".
+	Cluster SkynetConfigListParamsCluster `query:"cluster,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [SkynetConfigListParams]'s query parameters as `url.Values`.
+func (r SkynetConfigListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+// the cluster of the region you want to use
+type SkynetConfigListParamsCluster string
+
+const (
+	SkynetConfigListParamsClusterAmerica SkynetConfigListParamsCluster = "america"
+)
+
+type SkynetConfigTestwebhookParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [SkynetConfigTestWebhookParams]'s query parameters as
+// URLQuery serializes [SkynetConfigTestwebhookParams]'s query parameters as
 // `url.Values`.
-func (r SkynetConfigTestWebhookParams) URLQuery() (v url.Values, err error) {
+func (r SkynetConfigTestwebhookParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
