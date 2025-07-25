@@ -61,10 +61,10 @@ func (r *RestrictionService) Update(ctx context.Context, id int64, params Restri
 	return
 }
 
-// Get the paginated list of restrictions
-func (r *RestrictionService) List(ctx context.Context, query RestrictionListParams, opts ...option.RequestOption) (res *RestrictionListResponse, err error) {
+// Get restrictions by bbox
+func (r *RestrictionService) List(ctx context.Context, query RestrictionListParams, opts ...option.RequestOption) (res *[]RichGroupDtoResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "restrictions/list"
+	path := "restrictions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
@@ -77,10 +77,10 @@ func (r *RestrictionService) Delete(ctx context.Context, id int64, body Restrict
 	return
 }
 
-// Get restrictions by bbox
-func (r *RestrictionService) ListByBbox(ctx context.Context, query RestrictionListByBboxParams, opts ...option.RequestOption) (res *[]RichGroupDtoResponse, err error) {
+// Get the paginated list of restrictions
+func (r *RestrictionService) ListPaginated(ctx context.Context, query RestrictionListPaginatedParams, opts ...option.RequestOption) (res *RestrictionListPaginatedResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "restrictions"
+	path := "restrictions/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
@@ -392,11 +392,31 @@ const (
 	RichGroupDtoResponseStatusInactive RichGroupDtoResponseStatus = "inactive"
 )
 
-type RestrictionListResponse struct {
+type RestrictionDeleteResponse struct {
+	// It is the unique ID of the restriction.
+	ID float64 `json:"id"`
+	// Returns the state of the restriction. It would always be `deleted`.
+	State string `json:"state"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		State       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r RestrictionDeleteResponse) RawJSON() string { return r.JSON.raw }
+func (r *RestrictionDeleteResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type RestrictionListPaginatedResponse struct {
 	// An array of objects containing the details of the restrictions returned. Each
 	// object represents one restriction.
-	Data []RichGroupDtoResponse      `json:"data"`
-	Meta RestrictionListResponseMeta `json:"meta"`
+	Data []RichGroupDtoResponse               `json:"data"`
+	Meta RestrictionListPaginatedResponseMeta `json:"meta"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Data        respjson.Field
@@ -407,12 +427,12 @@ type RestrictionListResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r RestrictionListResponse) RawJSON() string { return r.JSON.raw }
-func (r *RestrictionListResponse) UnmarshalJSON(data []byte) error {
+func (r RestrictionListPaginatedResponse) RawJSON() string { return r.JSON.raw }
+func (r *RestrictionListPaginatedResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type RestrictionListResponseMeta struct {
+type RestrictionListPaginatedResponseMeta struct {
 	// An integer value indicating the maximum number of items retrieved per "page".
 	// This is the same number as provided for the `limit` parameter in input.
 	Limit int64 `json:"limit"`
@@ -433,28 +453,8 @@ type RestrictionListResponseMeta struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r RestrictionListResponseMeta) RawJSON() string { return r.JSON.raw }
-func (r *RestrictionListResponseMeta) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type RestrictionDeleteResponse struct {
-	// It is the unique ID of the restriction.
-	ID float64 `json:"id"`
-	// Returns the state of the restriction. It would always be `deleted`.
-	State string `json:"state"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		ID          respjson.Field
-		State       respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r RestrictionDeleteResponse) RawJSON() string { return r.JSON.raw }
-func (r *RestrictionDeleteResponse) UnmarshalJSON(data []byte) error {
+func (r RestrictionListPaginatedResponseMeta) RawJSON() string { return r.JSON.raw }
+func (r *RestrictionListPaginatedResponseMeta) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -544,40 +544,33 @@ func (r RestrictionUpdateParams) URLQuery() (v url.Values, err error) {
 }
 
 type RestrictionListParams struct {
-	// Specify the area name. It represents a region where restrictions can be applied.
-	//
-	// _The area it belongs to. See Area API_
-	Area string `query:"area,required" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// The number of restrictions to be returned in the response. Please note that if
-	// the `limit` is set to a number more than the total number of available
-	// restrictions, then all restrictions would be returned together.
-	Limit int64 `query:"limit,required" json:"-"`
-	// An integer value indicating the number of items in the collection that need to
-	// be skipped in the response. Please note that the offset starts from 0, so the
-	// first item returned in the result would be the item at (offset + 1) position in
-	// collection.
-	//
-	// Users can use `offset` along with `limit` to implement paginated result.
-	Offset int64 `query:"offset,required" json:"-"`
-	// The name of the restriction. This should be same as that provided while creating
-	// or updating the restriction.
-	Name param.Opt[string] `query:"name,omitzero" json:"-"`
-	// a internal parameter
+	// Specifies the maximum latitude value for the bounding box.
+	MaxLat float64 `query:"max_lat,required" json:"-"`
+	// Specifies the maximum longitude value for the bounding box.
+	MaxLon float64 `query:"max_lon,required" json:"-"`
+	// Specifies the minimum latitude value for the bounding box.
+	MinLat float64 `query:"min_lat,required" json:"-"`
+	// Specifies the minimum longitude value for the bounding box.
+	MinLon float64 `query:"min_lon,required" json:"-"`
+	// This is internal parameter with a default value as `false`.
 	Transform param.Opt[bool] `query:"transform,omitzero" json:"-"`
 	// Specify the modes of travel that the restriction pertains to.
 	//
-	// Any of "`0w`", "`2w`", "`3w`", "`4w`", "`6w`".
-	Mode RestrictionListParamsMode `query:"mode,omitzero" json:"-"`
+	// Any of "0w", "2w", "3w", "4w", "6w".
+	Mode []string `query:"mode,omitzero" json:"-"`
 	// Specify the type of restrictions to fetch.
 	//
-	// Any of "`turn`", "`parking`", "`fixedspeed`", "`maxspeed`", "`closure`",
-	// "`truck`".
+	// Any of "turn", "parking", "fixedspeed", "maxspeed", "closure", "truck".
 	RestrictionType RestrictionListParamsRestrictionType `query:"restriction_type,omitzero" json:"-"`
-	// It represents where it comes from, currently the possible values include "rrt",
-	// "xsm"
+	// This parameter represents where the restriction comes from and cannot be
+	// modified by clients sending requests to the API endpoint.
+	//
+	// For example, an API endpoint that returns a list of restrictions could include
+	// the source parameter to indicate where each item comes from. This parameter can
+	// be useful for filtering, sorting, or grouping the results based on their source.
 	//
 	// Any of "rrt", "pbf".
 	Source RestrictionListParamsSource `query:"source,omitzero" json:"-"`
@@ -608,31 +601,24 @@ func (r RestrictionListParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-// Specify the modes of travel that the restriction pertains to.
-type RestrictionListParamsMode string
-
-const (
-	RestrictionListParamsMode0w RestrictionListParamsMode = "`0w`"
-	RestrictionListParamsMode2w RestrictionListParamsMode = "`2w`"
-	RestrictionListParamsMode3w RestrictionListParamsMode = "`3w`"
-	RestrictionListParamsMode4w RestrictionListParamsMode = "`4w`"
-	RestrictionListParamsMode6w RestrictionListParamsMode = "`6w`"
-)
-
 // Specify the type of restrictions to fetch.
 type RestrictionListParamsRestrictionType string
 
 const (
-	RestrictionListParamsRestrictionTypeTurn       RestrictionListParamsRestrictionType = "`turn`"
-	RestrictionListParamsRestrictionTypeParking    RestrictionListParamsRestrictionType = "`parking`"
-	RestrictionListParamsRestrictionTypeFixedspeed RestrictionListParamsRestrictionType = "`fixedspeed`"
-	RestrictionListParamsRestrictionTypeMaxspeed   RestrictionListParamsRestrictionType = "`maxspeed`"
-	RestrictionListParamsRestrictionTypeClosure    RestrictionListParamsRestrictionType = "`closure`"
-	RestrictionListParamsRestrictionTypeTruck      RestrictionListParamsRestrictionType = "`truck`"
+	RestrictionListParamsRestrictionTypeTurn       RestrictionListParamsRestrictionType = "turn"
+	RestrictionListParamsRestrictionTypeParking    RestrictionListParamsRestrictionType = "parking"
+	RestrictionListParamsRestrictionTypeFixedspeed RestrictionListParamsRestrictionType = "fixedspeed"
+	RestrictionListParamsRestrictionTypeMaxspeed   RestrictionListParamsRestrictionType = "maxspeed"
+	RestrictionListParamsRestrictionTypeClosure    RestrictionListParamsRestrictionType = "closure"
+	RestrictionListParamsRestrictionTypeTruck      RestrictionListParamsRestrictionType = "truck"
 )
 
-// It represents where it comes from, currently the possible values include "rrt",
-// "xsm"
+// This parameter represents where the restriction comes from and cannot be
+// modified by clients sending requests to the API endpoint.
+//
+// For example, an API endpoint that returns a list of restrictions could include
+// the source parameter to indicate where each item comes from. This parameter can
+// be useful for filtering, sorting, or grouping the results based on their source.
 type RestrictionListParamsSource string
 
 const (
@@ -681,43 +667,50 @@ func (r RestrictionDeleteParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-type RestrictionListByBboxParams struct {
+type RestrictionListPaginatedParams struct {
+	// Specify the area name. It represents a region where restrictions can be applied.
+	//
+	// _The area it belongs to. See Area API_
+	Area string `query:"area,required" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Specifies the maximum latitude value for the bounding box.
-	MaxLat float64 `query:"max_lat,required" json:"-"`
-	// Specifies the maximum longitude value for the bounding box.
-	MaxLon float64 `query:"max_lon,required" json:"-"`
-	// Specifies the minimum latitude value for the bounding box.
-	MinLat float64 `query:"min_lat,required" json:"-"`
-	// Specifies the minimum longitude value for the bounding box.
-	MinLon float64 `query:"min_lon,required" json:"-"`
-	// This is internal parameter with a default value as `false`.
+	// The number of restrictions to be returned in the response. Please note that if
+	// the `limit` is set to a number more than the total number of available
+	// restrictions, then all restrictions would be returned together.
+	Limit int64 `query:"limit,required" json:"-"`
+	// An integer value indicating the number of items in the collection that need to
+	// be skipped in the response. Please note that the offset starts from 0, so the
+	// first item returned in the result would be the item at (offset + 1) position in
+	// collection.
+	//
+	// Users can use `offset` along with `limit` to implement paginated result.
+	Offset int64 `query:"offset,required" json:"-"`
+	// The name of the restriction. This should be same as that provided while creating
+	// or updating the restriction.
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// a internal parameter
 	Transform param.Opt[bool] `query:"transform,omitzero" json:"-"`
 	// Specify the modes of travel that the restriction pertains to.
 	//
-	// Any of "0w", "2w", "3w", "4w", "6w".
-	Mode []string `query:"mode,omitzero" json:"-"`
+	// Any of "`0w`", "`2w`", "`3w`", "`4w`", "`6w`".
+	Mode RestrictionListPaginatedParamsMode `query:"mode,omitzero" json:"-"`
 	// Specify the type of restrictions to fetch.
 	//
-	// Any of "turn", "parking", "fixedspeed", "maxspeed", "closure", "truck".
-	RestrictionType RestrictionListByBboxParamsRestrictionType `query:"restriction_type,omitzero" json:"-"`
-	// This parameter represents where the restriction comes from and cannot be
-	// modified by clients sending requests to the API endpoint.
-	//
-	// For example, an API endpoint that returns a list of restrictions could include
-	// the source parameter to indicate where each item comes from. This parameter can
-	// be useful for filtering, sorting, or grouping the results based on their source.
+	// Any of "`turn`", "`parking`", "`fixedspeed`", "`maxspeed`", "`closure`",
+	// "`truck`".
+	RestrictionType RestrictionListPaginatedParamsRestrictionType `query:"restriction_type,omitzero" json:"-"`
+	// It represents where it comes from, currently the possible values include "rrt",
+	// "xsm"
 	//
 	// Any of "rrt", "pbf".
-	Source RestrictionListByBboxParamsSource `query:"source,omitzero" json:"-"`
+	Source RestrictionListPaginatedParamsSource `query:"source,omitzero" json:"-"`
 	// This parameter is used to filter restrictions based on their state i.e. whether
 	// the restriction is currently enabled, disabled, or deleted. For example, users
 	// can retrieve a list of all the deleted restrictions by setting `state=deleted`.
 	//
 	// Any of "`enabled`", "`disabled`", "`deleted`".
-	State RestrictionListByBboxParamsState `query:"state,omitzero" json:"-"`
+	State RestrictionListPaginatedParamsState `query:"state,omitzero" json:"-"`
 	// Restrictions can be active or inactive at a given time by virtue of their
 	// nature. For example, maximum speed limits can be active on the roads leading to
 	// schools during school hours and be inactive afterwards or certain road closure
@@ -727,53 +720,60 @@ type RestrictionListByBboxParams struct {
 	// of making the request i.e. whether they are in force or not.
 	//
 	// Any of "`active`", "`inactive`".
-	Status RestrictionListByBboxParamsStatus `query:"status,omitzero" json:"-"`
+	Status RestrictionListPaginatedParamsStatus `query:"status,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [RestrictionListByBboxParams]'s query parameters as
+// URLQuery serializes [RestrictionListPaginatedParams]'s query parameters as
 // `url.Values`.
-func (r RestrictionListByBboxParams) URLQuery() (v url.Values, err error) {
+func (r RestrictionListPaginatedParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
 
-// Specify the type of restrictions to fetch.
-type RestrictionListByBboxParamsRestrictionType string
+// Specify the modes of travel that the restriction pertains to.
+type RestrictionListPaginatedParamsMode string
 
 const (
-	RestrictionListByBboxParamsRestrictionTypeTurn       RestrictionListByBboxParamsRestrictionType = "turn"
-	RestrictionListByBboxParamsRestrictionTypeParking    RestrictionListByBboxParamsRestrictionType = "parking"
-	RestrictionListByBboxParamsRestrictionTypeFixedspeed RestrictionListByBboxParamsRestrictionType = "fixedspeed"
-	RestrictionListByBboxParamsRestrictionTypeMaxspeed   RestrictionListByBboxParamsRestrictionType = "maxspeed"
-	RestrictionListByBboxParamsRestrictionTypeClosure    RestrictionListByBboxParamsRestrictionType = "closure"
-	RestrictionListByBboxParamsRestrictionTypeTruck      RestrictionListByBboxParamsRestrictionType = "truck"
+	RestrictionListPaginatedParamsMode0w RestrictionListPaginatedParamsMode = "`0w`"
+	RestrictionListPaginatedParamsMode2w RestrictionListPaginatedParamsMode = "`2w`"
+	RestrictionListPaginatedParamsMode3w RestrictionListPaginatedParamsMode = "`3w`"
+	RestrictionListPaginatedParamsMode4w RestrictionListPaginatedParamsMode = "`4w`"
+	RestrictionListPaginatedParamsMode6w RestrictionListPaginatedParamsMode = "`6w`"
 )
 
-// This parameter represents where the restriction comes from and cannot be
-// modified by clients sending requests to the API endpoint.
-//
-// For example, an API endpoint that returns a list of restrictions could include
-// the source parameter to indicate where each item comes from. This parameter can
-// be useful for filtering, sorting, or grouping the results based on their source.
-type RestrictionListByBboxParamsSource string
+// Specify the type of restrictions to fetch.
+type RestrictionListPaginatedParamsRestrictionType string
 
 const (
-	RestrictionListByBboxParamsSourceRrt RestrictionListByBboxParamsSource = "rrt"
-	RestrictionListByBboxParamsSourcePbf RestrictionListByBboxParamsSource = "pbf"
+	RestrictionListPaginatedParamsRestrictionTypeTurn       RestrictionListPaginatedParamsRestrictionType = "`turn`"
+	RestrictionListPaginatedParamsRestrictionTypeParking    RestrictionListPaginatedParamsRestrictionType = "`parking`"
+	RestrictionListPaginatedParamsRestrictionTypeFixedspeed RestrictionListPaginatedParamsRestrictionType = "`fixedspeed`"
+	RestrictionListPaginatedParamsRestrictionTypeMaxspeed   RestrictionListPaginatedParamsRestrictionType = "`maxspeed`"
+	RestrictionListPaginatedParamsRestrictionTypeClosure    RestrictionListPaginatedParamsRestrictionType = "`closure`"
+	RestrictionListPaginatedParamsRestrictionTypeTruck      RestrictionListPaginatedParamsRestrictionType = "`truck`"
+)
+
+// It represents where it comes from, currently the possible values include "rrt",
+// "xsm"
+type RestrictionListPaginatedParamsSource string
+
+const (
+	RestrictionListPaginatedParamsSourceRrt RestrictionListPaginatedParamsSource = "rrt"
+	RestrictionListPaginatedParamsSourcePbf RestrictionListPaginatedParamsSource = "pbf"
 )
 
 // This parameter is used to filter restrictions based on their state i.e. whether
 // the restriction is currently enabled, disabled, or deleted. For example, users
 // can retrieve a list of all the deleted restrictions by setting `state=deleted`.
-type RestrictionListByBboxParamsState string
+type RestrictionListPaginatedParamsState string
 
 const (
-	RestrictionListByBboxParamsStateEnabled  RestrictionListByBboxParamsState = "`enabled`"
-	RestrictionListByBboxParamsStateDisabled RestrictionListByBboxParamsState = "`disabled`"
-	RestrictionListByBboxParamsStateDeleted  RestrictionListByBboxParamsState = "`deleted`"
+	RestrictionListPaginatedParamsStateEnabled  RestrictionListPaginatedParamsState = "`enabled`"
+	RestrictionListPaginatedParamsStateDisabled RestrictionListPaginatedParamsState = "`disabled`"
+	RestrictionListPaginatedParamsStateDeleted  RestrictionListPaginatedParamsState = "`deleted`"
 )
 
 // Restrictions can be active or inactive at a given time by virtue of their
@@ -783,11 +783,11 @@ const (
 //
 // Use this parameter to filter the restrictions based on their status at the time
 // of making the request i.e. whether they are in force or not.
-type RestrictionListByBboxParamsStatus string
+type RestrictionListPaginatedParamsStatus string
 
 const (
-	RestrictionListByBboxParamsStatusActive   RestrictionListByBboxParamsStatus = "`active`"
-	RestrictionListByBboxParamsStatusInactive RestrictionListByBboxParamsStatus = "`inactive`"
+	RestrictionListPaginatedParamsStatusActive   RestrictionListPaginatedParamsStatus = "`active`"
+	RestrictionListPaginatedParamsStatusInactive RestrictionListPaginatedParamsStatus = "`inactive`"
 )
 
 type RestrictionSetStateParams struct {

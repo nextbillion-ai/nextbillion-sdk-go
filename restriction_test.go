@@ -171,12 +171,12 @@ func TestRestrictionListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Restrictions.List(context.TODO(), nextbillionsdk.RestrictionListParams{
-		Area:            "area",
 		Key:             "key=API_KEY",
-		Limit:           0,
-		Offset:          0,
-		Mode:            nextbillionsdk.RestrictionListParamsMode0w,
-		Name:            nextbillionsdk.String("name"),
+		MaxLat:          0,
+		MaxLon:          0,
+		MinLat:          0,
+		MinLon:          0,
+		Mode:            []string{"0w"},
 		RestrictionType: nextbillionsdk.RestrictionListParamsRestrictionTypeTurn,
 		Source:          nextbillionsdk.RestrictionListParamsSourceRrt,
 		State:           nextbillionsdk.RestrictionListParamsStateEnabled,
@@ -221,7 +221,7 @@ func TestRestrictionDelete(t *testing.T) {
 	}
 }
 
-func TestRestrictionListByBboxWithOptionalParams(t *testing.T) {
+func TestRestrictionListPaginatedWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -234,17 +234,17 @@ func TestRestrictionListByBboxWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Restrictions.ListByBbox(context.TODO(), nextbillionsdk.RestrictionListByBboxParams{
+	_, err := client.Restrictions.ListPaginated(context.TODO(), nextbillionsdk.RestrictionListPaginatedParams{
+		Area:            "area",
 		Key:             "key=API_KEY",
-		MaxLat:          0,
-		MaxLon:          0,
-		MinLat:          0,
-		MinLon:          0,
-		Mode:            []string{"0w"},
-		RestrictionType: nextbillionsdk.RestrictionListByBboxParamsRestrictionTypeTurn,
-		Source:          nextbillionsdk.RestrictionListByBboxParamsSourceRrt,
-		State:           nextbillionsdk.RestrictionListByBboxParamsStateEnabled,
-		Status:          nextbillionsdk.RestrictionListByBboxParamsStatusActive,
+		Limit:           0,
+		Offset:          0,
+		Mode:            nextbillionsdk.RestrictionListPaginatedParamsMode0w,
+		Name:            nextbillionsdk.String("name"),
+		RestrictionType: nextbillionsdk.RestrictionListPaginatedParamsRestrictionTypeTurn,
+		Source:          nextbillionsdk.RestrictionListPaginatedParamsSourceRrt,
+		State:           nextbillionsdk.RestrictionListPaginatedParamsStateEnabled,
+		Status:          nextbillionsdk.RestrictionListPaginatedParamsStatusActive,
 		Transform:       nextbillionsdk.Bool(true),
 	})
 	if err != nil {
