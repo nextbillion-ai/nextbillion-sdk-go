@@ -36,6 +36,18 @@ func NewSkynetAssetLocationService(opts ...option.RequestOption) (r SkynetAssetL
 	return
 }
 
+// Track locations of an asset
+func (r *SkynetAssetLocationService) List(ctx context.Context, id string, query SkynetAssetLocationListParams, opts ...option.RequestOption) (res *SkynetAssetLocationListResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("skynet/asset/%s/location/list", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	return
+}
+
 // Track the last location of an asset
 func (r *SkynetAssetLocationService) GetLast(ctx context.Context, id string, query SkynetAssetLocationGetLastParams, opts ...option.RequestOption) (res *SkynetAssetLocationGetLastResponse, err error) {
 	opts = append(r.Options[:], opts...)
@@ -44,18 +56,6 @@ func (r *SkynetAssetLocationService) GetLast(ctx context.Context, id string, que
 		return
 	}
 	path := fmt.Sprintf("skynet/asset/%s/location/last", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
-}
-
-// Track locations of an asset
-func (r *SkynetAssetLocationService) GetList(ctx context.Context, id string, query SkynetAssetLocationGetListParams, opts ...option.RequestOption) (res *SkynetAssetLocationGetListResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	if id == "" {
-		err = errors.New("missing required id parameter")
-		return
-	}
-	path := fmt.Sprintf("skynet/asset/%s/location/list", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
@@ -137,6 +137,176 @@ func (r *TrackLocationLocation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+type SkynetAssetLocationListResponse struct {
+	Data SkynetAssetLocationListResponseData `json:"data"`
+	// Displays the error message in case of a failed request. If the request is
+	// successful, this field is not present in the response.
+	Message string `json:"message"`
+	// A string indicating the state of the response. On successful responses, the
+	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// See the [API Error Codes](#api-error-codes) section below for more information.
+	Status string `json:"status"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Data        respjson.Field
+		Message     respjson.Field
+		Status      respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetLocationListResponse) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetLocationListResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type SkynetAssetLocationListResponseData struct {
+	// Distance of the path, in meters, formed by connecting all tracked locations
+	// returned.
+	//
+	// Please note that `distance` is returned only when the `mapmatch` property of
+	// `correction` parameter is set to 1.
+	Distance float64 `json:"distance"`
+	// An object with geoJSON details of the route. It is returned only when the
+	// `mapmatch` property of the `correction` parameter is set to 1 and
+	// `geometry_type` is `geojson, otherwise it is not present in the response. The
+	// contents of this object follow the
+	// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
+	Geojson SkynetAssetLocationListResponseDataGeojson `json:"geojson"`
+	// Geometry of tracked locations in the requested format. It is returned only if
+	// the `mapmatch` property of the ‘correction’ parameter is set to 1.
+	Geometry []string `json:"geometry"`
+	// An array of objects with details of the tracked locations of the `asset`. Each
+	// object represents one tracked location.
+	List []TrackLocation `json:"list"`
+	// An object with pagination details of the search results. Use this object to
+	// implement pagination in your application.
+	Page Pagination `json:"page"`
+	// An array of objects with details about the snapped points for each of the
+	// tracked locations returned for the `asset`.
+	//
+	// Please note that this property is returned only when the `mapmatch` property of
+	// `correction` parameter is set to 1.
+	SnappedPoints []SkynetAssetLocationListResponseDataSnappedPoint `json:"snapped_points"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Distance      respjson.Field
+		Geojson       respjson.Field
+		Geometry      respjson.Field
+		List          respjson.Field
+		Page          respjson.Field
+		SnappedPoints respjson.Field
+		ExtraFields   map[string]respjson.Field
+		raw           string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetLocationListResponseData) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetLocationListResponseData) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// An object with geoJSON details of the route. It is returned only when the
+// `mapmatch` property of the `correction` parameter is set to 1 and
+// `geometry_type` is `geojson, otherwise it is not present in the response. The
+// contents of this object follow the
+// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
+type SkynetAssetLocationListResponseDataGeojson struct {
+	// An object with details of the geoJSON geometry of the route.
+	Geometry SkynetAssetLocationListResponseDataGeojsonGeometry `json:"geometry"`
+	// Type of the geoJSON object.
+	Type string `json:"type"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Geometry    respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetLocationListResponseDataGeojson) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetLocationListResponseDataGeojson) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// An object with details of the geoJSON geometry of the route.
+type SkynetAssetLocationListResponseDataGeojsonGeometry struct {
+	// An array of coordinates in the [longitude, latitude] format, representing the
+	// route geometry.
+	Coordinates []float64 `json:"coordinates"`
+	// Type of the geoJSON geometry.
+	Type string `json:"type"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Coordinates respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetLocationListResponseDataGeojsonGeometry) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetLocationListResponseDataGeojsonGeometry) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type SkynetAssetLocationListResponseDataSnappedPoint struct {
+	// The bearing angle of the snapped point from the original tracked location, in
+	// radians. It indicates the direction of the snapped point.
+	Bearing string `json:"bearing"`
+	// The distance of the snapped point from the original tracked location, in meters.
+	Distance float64 `json:"distance"`
+	// The latitude and longitude coordinates of the snapped point.
+	Location SkynetAssetLocationListResponseDataSnappedPointLocation `json:"location"`
+	// The name of the street or road of the snapped point.
+	Name string `json:"name"`
+	// The index of the tracked location to which this snapped point corresponds to.
+	OriginalIndex string `json:"originalIndex"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Bearing       respjson.Field
+		Distance      respjson.Field
+		Location      respjson.Field
+		Name          respjson.Field
+		OriginalIndex respjson.Field
+		ExtraFields   map[string]respjson.Field
+		raw           string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetLocationListResponseDataSnappedPoint) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetLocationListResponseDataSnappedPoint) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// The latitude and longitude coordinates of the snapped point.
+type SkynetAssetLocationListResponseDataSnappedPointLocation struct {
+	// Latitude of the snapped point.
+	Lat float64 `json:"lat"`
+	// Longitude of the snapped point.
+	Lon float64 `json:"lon"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Lat         respjson.Field
+		Lon         respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetLocationListResponseDataSnappedPointLocation) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetLocationListResponseDataSnappedPointLocation) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 type SkynetAssetLocationGetLastResponse struct {
 	// An object containing the information about the last tracked location of the
 	// requested `asset`.
@@ -184,206 +354,7 @@ func (r *SkynetAssetLocationGetLastResponseData) UnmarshalJSON(data []byte) erro
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type SkynetAssetLocationGetListResponse struct {
-	Data SkynetAssetLocationGetListResponseData `json:"data"`
-	// Displays the error message in case of a failed request. If the request is
-	// successful, this field is not present in the response.
-	Message string `json:"message"`
-	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
-	// See the [API Error Codes](#api-error-codes) section below for more information.
-	Status string `json:"status"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Data        respjson.Field
-		Message     respjson.Field
-		Status      respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r SkynetAssetLocationGetListResponse) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetLocationGetListResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type SkynetAssetLocationGetListResponseData struct {
-	// Distance of the path, in meters, formed by connecting all tracked locations
-	// returned.
-	//
-	// Please note that `distance` is returned only when the `mapmatch` property of
-	// `correction` parameter is set to 1.
-	Distance float64 `json:"distance"`
-	// An object with geoJSON details of the route. It is returned only when the
-	// `mapmatch` property of the `correction` parameter is set to 1 and
-	// `geometry_type` is `geojson, otherwise it is not present in the response. The
-	// contents of this object follow the
-	// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
-	Geojson SkynetAssetLocationGetListResponseDataGeojson `json:"geojson"`
-	// Geometry of tracked locations in the requested format. It is returned only if
-	// the `mapmatch` property of the ‘correction’ parameter is set to 1.
-	Geometry []string `json:"geometry"`
-	// An array of objects with details of the tracked locations of the `asset`. Each
-	// object represents one tracked location.
-	List []TrackLocation `json:"list"`
-	// An object with pagination details of the search results. Use this object to
-	// implement pagination in your application.
-	Page Pagination `json:"page"`
-	// An array of objects with details about the snapped points for each of the
-	// tracked locations returned for the `asset`.
-	//
-	// Please note that this property is returned only when the `mapmatch` property of
-	// `correction` parameter is set to 1.
-	SnappedPoints []SkynetAssetLocationGetListResponseDataSnappedPoint `json:"snapped_points"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Distance      respjson.Field
-		Geojson       respjson.Field
-		Geometry      respjson.Field
-		List          respjson.Field
-		Page          respjson.Field
-		SnappedPoints respjson.Field
-		ExtraFields   map[string]respjson.Field
-		raw           string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r SkynetAssetLocationGetListResponseData) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetLocationGetListResponseData) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// An object with geoJSON details of the route. It is returned only when the
-// `mapmatch` property of the `correction` parameter is set to 1 and
-// `geometry_type` is `geojson, otherwise it is not present in the response. The
-// contents of this object follow the
-// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
-type SkynetAssetLocationGetListResponseDataGeojson struct {
-	// An object with details of the geoJSON geometry of the route.
-	Geometry SkynetAssetLocationGetListResponseDataGeojsonGeometry `json:"geometry"`
-	// Type of the geoJSON object.
-	Type string `json:"type"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Geometry    respjson.Field
-		Type        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r SkynetAssetLocationGetListResponseDataGeojson) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetLocationGetListResponseDataGeojson) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// An object with details of the geoJSON geometry of the route.
-type SkynetAssetLocationGetListResponseDataGeojsonGeometry struct {
-	// An array of coordinates in the [longitude, latitude] format, representing the
-	// route geometry.
-	Coordinates []float64 `json:"coordinates"`
-	// Type of the geoJSON geometry.
-	Type string `json:"type"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Coordinates respjson.Field
-		Type        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r SkynetAssetLocationGetListResponseDataGeojsonGeometry) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetLocationGetListResponseDataGeojsonGeometry) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type SkynetAssetLocationGetListResponseDataSnappedPoint struct {
-	// The bearing angle of the snapped point from the original tracked location, in
-	// radians. It indicates the direction of the snapped point.
-	Bearing string `json:"bearing"`
-	// The distance of the snapped point from the original tracked location, in meters.
-	Distance float64 `json:"distance"`
-	// The latitude and longitude coordinates of the snapped point.
-	Location SkynetAssetLocationGetListResponseDataSnappedPointLocation `json:"location"`
-	// The name of the street or road of the snapped point.
-	Name string `json:"name"`
-	// The index of the tracked location to which this snapped point corresponds to.
-	OriginalIndex string `json:"originalIndex"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Bearing       respjson.Field
-		Distance      respjson.Field
-		Location      respjson.Field
-		Name          respjson.Field
-		OriginalIndex respjson.Field
-		ExtraFields   map[string]respjson.Field
-		raw           string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r SkynetAssetLocationGetListResponseDataSnappedPoint) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetLocationGetListResponseDataSnappedPoint) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// The latitude and longitude coordinates of the snapped point.
-type SkynetAssetLocationGetListResponseDataSnappedPointLocation struct {
-	// Latitude of the snapped point.
-	Lat float64 `json:"lat"`
-	// Longitude of the snapped point.
-	Lon float64 `json:"lon"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Lat         respjson.Field
-		Lon         respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r SkynetAssetLocationGetListResponseDataSnappedPointLocation) RawJSON() string {
-	return r.JSON.raw
-}
-func (r *SkynetAssetLocationGetListResponseDataSnappedPointLocation) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type SkynetAssetLocationGetLastParams struct {
-	// A key is a unique identifier that is required to authenticate a request to the
-	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// the cluster of the region you want to use
-	//
-	// Any of "america".
-	Cluster SkynetAssetLocationGetLastParamsCluster `query:"cluster,omitzero" json:"-"`
-	paramObj
-}
-
-// URLQuery serializes [SkynetAssetLocationGetLastParams]'s query parameters as
-// `url.Values`.
-func (r SkynetAssetLocationGetLastParams) URLQuery() (v url.Values, err error) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
-}
-
-// the cluster of the region you want to use
-type SkynetAssetLocationGetLastParamsCluster string
-
-const (
-	SkynetAssetLocationGetLastParamsClusterAmerica SkynetAssetLocationGetLastParamsCluster = "america"
-)
-
-type SkynetAssetLocationGetListParams struct {
+type SkynetAssetLocationListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
@@ -415,7 +386,7 @@ type SkynetAssetLocationGetListParams struct {
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
-	Cluster SkynetAssetLocationGetListParamsCluster `query:"cluster,omitzero" json:"-"`
+	Cluster SkynetAssetLocationListParamsCluster `query:"cluster,omitzero" json:"-"`
 	// Set the geometry format to encode the path linking the tracked locations of the
 	// `asset`.
 	//
@@ -423,13 +394,13 @@ type SkynetAssetLocationGetListParams struct {
 	// `correction` parameter is set to 1.
 	//
 	// Any of "`polyline`", "`polyline6`", "`geojson`".
-	GeometryType SkynetAssetLocationGetListParamsGeometryType `query:"geometry_type,omitzero" json:"-"`
+	GeometryType SkynetAssetLocationListParamsGeometryType `query:"geometry_type,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [SkynetAssetLocationGetListParams]'s query parameters as
+// URLQuery serializes [SkynetAssetLocationListParams]'s query parameters as
 // `url.Values`.
-func (r SkynetAssetLocationGetListParams) URLQuery() (v url.Values, err error) {
+func (r SkynetAssetLocationListParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -437,10 +408,10 @@ func (r SkynetAssetLocationGetListParams) URLQuery() (v url.Values, err error) {
 }
 
 // the cluster of the region you want to use
-type SkynetAssetLocationGetListParamsCluster string
+type SkynetAssetLocationListParamsCluster string
 
 const (
-	SkynetAssetLocationGetListParamsClusterAmerica SkynetAssetLocationGetListParamsCluster = "america"
+	SkynetAssetLocationListParamsClusterAmerica SkynetAssetLocationListParamsCluster = "america"
 )
 
 // Set the geometry format to encode the path linking the tracked locations of the
@@ -448,10 +419,37 @@ const (
 //
 // Please note that `geometry_type` is effective only when `mapmatch` property of
 // `correction` parameter is set to 1.
-type SkynetAssetLocationGetListParamsGeometryType string
+type SkynetAssetLocationListParamsGeometryType string
 
 const (
-	SkynetAssetLocationGetListParamsGeometryTypePolyline  SkynetAssetLocationGetListParamsGeometryType = "`polyline`"
-	SkynetAssetLocationGetListParamsGeometryTypePolyline6 SkynetAssetLocationGetListParamsGeometryType = "`polyline6`"
-	SkynetAssetLocationGetListParamsGeometryTypeGeojson   SkynetAssetLocationGetListParamsGeometryType = "`geojson`"
+	SkynetAssetLocationListParamsGeometryTypePolyline  SkynetAssetLocationListParamsGeometryType = "`polyline`"
+	SkynetAssetLocationListParamsGeometryTypePolyline6 SkynetAssetLocationListParamsGeometryType = "`polyline6`"
+	SkynetAssetLocationListParamsGeometryTypeGeojson   SkynetAssetLocationListParamsGeometryType = "`geojson`"
+)
+
+type SkynetAssetLocationGetLastParams struct {
+	// A key is a unique identifier that is required to authenticate a request to the
+	// API.
+	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	// the cluster of the region you want to use
+	//
+	// Any of "america".
+	Cluster SkynetAssetLocationGetLastParamsCluster `query:"cluster,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [SkynetAssetLocationGetLastParams]'s query parameters as
+// `url.Values`.
+func (r SkynetAssetLocationGetLastParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+// the cluster of the region you want to use
+type SkynetAssetLocationGetLastParamsCluster string
+
+const (
+	SkynetAssetLocationGetLastParamsClusterAmerica SkynetAssetLocationGetLastParamsCluster = "america"
 )
