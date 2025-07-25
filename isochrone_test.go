@@ -13,7 +13,7 @@ import (
 	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestIsochroneGetWithOptionalParams(t *testing.T) {
+func TestIsochroneComputeWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,7 +26,7 @@ func TestIsochroneGetWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Isochrone.Get(context.TODO(), nextbillionsdk.IsochroneGetParams{
+	_, err := client.Isochrone.Compute(context.TODO(), nextbillionsdk.IsochroneComputeParams{
 		ContoursMeters:  0,
 		ContoursMinutes: 0,
 		Coordinates:     "coordinates=1.29363713,103.8383112",
@@ -35,7 +35,7 @@ func TestIsochroneGetWithOptionalParams(t *testing.T) {
 		Denoise:         nextbillionsdk.Float(0),
 		DepartureTime:   nextbillionsdk.Int(0),
 		Generalize:      nextbillionsdk.Float(0),
-		Mode:            nextbillionsdk.IsochroneGetParamsModeCar,
+		Mode:            nextbillionsdk.IsochroneComputeParamsModeCar,
 		Polygons:        nextbillionsdk.Bool(true),
 	})
 	if err != nil {

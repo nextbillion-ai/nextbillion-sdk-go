@@ -13,7 +13,7 @@ import (
 	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestOptimizationComputeRouteWithOptionalParams(t *testing.T) {
+func TestOptimizationComputeWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,15 +26,15 @@ func TestOptimizationComputeRouteWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Optimization.ComputeRoute(context.TODO(), nextbillionsdk.OptimizationComputeRouteParams{
+	_, err := client.Optimization.Compute(context.TODO(), nextbillionsdk.OptimizationComputeParams{
 		Coordinates:  "coordinates=41.35544869444527,2.0747669962025292|41.37498154684205,2.103705 4530396886|41.38772862000152,2.1311887061315526",
 		Key:          "key=API_KEY",
-		Approaches:   nextbillionsdk.OptimizationComputeRouteParamsApproachesUnrestricted,
-		Destination:  nextbillionsdk.OptimizationComputeRouteParamsDestinationAny,
-		Geometries:   nextbillionsdk.OptimizationComputeRouteParamsGeometriesPolyline,
-		Mode:         nextbillionsdk.OptimizationComputeRouteParamsModeCar,
+		Approaches:   nextbillionsdk.OptimizationComputeParamsApproachesUnrestricted,
+		Destination:  nextbillionsdk.OptimizationComputeParamsDestinationAny,
+		Geometries:   nextbillionsdk.OptimizationComputeParamsGeometriesPolyline,
+		Mode:         nextbillionsdk.OptimizationComputeParamsModeCar,
 		Roundtrip:    nextbillionsdk.Bool(true),
-		Source:       nextbillionsdk.OptimizationComputeRouteParamsSourceAny,
+		Source:       nextbillionsdk.OptimizationComputeParamsSourceAny,
 		WithGeometry: nextbillionsdk.Bool(true),
 	})
 	if err != nil {
