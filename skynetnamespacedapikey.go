@@ -34,23 +34,47 @@ func NewSkynetNamespacedApikeyService(opts ...option.RequestOption) (r SkynetNam
 	return
 }
 
-// Create namespace under a parent key
-func (r *SkynetNamespacedApikeyService) New(ctx context.Context, body SkynetNamespacedApikeyNewParams, opts ...option.RequestOption) (res *SkynetNamespacedApikeyNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	path := "skynet/namespaced-apikeys"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
-}
-
 // Delete namespace under a parent key
-func (r *SkynetNamespacedApikeyService) Delete(ctx context.Context, body SkynetNamespacedApikeyDeleteParams, opts ...option.RequestOption) (res *SkynetNamespacedApikeyDeleteResponse, err error) {
+func (r *SkynetNamespacedApikeyService) DeleteNamespacedApikeys(ctx context.Context, body SkynetNamespacedApikeyDeleteNamespacedApikeysParams, opts ...option.RequestOption) (res *SkynetNamespacedApikeyDeleteNamespacedApikeysResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "skynet/namespaced-apikeys"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return
 }
 
-type SkynetNamespacedApikeyNewResponse struct {
+// Create namespace under a parent key
+func (r *SkynetNamespacedApikeyService) NamespacedApikeys(ctx context.Context, body SkynetNamespacedApikeyNamespacedApikeysParams, opts ...option.RequestOption) (res *SkynetNamespacedApikeyNamespacedApikeysResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "skynet/namespaced-apikeys"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	return
+}
+
+type SkynetNamespacedApikeyDeleteNamespacedApikeysResponse struct {
+	// Its value is `OK` in case of a successful delete operation. Indicative error
+	// messages are returned otherwise, for different errors.
+	Msg string `json:"msg"`
+	// A string indicating the state of the response. A successful delete operation ins
+	// indicated by an HTTP code of`200`. See the
+	// [API Error Codes](https://docs.nextbillion.ai/docs/tracking/api/live-tracking-api#api-error-codes)
+	// section below for possible values in case of errors.
+	Status int64 `json:"status"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Msg         respjson.Field
+		Status      respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetNamespacedApikeyDeleteNamespacedApikeysResponse) RawJSON() string { return r.JSON.raw }
+func (r *SkynetNamespacedApikeyDeleteNamespacedApikeysResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type SkynetNamespacedApikeyNamespacedApikeysResponse struct {
 	// Returns the error type in case of any error. If there is no error, then this
 	// field is absent in the response.
 	Error string `json:"error"`
@@ -58,7 +82,7 @@ type SkynetNamespacedApikeyNewResponse struct {
 	// field is absent in the response.
 	Message string `json:"message"`
 	// An object to return the details about the namespace key created.
-	Result SkynetNamespacedApikeyNewResponseResult `json:"result"`
+	Result SkynetNamespacedApikeyNamespacedApikeysResponseResult `json:"result"`
 	// Returns the API response code.
 	Status int64 `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -73,13 +97,13 @@ type SkynetNamespacedApikeyNewResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetNamespacedApikeyNewResponse) RawJSON() string { return r.JSON.raw }
-func (r *SkynetNamespacedApikeyNewResponse) UnmarshalJSON(data []byte) error {
+func (r SkynetNamespacedApikeyNamespacedApikeysResponse) RawJSON() string { return r.JSON.raw }
+func (r *SkynetNamespacedApikeyNamespacedApikeysResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // An object to return the details about the namespace key created.
-type SkynetNamespacedApikeyNewResponseResult struct {
+type SkynetNamespacedApikeyNamespacedApikeysResponseResult struct {
 	// Returns the unique `key` created for the specified namespace.
 	Apikey string `json:"apikey"`
 	// Returns the time, expressed as UNIX epoch timestamp in seconds, when the
@@ -105,67 +129,12 @@ type SkynetNamespacedApikeyNewResponseResult struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetNamespacedApikeyNewResponseResult) RawJSON() string { return r.JSON.raw }
-func (r *SkynetNamespacedApikeyNewResponseResult) UnmarshalJSON(data []byte) error {
+func (r SkynetNamespacedApikeyNamespacedApikeysResponseResult) RawJSON() string { return r.JSON.raw }
+func (r *SkynetNamespacedApikeyNamespacedApikeysResponseResult) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type SkynetNamespacedApikeyDeleteResponse struct {
-	// Its value is `OK` in case of a successful delete operation. Indicative error
-	// messages are returned otherwise, for different errors.
-	Msg string `json:"msg"`
-	// A string indicating the state of the response. A successful delete operation ins
-	// indicated by an HTTP code of`200`. See the
-	// [API Error Codes](https://docs.nextbillion.ai/docs/tracking/api/live-tracking-api#api-error-codes)
-	// section below for possible values in case of errors.
-	Status int64 `json:"status"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Msg         respjson.Field
-		Status      respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r SkynetNamespacedApikeyDeleteResponse) RawJSON() string { return r.JSON.raw }
-func (r *SkynetNamespacedApikeyDeleteResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type SkynetNamespacedApikeyNewParams struct {
-	// A key is a unique identifier that is required to authenticate a request to the
-	// API.
-	QueryKey1 string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Specify a name for the `namespace`. If the namespace specified is unique then a
-	// new namespace along with a new key is created. Whereas if the specified
-	// `namespace` is not unique, a new key will be created in the existing
-	// `namespace`. Please note that a `namespace` cannot be created using another
-	// namespace key.
-	Namespace string            `query:"namespace,required" json:"-"`
-	QueryKey2 param.Opt[string] `query:"{key},omitzero" json:"-"`
-	paramObj
-}
-
-func (r SkynetNamespacedApikeyNewParams) MarshalJSON() (data []byte, err error) {
-	type shadow SkynetNamespacedApikeyNewParams
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *SkynetNamespacedApikeyNewParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// URLQuery serializes [SkynetNamespacedApikeyNewParams]'s query parameters as
-// `url.Values`.
-func (r SkynetNamespacedApikeyNewParams) URLQuery() (v url.Values, err error) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
-}
-
-type SkynetNamespacedApikeyDeleteParams struct {
+type SkynetNamespacedApikeyDeleteNamespacedApikeysParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API. Please note for the delete namespace key operation another namespace key
 	// cannot be used.
@@ -183,9 +152,40 @@ type SkynetNamespacedApikeyDeleteParams struct {
 	paramObj
 }
 
-// URLQuery serializes [SkynetNamespacedApikeyDeleteParams]'s query parameters as
-// `url.Values`.
-func (r SkynetNamespacedApikeyDeleteParams) URLQuery() (v url.Values, err error) {
+// URLQuery serializes [SkynetNamespacedApikeyDeleteNamespacedApikeysParams]'s
+// query parameters as `url.Values`.
+func (r SkynetNamespacedApikeyDeleteNamespacedApikeysParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+type SkynetNamespacedApikeyNamespacedApikeysParams struct {
+	// A key is a unique identifier that is required to authenticate a request to the
+	// API.
+	QueryKey1 string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	// Specify a name for the `namespace`. If the namespace specified is unique then a
+	// new namespace along with a new key is created. Whereas if the specified
+	// `namespace` is not unique, a new key will be created in the existing
+	// `namespace`. Please note that a `namespace` cannot be created using another
+	// namespace key.
+	Namespace string            `query:"namespace,required" json:"-"`
+	QueryKey2 param.Opt[string] `query:"{key},omitzero" json:"-"`
+	paramObj
+}
+
+func (r SkynetNamespacedApikeyNamespacedApikeysParams) MarshalJSON() (data []byte, err error) {
+	type shadow SkynetNamespacedApikeyNamespacedApikeysParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *SkynetNamespacedApikeyNamespacedApikeysParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// URLQuery serializes [SkynetNamespacedApikeyNamespacedApikeysParams]'s query
+// parameters as `url.Values`.
+func (r SkynetNamespacedApikeyNamespacedApikeysParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
