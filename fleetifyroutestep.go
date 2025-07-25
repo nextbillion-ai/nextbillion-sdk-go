@@ -65,45 +65,6 @@ func (r *FleetifyRouteStepService) Get(ctx context.Context, stepID string, param
 	return
 }
 
-// Complete a route step with document submission, or update the document of a
-// completed route step.
-//
-// When all steps are completed, the encapsulating route’s status will change to
-// `completed` automatically.
-//
-// Either `Session Token` must be provided to authenticate the request.
-func (r *FleetifyRouteStepService) Update(ctx context.Context, stepsID string, params FleetifyRouteStepUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
-	if params.RuoteID == "" {
-		err = errors.New("missing required ruoteID parameter")
-		return
-	}
-	if stepsID == "" {
-		err = errors.New("missing required stepsID parameter")
-		return
-	}
-	path := fmt.Sprintf("fleetify/routes/%s/steps/%s", params.RuoteID, stepsID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, params, nil, opts...)
-	return
-}
-
-// Delete a step
-func (r *FleetifyRouteStepService) Delete(ctx context.Context, stepsID string, params FleetifyRouteStepDeleteParams, opts ...option.RequestOption) (res *FleetifyRouteStepDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	if params.RuoteID == "" {
-		err = errors.New("missing required ruoteID parameter")
-		return
-	}
-	if stepsID == "" {
-		err = errors.New("missing required stepsID parameter")
-		return
-	}
-	path := fmt.Sprintf("fleetify/routes/%s/steps/%s", params.RuoteID, stepsID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, params, &res, opts...)
-	return
-}
-
 type DocumentSubmission = any
 
 // Specify the mode of completion to be used for the step. Currently, following
@@ -505,27 +466,6 @@ func (r *FleetifyRouteStepGetResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type FleetifyRouteStepDeleteResponse struct {
-	// Returns the error message in case of a failed request. If the request is
-	// successful, this field is not present in the response.
-	Message string `json:"message"`
-	// Returns the status code of the response.
-	Status int64 `json:"status"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Message     respjson.Field
-		Status      respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r FleetifyRouteStepDeleteResponse) RawJSON() string { return r.JSON.raw }
-func (r *FleetifyRouteStepDeleteResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
 type FleetifyRouteStepNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
@@ -656,62 +596,6 @@ type FleetifyRouteStepGetParams struct {
 // URLQuery serializes [FleetifyRouteStepGetParams]'s query parameters as
 // `url.Values`.
 func (r FleetifyRouteStepGetParams) URLQuery() (v url.Values, err error) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
-}
-
-type FleetifyRouteStepUpdateParams struct {
-	RuoteID string `path:"ruoteID,required" json:"-"`
-	// A key is a unique identifier that is required to authenticate a request to the
-	// API.
-	Key string `query:"key,required" json:"-"`
-	// Sets the status of the route step. Currently only `completed` is supported.
-	//
-	// Note: once marked `completed`, a step cannot transition to other statuses. You
-	// can only update the document afterwards.
-	Mode param.Opt[string] `json:"mode,omitzero"`
-	// Sets the status of the route step. Currently only `completed` is supported.
-	//
-	// Note: once marked `completed`, a step cannot transition to other statuses. You
-	// can only update the document afterwards.
-	Status param.Opt[string] `json:"status,omitzero"`
-	// A key-value map storing form submission data, where keys correspond to field
-	// labels and values can be of any type depend on the type of according document
-	// item.
-	Document DocumentSubmission `json:"document,omitzero"`
-	paramObj
-}
-
-func (r FleetifyRouteStepUpdateParams) MarshalJSON() (data []byte, err error) {
-	type shadow FleetifyRouteStepUpdateParams
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *FleetifyRouteStepUpdateParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// URLQuery serializes [FleetifyRouteStepUpdateParams]'s query parameters as
-// `url.Values`.
-func (r FleetifyRouteStepUpdateParams) URLQuery() (v url.Values, err error) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
-}
-
-type FleetifyRouteStepDeleteParams struct {
-	RuoteID string `path:"ruoteID,required" json:"-"`
-	// A key is a unique identifier that is required to authenticate a request to the
-	// API.
-	Key string `query:"key,required" json:"-"`
-	paramObj
-}
-
-// URLQuery serializes [FleetifyRouteStepDeleteParams]'s query parameters as
-// `url.Values`.
-func (r FleetifyRouteStepDeleteParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
