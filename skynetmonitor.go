@@ -68,14 +68,6 @@ func (r *SkynetMonitorService) Update(ctx context.Context, id string, params Sky
 	return
 }
 
-// Get Monitor List
-func (r *SkynetMonitorService) List(ctx context.Context, query SkynetMonitorListParams, opts ...option.RequestOption) (res *SkynetMonitorListResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	path := "skynet/monitor/list"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
-}
-
 // Delete a Monitor
 func (r *SkynetMonitorService) Delete(ctx context.Context, id string, body SkynetMonitorDeleteParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
 	opts = append(r.Options[:], opts...)
@@ -85,6 +77,14 @@ func (r *SkynetMonitorService) Delete(ctx context.Context, id string, body Skyne
 	}
 	path := fmt.Sprintf("skynet/monitor/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
+	return
+}
+
+// Get Monitor List
+func (r *SkynetMonitorService) GetList(ctx context.Context, query SkynetMonitorGetListParams, opts ...option.RequestOption) (res *SkynetMonitorGetListResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "skynet/monitor/list"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
@@ -416,9 +416,9 @@ func (r *SkynetMonitorGetResponseData) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type SkynetMonitorListResponse struct {
+type SkynetMonitorGetListResponse struct {
 	// A data object containing the result.
-	Data SkynetMonitorListResponseData `json:"data"`
+	Data SkynetMonitorGetListResponseData `json:"data"`
 	// Displays the error message in case of a failed request. If the request is
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
@@ -437,13 +437,13 @@ type SkynetMonitorListResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetMonitorListResponse) RawJSON() string { return r.JSON.raw }
-func (r *SkynetMonitorListResponse) UnmarshalJSON(data []byte) error {
+func (r SkynetMonitorGetListResponse) RawJSON() string { return r.JSON.raw }
+func (r *SkynetMonitorGetListResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // A data object containing the result.
-type SkynetMonitorListResponseData struct {
+type SkynetMonitorGetListResponseData struct {
 	// An array of objects listing all the monitors. Each object represents one
 	// `monitor`.
 	List []Monitor `json:"list"`
@@ -460,8 +460,8 @@ type SkynetMonitorListResponseData struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetMonitorListResponseData) RawJSON() string { return r.JSON.raw }
-func (r *SkynetMonitorListResponseData) UnmarshalJSON(data []byte) error {
+func (r SkynetMonitorGetListResponseData) RawJSON() string { return r.JSON.raw }
+func (r *SkynetMonitorGetListResponseData) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1063,7 +1063,23 @@ const (
 	SkynetMonitorUpdateParamsTypeIdle         SkynetMonitorUpdateParamsType = "`idle`"
 )
 
-type SkynetMonitorListParams struct {
+type SkynetMonitorDeleteParams struct {
+	// A key is a unique identifier that is required to authenticate a request to the
+	// API.
+	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [SkynetMonitorDeleteParams]'s query parameters as
+// `url.Values`.
+func (r SkynetMonitorDeleteParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+type SkynetMonitorGetListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
@@ -1089,13 +1105,13 @@ type SkynetMonitorListParams struct {
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
-	Cluster SkynetMonitorListParamsCluster `query:"cluster,omitzero" json:"-"`
+	Cluster SkynetMonitorGetListParamsCluster `query:"cluster,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [SkynetMonitorListParams]'s query parameters as
+// URLQuery serializes [SkynetMonitorGetListParams]'s query parameters as
 // `url.Values`.
-func (r SkynetMonitorListParams) URLQuery() (v url.Values, err error) {
+func (r SkynetMonitorGetListParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -1103,24 +1119,8 @@ func (r SkynetMonitorListParams) URLQuery() (v url.Values, err error) {
 }
 
 // the cluster of the region you want to use
-type SkynetMonitorListParamsCluster string
+type SkynetMonitorGetListParamsCluster string
 
 const (
-	SkynetMonitorListParamsClusterAmerica SkynetMonitorListParamsCluster = "america"
+	SkynetMonitorGetListParamsClusterAmerica SkynetMonitorGetListParamsCluster = "america"
 )
-
-type SkynetMonitorDeleteParams struct {
-	// A key is a unique identifier that is required to authenticate a request to the
-	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	paramObj
-}
-
-// URLQuery serializes [SkynetMonitorDeleteParams]'s query parameters as
-// `url.Values`.
-func (r SkynetMonitorDeleteParams) URLQuery() (v url.Values, err error) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
-}

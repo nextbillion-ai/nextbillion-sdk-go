@@ -37,7 +37,7 @@ func NewSkynetAssetEventService(opts ...option.RequestOption) (r SkynetAssetEven
 }
 
 // Event History of an Asset
-func (r *SkynetAssetEventService) List(ctx context.Context, id string, query SkynetAssetEventListParams, opts ...option.RequestOption) (res *SkynetAssetEventListResponse, err error) {
+func (r *SkynetAssetEventService) GetList(ctx context.Context, id string, query SkynetAssetEventGetListParams, opts ...option.RequestOption) (res *SkynetAssetEventGetListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	if id == "" {
 		err = errors.New("missing required id parameter")
@@ -48,10 +48,10 @@ func (r *SkynetAssetEventService) List(ctx context.Context, id string, query Sky
 	return
 }
 
-type SkynetAssetEventListResponse struct {
+type SkynetAssetEventGetListResponse struct {
 	// An object containing the information about the event history for the requested
 	// `asset`.
-	Data SkynetAssetEventListResponseData `json:"data"`
+	Data SkynetAssetEventGetListResponseData `json:"data"`
 	// Displays the error message in case of a failed request. If the request is
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
@@ -70,16 +70,16 @@ type SkynetAssetEventListResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetAssetEventListResponse) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetEventListResponse) UnmarshalJSON(data []byte) error {
+func (r SkynetAssetEventGetListResponse) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetEventGetListResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // An object containing the information about the event history for the requested
 // `asset`.
-type SkynetAssetEventListResponseData struct {
+type SkynetAssetEventGetListResponseData struct {
 	// An array of objects with each object on the list representing one event.
-	List []SkynetAssetEventListResponseDataList `json:"list"`
+	List []SkynetAssetEventGetListResponseDataList `json:"list"`
 	// An object with pagination details of the search results. Use this object to
 	// implement pagination in your application.
 	Page Pagination `json:"page"`
@@ -93,12 +93,12 @@ type SkynetAssetEventListResponseData struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetAssetEventListResponseData) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetEventListResponseData) UnmarshalJSON(data []byte) error {
+func (r SkynetAssetEventGetListResponseData) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetEventGetListResponseData) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type SkynetAssetEventListResponseDataList struct {
+type SkynetAssetEventGetListResponseDataList struct {
 	// ID of the `asset`. This is the same ID that was generated/provided at the time
 	// of creating the `asset`.
 	AssetID string `json:"asset_id"`
@@ -132,13 +132,13 @@ type SkynetAssetEventListResponseDataList struct {
 	MonitorTags []string `json:"monitor_tags"`
 	// An object with details of the `asset` at the last tracked location before the
 	// event was triggered.
-	PrevLocation SkynetAssetEventListResponseDataListPrevLocation `json:"prev_location"`
+	PrevLocation SkynetAssetEventGetListResponseDataListPrevLocation `json:"prev_location"`
 	// A UNIX epoch timestamp in milliseconds representing the time at which the event
 	// was added/created.
 	Timestamp int64 `json:"timestamp"`
 	// An object with details of the `asset` at the location where the event was
 	// triggered.
-	TriggeredLocation SkynetAssetEventListResponseDataListTriggeredLocation `json:"triggered_location"`
+	TriggeredLocation SkynetAssetEventGetListResponseDataListTriggeredLocation `json:"triggered_location"`
 	// A UNIX epoch timestamp in milliseconds representing the time at which the event
 	// was triggered.
 	TriggeredTimestamp int64 `json:"triggered_timestamp"`
@@ -160,19 +160,19 @@ type SkynetAssetEventListResponseDataList struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetAssetEventListResponseDataList) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetEventListResponseDataList) UnmarshalJSON(data []byte) error {
+func (r SkynetAssetEventGetListResponseDataList) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetEventGetListResponseDataList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // An object with details of the `asset` at the last tracked location before the
 // event was triggered.
-type SkynetAssetEventListResponseDataListPrevLocation struct {
+type SkynetAssetEventGetListResponseDataListPrevLocation struct {
 	// If available, this property returns the heading of the `asset` from true north
 	// in clockwise direction, at the `prev_location` tracked for the `asset`.
 	Bearing float64 `json:"bearing"`
 	// `prev_location` information of the `asset`.
-	Location SkynetAssetEventListResponseDataListPrevLocationLocation `json:"location"`
+	Location SkynetAssetEventGetListResponseDataListPrevLocationLocation `json:"location"`
 	// Returns the custom data added during the location information upload.
 	MetaData any `json:"meta_data"`
 	// If available, this property returns the speed of the `asset`, in meters per
@@ -194,13 +194,13 @@ type SkynetAssetEventListResponseDataListPrevLocation struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetAssetEventListResponseDataListPrevLocation) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetEventListResponseDataListPrevLocation) UnmarshalJSON(data []byte) error {
+func (r SkynetAssetEventGetListResponseDataListPrevLocation) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetEventGetListResponseDataListPrevLocation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // `prev_location` information of the `asset`.
-type SkynetAssetEventListResponseDataListPrevLocationLocation struct {
+type SkynetAssetEventGetListResponseDataListPrevLocationLocation struct {
 	// Latitude of the `prev_location` tracked for the `asset`.
 	Lat float64 `json:"lat"`
 	// Longitude of the `prev_location` tracked for the `asset`.
@@ -215,19 +215,21 @@ type SkynetAssetEventListResponseDataListPrevLocationLocation struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetAssetEventListResponseDataListPrevLocationLocation) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetEventListResponseDataListPrevLocationLocation) UnmarshalJSON(data []byte) error {
+func (r SkynetAssetEventGetListResponseDataListPrevLocationLocation) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *SkynetAssetEventGetListResponseDataListPrevLocationLocation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // An object with details of the `asset` at the location where the event was
 // triggered.
-type SkynetAssetEventListResponseDataListTriggeredLocation struct {
+type SkynetAssetEventGetListResponseDataListTriggeredLocation struct {
 	// If available, this property returns the heading of the `asset` from true north
 	// in clockwise direction, when the event was triggered.
 	Bearing float64 `json:"bearing"`
 	// An object with information about the location at which the event was triggered.
-	Location SkynetAssetEventListResponseDataListTriggeredLocationLocation `json:"location"`
+	Location SkynetAssetEventGetListResponseDataListTriggeredLocationLocation `json:"location"`
 	// Returns the custom data added during the location information upload.
 	MetaData any `json:"meta_data"`
 	// If available, this property returns the speed of the `asset`, in meters per
@@ -249,13 +251,13 @@ type SkynetAssetEventListResponseDataListTriggeredLocation struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetAssetEventListResponseDataListTriggeredLocation) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetEventListResponseDataListTriggeredLocation) UnmarshalJSON(data []byte) error {
+func (r SkynetAssetEventGetListResponseDataListTriggeredLocation) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetEventGetListResponseDataListTriggeredLocation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // An object with information about the location at which the event was triggered.
-type SkynetAssetEventListResponseDataListTriggeredLocationLocation struct {
+type SkynetAssetEventGetListResponseDataListTriggeredLocationLocation struct {
 	// Latitude of the `triggered_location` of the event.
 	Lat float64 `json:"lat"`
 	// Longitude of the `triggered_location` of the event.
@@ -270,14 +272,14 @@ type SkynetAssetEventListResponseDataListTriggeredLocationLocation struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetAssetEventListResponseDataListTriggeredLocationLocation) RawJSON() string {
+func (r SkynetAssetEventGetListResponseDataListTriggeredLocationLocation) RawJSON() string {
 	return r.JSON.raw
 }
-func (r *SkynetAssetEventListResponseDataListTriggeredLocationLocation) UnmarshalJSON(data []byte) error {
+func (r *SkynetAssetEventGetListResponseDataListTriggeredLocationLocation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type SkynetAssetEventListParams struct {
+type SkynetAssetEventGetListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
@@ -303,13 +305,13 @@ type SkynetAssetEventListParams struct {
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
-	Cluster SkynetAssetEventListParamsCluster `query:"cluster,omitzero" json:"-"`
+	Cluster SkynetAssetEventGetListParamsCluster `query:"cluster,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [SkynetAssetEventListParams]'s query parameters as
+// URLQuery serializes [SkynetAssetEventGetListParams]'s query parameters as
 // `url.Values`.
-func (r SkynetAssetEventListParams) URLQuery() (v url.Values, err error) {
+func (r SkynetAssetEventGetListParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -317,8 +319,8 @@ func (r SkynetAssetEventListParams) URLQuery() (v url.Values, err error) {
 }
 
 // the cluster of the region you want to use
-type SkynetAssetEventListParamsCluster string
+type SkynetAssetEventGetListParamsCluster string
 
 const (
-	SkynetAssetEventListParamsClusterAmerica SkynetAssetEventListParamsCluster = "america"
+	SkynetAssetEventGetListParamsClusterAmerica SkynetAssetEventGetListParamsCluster = "america"
 )

@@ -34,19 +34,19 @@ func NewOptimizationV2Service(opts ...option.RequestOption) (r OptimizationV2Ser
 	return
 }
 
-// Flexible POST
-func (r *OptimizationV2Service) NewRequest(ctx context.Context, params OptimizationV2NewRequestParams, opts ...option.RequestOption) (res *PostResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	path := "optimization/v2"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
-}
-
 // Flexible GET
 func (r *OptimizationV2Service) GetResult(ctx context.Context, query OptimizationV2GetResultParams, opts ...option.RequestOption) (res *OptimizationV2GetResultResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "optimization/v2/result"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	return
+}
+
+// Flexible POST
+func (r *OptimizationV2Service) Submit(ctx context.Context, params OptimizationV2SubmitParams, opts ...option.RequestOption) (res *PostResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "optimization/v2"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
 }
 
@@ -1147,14 +1147,33 @@ const (
 	OptimizationV2GetResultResponseStatusError OptimizationV2GetResultResponseStatus = "`Error`"
 )
 
-type OptimizationV2NewRequestParams struct {
+type OptimizationV2GetResultParams struct {
+	// The unique ID that was returned on successful submission of the Optimization
+	// POST request.
+	ID string `query:"id,required" json:"-"`
+	// A key is a unique identifier that is required to authenticate a request to the
+	// API.
+	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [OptimizationV2GetResultParams]'s query parameters as
+// `url.Values`.
+func (r OptimizationV2GetResultParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+type OptimizationV2SubmitParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
 	// The `locations` object is used to define all the locations that will be used
 	// during the optimization process. Read more about this attribute in the
 	// [Location Object](#location-object) section.
-	Locations OptimizationV2NewRequestParamsLocations `json:"locations,omitzero,required"`
+	Locations OptimizationV2SubmitParamsLocations `json:"locations,omitzero,required"`
 	// The `vehicles` attribute describes the characteristics and constraints of the
 	// vehicles that will be used for fulfilling the tasks. Read more about this
 	// attribute in the [Vehicle Object](#vehicle-object) section.
@@ -1179,7 +1198,7 @@ type OptimizationV2NewRequestParams struct {
 	// delivered at task locations will be picked from depots and loads picked-up from
 	// task locations will be delivered back to the depots. A depot can be configured
 	// using the following fields:
-	Depots []OptimizationV2NewRequestParamsDepot `json:"depots,omitzero"`
+	Depots []OptimizationV2SubmitParamsDepot `json:"depots,omitzero"`
 	// An array of arrays to denote the user-defined distances, in meters, for
 	// travelling between each pair of geographic coordinates mentioned in the
 	// `location` array. When this input is provided, actual distances between the
@@ -1228,7 +1247,7 @@ type OptimizationV2NewRequestParams struct {
 	// It represents the set of options that can be used to configure optimization
 	// algorithms so that the solver provides a solution that meets the desired
 	// business objectives.
-	Options OptimizationV2NewRequestParamsOptions `json:"options,omitzero"`
+	Options OptimizationV2SubmitParamsOptions `json:"options,omitzero"`
 	// `relations` attribute is an array of individual relation objects. `type`
 	// parameter and `steps` object are mandatory when using this attribute.
 	//
@@ -1241,7 +1260,7 @@ type OptimizationV2NewRequestParams struct {
 	//
 	// Read more about this attribute in the [Relations Object](#relations-object)
 	// section.
-	Relations []OptimizationV2NewRequestParamsRelation `json:"relations,omitzero"`
+	Relations []OptimizationV2SubmitParamsRelation `json:"relations,omitzero"`
 	// The `shipments` object is used to collect the details of shipments that need to
 	// be completed as part of the optimization process.
 	//
@@ -1255,7 +1274,7 @@ type OptimizationV2NewRequestParams struct {
 	// the solution needs to be re-planned. The `solution` attribute should contain the
 	// same routes as the previous optimization result. `solution` attribute is an
 	// array of objects with each object corresponding to one route.
-	Solution []OptimizationV2NewRequestParamsSolution `json:"solution,omitzero"`
+	Solution []OptimizationV2SubmitParamsSolution `json:"solution,omitzero"`
 	// `unassigned` attribute is related to the re-optimization feature. This attribute
 	// should contain the tasks that were not assigned during an earlier optimization
 	// process. Please note that the `unassigned` part in request should be consistent
@@ -1271,7 +1290,7 @@ type OptimizationV2NewRequestParams struct {
 	//
 	// Ultimately, the goal is to minimize the number of unassigned tasks while still
 	// meeting all the necessary constraints and objectives.
-	Unassigned OptimizationV2NewRequestParamsUnassigned `json:"unassigned,omitzero"`
+	Unassigned OptimizationV2SubmitParamsUnassigned `json:"unassigned,omitzero"`
 	// An array of objects to specify geometry of all the zones involved. Each object
 	// corresponds to a single zone. A valid zone can be a
 	// [geoJSON](https://datatracker.ietf.org/doc/html/rfc7946#page-9) polygon,
@@ -1288,21 +1307,21 @@ type OptimizationV2NewRequestParams struct {
 	//     the geometries of the zones provided here. Otherwise, if the zone IDs are
 	//     provided while configuring individual tasks, the zone IDs will override the
 	//     geometries provided here.
-	Zones []OptimizationV2NewRequestParamsZone `json:"zones,omitzero"`
+	Zones []OptimizationV2SubmitParamsZone `json:"zones,omitzero"`
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParams) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParams
+func (r OptimizationV2SubmitParams) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParams
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParams) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// URLQuery serializes [OptimizationV2NewRequestParams]'s query parameters as
+// URLQuery serializes [OptimizationV2SubmitParams]'s query parameters as
 // `url.Values`.
-func (r OptimizationV2NewRequestParams) URLQuery() (v url.Values, err error) {
+func (r OptimizationV2SubmitParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -1314,7 +1333,7 @@ func (r OptimizationV2NewRequestParams) URLQuery() (v url.Values, err error) {
 // [Location Object](#location-object) section.
 //
 // The property Location is required.
-type OptimizationV2NewRequestParamsLocations struct {
+type OptimizationV2SubmitParamsLocations struct {
 	// Indicate all the location coordinates that will be used during optimization. The
 	// coordinates should be specified in the format “latitude, longitude”. It is
 	// recommended to avoid adding duplicate location coordinates to this array. In
@@ -1339,16 +1358,16 @@ type OptimizationV2NewRequestParamsLocations struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsLocations) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsLocations
+func (r OptimizationV2SubmitParamsLocations) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsLocations
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsLocations) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsLocations) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The properties ID, LocationIndex are required.
-type OptimizationV2NewRequestParamsDepot struct {
+type OptimizationV2SubmitParamsDepot struct {
 	// Provide an unique ID for the depot. The IDs are case sensitive.
 	ID string `json:"id,required"`
 	// Specify the index of coordinates (in the `location` array) denoting the depot’s
@@ -1381,18 +1400,18 @@ type OptimizationV2NewRequestParamsDepot struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsDepot) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsDepot
+func (r OptimizationV2SubmitParamsDepot) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsDepot
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsDepot) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsDepot) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // It represents the set of options that can be used to configure optimization
 // algorithms so that the solver provides a solution that meets the desired
 // business objectives.
-type OptimizationV2NewRequestParamsOptions struct {
+type OptimizationV2SubmitParamsOptions struct {
 	// This attribute defines both the soft and hard constraints for an optimization
 	// job.
 	//
@@ -1405,25 +1424,25 @@ type OptimizationV2NewRequestParamsOptions struct {
 	// attribute in a request. The hard constraint, `max_activity_waiting_time`, is
 	// effective only when relation type is `in_same_route` and ineffective for all
 	// other types.
-	Constraint OptimizationV2NewRequestParamsOptionsConstraint `json:"constraint,omitzero"`
+	Constraint OptimizationV2SubmitParamsOptionsConstraint `json:"constraint,omitzero"`
 	// Set grouping rules for the tasks and routes.
 	//
 	// - Use `order_grouping` to group nearby tasks
 	// - Use `route_grouping` to control route sequencing.
-	Grouping OptimizationV2NewRequestParamsOptionsGrouping `json:"grouping,omitzero"`
+	Grouping OptimizationV2SubmitParamsOptionsGrouping `json:"grouping,omitzero"`
 	// This attribute is used to configure the objective of the optimization job.
-	Objective OptimizationV2NewRequestParamsOptionsObjective `json:"objective,omitzero"`
+	Objective OptimizationV2SubmitParamsOptionsObjective `json:"objective,omitzero"`
 	// This attribute is used to define the routing configurations for the optimization
 	// job.
-	Routing OptimizationV2NewRequestParamsOptionsRouting `json:"routing,omitzero"`
+	Routing OptimizationV2SubmitParamsOptionsRouting `json:"routing,omitzero"`
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsOptions) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsOptions
+func (r OptimizationV2SubmitParamsOptions) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsOptions
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsOptions) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsOptions) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1439,7 +1458,7 @@ func (r *OptimizationV2NewRequestParamsOptions) UnmarshalJSON(data []byte) error
 // attribute in a request. The hard constraint, `max_activity_waiting_time`, is
 // effective only when relation type is `in_same_route` and ineffective for all
 // other types.
-type OptimizationV2NewRequestParamsOptionsConstraint struct {
+type OptimizationV2SubmitParamsOptionsConstraint struct {
 	// This is a hard constraint which specifies the maximum waiting time, in seconds,
 	// for each `step`. It ensures that the vehicles do not have unreasonable wait
 	// times between jobs or shipments. This feature is useful for use cases where
@@ -1470,11 +1489,11 @@ type OptimizationV2NewRequestParamsOptionsConstraint struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsOptionsConstraint) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsOptionsConstraint
+func (r OptimizationV2SubmitParamsOptionsConstraint) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsOptionsConstraint
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsOptionsConstraint) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsOptionsConstraint) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1482,7 +1501,7 @@ func (r *OptimizationV2NewRequestParamsOptionsConstraint) UnmarshalJSON(data []b
 //
 // - Use `order_grouping` to group nearby tasks
 // - Use `route_grouping` to control route sequencing.
-type OptimizationV2NewRequestParamsOptionsGrouping struct {
+type OptimizationV2SubmitParamsOptionsGrouping struct {
 	// When specified, routes are built taking into account the distance to the nearest
 	// tasks. A higher proximity factor helps build routes with closer distances
 	// between neighboring tasks, whereas a lower proximity factor helps build routes
@@ -1512,19 +1531,19 @@ type OptimizationV2NewRequestParamsOptionsGrouping struct {
 	// to maximum setup time among all grouped tasks, if provided. On the other hand,
 	// the service time is applied to each task individually, as per the input provided
 	// when configuring those tasks.
-	OrderGrouping OptimizationV2NewRequestParamsOptionsGroupingOrderGrouping `json:"order_grouping,omitzero"`
+	OrderGrouping OptimizationV2SubmitParamsOptionsGroupingOrderGrouping `json:"order_grouping,omitzero"`
 	// Specify the criteria for prioritising routes in a zone over routes that are part
 	// of another zone. As a result, all the tasks falling in a zone will be fulfilled
 	// before any tasks that are part of a different zone.
-	RouteGrouping OptimizationV2NewRequestParamsOptionsGroupingRouteGrouping `json:"route_grouping,omitzero"`
+	RouteGrouping OptimizationV2SubmitParamsOptionsGroupingRouteGrouping `json:"route_grouping,omitzero"`
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsOptionsGrouping) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsOptionsGrouping
+func (r OptimizationV2SubmitParamsOptionsGrouping) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsOptionsGrouping
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsOptionsGrouping) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsOptionsGrouping) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1538,25 +1557,25 @@ func (r *OptimizationV2NewRequestParamsOptionsGrouping) UnmarshalJSON(data []byt
 // to maximum setup time among all grouped tasks, if provided. On the other hand,
 // the service time is applied to each task individually, as per the input provided
 // when configuring those tasks.
-type OptimizationV2NewRequestParamsOptionsGroupingOrderGrouping struct {
+type OptimizationV2SubmitParamsOptionsGroupingOrderGrouping struct {
 	// Specify the straight line distance, in meters, which will be used to identify
 	// the tasks that should be grouped together. The default value is `null`.
 	GroupingDiameter param.Opt[float64] `json:"grouping_diameter,omitzero"`
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsOptionsGroupingOrderGrouping) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsOptionsGroupingOrderGrouping
+func (r OptimizationV2SubmitParamsOptionsGroupingOrderGrouping) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsOptionsGroupingOrderGrouping
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsOptionsGroupingOrderGrouping) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsOptionsGroupingOrderGrouping) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Specify the criteria for prioritising routes in a zone over routes that are part
 // of another zone. As a result, all the tasks falling in a zone will be fulfilled
 // before any tasks that are part of a different zone.
-type OptimizationV2NewRequestParamsOptionsGroupingRouteGrouping struct {
+type OptimizationV2SubmitParamsOptionsGroupingRouteGrouping struct {
 	// Specify a non-negative value which indicates the penalty of crossing zones on
 	// the same route. Default penalty value is 0.
 	//
@@ -1586,22 +1605,22 @@ type OptimizationV2NewRequestParamsOptionsGroupingRouteGrouping struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsOptionsGroupingRouteGrouping) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsOptionsGroupingRouteGrouping
+func (r OptimizationV2SubmitParamsOptionsGroupingRouteGrouping) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsOptionsGroupingRouteGrouping
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsOptionsGroupingRouteGrouping) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsOptionsGroupingRouteGrouping) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[OptimizationV2NewRequestParamsOptionsGroupingRouteGrouping](
+	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsGroupingRouteGrouping](
 		"zone_source", "`system_generated`", "`custom_definition`",
 	)
 }
 
 // This attribute is used to configure the objective of the optimization job.
-type OptimizationV2NewRequestParamsOptionsObjective struct {
+type OptimizationV2SubmitParamsOptionsObjective struct {
 	// Choose where the optimizer should schedule the driver’s wait time. When set to
 	// `true` the driver waits at the location of the task until its time window allows
 	// him to start the task. When set to `false` the driver waits at the location of
@@ -1623,7 +1642,7 @@ type OptimizationV2NewRequestParamsOptionsObjective struct {
 	SolvingTimeLimit param.Opt[int64] `json:"solving_time_limit,omitzero"`
 	// The `custom` parameter is used to define special objectives apart from the
 	// simpler travel cost minimization objectives.
-	Custom OptimizationV2NewRequestParamsOptionsObjectiveCustom `json:"custom,omitzero"`
+	Custom OptimizationV2SubmitParamsOptionsObjectiveCustom `json:"custom,omitzero"`
 	// If the input doesn’t include features of soft constraints, customized
 	// objectives, re-optimization, relations, max travel cost or automatic fixed cost,
 	// then user can select “optimal” to achieve a higher-speed and higher-quality
@@ -1667,19 +1686,19 @@ type OptimizationV2NewRequestParamsOptionsObjective struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsOptionsObjective) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsOptionsObjective
+func (r OptimizationV2SubmitParamsOptionsObjective) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsOptionsObjective
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsOptionsObjective) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsOptionsObjective) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[OptimizationV2NewRequestParamsOptionsObjective](
+	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsObjective](
 		"solver_mode", "`flexible`", "`fast`", "`internal`",
 	)
-	apijson.RegisterFieldValidator[OptimizationV2NewRequestParamsOptionsObjective](
+	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsObjective](
 		"travel_cost", "`duration`", "`distance`", "`air_distance`", "`customized`",
 	)
 }
@@ -1688,7 +1707,7 @@ func init() {
 // simpler travel cost minimization objectives.
 //
 // The properties Type, Value are required.
-type OptimizationV2NewRequestParamsOptionsObjectiveCustom struct {
+type OptimizationV2SubmitParamsOptionsObjectiveCustom struct {
 	// The `type` parameter accepts two inputs:
 	//
 	//   - `min`: This type of customized objective will minimize the metric provided in
@@ -1726,26 +1745,26 @@ type OptimizationV2NewRequestParamsOptionsObjectiveCustom struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsOptionsObjectiveCustom) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsOptionsObjectiveCustom
+func (r OptimizationV2SubmitParamsOptionsObjectiveCustom) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsOptionsObjectiveCustom
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsOptionsObjectiveCustom) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsOptionsObjectiveCustom) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[OptimizationV2NewRequestParamsOptionsObjectiveCustom](
+	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsObjectiveCustom](
 		"type", "`min`", "`min-max`",
 	)
-	apijson.RegisterFieldValidator[OptimizationV2NewRequestParamsOptionsObjectiveCustom](
+	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsObjectiveCustom](
 		"value", "`vehicles`", "`completion_time`", "`travel_cost`", "`tasks`",
 	)
 }
 
 // This attribute is used to define the routing configurations for the optimization
 // job.
-type OptimizationV2NewRequestParamsOptionsRouting struct {
+type OptimizationV2SubmitParamsOptionsRouting struct {
 	// Specify if crossing an international border is allowed for operations near
 	// border areas. When set to false, the API will prohibit any routes crossing
 	// international borders. When set to true, the service will return routes which
@@ -1868,30 +1887,30 @@ type OptimizationV2NewRequestParamsOptionsRouting struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsOptionsRouting) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsOptionsRouting
+func (r OptimizationV2SubmitParamsOptionsRouting) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsOptionsRouting
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsOptionsRouting) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsOptionsRouting) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[OptimizationV2NewRequestParamsOptionsRouting](
+	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsRouting](
 		"context", "`avgspeed`",
 	)
-	apijson.RegisterFieldValidator[OptimizationV2NewRequestParamsOptionsRouting](
+	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsRouting](
 		"mode", "`car`", "`truck`",
 	)
 }
 
 // The properties Steps, Type are required.
-type OptimizationV2NewRequestParamsRelation struct {
+type OptimizationV2SubmitParamsRelation struct {
 	// The `steps` property specifies the tasks or steps that are part of the relation
 	// and must be carried out in a manner defined in the `type` parameter. Please note
 	// you can add any number of steps here, except when relation type is `precedence`
 	// where only 2 tasks can be added.
-	Steps []OptimizationV2NewRequestParamsRelationStep `json:"steps,omitzero,required"`
+	Steps []OptimizationV2SubmitParamsRelationStep `json:"steps,omitzero,required"`
 	// Specifies the type of relation constraint. The following types are supported:
 	//
 	//   - `in_same_route`: Ensures that all `steps` are covered in the same route in
@@ -1951,22 +1970,22 @@ type OptimizationV2NewRequestParamsRelation struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsRelation) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsRelation
+func (r OptimizationV2SubmitParamsRelation) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsRelation
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsRelation) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsRelation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[OptimizationV2NewRequestParamsRelation](
+	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsRelation](
 		"type", "`in_same_route`", "`in_sequence`", "`in_direct_sequence`", "`precedence`",
 	)
 }
 
 // The property Type is required.
-type OptimizationV2NewRequestParamsRelationStep struct {
+type OptimizationV2SubmitParamsRelationStep struct {
 	// Specifies the type of the step. The `start` and `end` step types have to be the
 	// first and last steps, respectively, in a relation.
 	//
@@ -1981,26 +2000,26 @@ type OptimizationV2NewRequestParamsRelationStep struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsRelationStep) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsRelationStep
+func (r OptimizationV2SubmitParamsRelationStep) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsRelationStep
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsRelationStep) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsRelationStep) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[OptimizationV2NewRequestParamsRelationStep](
+	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsRelationStep](
 		"type", "`start`", "`end`", "`job`", "`pickup`", "`delivery`",
 	)
 }
 
 // The properties Cost, Steps, Vehicle are required.
-type OptimizationV2NewRequestParamsSolution struct {
+type OptimizationV2SubmitParamsSolution struct {
 	// Specify the cost of the route.
 	Cost int64 `json:"cost,required"`
 	// Describe the steps in this route.
-	Steps []OptimizationV2NewRequestParamsSolutionStep `json:"steps,omitzero,required"`
+	Steps []OptimizationV2SubmitParamsSolutionStep `json:"steps,omitzero,required"`
 	// Specify the ID of the vehicle that was assigned to the route. This field is
 	// mandatory when using the `solution` attribute and providing an empty string
 	// would result in error. The IDs are case-sensitive.
@@ -2035,18 +2054,18 @@ type OptimizationV2NewRequestParamsSolution struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsSolution) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsSolution
+func (r OptimizationV2SubmitParamsSolution) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsSolution
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsSolution) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsSolution) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Describe details about a step of a route
 //
 // The properties ID, Arrival, Type are required.
-type OptimizationV2NewRequestParamsSolutionStep struct {
+type OptimizationV2SubmitParamsSolutionStep struct {
 	// The ID of the step. This field is mandatory for all steps except for `start` and
 	// `end` type.
 	//
@@ -2107,16 +2126,16 @@ type OptimizationV2NewRequestParamsSolutionStep struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsSolutionStep) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsSolutionStep
+func (r OptimizationV2SubmitParamsSolutionStep) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsSolutionStep
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsSolutionStep) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsSolutionStep) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[OptimizationV2NewRequestParamsSolutionStep](
+	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsSolutionStep](
 		"type", "`start`", "`end`", "`job`", "`pickup`", "`delivery`", "`break`",
 	)
 }
@@ -2136,7 +2155,7 @@ func init() {
 //
 // Ultimately, the goal is to minimize the number of unassigned tasks while still
 // meeting all the necessary constraints and objectives.
-type OptimizationV2NewRequestParamsUnassigned struct {
+type OptimizationV2SubmitParamsUnassigned struct {
 	// Specify the unassigned job IDs from the previous optimization result. Please
 	// note the IDs should also be present in the `jobs` part of the input.
 	//
@@ -2157,16 +2176,16 @@ type OptimizationV2NewRequestParamsUnassigned struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsUnassigned) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsUnassigned
+func (r OptimizationV2SubmitParamsUnassigned) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsUnassigned
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsUnassigned) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsUnassigned) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The property ID is required.
-type OptimizationV2NewRequestParamsZone struct {
+type OptimizationV2SubmitParamsZone struct {
 	// Provide an ID for the zone. This field is mandatory when adding zones.
 	ID int64 `json:"id,required"`
 	// Provide the ID of a pre-created geofence using the
@@ -2179,15 +2198,15 @@ type OptimizationV2NewRequestParamsZone struct {
 	// “MultiPolygon” geoJSON types are supported.
 	//
 	// Please note that one of `geometry` or `geofence_id` should be provided.
-	Geometry OptimizationV2NewRequestParamsZoneGeometry `json:"geometry,omitzero"`
+	Geometry OptimizationV2SubmitParamsZoneGeometry `json:"geometry,omitzero"`
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsZone) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsZone
+func (r OptimizationV2SubmitParamsZone) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsZone
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsZone) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsZone) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -2196,7 +2215,7 @@ func (r *OptimizationV2NewRequestParamsZone) UnmarshalJSON(data []byte) error {
 // “MultiPolygon” geoJSON types are supported.
 //
 // Please note that one of `geometry` or `geofence_id` should be provided.
-type OptimizationV2NewRequestParamsZoneGeometry struct {
+type OptimizationV2SubmitParamsZoneGeometry struct {
 	// Provide a description to identify the zone
 	Description param.Opt[string] `json:"description,omitzero"`
 	// An array of coordinates in the \[longitude, latitude\] format, representing the
@@ -2209,35 +2228,16 @@ type OptimizationV2NewRequestParamsZoneGeometry struct {
 	paramObj
 }
 
-func (r OptimizationV2NewRequestParamsZoneGeometry) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationV2NewRequestParamsZoneGeometry
+func (r OptimizationV2SubmitParamsZoneGeometry) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationV2SubmitParamsZoneGeometry
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationV2NewRequestParamsZoneGeometry) UnmarshalJSON(data []byte) error {
+func (r *OptimizationV2SubmitParamsZoneGeometry) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[OptimizationV2NewRequestParamsZoneGeometry](
+	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsZoneGeometry](
 		"type", "`Polygon`", "`MultiPolygon`",
 	)
-}
-
-type OptimizationV2GetResultParams struct {
-	// The unique ID that was returned on successful submission of the Optimization
-	// POST request.
-	ID string `query:"id,required" json:"-"`
-	// A key is a unique identifier that is required to authenticate a request to the
-	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	paramObj
-}
-
-// URLQuery serializes [OptimizationV2GetResultParams]'s query parameters as
-// `url.Values`.
-func (r OptimizationV2GetResultParams) URLQuery() (v url.Values, err error) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
 }

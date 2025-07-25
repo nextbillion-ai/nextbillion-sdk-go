@@ -35,17 +35,17 @@ func NewDiscoverService(opts ...option.RequestOption) (r DiscoverService) {
 }
 
 // Discover matching places
-func (r *DiscoverService) Get(ctx context.Context, query DiscoverGetParams, opts ...option.RequestOption) (res *DiscoverGetResponse, err error) {
+func (r *DiscoverService) List(ctx context.Context, query DiscoverListParams, opts ...option.RequestOption) (res *DiscoverListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "discover"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
-type DiscoverGetResponse struct {
+type DiscoverListResponse struct {
 	// The results are presented as a JSON list of candidates in ranked order
 	// (most-likely to least-likely) based on the matched location criteria.
-	Items []DiscoverGetResponseItem `json:"items"`
+	Items []DiscoverListResponseItem `json:"items"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -55,12 +55,12 @@ type DiscoverGetResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r DiscoverGetResponse) RawJSON() string { return r.JSON.raw }
-func (r *DiscoverGetResponse) UnmarshalJSON(data []byte) error {
+func (r DiscoverListResponse) RawJSON() string { return r.JSON.raw }
+func (r *DiscoverListResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type DiscoverGetResponseItem struct {
+type DiscoverListResponseItem struct {
 	// The unique identifier for the result item.
 	ID string `json:"id"`
 	// An array returning the location coordinates of all the access points of the
@@ -79,11 +79,11 @@ type DiscoverGetResponseItem struct {
 	// result covers. `place` typed results have no `mapView`.
 	MapView MapView `json:"mapView"`
 	// Returns the operating hours of the place, if available.
-	OpeningHours DiscoverGetResponseItemOpeningHours `json:"openingHours"`
+	OpeningHours DiscoverListResponseItemOpeningHours `json:"openingHours"`
 	// Returns the location coordinates of the result.
 	Position Position `json:"position"`
 	// Score of the result. A higher score indicates a closer match.
-	Scoring DiscoverGetResponseItemScoring `json:"scoring"`
+	Scoring DiscoverListResponseItemScoring `json:"scoring"`
 	// The localized display name of this result item.
 	Title string `json:"title"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -105,16 +105,16 @@ type DiscoverGetResponseItem struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r DiscoverGetResponseItem) RawJSON() string { return r.JSON.raw }
-func (r *DiscoverGetResponseItem) UnmarshalJSON(data []byte) error {
+func (r DiscoverListResponseItem) RawJSON() string { return r.JSON.raw }
+func (r *DiscoverListResponseItem) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Returns the operating hours of the place, if available.
-type DiscoverGetResponseItemOpeningHours struct {
+type DiscoverListResponseItemOpeningHours struct {
 	// A collection of attributes with details about the opening and closing hours for
 	// each day of the week.
-	TimeRanges []DiscoverGetResponseItemOpeningHoursTimeRange `json:"timeRanges"`
+	TimeRanges []DiscoverListResponseItemOpeningHoursTimeRange `json:"timeRanges"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		TimeRanges  respjson.Field
@@ -124,16 +124,16 @@ type DiscoverGetResponseItemOpeningHours struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r DiscoverGetResponseItemOpeningHours) RawJSON() string { return r.JSON.raw }
-func (r *DiscoverGetResponseItemOpeningHours) UnmarshalJSON(data []byte) error {
+func (r DiscoverListResponseItemOpeningHours) RawJSON() string { return r.JSON.raw }
+func (r *DiscoverListResponseItemOpeningHours) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type DiscoverGetResponseItemOpeningHoursTimeRange struct {
+type DiscoverListResponseItemOpeningHoursTimeRange struct {
 	// Returns the closing time details.
-	EndTime DiscoverGetResponseItemOpeningHoursTimeRangeEndTime `json:"endTime"`
+	EndTime DiscoverListResponseItemOpeningHoursTimeRangeEndTime `json:"endTime"`
 	// Returns the open time details.
-	StartTime DiscoverGetResponseItemOpeningHoursTimeRangeStartTime `json:"startTime"`
+	StartTime DiscoverListResponseItemOpeningHoursTimeRangeStartTime `json:"startTime"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		EndTime     respjson.Field
@@ -144,13 +144,13 @@ type DiscoverGetResponseItemOpeningHoursTimeRange struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r DiscoverGetResponseItemOpeningHoursTimeRange) RawJSON() string { return r.JSON.raw }
-func (r *DiscoverGetResponseItemOpeningHoursTimeRange) UnmarshalJSON(data []byte) error {
+func (r DiscoverListResponseItemOpeningHoursTimeRange) RawJSON() string { return r.JSON.raw }
+func (r *DiscoverListResponseItemOpeningHoursTimeRange) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Returns the closing time details.
-type DiscoverGetResponseItemOpeningHoursTimeRangeEndTime struct {
+type DiscoverListResponseItemOpeningHoursTimeRangeEndTime struct {
 	// The date to which the subsequent closing time details belong to.
 	Date string `json:"date"`
 	// The hour of the day when the place closes.
@@ -168,13 +168,13 @@ type DiscoverGetResponseItemOpeningHoursTimeRangeEndTime struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r DiscoverGetResponseItemOpeningHoursTimeRangeEndTime) RawJSON() string { return r.JSON.raw }
-func (r *DiscoverGetResponseItemOpeningHoursTimeRangeEndTime) UnmarshalJSON(data []byte) error {
+func (r DiscoverListResponseItemOpeningHoursTimeRangeEndTime) RawJSON() string { return r.JSON.raw }
+func (r *DiscoverListResponseItemOpeningHoursTimeRangeEndTime) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Returns the open time details.
-type DiscoverGetResponseItemOpeningHoursTimeRangeStartTime struct {
+type DiscoverListResponseItemOpeningHoursTimeRangeStartTime struct {
 	// The date to which the subsequent open time details belong to.
 	Date string `json:"date"`
 	// The hour of the day when the place opens.
@@ -192,13 +192,13 @@ type DiscoverGetResponseItemOpeningHoursTimeRangeStartTime struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r DiscoverGetResponseItemOpeningHoursTimeRangeStartTime) RawJSON() string { return r.JSON.raw }
-func (r *DiscoverGetResponseItemOpeningHoursTimeRangeStartTime) UnmarshalJSON(data []byte) error {
+func (r DiscoverListResponseItemOpeningHoursTimeRangeStartTime) RawJSON() string { return r.JSON.raw }
+func (r *DiscoverListResponseItemOpeningHoursTimeRangeStartTime) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Score of the result. A higher score indicates a closer match.
-type DiscoverGetResponseItemScoring struct {
+type DiscoverListResponseItemScoring struct {
 	// A breakdown of how closely individual field of the result matched with the
 	// provided query `q`.
 	FieldScore any `json:"fieldScore"`
@@ -215,12 +215,12 @@ type DiscoverGetResponseItemScoring struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r DiscoverGetResponseItemScoring) RawJSON() string { return r.JSON.raw }
-func (r *DiscoverGetResponseItemScoring) UnmarshalJSON(data []byte) error {
+func (r DiscoverListResponseItemScoring) RawJSON() string { return r.JSON.raw }
+func (r *DiscoverListResponseItemScoring) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type DiscoverGetParams struct {
+type DiscoverListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
@@ -270,8 +270,8 @@ type DiscoverGetParams struct {
 	paramObj
 }
 
-// URLQuery serializes [DiscoverGetParams]'s query parameters as `url.Values`.
-func (r DiscoverGetParams) URLQuery() (v url.Values, err error) {
+// URLQuery serializes [DiscoverListParams]'s query parameters as `url.Values`.
+func (r DiscoverListParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
