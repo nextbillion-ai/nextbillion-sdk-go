@@ -49,7 +49,7 @@ func NewOptimizationService(opts ...option.RequestOption) (r OptimizationService
 // # Roundtrip optimization with customized destinations
 //
 // A list of all parameters is specified in the next section.
-func (r *OptimizationService) ComputeRoute(ctx context.Context, query OptimizationComputeRouteParams, opts ...option.RequestOption) (res *OptimizationComputeRouteResponse, err error) {
+func (r *OptimizationService) Compute(ctx context.Context, query OptimizationComputeParams, opts ...option.RequestOption) (res *OptimizationComputeResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "optimization/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
@@ -94,16 +94,16 @@ func (r *PostResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationComputeRouteResponse struct {
+type OptimizationComputeResponse struct {
 	// A string indicating the state of the response. This is a separate code than the
 	// HTTP status code. On normal valid responses, the value will be `Ok`.
 	Code string `json:"code"`
 	// Contains the latitude and longitude of a location
-	Location OptimizationComputeRouteResponseLocation `json:"location"`
+	Location OptimizationComputeResponseLocation `json:"location"`
 	// An array of 0 or 1 trip objects. Each object has the following schema.
-	Trips []OptimizationComputeRouteResponseTrip `json:"trips"`
+	Trips []OptimizationComputeResponseTrip `json:"trips"`
 	// Each waypoint is an input coordinate snapped to the road and path network.
-	Waypoints []OptimizationComputeRouteResponseWaypoint `json:"waypoints"`
+	Waypoints []OptimizationComputeResponseWaypoint `json:"waypoints"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Code        respjson.Field
@@ -116,13 +116,13 @@ type OptimizationComputeRouteResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationComputeRouteResponse) RawJSON() string { return r.JSON.raw }
-func (r *OptimizationComputeRouteResponse) UnmarshalJSON(data []byte) error {
+func (r OptimizationComputeResponse) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationComputeResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Contains the latitude and longitude of a location
-type OptimizationComputeRouteResponseLocation struct {
+type OptimizationComputeResponseLocation struct {
 	// Latitude coordinate of the location.
 	Latitude float64 `json:"latitude"`
 	// Longitude coordinate of the location.
@@ -137,21 +137,21 @@ type OptimizationComputeRouteResponseLocation struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationComputeRouteResponseLocation) RawJSON() string { return r.JSON.raw }
-func (r *OptimizationComputeRouteResponseLocation) UnmarshalJSON(data []byte) error {
+func (r OptimizationComputeResponseLocation) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationComputeResponseLocation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationComputeRouteResponseTrip struct {
+type OptimizationComputeResponseTrip struct {
 	// Distance of the trip in meters.
 	Distance float64 `json:"distance"`
 	// Duration of the trip in seconds
 	Duration float64 `json:"duration"`
 	// The GeoJSON representation of the route.
-	Geojson OptimizationComputeRouteResponseTripGeojson `json:"geojson"`
+	Geojson OptimizationComputeResponseTripGeojson `json:"geojson"`
 	// `polyline` or `polyline6` format of route geometry.
-	Geometry string                                    `json:"geometry"`
-	Legs     []OptimizationComputeRouteResponseTripLeg `json:"legs"`
+	Geometry string                               `json:"geometry"`
+	Legs     []OptimizationComputeResponseTripLeg `json:"legs"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Distance    respjson.Field
@@ -165,13 +165,13 @@ type OptimizationComputeRouteResponseTrip struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationComputeRouteResponseTrip) RawJSON() string { return r.JSON.raw }
-func (r *OptimizationComputeRouteResponseTrip) UnmarshalJSON(data []byte) error {
+func (r OptimizationComputeResponseTrip) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationComputeResponseTrip) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The GeoJSON representation of the route.
-type OptimizationComputeRouteResponseTripGeojson struct {
+type OptimizationComputeResponseTripGeojson struct {
 	// The encoded geometry of the geojson in the `trip`.
 	Geometry string `json:"geometry"`
 	// Additional properties associated with the `trip`.
@@ -192,18 +192,18 @@ type OptimizationComputeRouteResponseTripGeojson struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationComputeRouteResponseTripGeojson) RawJSON() string { return r.JSON.raw }
-func (r *OptimizationComputeRouteResponseTripGeojson) UnmarshalJSON(data []byte) error {
+func (r OptimizationComputeResponseTripGeojson) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationComputeResponseTripGeojson) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationComputeRouteResponseTripLeg struct {
+type OptimizationComputeResponseTripLeg struct {
 	// Distance of leg in metres.
 	Distance float64 `json:"distance"`
 	// Duration of leg in seconds.
 	Duration float64 `json:"duration"`
 	// An array of step objects.
-	Steps []OptimizationComputeRouteResponseTripLegStep `json:"steps"`
+	Steps []OptimizationComputeResponseTripLegStep `json:"steps"`
 	// Summary of the `leg` object.
 	Summary string `json:"summary"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -218,18 +218,18 @@ type OptimizationComputeRouteResponseTripLeg struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationComputeRouteResponseTripLeg) RawJSON() string { return r.JSON.raw }
-func (r *OptimizationComputeRouteResponseTripLeg) UnmarshalJSON(data []byte) error {
+func (r OptimizationComputeResponseTripLeg) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationComputeResponseTripLeg) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationComputeRouteResponseTripLegStep struct {
+type OptimizationComputeResponseTripLegStep struct {
 	// Distance of the `step` object in meters.
 	Distance float64 `json:"distance"`
 	// Duration of the `step` object in seconds.
 	Duration float64 `json:"duration"`
 	// The GeoJSON representation of the `step`.
-	Geojson OptimizationComputeRouteResponseTripLegStepGeojson `json:"geojson"`
+	Geojson OptimizationComputeResponseTripLegStepGeojson `json:"geojson"`
 	// Encoded geometry of the `step` in the selected format.
 	Geometry string `json:"geometry"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -244,13 +244,13 @@ type OptimizationComputeRouteResponseTripLegStep struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationComputeRouteResponseTripLegStep) RawJSON() string { return r.JSON.raw }
-func (r *OptimizationComputeRouteResponseTripLegStep) UnmarshalJSON(data []byte) error {
+func (r OptimizationComputeResponseTripLegStep) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationComputeResponseTripLegStep) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The GeoJSON representation of the `step`.
-type OptimizationComputeRouteResponseTripLegStepGeojson struct {
+type OptimizationComputeResponseTripLegStepGeojson struct {
 	// The encoded geometry of the geojson in the `step`.
 	Geometry string `json:"geometry"`
 	// Additional properties associated with the `step`.
@@ -271,14 +271,14 @@ type OptimizationComputeRouteResponseTripLegStepGeojson struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationComputeRouteResponseTripLegStepGeojson) RawJSON() string { return r.JSON.raw }
-func (r *OptimizationComputeRouteResponseTripLegStepGeojson) UnmarshalJSON(data []byte) error {
+func (r OptimizationComputeResponseTripLegStepGeojson) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationComputeResponseTripLegStepGeojson) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationComputeRouteResponseWaypoint struct {
+type OptimizationComputeResponseWaypoint struct {
 	// Describes the location of the waypoint.
-	Location OptimizationComputeRouteResponseWaypointLocation `json:"location"`
+	Location OptimizationComputeResponseWaypointLocation `json:"location"`
 	// Name of the waypoint.
 	Name string `json:"name"`
 	// Denotes the ID of a trip. Starts with 0.
@@ -298,13 +298,13 @@ type OptimizationComputeRouteResponseWaypoint struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationComputeRouteResponseWaypoint) RawJSON() string { return r.JSON.raw }
-func (r *OptimizationComputeRouteResponseWaypoint) UnmarshalJSON(data []byte) error {
+func (r OptimizationComputeResponseWaypoint) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationComputeResponseWaypoint) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Describes the location of the waypoint.
-type OptimizationComputeRouteResponseWaypointLocation struct {
+type OptimizationComputeResponseWaypointLocation struct {
 	// Latitude coordinate of the waypoint.
 	Latitude float64 `json:"latitude"`
 	// Longitude coordinate of the waypoint.
@@ -319,12 +319,12 @@ type OptimizationComputeRouteResponseWaypointLocation struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationComputeRouteResponseWaypointLocation) RawJSON() string { return r.JSON.raw }
-func (r *OptimizationComputeRouteResponseWaypointLocation) UnmarshalJSON(data []byte) error {
+func (r OptimizationComputeResponseWaypointLocation) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationComputeResponseWaypointLocation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationComputeRouteParams struct {
+type OptimizationComputeParams struct {
 	// This is a pipe-separated list of coordinates.
 	//
 	// Minimum 3 pairs of coordinates and Maximum 12 pairs of coordinates are allowed.
@@ -342,12 +342,12 @@ type OptimizationComputeRouteParams struct {
 	// coordinate and show its position in the list with the `;` separator.
 	//
 	// Any of "`unrestricted`", "`curb`".
-	Approaches OptimizationComputeRouteParamsApproaches `query:"approaches,omitzero" json:"-"`
+	Approaches OptimizationComputeParamsApproaches `query:"approaches,omitzero" json:"-"`
 	// Specify the destination coordinate of the returned route. If the input is
 	// `last`, the last coordinate will be the destination.
 	//
 	// Any of "`any`", "`last`".
-	Destination OptimizationComputeRouteParamsDestination `query:"destination,omitzero" json:"-"`
+	Destination OptimizationComputeParamsDestination `query:"destination,omitzero" json:"-"`
 	// Sets the output format of the route geometry in the response.
 	//
 	// On providing `polyline` and `polyline6` as input, respective encoded geometry is
@@ -356,7 +356,7 @@ type OptimizationComputeRouteParams struct {
 	// route.
 	//
 	// Any of "`polyline`", "`polyline6`", "`geojson`".
-	Geometries OptimizationComputeRouteParamsGeometries `query:"geometries,omitzero" json:"-"`
+	Geometries OptimizationComputeParamsGeometries `query:"geometries,omitzero" json:"-"`
 	// Set which driving mode the service should use to determine a route. For example,
 	// if you use "car", the API will return a route that a car can take. Using "truck"
 	// will return a route a truck can use, taking into account appropriate truck
@@ -383,18 +383,18 @@ type OptimizationComputeRouteParams struct {
 	// additional profiles.
 	//
 	// Any of "`car`", "`truck`".
-	Mode OptimizationComputeRouteParamsMode `query:"mode,omitzero" json:"-"`
+	Mode OptimizationComputeParamsMode `query:"mode,omitzero" json:"-"`
 	// The coordinate at which to start the returned route. If this is not configured,
 	// the return route’s destination will be the first coordinate.
 	//
 	// Any of "`any`", "`first`".
-	Source OptimizationComputeRouteParamsSource `query:"source,omitzero" json:"-"`
+	Source OptimizationComputeParamsSource `query:"source,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [OptimizationComputeRouteParams]'s query parameters as
+// URLQuery serializes [OptimizationComputeParams]'s query parameters as
 // `url.Values`.
-func (r OptimizationComputeRouteParams) URLQuery() (v url.Values, err error) {
+func (r OptimizationComputeParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -405,20 +405,20 @@ func (r OptimizationComputeRouteParams) URLQuery() (v url.Values, err error) {
 // approach waypoints in a requested route. If provided, the number of `approaches`
 // must be the same as the number of `coordinates`. However, you can skip a
 // coordinate and show its position in the list with the `;` separator.
-type OptimizationComputeRouteParamsApproaches string
+type OptimizationComputeParamsApproaches string
 
 const (
-	OptimizationComputeRouteParamsApproachesUnrestricted OptimizationComputeRouteParamsApproaches = "`unrestricted`"
-	OptimizationComputeRouteParamsApproachesCurb         OptimizationComputeRouteParamsApproaches = "`curb`"
+	OptimizationComputeParamsApproachesUnrestricted OptimizationComputeParamsApproaches = "`unrestricted`"
+	OptimizationComputeParamsApproachesCurb         OptimizationComputeParamsApproaches = "`curb`"
 )
 
 // Specify the destination coordinate of the returned route. If the input is
 // `last`, the last coordinate will be the destination.
-type OptimizationComputeRouteParamsDestination string
+type OptimizationComputeParamsDestination string
 
 const (
-	OptimizationComputeRouteParamsDestinationAny  OptimizationComputeRouteParamsDestination = "`any`"
-	OptimizationComputeRouteParamsDestinationLast OptimizationComputeRouteParamsDestination = "`last`"
+	OptimizationComputeParamsDestinationAny  OptimizationComputeParamsDestination = "`any`"
+	OptimizationComputeParamsDestinationLast OptimizationComputeParamsDestination = "`last`"
 )
 
 // Sets the output format of the route geometry in the response.
@@ -427,12 +427,12 @@ const (
 // returned. However, when `geojson` is provided as the input value, `polyline`
 // encoded geometry is returned in the response along with a geojson details of the
 // route.
-type OptimizationComputeRouteParamsGeometries string
+type OptimizationComputeParamsGeometries string
 
 const (
-	OptimizationComputeRouteParamsGeometriesPolyline  OptimizationComputeRouteParamsGeometries = "`polyline`"
-	OptimizationComputeRouteParamsGeometriesPolyline6 OptimizationComputeRouteParamsGeometries = "`polyline6`"
-	OptimizationComputeRouteParamsGeometriesGeojson   OptimizationComputeRouteParamsGeometries = "`geojson`"
+	OptimizationComputeParamsGeometriesPolyline  OptimizationComputeParamsGeometries = "`polyline`"
+	OptimizationComputeParamsGeometriesPolyline6 OptimizationComputeParamsGeometries = "`polyline6`"
+	OptimizationComputeParamsGeometriesGeojson   OptimizationComputeParamsGeometries = "`geojson`"
 )
 
 // Set which driving mode the service should use to determine a route. For example,
@@ -459,20 +459,20 @@ const (
 // representative or reach out at
 // [support@nextbillion.ai](mailto:support@nextbillion.ai) in case you need
 // additional profiles.
-type OptimizationComputeRouteParamsMode string
+type OptimizationComputeParamsMode string
 
 const (
-	OptimizationComputeRouteParamsModeCar   OptimizationComputeRouteParamsMode = "`car`"
-	OptimizationComputeRouteParamsModeTruck OptimizationComputeRouteParamsMode = "`truck`"
+	OptimizationComputeParamsModeCar   OptimizationComputeParamsMode = "`car`"
+	OptimizationComputeParamsModeTruck OptimizationComputeParamsMode = "`truck`"
 )
 
 // The coordinate at which to start the returned route. If this is not configured,
 // the return route’s destination will be the first coordinate.
-type OptimizationComputeRouteParamsSource string
+type OptimizationComputeParamsSource string
 
 const (
-	OptimizationComputeRouteParamsSourceAny   OptimizationComputeRouteParamsSource = "`any`"
-	OptimizationComputeRouteParamsSourceFirst OptimizationComputeRouteParamsSource = "`first`"
+	OptimizationComputeParamsSourceAny   OptimizationComputeParamsSource = "`any`"
+	OptimizationComputeParamsSourceFirst OptimizationComputeParamsSource = "`first`"
 )
 
 type OptimizationReOptimizeParams struct {

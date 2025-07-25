@@ -39,7 +39,7 @@ func TestOptimizationV2GetResult(t *testing.T) {
 	}
 }
 
-func TestOptimizationV2SubmitRequestWithOptionalParams(t *testing.T) {
+func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -52,9 +52,9 @@ func TestOptimizationV2SubmitRequestWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Optimization.V2.SubmitRequest(context.TODO(), nextbillionsdk.OptimizationV2SubmitRequestParams{
+	_, err := client.Optimization.V2.Submit(context.TODO(), nextbillionsdk.OptimizationV2SubmitParams{
 		Key: "key=API_KEY",
-		Locations: nextbillionsdk.OptimizationV2SubmitRequestParamsLocations{
+		Locations: nextbillionsdk.OptimizationV2SubmitParamsLocations{
 			Location:   []string{"string"},
 			ID:         nextbillionsdk.Int(0),
 			Approaches: []string{"`unrestricted`"},
@@ -73,7 +73,7 @@ func TestOptimizationV2SubmitRequestWithOptionalParams(t *testing.T) {
 			}},
 		}},
 		CostMatrix: [][]int64{{0}},
-		Depots: []nextbillionsdk.OptimizationV2SubmitRequestParamsDepot{{
+		Depots: []nextbillionsdk.OptimizationV2SubmitParamsDepot{{
 			ID:            `"id":"depot 1"`,
 			LocationIndex: 0,
 			Description:   nextbillionsdk.String("“description”:”Los_Angeles_depot”"),
@@ -113,26 +113,26 @@ func TestOptimizationV2SubmitRequestWithOptionalParams(t *testing.T) {
 			},
 			Zones: []int64{0},
 		}},
-		Options: nextbillionsdk.OptimizationV2SubmitRequestParamsOptions{
-			Constraint: nextbillionsdk.OptimizationV2SubmitRequestParamsOptionsConstraint{
+		Options: nextbillionsdk.OptimizationV2SubmitParamsOptions{
+			Constraint: nextbillionsdk.OptimizationV2SubmitParamsOptionsConstraint{
 				MaxActivityWaitingTime: nextbillionsdk.Int(0),
 				MaxVehicleOvertime:     nextbillionsdk.Int(0),
 				MaxVisitLateness:       nextbillionsdk.Int(0),
 			},
-			Grouping: nextbillionsdk.OptimizationV2SubmitRequestParamsOptionsGrouping{
-				OrderGrouping: nextbillionsdk.OptimizationV2SubmitRequestParamsOptionsGroupingOrderGrouping{
+			Grouping: nextbillionsdk.OptimizationV2SubmitParamsOptionsGrouping{
+				OrderGrouping: nextbillionsdk.OptimizationV2SubmitParamsOptionsGroupingOrderGrouping{
 					GroupingDiameter: nextbillionsdk.Float(0),
 				},
 				ProximityFactor: nextbillionsdk.Float(0),
-				RouteGrouping: nextbillionsdk.OptimizationV2SubmitRequestParamsOptionsGroupingRouteGrouping{
+				RouteGrouping: nextbillionsdk.OptimizationV2SubmitParamsOptionsGroupingRouteGrouping{
 					PenaltyFactor: nextbillionsdk.Float(0),
 					ZoneDiameter:  nextbillionsdk.Float(0),
 					ZoneSource:    "`system_generated`",
 				},
 			},
-			Objective: nextbillionsdk.OptimizationV2SubmitRequestParamsOptionsObjective{
+			Objective: nextbillionsdk.OptimizationV2SubmitParamsOptionsObjective{
 				AllowEarlyArrival: nextbillionsdk.Bool(true),
-				Custom: nextbillionsdk.OptimizationV2SubmitRequestParamsOptionsObjectiveCustom{
+				Custom: nextbillionsdk.OptimizationV2SubmitParamsOptionsObjectiveCustom{
 					Type:  "`min`",
 					Value: "`vehicles`",
 				},
@@ -141,7 +141,7 @@ func TestOptimizationV2SubmitRequestWithOptionalParams(t *testing.T) {
 				SolvingTimeLimit:  nextbillionsdk.Int(0),
 				TravelCost:        "`duration`",
 			},
-			Routing: nextbillionsdk.OptimizationV2SubmitRequestParamsOptionsRouting{
+			Routing: nextbillionsdk.OptimizationV2SubmitParamsOptionsRouting{
 				Allow:            []string{"taxi"},
 				Avoid:            []string{"`toll`"},
 				Context:          "`avgspeed`",
@@ -156,8 +156,8 @@ func TestOptimizationV2SubmitRequestWithOptionalParams(t *testing.T) {
 				TruckWeight:      nextbillionsdk.Int(0),
 			},
 		},
-		Relations: []nextbillionsdk.OptimizationV2SubmitRequestParamsRelation{{
-			Steps: []nextbillionsdk.OptimizationV2SubmitRequestParamsRelationStep{{
+		Relations: []nextbillionsdk.OptimizationV2SubmitParamsRelation{{
+			Steps: []nextbillionsdk.OptimizationV2SubmitParamsRelationStep{{
 				Type: "`start`",
 				ID:   nextbillionsdk.String(`"id":"Job 1"`),
 			}},
@@ -208,9 +208,9 @@ func TestOptimizationV2SubmitRequestWithOptionalParams(t *testing.T) {
 			},
 			Zones: []int64{0},
 		}},
-		Solution: []nextbillionsdk.OptimizationV2SubmitRequestParamsSolution{{
+		Solution: []nextbillionsdk.OptimizationV2SubmitParamsSolution{{
 			Cost: 0,
-			Steps: []nextbillionsdk.OptimizationV2SubmitRequestParamsSolutionStep{{
+			Steps: []nextbillionsdk.OptimizationV2SubmitParamsSolutionStep{{
 				ID:            `"id": "Job 10"`,
 				Arrival:       0,
 				Type:          "`start`",
@@ -236,14 +236,14 @@ func TestOptimizationV2SubmitRequestWithOptionalParams(t *testing.T) {
 			Setup:       nextbillionsdk.Int(0),
 			WaitingTime: nextbillionsdk.Int(0),
 		}},
-		Unassigned: nextbillionsdk.OptimizationV2SubmitRequestParamsUnassigned{
+		Unassigned: nextbillionsdk.OptimizationV2SubmitParamsUnassigned{
 			Jobs:      []string{"string"},
 			Shipments: [][]string{{"string"}},
 		},
-		Zones: []nextbillionsdk.OptimizationV2SubmitRequestParamsZone{{
+		Zones: []nextbillionsdk.OptimizationV2SubmitParamsZone{{
 			ID:         0,
 			GeofenceID: nextbillionsdk.String("geofence_id"),
-			Geometry: nextbillionsdk.OptimizationV2SubmitRequestParamsZoneGeometry{
+			Geometry: nextbillionsdk.OptimizationV2SubmitParamsZoneGeometry{
 				Coordinates: [][]float64{{0}},
 				Description: nextbillionsdk.String("description"),
 				Type:        "`Polygon`",

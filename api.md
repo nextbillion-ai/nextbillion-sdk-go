@@ -238,11 +238,11 @@ Methods:
 Response Types:
 
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#PostResponse">PostResponse</a>
-- <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationComputeRouteResponse">OptimizationComputeRouteResponse</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationComputeResponse">OptimizationComputeResponse</a>
 
 Methods:
 
-- <code title="get /optimization/json">client.Optimization.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationService.ComputeRoute">ComputeRoute</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationComputeRouteParams">OptimizationComputeRouteParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationComputeRouteResponse">OptimizationComputeRouteResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /optimization/json">client.Optimization.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationService.Compute">Compute</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationComputeParams">OptimizationComputeParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationComputeResponse">OptimizationComputeResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="post /optimization/re_optimization">client.Optimization.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationService.ReOptimize">ReOptimize</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, params <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationReOptimizeParams">OptimizationReOptimizeParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#PostResponse">PostResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 ## DriverAssignment
@@ -275,7 +275,7 @@ Response Types:
 Methods:
 
 - <code title="get /optimization/v2/result">client.Optimization.V2.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationV2Service.GetResult">GetResult</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationV2GetResultParams">OptimizationV2GetResultParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationV2GetResultResponse">OptimizationV2GetResultResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
-- <code title="post /optimization/v2">client.Optimization.V2.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationV2Service.SubmitRequest">SubmitRequest</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, params <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationV2SubmitRequestParams">OptimizationV2SubmitRequestParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#PostResponse">PostResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="post /optimization/v2">client.Optimization.V2.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationV2Service.Submit">Submit</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, params <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#OptimizationV2SubmitParams">OptimizationV2SubmitParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#PostResponse">PostResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 # Geofence
 
@@ -330,11 +330,11 @@ Methods:
 
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DiscoverGetResponse">DiscoverGetResponse</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DiscoverListResponse">DiscoverListResponse</a>
 
 Methods:
 
-- <code title="get /discover">client.Discover.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DiscoverService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DiscoverGetParams">DiscoverGetParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DiscoverGetResponse">DiscoverGetResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /discover">client.Discover.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DiscoverService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DiscoverListParams">DiscoverListParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#DiscoverListResponse">DiscoverListResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 # Browse
 
@@ -362,11 +362,11 @@ Methods:
 
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#IsochroneGetResponse">IsochroneGetResponse</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#IsochroneComputeResponse">IsochroneComputeResponse</a>
 
 Methods:
 
-- <code title="get /isochrone/json">client.Isochrone.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#IsochroneService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#IsochroneGetParams">IsochroneGetParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#IsochroneGetResponse">IsochroneGetResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /isochrone/json">client.Isochrone.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#IsochroneService.Compute">Compute</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#IsochroneComputeParams">IsochroneComputeParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#IsochroneComputeResponse">IsochroneComputeResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 # Restrictions
 
@@ -556,8 +556,8 @@ Methods:
 
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#LookupByIDResponse">LookupByIDResponse</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#LookupGetResponse">LookupGetResponse</a>
 
 Methods:
 
-- <code title="get /lookup">client.Lookup.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#LookupService.ByID">ByID</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#LookupByIDParams">LookupByIDParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#LookupByIDResponse">LookupByIDResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /lookup">client.Lookup.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#LookupService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#LookupGetParams">LookupGetParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go#LookupGetResponse">LookupGetResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
