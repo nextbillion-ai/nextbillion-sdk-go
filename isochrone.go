@@ -37,19 +37,19 @@ func NewIsochroneService(opts ...option.RequestOption) (r IsochroneService) {
 // The NextBillion.ai Isochrone API computes areas that are reachable within a
 // specified amount of time from a location, and returns the reachable regions as
 // contours of polygons or lines that you can display on a map.
-func (r *IsochroneService) Compute(ctx context.Context, query IsochroneComputeParams, opts ...option.RequestOption) (res *IsochroneComputeResponse, err error) {
+func (r *IsochroneService) Get(ctx context.Context, query IsochroneGetParams, opts ...option.RequestOption) (res *IsochroneGetResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "isochrone/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
-type IsochroneComputeResponse struct {
+type IsochroneGetResponse struct {
 	// A
 	// [GeoJSON FeatureCollection](https://datatracker.ietf.org/doc/html/rfc7946#section-3.3)
 	// object with details of the isochrone contours. Each `feature` object in this
 	// collection represents an isochrone.
-	Features []IsochroneComputeResponseFeature `json:"features"`
+	Features []IsochroneGetResponseFeature `json:"features"`
 	// Displays the error message in case of a failed request or operation. Please note
 	// that this parameter is not returned in the response in case of a successful
 	// request.
@@ -75,17 +75,17 @@ type IsochroneComputeResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r IsochroneComputeResponse) RawJSON() string { return r.JSON.raw }
-func (r *IsochroneComputeResponse) UnmarshalJSON(data []byte) error {
+func (r IsochroneGetResponse) RawJSON() string { return r.JSON.raw }
+func (r *IsochroneGetResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type IsochroneComputeResponseFeature struct {
+type IsochroneGetResponseFeature struct {
 	// A [GeoJSON geometry](https://datatracker.ietf.org/doc/html/rfc7946#page-7)
 	// object with details of the contour line.
-	Geometry IsochroneComputeResponseFeatureGeometry `json:"geometry"`
+	Geometry IsochroneGetResponseFeatureGeometry `json:"geometry"`
 	// An object with details of how the isochrone contour can be drawn on a map.
-	Properties IsochroneComputeResponseFeatureProperties `json:"properties"`
+	Properties IsochroneGetResponseFeatureProperties `json:"properties"`
 	// Type of the GeoJSON object. Its value is `Feature` as per the
 	// [GeoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946#section-1.4)
 	// object.
@@ -101,14 +101,14 @@ type IsochroneComputeResponseFeature struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r IsochroneComputeResponseFeature) RawJSON() string { return r.JSON.raw }
-func (r *IsochroneComputeResponseFeature) UnmarshalJSON(data []byte) error {
+func (r IsochroneGetResponseFeature) RawJSON() string { return r.JSON.raw }
+func (r *IsochroneGetResponseFeature) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // A [GeoJSON geometry](https://datatracker.ietf.org/doc/html/rfc7946#page-7)
 // object with details of the contour line.
-type IsochroneComputeResponseFeatureGeometry struct {
+type IsochroneGetResponseFeatureGeometry struct {
 	// An array of coordinate points, in [longitude,latitude] format representing the
 	// isochrone contour line.
 	Coordinates []float64 `json:"coordinates"`
@@ -124,13 +124,13 @@ type IsochroneComputeResponseFeatureGeometry struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r IsochroneComputeResponseFeatureGeometry) RawJSON() string { return r.JSON.raw }
-func (r *IsochroneComputeResponseFeatureGeometry) UnmarshalJSON(data []byte) error {
+func (r IsochroneGetResponseFeatureGeometry) RawJSON() string { return r.JSON.raw }
+func (r *IsochroneGetResponseFeatureGeometry) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // An object with details of how the isochrone contour can be drawn on a map.
-type IsochroneComputeResponseFeatureProperties struct {
+type IsochroneGetResponseFeatureProperties struct {
 	// The hex code of the color of the isochrone contour line
 	Color string `json:"color"`
 	// The value of the metric used in this contour. See the `metric` property to
@@ -165,12 +165,12 @@ type IsochroneComputeResponseFeatureProperties struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r IsochroneComputeResponseFeatureProperties) RawJSON() string { return r.JSON.raw }
-func (r *IsochroneComputeResponseFeatureProperties) UnmarshalJSON(data []byte) error {
+func (r IsochroneGetResponseFeatureProperties) RawJSON() string { return r.JSON.raw }
+func (r *IsochroneGetResponseFeatureProperties) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type IsochroneComputeParams struct {
+type IsochroneGetParams struct {
 	// The distances, in meters, to use for each isochrone contour. You can specify up
 	// to four contours. Distances must be in increasing order. The maximum distance
 	// that can be specified is 60000 meters (60 km).
@@ -226,12 +226,12 @@ type IsochroneComputeParams struct {
 	// additional profiles.
 	//
 	// Any of "`car`", "`truck`".
-	Mode IsochroneComputeParamsMode `query:"mode,omitzero" json:"-"`
+	Mode IsochroneGetParamsMode `query:"mode,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [IsochroneComputeParams]'s query parameters as `url.Values`.
-func (r IsochroneComputeParams) URLQuery() (v url.Values, err error) {
+// URLQuery serializes [IsochroneGetParams]'s query parameters as `url.Values`.
+func (r IsochroneGetParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -250,9 +250,9 @@ func (r IsochroneComputeParams) URLQuery() (v url.Values, err error) {
 // representative or reach out at
 // [support@nextbillion.ai](mailto:support@nextbillion.ai) in case you need
 // additional profiles.
-type IsochroneComputeParamsMode string
+type IsochroneGetParamsMode string
 
 const (
-	IsochroneComputeParamsModeCar   IsochroneComputeParamsMode = "`car`"
-	IsochroneComputeParamsModeTruck IsochroneComputeParamsMode = "`truck`"
+	IsochroneGetParamsModeCar   IsochroneGetParamsMode = "`car`"
+	IsochroneGetParamsModeTruck IsochroneGetParamsMode = "`truck`"
 )
