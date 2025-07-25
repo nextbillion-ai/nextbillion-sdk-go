@@ -37,7 +37,7 @@ func NewOptimizationDriverAssignmentService(opts ...option.RequestOption) (r Opt
 
 // Assigns available drivers (vehicles) to open orders based on specified criteria
 // and constraints.
-func (r *OptimizationDriverAssignmentService) AssignDrivers(ctx context.Context, params OptimizationDriverAssignmentAssignDriversParams, opts ...option.RequestOption) (res *OptimizationDriverAssignmentAssignDriversResponse, err error) {
+func (r *OptimizationDriverAssignmentService) Assign(ctx context.Context, params OptimizationDriverAssignmentAssignParams, opts ...option.RequestOption) (res *OptimizationDriverAssignmentAssignResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "optimization/driver-assignment/v1"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
@@ -150,13 +150,13 @@ func (r *VehicleLocationParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationDriverAssignmentAssignDriversResponse struct {
+type OptimizationDriverAssignmentAssignResponse struct {
 	// Displays indicative error message in case of a failed request or operation.
 	// Please note that this parameter is not returned in the response in case of a
 	// successful request.
 	Message string `json:"message"`
 	// An object containing the details of the assignments.
-	Result OptimizationDriverAssignmentAssignDriversResponseResult `json:"result"`
+	Result OptimizationDriverAssignmentAssignResponseResult `json:"result"`
 	// An integer indicating the HTTP response code. See the
 	// [API Error Handling](https://docs.nextbillion.ai/optimization/driver-assignment-api#api-error-handling)
 	// section below for more information.
@@ -172,28 +172,28 @@ type OptimizationDriverAssignmentAssignDriversResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationDriverAssignmentAssignDriversResponse) RawJSON() string { return r.JSON.raw }
-func (r *OptimizationDriverAssignmentAssignDriversResponse) UnmarshalJSON(data []byte) error {
+func (r OptimizationDriverAssignmentAssignResponse) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationDriverAssignmentAssignResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // An object containing the details of the assignments.
-type OptimizationDriverAssignmentAssignDriversResponseResult struct {
+type OptimizationDriverAssignmentAssignResponseResult struct {
 	// An array of objects containing the details of the potential, alternate vehicle
 	// assignments for the orders in the input. This attribute will not be returned in
 	// the response if the `alternate_assignments` was not provided in the input. Each
 	// object represents alternate assignments for a single order.
-	AlternateAssignments []OptimizationDriverAssignmentAssignDriversResponseResultAlternateAssignment `json:"alternate_assignments"`
+	AlternateAssignments []OptimizationDriverAssignmentAssignResponseResultAlternateAssignment `json:"alternate_assignments"`
 	// A collection of vehicles IDs that were not assigned to any orders. A `null`
 	// value is returned if there are no vehicles without an order assignment.
 	AvailableVehicles []string `json:"available_vehicles"`
 	// An collection of objects returning the trip details for each vehicle which was
 	// assigned to an order. Each object corresponds to one vehicle.
-	Trips []OptimizationDriverAssignmentAssignDriversResponseResultTrip `json:"trips"`
+	Trips []OptimizationDriverAssignmentAssignResponseResultTrip `json:"trips"`
 	// A collection of objects listing the details of orders which remained unassigned.
 	// Each object represents a single order. A `null` value is returned if there are
 	// no unassigned orders.
-	UnassignedOrders []OptimizationDriverAssignmentAssignDriversResponseResultUnassignedOrder `json:"unassigned_orders"`
+	UnassignedOrders []OptimizationDriverAssignmentAssignResponseResultUnassignedOrder `json:"unassigned_orders"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		AlternateAssignments respjson.Field
@@ -206,15 +206,15 @@ type OptimizationDriverAssignmentAssignDriversResponseResult struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationDriverAssignmentAssignDriversResponseResult) RawJSON() string { return r.JSON.raw }
-func (r *OptimizationDriverAssignmentAssignDriversResponseResult) UnmarshalJSON(data []byte) error {
+func (r OptimizationDriverAssignmentAssignResponseResult) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationDriverAssignmentAssignResponseResult) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationDriverAssignmentAssignDriversResponseResultAlternateAssignment struct {
+type OptimizationDriverAssignmentAssignResponseResultAlternateAssignment struct {
 	// An array of objects containing the details of the alternate vehicle assignments.
 	// Each object represents an alternate vehicle assignment.
-	Assignments []OptimizationDriverAssignmentAssignDriversResponseResultAlternateAssignmentAssignment `json:"assignments"`
+	Assignments []OptimizationDriverAssignmentAssignResponseResultAlternateAssignmentAssignment `json:"assignments"`
 	// Returns the order ID associated with the alternate assignments.
 	OrderID string `json:"order_id"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -227,14 +227,14 @@ type OptimizationDriverAssignmentAssignDriversResponseResultAlternateAssignment 
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationDriverAssignmentAssignDriversResponseResultAlternateAssignment) RawJSON() string {
+func (r OptimizationDriverAssignmentAssignResponseResultAlternateAssignment) RawJSON() string {
 	return r.JSON.raw
 }
-func (r *OptimizationDriverAssignmentAssignDriversResponseResultAlternateAssignment) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignResponseResultAlternateAssignment) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationDriverAssignmentAssignDriversResponseResultAlternateAssignmentAssignment struct {
+type OptimizationDriverAssignmentAssignResponseResultAlternateAssignmentAssignment struct {
 	// Returns the ETA to the order's pickup location for the given vehicle.
 	PickupEta int64 `json:"pickup_eta"`
 	// Returns the vehicle ID which could potentially be assigned to the given order.
@@ -249,18 +249,18 @@ type OptimizationDriverAssignmentAssignDriversResponseResultAlternateAssignmentA
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationDriverAssignmentAssignDriversResponseResultAlternateAssignmentAssignment) RawJSON() string {
+func (r OptimizationDriverAssignmentAssignResponseResultAlternateAssignmentAssignment) RawJSON() string {
 	return r.JSON.raw
 }
-func (r *OptimizationDriverAssignmentAssignDriversResponseResultAlternateAssignmentAssignment) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignResponseResultAlternateAssignmentAssignment) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationDriverAssignmentAssignDriversResponseResultTrip struct {
+type OptimizationDriverAssignmentAssignResponseResultTrip struct {
 	// Returns a unique trip ID.
 	TripID string `json:"trip_id"`
 	// Returns the details of the vehicle, assigned order and the trip steps.
-	Vehicle OptimizationDriverAssignmentAssignDriversResponseResultTripVehicle `json:"vehicle"`
+	Vehicle OptimizationDriverAssignmentAssignResponseResultTripVehicle `json:"vehicle"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		TripID      respjson.Field
@@ -271,20 +271,18 @@ type OptimizationDriverAssignmentAssignDriversResponseResultTrip struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationDriverAssignmentAssignDriversResponseResultTrip) RawJSON() string {
-	return r.JSON.raw
-}
-func (r *OptimizationDriverAssignmentAssignDriversResponseResultTrip) UnmarshalJSON(data []byte) error {
+func (r OptimizationDriverAssignmentAssignResponseResultTrip) RawJSON() string { return r.JSON.raw }
+func (r *OptimizationDriverAssignmentAssignResponseResultTrip) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Returns the details of the vehicle, assigned order and the trip steps.
-type OptimizationDriverAssignmentAssignDriversResponseResultTripVehicle struct {
+type OptimizationDriverAssignmentAssignResponseResultTripVehicle struct {
 	// Returns the ID of the vehicle.
 	ID string `json:"id"`
 	// A collection of objects returning the sequence of steps that the vehicle needs
 	// to perform for a trip.
-	Steps OptimizationDriverAssignmentAssignDriversResponseResultTripVehicleSteps `json:"steps"`
+	Steps OptimizationDriverAssignmentAssignResponseResultTripVehicleSteps `json:"steps"`
 	// Location info.
 	VehicleCurrentLocation Location `json:"vehicle_current_location"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -298,16 +296,16 @@ type OptimizationDriverAssignmentAssignDriversResponseResultTripVehicle struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationDriverAssignmentAssignDriversResponseResultTripVehicle) RawJSON() string {
+func (r OptimizationDriverAssignmentAssignResponseResultTripVehicle) RawJSON() string {
 	return r.JSON.raw
 }
-func (r *OptimizationDriverAssignmentAssignDriversResponseResultTripVehicle) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignResponseResultTripVehicle) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // A collection of objects returning the sequence of steps that the vehicle needs
 // to perform for a trip.
-type OptimizationDriverAssignmentAssignDriversResponseResultTripVehicleSteps struct {
+type OptimizationDriverAssignmentAssignResponseResultTripVehicleSteps struct {
 	// Returns the driving distance, in meters, to the step's location from previous
 	// step's location. For the first step of a trip, `distance` indicates the driving
 	// distance from `vehicle_current_location` to the step's location.
@@ -347,14 +345,14 @@ type OptimizationDriverAssignmentAssignDriversResponseResultTripVehicleSteps str
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationDriverAssignmentAssignDriversResponseResultTripVehicleSteps) RawJSON() string {
+func (r OptimizationDriverAssignmentAssignResponseResultTripVehicleSteps) RawJSON() string {
 	return r.JSON.raw
 }
-func (r *OptimizationDriverAssignmentAssignDriversResponseResultTripVehicleSteps) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignResponseResultTripVehicleSteps) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationDriverAssignmentAssignDriversResponseResultUnassignedOrder struct {
+type OptimizationDriverAssignmentAssignResponseResultUnassignedOrder struct {
 	// Returns the ID of the order which remained unassigned.
 	OrderID string `json:"order_id"`
 	// Returns the most probable reason due to which the order remained unassigned.
@@ -369,44 +367,44 @@ type OptimizationDriverAssignmentAssignDriversResponseResultUnassignedOrder stru
 }
 
 // Returns the unmodified JSON received from the API
-func (r OptimizationDriverAssignmentAssignDriversResponseResultUnassignedOrder) RawJSON() string {
+func (r OptimizationDriverAssignmentAssignResponseResultUnassignedOrder) RawJSON() string {
 	return r.JSON.raw
 }
-func (r *OptimizationDriverAssignmentAssignDriversResponseResultUnassignedOrder) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignResponseResultUnassignedOrder) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationDriverAssignmentAssignDriversParams struct {
+type OptimizationDriverAssignmentAssignParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the filtering criterion for the vehicles with respect to each order's
 	// location. `filter` is a mandatory input for all requests.
-	Filter OptimizationDriverAssignmentAssignDriversParamsFilter `json:"filter,omitzero,required"`
+	Filter OptimizationDriverAssignmentAssignParamsFilter `json:"filter,omitzero,required"`
 	// Collects the details of open orders to be fulfilled. Each object represents one
 	// order. All requests must include `orders` as a mandatory input. A maximum of 200
 	// orders is allowed per request.
-	Orders []OptimizationDriverAssignmentAssignDriversParamsOrder `json:"orders,omitzero,required"`
+	Orders []OptimizationDriverAssignmentAssignParamsOrder `json:"orders,omitzero,required"`
 	// Collects the details of vehicles available to fulfill the orders. Each object
 	// represents one vehicle. All requests must include `vehicles` as a mandatory
 	// input. A maximum of 100 vehicles is allowed per request.
 	Vehicles []VehicleParam `json:"vehicles,omitzero,required"`
 	// Configure the assignment constraints and response settings.
-	Options OptimizationDriverAssignmentAssignDriversParamsOptions `json:"options,omitzero"`
+	Options OptimizationDriverAssignmentAssignParamsOptions `json:"options,omitzero"`
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParams) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParams
+func (r OptimizationDriverAssignmentAssignParams) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParams
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParams) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// URLQuery serializes [OptimizationDriverAssignmentAssignDriversParams]'s query
+// URLQuery serializes [OptimizationDriverAssignmentAssignParams]'s query
 // parameters as `url.Values`.
-func (r OptimizationDriverAssignmentAssignDriversParams) URLQuery() (v url.Values, err error) {
+func (r OptimizationDriverAssignmentAssignParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -415,7 +413,7 @@ func (r OptimizationDriverAssignmentAssignDriversParams) URLQuery() (v url.Value
 
 // Specify the filtering criterion for the vehicles with respect to each order's
 // location. `filter` is a mandatory input for all requests.
-type OptimizationDriverAssignmentAssignDriversParamsFilter struct {
+type OptimizationDriverAssignmentAssignParamsFilter struct {
 	// Defines a `driving_distance` filter, in meters. If a vehicle needs to drive
 	// further than this distance to reach a pickup location, it will not be assigned
 	// to that order. Valid range of values for this filter is \[1, 10000\].
@@ -434,21 +432,21 @@ type OptimizationDriverAssignmentAssignDriversParamsFilter struct {
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParamsFilter) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParamsFilter
+func (r OptimizationDriverAssignmentAssignParamsFilter) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParamsFilter
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParamsFilter) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParamsFilter) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The properties ID, Pickup are required.
-type OptimizationDriverAssignmentAssignDriversParamsOrder struct {
+type OptimizationDriverAssignmentAssignParamsOrder struct {
 	// Specify a unique ID for the order.
 	ID string `json:"id,required"`
 	// Specify the location coordinates of the pickup location of the order. This input
 	// is mandatory for each order.
-	Pickup OptimizationDriverAssignmentAssignDriversParamsOrderPickup `json:"pickup,omitzero,required"`
+	Pickup OptimizationDriverAssignmentAssignParamsOrderPickup `json:"pickup,omitzero,required"`
 	// Specify the priority for this order. A higher value indicates a higher priority.
 	// When specified, it will override any priority score deduced from
 	// `order_attribute_priority_mappings` for this order. Valid values are \[1, 10\]
@@ -474,7 +472,7 @@ type OptimizationDriverAssignmentAssignDriversParamsOrder struct {
 	//
 	// - The last location provided is treated as the destination of the trip.
 	// - `dropoffs` is mandatory when `dropoff_details` is set to **true**.
-	Dropoffs []OptimizationDriverAssignmentAssignDriversParamsOrderDropoff `json:"dropoffs,omitzero"`
+	Dropoffs []OptimizationDriverAssignmentAssignParamsOrderDropoff `json:"dropoffs,omitzero"`
 	// Define custom preferences for task assignment based on vehicle's attributes. If
 	// multiple criteria are provided, they are evaluated using an AND
 	// condition—meaning all specified criteria must be met individually for a vehicle
@@ -490,21 +488,21 @@ type OptimizationDriverAssignmentAssignDriversParamsOrder struct {
 	//
 	// Consequently, a vehicle which does not have any `attributes` defined can't be
 	// assigned to an order which has `vehicle_preferences` configured.
-	VehiclePreferences OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferences `json:"vehicle_preferences,omitzero"`
+	VehiclePreferences OptimizationDriverAssignmentAssignParamsOrderVehiclePreferences `json:"vehicle_preferences,omitzero"`
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParamsOrder) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParamsOrder
+func (r OptimizationDriverAssignmentAssignParamsOrder) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParamsOrder
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParamsOrder) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParamsOrder) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Specify the location coordinates of the pickup location of the order. This input
 // is mandatory for each order.
-type OptimizationDriverAssignmentAssignDriversParamsOrderPickup struct {
+type OptimizationDriverAssignmentAssignParamsOrderPickup struct {
 	// Latitude of the pickup location.
 	Lat param.Opt[float64] `json:"lat,omitzero"`
 	// Longitude of the pickup location.
@@ -512,15 +510,15 @@ type OptimizationDriverAssignmentAssignDriversParamsOrderPickup struct {
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParamsOrderPickup) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParamsOrderPickup
+func (r OptimizationDriverAssignmentAssignParamsOrderPickup) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParamsOrderPickup
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParamsOrderPickup) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParamsOrderPickup) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type OptimizationDriverAssignmentAssignDriversParamsOrderDropoff struct {
+type OptimizationDriverAssignmentAssignParamsOrderDropoff struct {
 	// Latitude of the stop location.
 	Lat param.Opt[float64] `json:"lat,omitzero"`
 	// Longitude of the stop location.
@@ -528,11 +526,11 @@ type OptimizationDriverAssignmentAssignDriversParamsOrderDropoff struct {
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParamsOrderDropoff) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParamsOrderDropoff
+func (r OptimizationDriverAssignmentAssignParamsOrderDropoff) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParamsOrderDropoff
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParamsOrderDropoff) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParamsOrderDropoff) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -551,35 +549,35 @@ func (r *OptimizationDriverAssignmentAssignDriversParamsOrderDropoff) UnmarshalJ
 //
 // Consequently, a vehicle which does not have any `attributes` defined can't be
 // assigned to an order which has `vehicle_preferences` configured.
-type OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferences struct {
+type OptimizationDriverAssignmentAssignParamsOrderVehiclePreferences struct {
 	// An array of objects to add exclusion requirements for the order. A vehicle must
 	// **not meet any of the conditions** specified here to be considered for
 	// assignment. Each object represents a single condition. Please note that a
 	// maximum of 10 conditions can be added here for a given order.
-	ExcludeAllOfAttributes []OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesExcludeAllOfAttribute `json:"exclude_all_of_attributes,omitzero"`
+	ExcludeAllOfAttributes []OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesExcludeAllOfAttribute `json:"exclude_all_of_attributes,omitzero"`
 	// An array of objects to add mandatory requirements for the order. A vehicle must
 	// **meet** **all conditions** specified here to be considered for assignment. Each
 	// object represents a single condition. Please note that a maximum of 10
 	// conditions can be added here for a given order.
-	RequiredAllOfAttributes []OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAllOfAttribute `json:"required_all_of_attributes,omitzero"`
+	RequiredAllOfAttributes []OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAllOfAttribute `json:"required_all_of_attributes,omitzero"`
 	// An array of objects to add optional requirements for the order. A vehicle must
 	// **meet** **at least one of the conditions** specified here to be considered for
 	// assignment. Each object represents a single condition. Please note that a
 	// maximum of 10 conditions can be added here for a given order.
-	RequiredAnyOfAttributes []OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAnyOfAttribute `json:"required_any_of_attributes,omitzero"`
+	RequiredAnyOfAttributes []OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAnyOfAttribute `json:"required_any_of_attributes,omitzero"`
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferences) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferences
+func (r OptimizationDriverAssignmentAssignParamsOrderVehiclePreferences) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParamsOrderVehiclePreferences
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferences) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParamsOrderVehiclePreferences) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The properties Attribute, Operator, Value are required.
-type OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesExcludeAllOfAttribute struct {
+type OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesExcludeAllOfAttribute struct {
 	// Specify the name of the attribute. The `attribute` is compared to the keys (of
 	// each `key:value` pair) in `vehicles.attributes` during evaluation.
 	Attribute string `json:"attribute,required"`
@@ -606,16 +604,16 @@ type OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesExclu
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesExcludeAllOfAttribute) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesExcludeAllOfAttribute
+func (r OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesExcludeAllOfAttribute) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesExcludeAllOfAttribute
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesExcludeAllOfAttribute) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesExcludeAllOfAttribute) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The properties Attribute, Operator, Value are required.
-type OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAllOfAttribute struct {
+type OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAllOfAttribute struct {
 	// Specify the name of the attribute. The `attribute` is compared to the keys (of
 	// each `key:value` pair) in `vehicles.attributes` during evaluation.
 	Attribute string `json:"attribute,required"`
@@ -642,16 +640,16 @@ type OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequi
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAllOfAttribute) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAllOfAttribute
+func (r OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAllOfAttribute) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAllOfAttribute
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAllOfAttribute) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAllOfAttribute) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The properties Attribute, Operator, Value are required.
-type OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAnyOfAttribute struct {
+type OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAnyOfAttribute struct {
 	// Specify the name of the attribute. The `attribute` is compared to the keys (of
 	// each `key:value` pair) in `vehicles.attributes` during evaluation.
 	Attribute string `json:"attribute,required"`
@@ -678,16 +676,16 @@ type OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequi
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAnyOfAttribute) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAnyOfAttribute
+func (r OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAnyOfAttribute) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAnyOfAttribute
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParamsOrderVehiclePreferencesRequiredAnyOfAttribute) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAnyOfAttribute) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Configure the assignment constraints and response settings.
-type OptimizationDriverAssignmentAssignDriversParamsOptions struct {
+type OptimizationDriverAssignmentAssignParamsOptions struct {
 	// Specify the maximum number of potential, alternate vehicle assignments to be
 	// returned for each order, apart from the vehicle which was assigned as
 	// recommended. Please note that:
@@ -707,7 +705,7 @@ type OptimizationDriverAssignmentAssignDriversParamsOptions struct {
 	// attributes. In case an order satisfies more than one rule, the highest priority
 	// score from all the rules satisfied, would be the effective priority score for
 	// such an order.
-	OrderAttributePriorityMappings []OptimizationDriverAssignmentAssignDriversParamsOptionsOrderAttributePriorityMapping `json:"order_attribute_priority_mappings,omitzero"`
+	OrderAttributePriorityMappings []OptimizationDriverAssignmentAssignParamsOptionsOrderAttributePriorityMapping `json:"order_attribute_priority_mappings,omitzero"`
 	// Choose a travel cost that will be used by the service for assigning vehicles
 	// efficiently from a set of qualifying ones.
 	//
@@ -717,26 +715,26 @@ type OptimizationDriverAssignmentAssignDriversParamsOptions struct {
 	// attributes. In case a vehicle satisfies more than one rule, the highest priority
 	// score from all the rules satisfied, would be the effective priority score for
 	// such a vehicle.
-	VehicleAttributePriorityMappings []OptimizationDriverAssignmentAssignDriversParamsOptionsVehicleAttributePriorityMapping `json:"vehicle_attribute_priority_mappings,omitzero"`
+	VehicleAttributePriorityMappings []OptimizationDriverAssignmentAssignParamsOptionsVehicleAttributePriorityMapping `json:"vehicle_attribute_priority_mappings,omitzero"`
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParamsOptions) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParamsOptions
+func (r OptimizationDriverAssignmentAssignParamsOptions) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParamsOptions
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParamsOptions) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParamsOptions) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[OptimizationDriverAssignmentAssignDriversParamsOptions](
+	apijson.RegisterFieldValidator[OptimizationDriverAssignmentAssignParamsOptions](
 		"travel_cost", "driving_eta", "driving_distance", "straight_line_distance",
 	)
 }
 
 // The properties Attribute, Operator, Priority, Value are required.
-type OptimizationDriverAssignmentAssignDriversParamsOptionsOrderAttributePriorityMapping struct {
+type OptimizationDriverAssignmentAssignParamsOptionsOrderAttributePriorityMapping struct {
 	// Specify the name of the attribute. The `attribute` is compared to the keys (of
 	// each `key:value` pair) in `orders.attributes` during evaluation.
 	Attribute string `json:"attribute,required"`
@@ -767,16 +765,16 @@ type OptimizationDriverAssignmentAssignDriversParamsOptionsOrderAttributePriorit
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParamsOptionsOrderAttributePriorityMapping) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParamsOptionsOrderAttributePriorityMapping
+func (r OptimizationDriverAssignmentAssignParamsOptionsOrderAttributePriorityMapping) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParamsOptionsOrderAttributePriorityMapping
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParamsOptionsOrderAttributePriorityMapping) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParamsOptionsOrderAttributePriorityMapping) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The properties Attribute, Operator, Priority, Value are required.
-type OptimizationDriverAssignmentAssignDriversParamsOptionsVehicleAttributePriorityMapping struct {
+type OptimizationDriverAssignmentAssignParamsOptionsVehicleAttributePriorityMapping struct {
 	// Specify the name of the attribute. The `attribute` is compared to the keys (of
 	// each `key:value` pair) in `vehicles.attributes` during evaluation.
 	Attribute string `json:"attribute,required"`
@@ -807,10 +805,10 @@ type OptimizationDriverAssignmentAssignDriversParamsOptionsVehicleAttributePrior
 	paramObj
 }
 
-func (r OptimizationDriverAssignmentAssignDriversParamsOptionsVehicleAttributePriorityMapping) MarshalJSON() (data []byte, err error) {
-	type shadow OptimizationDriverAssignmentAssignDriversParamsOptionsVehicleAttributePriorityMapping
+func (r OptimizationDriverAssignmentAssignParamsOptionsVehicleAttributePriorityMapping) MarshalJSON() (data []byte, err error) {
+	type shadow OptimizationDriverAssignmentAssignParamsOptionsVehicleAttributePriorityMapping
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *OptimizationDriverAssignmentAssignDriversParamsOptionsVehicleAttributePriorityMapping) UnmarshalJSON(data []byte) error {
+func (r *OptimizationDriverAssignmentAssignParamsOptionsVehicleAttributePriorityMapping) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
