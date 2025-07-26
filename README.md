@@ -44,19 +44,15 @@ func main() {
 	client := nextbillionsdk.NewClient(
 		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("NEXTBILLION_SDK_API_KEY")
 	)
-	route, err := client.Fleetify.Routes.New(context.TODO(), nextbillionsdk.FleetifyRouteNewParams{
-		Key:         "REPLACE_ME",
-		DriverEmail: "REPLACE_ME",
-		Steps: []nextbillionsdk.RouteStepsRequestParam{{
-			Arrival:  0,
-			Location: []float64{0},
-			Type:     nextbillionsdk.RouteStepsRequestTypeStart,
-		}},
+	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
+		Destination: "REPLACE_ME",
+		Key:         "key",
+		Origin:      "REPLACE_ME",
 	})
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", route.Data)
+	fmt.Printf("%+v\n", response.Msg)
 }
 
 ```
