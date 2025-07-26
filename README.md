@@ -294,10 +294,9 @@ To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
 _, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-	Destination: "41.349302,2.136480",
-	Key:         "REPLACE_ME",
-	Origin:      "41.349302,2.136480",
-	Steps:       nextbillionsdk.Bool(true),
+	Destination: "REPLACE_ME",
+	Key:         "key",
+	Origin:      "REPLACE_ME",
 })
 if err != nil {
 	var apierr *nextbillionsdk.Error
@@ -326,10 +325,9 @@ defer cancel()
 client.Directions.ComputeRoute(
 	ctx,
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Key:         "REPLACE_ME",
-		Origin:      "41.349302,2.136480",
-		Steps:       nextbillionsdk.Bool(true),
+		Destination: "REPLACE_ME",
+		Key:         "key",
+		Origin:      "REPLACE_ME",
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -367,10 +365,9 @@ client := nextbillionsdk.NewClient(
 client.Directions.ComputeRoute(
 	context.TODO(),
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Key:         "REPLACE_ME",
-		Origin:      "41.349302,2.136480",
-		Steps:       nextbillionsdk.Bool(true),
+		Destination: "REPLACE_ME",
+		Key:         "key",
+		Origin:      "REPLACE_ME",
 	},
 	option.WithMaxRetries(5),
 )
@@ -387,10 +384,9 @@ var response *http.Response
 response, err := client.Directions.ComputeRoute(
 	context.TODO(),
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Key:         "REPLACE_ME",
-		Origin:      "41.349302,2.136480",
-		Steps:       nextbillionsdk.Bool(true),
+		Destination: "REPLACE_ME",
+		Key:         "key",
+		Origin:      "REPLACE_ME",
 	},
 	option.WithResponseInto(&response),
 )
