@@ -28,7 +28,6 @@ func TestDirectionComputeRouteWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
 		Destination:     "41.349302,2.136480",
-		Key:             "key",
 		Origin:          "41.349302,2.136480",
 		Altcount:        nextbillionsdk.Int(1),
 		Alternatives:    nextbillionsdk.Bool(true),

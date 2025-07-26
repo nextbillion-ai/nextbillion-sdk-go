@@ -26,7 +26,6 @@ func TestUsage(t *testing.T) {
 	)
 	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	})
 	if err != nil {

@@ -46,7 +46,6 @@ func main() {
 	)
 	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	})
 	if err != nil {
@@ -291,7 +290,6 @@ To handle errors, we recommend that you use the `errors.As` pattern:
 ```go
 _, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
 	Destination: "REPLACE_ME",
-	Key:         "key",
 	Origin:      "REPLACE_ME",
 })
 if err != nil {
@@ -322,7 +320,6 @@ client.Directions.ComputeRoute(
 	ctx,
 	nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	},
 	// This sets the per-retry timeout
@@ -362,7 +359,6 @@ client.Directions.ComputeRoute(
 	context.TODO(),
 	nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	},
 	option.WithMaxRetries(5),
@@ -381,7 +377,6 @@ response, err := client.Directions.ComputeRoute(
 	context.TODO(),
 	nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	},
 	option.WithResponseInto(&response),
