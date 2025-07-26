@@ -40,7 +40,6 @@ func TestUserAgentHeader(t *testing.T) {
 	)
 	client.Directions.ComputeRoute(context.Background(), nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	})
 	if userAgent != fmt.Sprintf("NextbillionSDK/Go %s", internal.PackageVersion) {
@@ -68,7 +67,6 @@ func TestRetryAfter(t *testing.T) {
 	)
 	_, err := client.Directions.ComputeRoute(context.Background(), nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	})
 	if err == nil {
@@ -107,7 +105,6 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 	)
 	_, err := client.Directions.ComputeRoute(context.Background(), nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	})
 	if err == nil {
@@ -141,7 +138,6 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 	)
 	_, err := client.Directions.ComputeRoute(context.Background(), nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	})
 	if err == nil {
@@ -174,7 +170,6 @@ func TestRetryAfterMs(t *testing.T) {
 	)
 	_, err := client.Directions.ComputeRoute(context.Background(), nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	})
 	if err == nil {
@@ -201,7 +196,6 @@ func TestContextCancel(t *testing.T) {
 	cancel()
 	_, err := client.Directions.ComputeRoute(cancelCtx, nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	})
 	if err == nil {
@@ -225,7 +219,6 @@ func TestContextCancelDelay(t *testing.T) {
 	defer cancel()
 	_, err := client.Directions.ComputeRoute(cancelCtx, nextbillionsdk.DirectionComputeRouteParams{
 		Destination: "REPLACE_ME",
-		Key:         "key",
 		Origin:      "REPLACE_ME",
 	})
 	if err == nil {
@@ -255,7 +248,6 @@ func TestContextDeadline(t *testing.T) {
 		)
 		_, err := client.Directions.ComputeRoute(deadlineCtx, nextbillionsdk.DirectionComputeRouteParams{
 			Destination: "REPLACE_ME",
-			Key:         "key",
 			Origin:      "REPLACE_ME",
 		})
 		if err == nil {
