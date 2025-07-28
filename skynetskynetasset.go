@@ -9,11 +9,11 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apijson"
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apiquery"
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/requestconfig"
-	"github.com/stainless-sdks/nextbillion-sdk-go/option"
-	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
 )
 
 // SkynetSkynetAssetService contains methods and other services that help with

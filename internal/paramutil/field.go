@@ -1,8 +1,8 @@
 package paramutil
 
 import (
-	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
-	"github.com/stainless-sdks/nextbillion-sdk-go/packages/respjson"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
 )
 
 func AddrIfPresent[T comparable](v param.Opt[T]) *T {
