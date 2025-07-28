@@ -1,6 +1,6 @@
 # Nextbillion SDK Go API Library
 
-<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go"><img src="https://pkg.go.dev/badge/github.com/stainless-sdks/nextbillion-sdk-go.svg" alt="Go Reference"></a>
+<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go"><img src="https://pkg.go.dev/badge/github.com/nextbillion-ai/nextbillion-sdk-go.svg" alt="Go Reference"></a>
 
 The Nextbillion SDK Go library provides convenient access to the Nextbillion SDK REST API
 from applications written in Go.
@@ -9,17 +9,25 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
+<!-- x-release-please-start-version -->
+
 ```go
 import (
-	"github.com/stainless-sdks/nextbillion-sdk-go" // imported as nextbillionsdk
+	"github.com/nextbillion-ai/nextbillion-sdk-go" // imported as nextbillionsdk
 )
 ```
 
+<!-- x-release-please-end -->
+
 Or to pin the version:
 
+<!-- x-release-please-start-version -->
+
 ```sh
-go get -u 'github.com/stainless-sdks/nextbillion-sdk-go@v0.0.1-alpha.0'
+go get -u 'github.com/nextbillion-ai/nextbillion-sdk-go@v0.1.0-alpha.1'
 ```
+
+<!-- x-release-please-end -->
 
 ## Requirements
 
@@ -36,8 +44,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/stainless-sdks/nextbillion-sdk-go"
-	"github.com/stainless-sdks/nextbillion-sdk-go/option"
+	"github.com/nextbillion-ai/nextbillion-sdk-go"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
 )
 
 func main() {
@@ -45,8 +53,8 @@ func main() {
 		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("NEXTBILLION_SDK_API_KEY")
 	)
 	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "REPLACE_ME",
-		Origin:      "REPLACE_ME",
+		Destination: "1.304046,103.823580",
+		Origin:      "1.310611,103.804930",
 	})
 	if err != nil {
 		panic(err.Error())
@@ -267,7 +275,7 @@ client.Directions.ComputeRoute(context.TODO(), ...,
 
 The request option `option.WithDebugLog(nil)` may be helpful while debugging.
 
-See the [full list of request options](https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go/option).
+See the [full list of request options](https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go/option).
 
 ### Pagination
 
@@ -289,8 +297,8 @@ To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
 _, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-	Destination: "REPLACE_ME",
-	Origin:      "REPLACE_ME",
+	Destination: "1.304046,103.823580",
+	Origin:      "1.310611,103.804930",
 })
 if err != nil {
 	var apierr *nextbillionsdk.Error
@@ -319,8 +327,8 @@ defer cancel()
 client.Directions.ComputeRoute(
 	ctx,
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "REPLACE_ME",
-		Origin:      "REPLACE_ME",
+		Destination: "1.304046,103.823580",
+		Origin:      "1.310611,103.804930",
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -358,8 +366,8 @@ client := nextbillionsdk.NewClient(
 client.Directions.ComputeRoute(
 	context.TODO(),
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "REPLACE_ME",
-		Origin:      "REPLACE_ME",
+		Destination: "1.304046,103.823580",
+		Origin:      "1.310611,103.804930",
 	},
 	option.WithMaxRetries(5),
 )
@@ -376,8 +384,8 @@ var response *http.Response
 response, err := client.Directions.ComputeRoute(
 	context.TODO(),
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "REPLACE_ME",
-		Origin:      "REPLACE_ME",
+		Destination: "1.304046,103.823580",
+		Origin:      "1.310611,103.804930",
 	},
 	option.WithResponseInto(&response),
 )
@@ -485,7 +493,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/nextbillion-sdk-go/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/nextbillion-ai/nextbillion-sdk-go/issues) with questions, bugs, or suggestions.
 
 ## Contributing
 

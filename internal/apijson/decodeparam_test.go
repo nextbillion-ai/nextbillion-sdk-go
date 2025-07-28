@@ -3,8 +3,8 @@ package apijson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apijson"
-	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
 	"reflect"
 	"testing"
 )
