@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2025-07-28)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Features
+
+* **api:** update via SDK Studio ([ea84d18](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/ea84d181ffe7389e36c3c3b21a169ba75e7af51f))
+
 ## 0.1.0-alpha.4 (2025-07-28)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
