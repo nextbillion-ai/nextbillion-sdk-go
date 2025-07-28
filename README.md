@@ -2,7 +2,7 @@
 
 <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go"><img src="https://pkg.go.dev/badge/github.com/nextbillion-ai/nextbillion-sdk-go.svg" alt="Go Reference"></a>
 
-The Nextbillion SDK Go library provides convenient access to the [Nextbillion SDK REST API](https://docs.nextbillion.ai/)
+The Nextbillion SDK Go library provides convenient access to the [Nextbillion SDK REST API](https://docs.nextbillion.ai)
 from applications written in Go.
 
 It is generated with [Stainless](https://www.stainless.com/).
