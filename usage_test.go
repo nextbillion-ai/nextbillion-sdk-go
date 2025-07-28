@@ -25,8 +25,8 @@ func TestUsage(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "REPLACE_ME",
-		Origin:      "REPLACE_ME",
+		Destination: "1.304046,103.823580",
+		Origin:      "1.310611,103.804930",
 	})
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())
