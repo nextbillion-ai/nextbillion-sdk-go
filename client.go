@@ -27,7 +27,7 @@ type Client struct {
 	Isochrone         IsochroneService
 	Restrictions      RestrictionService
 	RestrictionsItems RestrictionsItemService
-	Distancematrix    DistancematrixService
+	DistanceMatrix    DistanceMatrixService
 	Autocomplete      AutocompleteService
 	Navigation        NavigationService
 	Map               MapService
@@ -76,7 +76,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.Isochrone = NewIsochroneService(opts...)
 	r.Restrictions = NewRestrictionService(opts...)
 	r.RestrictionsItems = NewRestrictionsItemService(opts...)
-	r.Distancematrix = NewDistancematrixService(opts...)
+	r.DistanceMatrix = NewDistanceMatrixService(opts...)
 	r.Autocomplete = NewAutocompleteService(opts...)
 	r.Navigation = NewNavigationService(opts...)
 	r.Map = NewMapService(opts...)

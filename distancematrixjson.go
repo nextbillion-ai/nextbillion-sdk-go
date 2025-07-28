@@ -15,27 +15,27 @@ import (
 	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
 )
 
-// DistancematrixJsonService contains methods and other services that help with
+// DistanceMatrixJsonService contains methods and other services that help with
 // interacting with the nextbillion-sdk API.
 //
 // Note, unlike clients, this service does not read variables from the environment
 // automatically. You should not instantiate this service directly, and instead use
-// the [NewDistancematrixJsonService] method instead.
-type DistancematrixJsonService struct {
+// the [NewDistanceMatrixJsonService] method instead.
+type DistanceMatrixJsonService struct {
 	Options []option.RequestOption
 }
 
-// NewDistancematrixJsonService generates a new service that applies the given
+// NewDistanceMatrixJsonService generates a new service that applies the given
 // options to each request. These options are applied after the parent client's
 // options (if there is one), and before any request-specific options.
-func NewDistancematrixJsonService(opts ...option.RequestOption) (r DistancematrixJsonService) {
-	r = DistancematrixJsonService{}
+func NewDistanceMatrixJsonService(opts ...option.RequestOption) (r DistanceMatrixJsonService) {
+	r = DistanceMatrixJsonService{}
 	r.Options = opts
 	return
 }
 
 // asfd
-func (r *DistancematrixJsonService) New(ctx context.Context, opts ...option.RequestOption) (err error) {
+func (r *DistanceMatrixJsonService) New(ctx context.Context, opts ...option.RequestOption) (err error) {
 	opts = append(r.Options[:], opts...)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	path := "distancematrix/json"
@@ -50,20 +50,20 @@ func (r *DistancematrixJsonService) New(ctx context.Context, opts ...option.Requ
 // {C,D,E} we can get the following set of results with distance (meters) and time
 // (seconds) for each. The GET method can only handle up to 100 locations (1
 // location is either 1 origin or 1 destination).
-func (r *DistancematrixJsonService) Get(ctx context.Context, query DistancematrixJsonGetParams, opts ...option.RequestOption) (res *DistancematrixJsonGetResponse, err error) {
+func (r *DistanceMatrixJsonService) Get(ctx context.Context, query DistanceMatrixJsonGetParams, opts ...option.RequestOption) (res *DistanceMatrixJsonGetResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "distancematrix/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
-type DistancematrixJsonGetResponse struct {
+type DistanceMatrixJsonGetResponse struct {
 	// Displays the error message in case of a failed request or operation. Please note
 	// that this parameter is not returned in the response in case of a successful
 	// request.
 	Msg string `json:"msg"`
 	// Container object for a response with an array of arrays structure.
-	Rows []DistancematrixJsonGetResponseRow `json:"rows"`
+	Rows []DistanceMatrixJsonGetResponseRow `json:"rows"`
 	// A string indicating the state of the response. On normal responses, the value
 	// will be `Ok`. Indicative HTTP error codes are returned for different errors. See
 	// the [API Errors Codes](#api-error-codes) section below for more information.
@@ -79,18 +79,18 @@ type DistancematrixJsonGetResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r DistancematrixJsonGetResponse) RawJSON() string { return r.JSON.raw }
-func (r *DistancematrixJsonGetResponse) UnmarshalJSON(data []byte) error {
+func (r DistanceMatrixJsonGetResponse) RawJSON() string { return r.JSON.raw }
+func (r *DistanceMatrixJsonGetResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type DistancematrixJsonGetResponseRow struct {
+type DistanceMatrixJsonGetResponseRow struct {
 	// An array of objects. Each `elements` array corresponds to a single `origins`
 	// coordinate and contains objects with `distance` and `duration` values for each
 	// of the `destinations`. The details in the first `elements` array correspond to
 	// the first `origins` point and the first object corresponds to the first
 	// `destinations` point and so on.
-	Elements []DistancematrixJsonGetResponseRowElement `json:"elements"`
+	Elements []DistanceMatrixJsonGetResponseRowElement `json:"elements"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Elements    respjson.Field
@@ -100,12 +100,12 @@ type DistancematrixJsonGetResponseRow struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r DistancematrixJsonGetResponseRow) RawJSON() string { return r.JSON.raw }
-func (r *DistancematrixJsonGetResponseRow) UnmarshalJSON(data []byte) error {
+func (r DistanceMatrixJsonGetResponseRow) RawJSON() string { return r.JSON.raw }
+func (r *DistanceMatrixJsonGetResponseRow) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type DistancematrixJsonGetResponseRowElement struct {
+type DistanceMatrixJsonGetResponseRowElement struct {
 	// Distance of the route from an origin to a destination, in meters.
 	Distance float64 `json:"distance"`
 	// Duration of the trip from an origin to a destination, in seconds.
@@ -120,12 +120,12 @@ type DistancematrixJsonGetResponseRowElement struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r DistancematrixJsonGetResponseRowElement) RawJSON() string { return r.JSON.raw }
-func (r *DistancematrixJsonGetResponseRowElement) UnmarshalJSON(data []byte) error {
+func (r DistanceMatrixJsonGetResponseRowElement) RawJSON() string { return r.JSON.raw }
+func (r *DistanceMatrixJsonGetResponseRowElement) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type DistancematrixJsonGetParams struct {
+type DistanceMatrixJsonGetParams struct {
 	// "destinations" are the ending coordinates of your route. Ensure that
 	// "destinations" are routable land locations. Multiple "destinations" should be
 	// separated by a pipe symbol "|".
@@ -174,7 +174,7 @@ type DistancematrixJsonGetParams struct {
 	// third index.
 	//
 	// Any of "`unrestricted`", "`curb`".
-	Approaches DistancematrixJsonGetParamsApproaches `query:"approaches,omitzero" json:"-"`
+	Approaches DistanceMatrixJsonGetParamsApproaches `query:"approaches,omitzero" json:"-"`
 	// Setting this will ensure the route avoids ferries, tolls, highways or nothing.
 	// Multiple values should be separated by a pipe (|). If "none" is provided along
 	// with other values, an error is returned as a valid route is not feasible. Please
@@ -183,7 +183,7 @@ type DistancematrixJsonGetParams struct {
 	// objects are avoided.
 	//
 	// Any of "toll", "ferry", "highway", "none".
-	Avoid DistancematrixJsonGetParamsAvoid `query:"avoid,omitzero" json:"-"`
+	Avoid DistanceMatrixJsonGetParamsAvoid `query:"avoid,omitzero" json:"-"`
 	// Set which driving mode the service should use to determine the "distance" and
 	// "duration" values. For example, if you use "car", the API will return the
 	// duration and distance of a route that a car can take. Using "truck" will return
@@ -211,13 +211,13 @@ type DistancematrixJsonGetParams struct {
 	// additional profiles.
 	//
 	// Any of "`car`", "`truck`".
-	Mode DistancematrixJsonGetParamsMode `query:"mode,omitzero" json:"-"`
+	Mode DistanceMatrixJsonGetParamsMode `query:"mode,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [DistancematrixJsonGetParams]'s query parameters as
+// URLQuery serializes [DistanceMatrixJsonGetParams]'s query parameters as
 // `url.Values`.
-func (r DistancematrixJsonGetParams) URLQuery() (v url.Values, err error) {
+func (r DistanceMatrixJsonGetParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -234,11 +234,11 @@ func (r DistancematrixJsonGetParams) URLQuery() (v url.Values, err error) {
 // for the "destinations" value at the same index. Example: "curb;;curb" will apply
 // curbside restriction on the "destinations" points provided at the first and
 // third index.
-type DistancematrixJsonGetParamsApproaches string
+type DistanceMatrixJsonGetParamsApproaches string
 
 const (
-	DistancematrixJsonGetParamsApproachesUnrestricted DistancematrixJsonGetParamsApproaches = "`unrestricted`"
-	DistancematrixJsonGetParamsApproachesCurb         DistancematrixJsonGetParamsApproaches = "`curb`"
+	DistanceMatrixJsonGetParamsApproachesUnrestricted DistanceMatrixJsonGetParamsApproaches = "`unrestricted`"
+	DistanceMatrixJsonGetParamsApproachesCurb         DistanceMatrixJsonGetParamsApproaches = "`curb`"
 )
 
 // Setting this will ensure the route avoids ferries, tolls, highways or nothing.
@@ -247,13 +247,13 @@ const (
 // note that when this parameter is not provided in the input, ferries are set to
 // be avoided by default. When this parameter is provided, only the mentioned
 // objects are avoided.
-type DistancematrixJsonGetParamsAvoid string
+type DistanceMatrixJsonGetParamsAvoid string
 
 const (
-	DistancematrixJsonGetParamsAvoidToll    DistancematrixJsonGetParamsAvoid = "toll"
-	DistancematrixJsonGetParamsAvoidFerry   DistancematrixJsonGetParamsAvoid = "ferry"
-	DistancematrixJsonGetParamsAvoidHighway DistancematrixJsonGetParamsAvoid = "highway"
-	DistancematrixJsonGetParamsAvoidNone    DistancematrixJsonGetParamsAvoid = "none"
+	DistanceMatrixJsonGetParamsAvoidToll    DistanceMatrixJsonGetParamsAvoid = "toll"
+	DistanceMatrixJsonGetParamsAvoidFerry   DistanceMatrixJsonGetParamsAvoid = "ferry"
+	DistanceMatrixJsonGetParamsAvoidHighway DistanceMatrixJsonGetParamsAvoid = "highway"
+	DistanceMatrixJsonGetParamsAvoidNone    DistanceMatrixJsonGetParamsAvoid = "none"
 )
 
 // Set which driving mode the service should use to determine the "distance" and
@@ -281,9 +281,9 @@ const (
 // representative or reach out at
 // [support@nextbillion.ai](mailto:support@nextbillion.ai) in case you need
 // additional profiles.
-type DistancematrixJsonGetParamsMode string
+type DistanceMatrixJsonGetParamsMode string
 
 const (
-	DistancematrixJsonGetParamsModeCar   DistancematrixJsonGetParamsMode = "`car`"
-	DistancematrixJsonGetParamsModeTruck DistancematrixJsonGetParamsMode = "`truck`"
+	DistanceMatrixJsonGetParamsModeCar   DistanceMatrixJsonGetParamsMode = "`car`"
+	DistanceMatrixJsonGetParamsModeTruck DistanceMatrixJsonGetParamsMode = "`truck`"
 )
