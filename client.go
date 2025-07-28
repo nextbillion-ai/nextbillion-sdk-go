@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/requestconfig"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
 // Client creates a struct with services and top level methods that help with

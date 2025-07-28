@@ -8,12 +8,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/testutil"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/testutil"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestLookupGet(t *testing.T) {
+func TestLookupByID(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,7 +26,7 @@ func TestLookupGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Lookup.Get(context.TODO(), nextbillionsdk.LookupGetParams{
+	_, err := client.Lookup.ByID(context.TODO(), nextbillionsdk.LookupByIDParams{
 		ID:  "id",
 		Key: "key=API_KEY",
 	})

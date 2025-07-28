@@ -9,12 +9,12 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apijson"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apiquery"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/requestconfig"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
+	"github.com/stainless-sdks/nextbillion-sdk-go/packages/respjson"
 )
 
 // SkynetAssetService contains methods and other services that help with
@@ -72,6 +72,14 @@ func (r *SkynetAssetService) Update(ctx context.Context, id string, params Skyne
 	return
 }
 
+// Get Asset List
+func (r *SkynetAssetService) List(ctx context.Context, query SkynetAssetListParams, opts ...option.RequestOption) (res *SkynetAssetListResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "skynet/asset/list"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	return
+}
+
 // Delete an Asset
 func (r *SkynetAssetService) Delete(ctx context.Context, id string, body SkynetAssetDeleteParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
 	opts = append(r.Options[:], opts...)
@@ -84,11 +92,15 @@ func (r *SkynetAssetService) Delete(ctx context.Context, id string, body SkynetA
 	return
 }
 
-// Get Asset List
-func (r *SkynetAssetService) GetList(ctx context.Context, query SkynetAssetGetListParams, opts ...option.RequestOption) (res *SkynetAssetGetListResponse, err error) {
+// Bind asset to device
+func (r *SkynetAssetService) Bind(ctx context.Context, id string, params SkynetAssetBindParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "skynet/asset/list"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("skynet/asset/%s/bind", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
 }
 
@@ -215,7 +227,7 @@ func (r *SkynetAssetGetResponse) UnmarshalJSON(data []byte) error {
 // An object containing the information about the `asset` returned.
 type SkynetAssetGetResponseData struct {
 	// An object with details of the `asset` properties.
-	Asset Asset `json:"asset"`
+	Asset AssetDetails `json:"asset"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Asset       respjson.Field
@@ -230,9 +242,9 @@ func (r *SkynetAssetGetResponseData) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type SkynetAssetGetListResponse struct {
+type SkynetAssetListResponse struct {
 	// A data object containing the list of assets.
-	Data SkynetAssetGetListResponseData `json:"data"`
+	Data SkynetAssetListResponseData `json:"data"`
 	// Displays the error message in case of a failed request. If the request is
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
@@ -251,15 +263,15 @@ type SkynetAssetGetListResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetAssetGetListResponse) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetGetListResponse) UnmarshalJSON(data []byte) error {
+func (r SkynetAssetListResponse) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetListResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // A data object containing the list of assets.
-type SkynetAssetGetListResponseData struct {
+type SkynetAssetListResponseData struct {
 	// An array of objects, with each object representing one `asset`.
-	List []Asset `json:"list"`
+	List []AssetDetails `json:"list"`
 	// An object with pagination details of the search results. Use this object to
 	// implement pagination in your application.
 	Page Pagination `json:"page"`
@@ -273,8 +285,8 @@ type SkynetAssetGetListResponseData struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r SkynetAssetGetListResponseData) RawJSON() string { return r.JSON.raw }
-func (r *SkynetAssetGetListResponseData) UnmarshalJSON(data []byte) error {
+func (r SkynetAssetListResponseData) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetListResponseData) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -435,34 +447,7 @@ const (
 	SkynetAssetUpdateParamsClusterAmerica SkynetAssetUpdateParamsCluster = "america"
 )
 
-type SkynetAssetDeleteParams struct {
-	// A key is a unique identifier that is required to authenticate a request to the
-	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// the cluster of the region you want to use
-	//
-	// Any of "america".
-	Cluster SkynetAssetDeleteParamsCluster `query:"cluster,omitzero" json:"-"`
-	paramObj
-}
-
-// URLQuery serializes [SkynetAssetDeleteParams]'s query parameters as
-// `url.Values`.
-func (r SkynetAssetDeleteParams) URLQuery() (v url.Values, err error) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
-}
-
-// the cluster of the region you want to use
-type SkynetAssetDeleteParamsCluster string
-
-const (
-	SkynetAssetDeleteParamsClusterAmerica SkynetAssetDeleteParamsCluster = "america"
-)
-
-type SkynetAssetGetListParams struct {
+type SkynetAssetListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
@@ -506,13 +491,12 @@ type SkynetAssetGetListParams struct {
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
-	Cluster SkynetAssetGetListParamsCluster `query:"cluster,omitzero" json:"-"`
+	Cluster SkynetAssetListParamsCluster `query:"cluster,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [SkynetAssetGetListParams]'s query parameters as
-// `url.Values`.
-func (r SkynetAssetGetListParams) URLQuery() (v url.Values, err error) {
+// URLQuery serializes [SkynetAssetListParams]'s query parameters as `url.Values`.
+func (r SkynetAssetListParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -520,11 +504,67 @@ func (r SkynetAssetGetListParams) URLQuery() (v url.Values, err error) {
 }
 
 // the cluster of the region you want to use
-type SkynetAssetGetListParamsCluster string
+type SkynetAssetListParamsCluster string
 
 const (
-	SkynetAssetGetListParamsClusterAmerica SkynetAssetGetListParamsCluster = "america"
+	SkynetAssetListParamsClusterAmerica SkynetAssetListParamsCluster = "america"
 )
+
+type SkynetAssetDeleteParams struct {
+	// A key is a unique identifier that is required to authenticate a request to the
+	// API.
+	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	// the cluster of the region you want to use
+	//
+	// Any of "america".
+	Cluster SkynetAssetDeleteParamsCluster `query:"cluster,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [SkynetAssetDeleteParams]'s query parameters as
+// `url.Values`.
+func (r SkynetAssetDeleteParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+// the cluster of the region you want to use
+type SkynetAssetDeleteParamsCluster string
+
+const (
+	SkynetAssetDeleteParamsClusterAmerica SkynetAssetDeleteParamsCluster = "america"
+)
+
+type SkynetAssetBindParams struct {
+	// A key is a unique identifier that is required to authenticate a request to the
+	// API.
+	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	// Device ID to be linked to the `asset` identified by `id`.
+	//
+	// Please note that the device needs to be linked to an `asset` before using it in
+	// the _Upload locations of an Asset_ method for sending GPS information about the
+	// `asset`.
+	DeviceID string `json:"device_id,required"`
+	paramObj
+}
+
+func (r SkynetAssetBindParams) MarshalJSON() (data []byte, err error) {
+	type shadow SkynetAssetBindParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *SkynetAssetBindParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// URLQuery serializes [SkynetAssetBindParams]'s query parameters as `url.Values`.
+func (r SkynetAssetBindParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
 
 type SkynetAssetTrackParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the

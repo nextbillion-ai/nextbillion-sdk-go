@@ -1,4 +1,4 @@
-module github.com/nextbillion-ai/nextbillion-sdk-go
+module github.com/stainless-sdks/nextbillion-sdk-go
 
 go 1.21
 

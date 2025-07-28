@@ -1,6 +1,6 @@
 # Nextbillion SDK Go API Library
 
-<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go"><img src="https://pkg.go.dev/badge/github.com/nextbillion-ai/nextbillion-sdk-go.svg" alt="Go Reference"></a>
+<a href="https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go"><img src="https://pkg.go.dev/badge/github.com/stainless-sdks/nextbillion-sdk-go.svg" alt="Go Reference"></a>
 
 The Nextbillion SDK Go library provides convenient access to the Nextbillion SDK REST API
 from applications written in Go.
@@ -9,25 +9,17 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
-<!-- x-release-please-start-version -->
-
 ```go
 import (
-	"github.com/nextbillion-ai/nextbillion-sdk-go" // imported as nextbillionsdk
+	"github.com/stainless-sdks/nextbillion-sdk-go" // imported as nextbillionsdk
 )
 ```
 
-<!-- x-release-please-end -->
-
 Or to pin the version:
 
-<!-- x-release-please-start-version -->
-
 ```sh
-go get -u 'github.com/nextbillion-ai/nextbillion-sdk-go@v0.1.0-alpha.2'
+go get -u 'github.com/stainless-sdks/nextbillion-sdk-go@v0.1.0-alpha.2'
 ```
-
-<!-- x-release-please-end -->
 
 ## Requirements
 
@@ -44,22 +36,27 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
 func main() {
 	client := nextbillionsdk.NewClient(
 		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("NEXTBILLION_SDK_API_KEY")
 	)
-	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "1.304046,103.823580",
-		Origin:      "1.310611,103.804930",
+	route, err := client.Fleetify.Routes.New(context.TODO(), nextbillionsdk.FleetifyRouteNewParams{
+		Key:         "REPLACE_ME",
+		DriverEmail: "REPLACE_ME",
+		Steps: []nextbillionsdk.RouteStepsRequestParam{{
+			Arrival:  0,
+			Location: []float64{0},
+			Type:     nextbillionsdk.RouteStepsRequestTypeStart,
+		}},
 	})
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", response.Msg)
+	fmt.Printf("%+v\n", route.Data)
 }
 
 ```
@@ -265,7 +262,7 @@ client := nextbillionsdk.NewClient(
 	option.WithHeader("X-Some-Header", "custom_header_info"),
 )
 
-client.Directions.ComputeRoute(context.TODO(), ...,
+client.Fleetify.Routes.New(context.TODO(), ...,
 	// Override the header
 	option.WithHeader("X-Some-Header", "some_other_custom_header_info"),
 	// Add an undocumented field to the request body, using sjson syntax
@@ -275,7 +272,7 @@ client.Directions.ComputeRoute(context.TODO(), ...,
 
 The request option `option.WithDebugLog(nil)` may be helpful while debugging.
 
-See the [full list of request options](https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go/option).
+See the [full list of request options](https://pkg.go.dev/github.com/stainless-sdks/nextbillion-sdk-go/option).
 
 ### Pagination
 
@@ -296,9 +293,14 @@ When the API returns a non-success status code, we return an error with type
 To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
-_, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-	Destination: "1.304046,103.823580",
-	Origin:      "1.310611,103.804930",
+_, err := client.Fleetify.Routes.New(context.TODO(), nextbillionsdk.FleetifyRouteNewParams{
+	Key:         "REPLACE_ME",
+	DriverEmail: "REPLACE_ME",
+	Steps: []nextbillionsdk.RouteStepsRequestParam{{
+		Arrival:  0,
+		Location: []float64{0},
+		Type:     nextbillionsdk.RouteStepsRequestTypeStart,
+	}},
 })
 if err != nil {
 	var apierr *nextbillionsdk.Error
@@ -306,7 +308,7 @@ if err != nil {
 		println(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request
 		println(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response
 	}
-	panic(err.Error()) // GET "/directions/json": 400 Bad Request { ... }
+	panic(err.Error()) // GET "/fleetify/routes": 400 Bad Request { ... }
 }
 ```
 
@@ -324,11 +326,16 @@ To set a per-retry timeout, use `option.WithRequestTimeout()`.
 // This sets the timeout for the request, including all the retries.
 ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 defer cancel()
-client.Directions.ComputeRoute(
+client.Fleetify.Routes.New(
 	ctx,
-	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "1.304046,103.823580",
-		Origin:      "1.310611,103.804930",
+	nextbillionsdk.FleetifyRouteNewParams{
+		Key:         "REPLACE_ME",
+		DriverEmail: "REPLACE_ME",
+		Steps: []nextbillionsdk.RouteStepsRequestParam{{
+			Arrival:  0,
+			Location: []float64{0},
+			Type:     nextbillionsdk.RouteStepsRequestTypeStart,
+		}},
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -363,11 +370,16 @@ client := nextbillionsdk.NewClient(
 )
 
 // Override per-request:
-client.Directions.ComputeRoute(
+client.Fleetify.Routes.New(
 	context.TODO(),
-	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "1.304046,103.823580",
-		Origin:      "1.310611,103.804930",
+	nextbillionsdk.FleetifyRouteNewParams{
+		Key:         "REPLACE_ME",
+		DriverEmail: "REPLACE_ME",
+		Steps: []nextbillionsdk.RouteStepsRequestParam{{
+			Arrival:  0,
+			Location: []float64{0},
+			Type:     nextbillionsdk.RouteStepsRequestTypeStart,
+		}},
 	},
 	option.WithMaxRetries(5),
 )
@@ -381,18 +393,23 @@ you need to examine response headers, status codes, or other details.
 ```go
 // Create a variable to store the HTTP response
 var response *http.Response
-response, err := client.Directions.ComputeRoute(
+route, err := client.Fleetify.Routes.New(
 	context.TODO(),
-	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "1.304046,103.823580",
-		Origin:      "1.310611,103.804930",
+	nextbillionsdk.FleetifyRouteNewParams{
+		Key:         "REPLACE_ME",
+		DriverEmail: "REPLACE_ME",
+		Steps: []nextbillionsdk.RouteStepsRequestParam{{
+			Arrival:  0,
+			Location: []float64{0},
+			Type:     nextbillionsdk.RouteStepsRequestTypeStart,
+		}},
 	},
 	option.WithResponseInto(&response),
 )
 if err != nil {
 	// handle error
 }
-fmt.Printf("%+v\n", response)
+fmt.Printf("%+v\n", route)
 
 fmt.Printf("Status Code: %d\n", response.StatusCode)
 fmt.Printf("Headers: %+#v\n", response.Header)
@@ -493,7 +510,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/nextbillion-ai/nextbillion-sdk-go/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/nextbillion-sdk-go/issues) with questions, bugs, or suggestions.
 
 ## Contributing
 

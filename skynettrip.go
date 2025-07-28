@@ -9,12 +9,12 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apijson"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apiquery"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/requestconfig"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
+	"github.com/stainless-sdks/nextbillion-sdk-go/packages/respjson"
 )
 
 // SkynetTripService contains methods and other services that help with interacting
@@ -101,7 +101,7 @@ func (r *SkynetTripService) Start(ctx context.Context, params SkynetTripStartPar
 }
 
 // An object with details of the `asset` properties.
-type Asset struct {
+type AssetDetails struct {
 	// ID of the `asset`. This is the same ID that was generated/provided at the time
 	// of creating the `asset`.
 	ID string `json:"id"`
@@ -125,7 +125,7 @@ type Asset struct {
 	// User can link a device to an `asset` using the _Bind Asset to Device_ method.
 	DeviceID string `json:"device_id"`
 	// An object with details of the last tracked location of the asset.
-	LatestLocation AssetLatestLocation `json:"latest_location"`
+	LatestLocation AssetDetailsLatestLocation `json:"latest_location"`
 	// Any valid json object data. Can be used to save customized data. Max size is
 	// 65kb.
 	MetaData MetaData `json:"meta_data"`
@@ -169,13 +169,13 @@ type Asset struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r Asset) RawJSON() string { return r.JSON.raw }
-func (r *Asset) UnmarshalJSON(data []byte) error {
+func (r AssetDetails) RawJSON() string { return r.JSON.raw }
+func (r *AssetDetails) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // An object with details of the last tracked location of the asset.
-type AssetLatestLocation struct {
+type AssetDetailsLatestLocation struct {
 	// If available, this property returns the accuracy of the GPS information received
 	// at the last tracked location. It is represented as an estimated horizontal
 	// accuracy radius, in meters, at the 68th percentile confidence level.
@@ -192,7 +192,7 @@ type AssetLatestLocation struct {
 	// The bearing will always be in the range of [0, 360).
 	Bearing float64 `json:"bearing"`
 	// An object with the coordinates of the last tracked location.
-	Location AssetLatestLocationLocation `json:"location"`
+	Location AssetDetailsLatestLocationLocation `json:"location"`
 	// If available in the GPS information, this property returns the speed of the
 	// `asset`, in meters per second, at the last tracked location.
 	Speed float64 `json:"speed"`
@@ -213,13 +213,13 @@ type AssetLatestLocation struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r AssetLatestLocation) RawJSON() string { return r.JSON.raw }
-func (r *AssetLatestLocation) UnmarshalJSON(data []byte) error {
+func (r AssetDetailsLatestLocation) RawJSON() string { return r.JSON.raw }
+func (r *AssetDetailsLatestLocation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // An object with the coordinates of the last tracked location.
-type AssetLatestLocationLocation struct {
+type AssetDetailsLatestLocationLocation struct {
 	// Latitude of the tracked location of the `asset`.
 	Lat float64 `json:"lat"`
 	// Longitude of the tracked location of the `asset`.
@@ -234,8 +234,8 @@ type AssetLatestLocationLocation struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r AssetLatestLocationLocation) RawJSON() string { return r.JSON.raw }
-func (r *AssetLatestLocationLocation) UnmarshalJSON(data []byte) error {
+func (r AssetDetailsLatestLocationLocation) RawJSON() string { return r.JSON.raw }
+func (r *AssetDetailsLatestLocationLocation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -428,7 +428,7 @@ type SkynetTripGetSummaryResponseDataTrip struct {
 	// Returns the unique identifier of the trip.
 	ID string `json:"id"`
 	// An object with details of the `asset` properties.
-	Asset Asset `json:"asset"`
+	Asset AssetDetails `json:"asset"`
 	// Returns the ID of the asset linked to the trip when the trip was started or
 	// updated.
 	AssetID string `json:"asset_id"`

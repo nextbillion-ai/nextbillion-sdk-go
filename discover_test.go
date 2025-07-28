@@ -8,12 +8,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/testutil"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/testutil"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestDiscoverListWithOptionalParams(t *testing.T) {
+func TestDiscoverGetWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,7 +26,7 @@ func TestDiscoverListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Discover.List(context.TODO(), nextbillionsdk.DiscoverListParams{
+	_, err := client.Discover.Get(context.TODO(), nextbillionsdk.DiscoverGetParams{
 		Key:   "key=API_KEY",
 		Q:     "q=125, Berliner, berlin",
 		At:    nextbillionsdk.String("at=52.5308,13.3856"),

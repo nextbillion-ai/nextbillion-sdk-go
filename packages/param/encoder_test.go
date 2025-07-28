@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
+	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
 )
 
 type Struct struct {

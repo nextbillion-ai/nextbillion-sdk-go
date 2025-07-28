@@ -7,9 +7,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/testutil"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/testutil"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
 func TestUsage(t *testing.T) {
@@ -24,12 +24,17 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "1.304046,103.823580",
-		Origin:      "1.310611,103.804930",
+	route, err := client.Fleetify.Routes.New(context.TODO(), nextbillionsdk.FleetifyRouteNewParams{
+		Key:         "REPLACE_ME",
+		DriverEmail: "REPLACE_ME",
+		Steps: []nextbillionsdk.RouteStepsRequestParam{{
+			Arrival:  0,
+			Location: []float64{0},
+			Type:     nextbillionsdk.RouteStepsRequestTypeStart,
+		}},
 	})
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())
 	}
-	t.Logf("%+v\n", response.Msg)
+	t.Logf("%+v\n", route.Data)
 }

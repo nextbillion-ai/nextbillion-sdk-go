@@ -7,7 +7,7 @@ package apijson
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
+	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
 	"reflect"
 	"strconv"
 	"sync"

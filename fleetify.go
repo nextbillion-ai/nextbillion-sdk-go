@@ -3,7 +3,7 @@
 package nextbillionsdk
 
 import (
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
 // FleetifyService contains methods and other services that help with interacting

@@ -8,12 +8,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/testutil"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/testutil"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestSkynetNamespacedApikeyDeleteNamespacedApikeys(t *testing.T) {
+func TestSkynetNamespacedApikeyNew(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,10 +26,9 @@ func TestSkynetNamespacedApikeyDeleteNamespacedApikeys(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.NamespacedApikeys.DeleteNamespacedApikeys(context.TODO(), nextbillionsdk.SkynetNamespacedApikeyDeleteNamespacedApikeysParams{
-		Key:         "key=API_KEY",
-		KeyToDelete: "key_to_delete",
-		Namespace:   "namespace",
+	_, err := client.Skynet.NamespacedApikeys.New(context.TODO(), nextbillionsdk.SkynetNamespacedApikeyNewParams{
+		Key:       "key=API_KEY",
+		Namespace: "namespace=test_name",
 	})
 	if err != nil {
 		var apierr *nextbillionsdk.Error
@@ -40,7 +39,7 @@ func TestSkynetNamespacedApikeyDeleteNamespacedApikeys(t *testing.T) {
 	}
 }
 
-func TestSkynetNamespacedApikeyNamespacedApikeys(t *testing.T) {
+func TestSkynetNamespacedApikeyDelete(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -53,9 +52,10 @@ func TestSkynetNamespacedApikeyNamespacedApikeys(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.NamespacedApikeys.NamespacedApikeys(context.TODO(), nextbillionsdk.SkynetNamespacedApikeyNamespacedApikeysParams{
-		Key:       "key=API_KEY",
-		Namespace: "namespace=test_name",
+	_, err := client.Skynet.NamespacedApikeys.Delete(context.TODO(), nextbillionsdk.SkynetNamespacedApikeyDeleteParams{
+		Key:         "key=API_KEY",
+		KeyToDelete: "key_to_delete",
+		Namespace:   "namespace",
 	})
 	if err != nil {
 		var apierr *nextbillionsdk.Error

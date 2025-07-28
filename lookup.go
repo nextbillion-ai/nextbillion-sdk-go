@@ -7,11 +7,11 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apijson"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apiquery"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/requestconfig"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go/packages/respjson"
 )
 
 // LookupService contains methods and other services that help with interacting
@@ -34,17 +34,17 @@ func NewLookupService(opts ...option.RequestOption) (r LookupService) {
 }
 
 // Lookup By ID
-func (r *LookupService) Get(ctx context.Context, query LookupGetParams, opts ...option.RequestOption) (res *LookupGetResponse, err error) {
+func (r *LookupService) ByID(ctx context.Context, query LookupByIDParams, opts ...option.RequestOption) (res *LookupByIDResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "lookup"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
-type LookupGetResponse struct {
+type LookupByIDResponse struct {
 	// The results are presented as a JSON list of candidates in ranked order
 	// (most-likely to least-likely) based on the matched location criteria.
-	Items []LookupGetResponseItem `json:"items"`
+	Items []LookupByIDResponseItem `json:"items"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -54,12 +54,12 @@ type LookupGetResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r LookupGetResponse) RawJSON() string { return r.JSON.raw }
-func (r *LookupGetResponse) UnmarshalJSON(data []byte) error {
+func (r LookupByIDResponse) RawJSON() string { return r.JSON.raw }
+func (r *LookupByIDResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type LookupGetResponseItem struct {
+type LookupByIDResponseItem struct {
 	// The unique identifier for the result item.
 	ID string `json:"id"`
 	// An array returning the location coordinates of all the access points of the
@@ -94,12 +94,12 @@ type LookupGetResponseItem struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r LookupGetResponseItem) RawJSON() string { return r.JSON.raw }
-func (r *LookupGetResponseItem) UnmarshalJSON(data []byte) error {
+func (r LookupByIDResponseItem) RawJSON() string { return r.JSON.raw }
+func (r *LookupByIDResponseItem) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type LookupGetParams struct {
+type LookupByIDParams struct {
 	// Specify the unique identifier of a specific POI, Street, Geography, Point
 	// Address or other entities to retrieve its details.
 	ID string `query:"id,required" json:"-"`
@@ -109,8 +109,8 @@ type LookupGetParams struct {
 	paramObj
 }
 
-// URLQuery serializes [LookupGetParams]'s query parameters as `url.Values`.
-func (r LookupGetParams) URLQuery() (v url.Values, err error) {
+// URLQuery serializes [LookupByIDParams]'s query parameters as `url.Values`.
+func (r LookupByIDParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,

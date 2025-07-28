@@ -6,11 +6,11 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apijson"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/requestconfig"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
+	"github.com/stainless-sdks/nextbillion-sdk-go/packages/respjson"
 )
 
 // SkynetService contains methods and other services that help with interacting
@@ -27,7 +27,6 @@ type SkynetService struct {
 	NamespacedApikeys SkynetNamespacedApikeyService
 	Config            SkynetConfigService
 	Search            SkynetSearchService
-	Skynet            SkynetSkynetService
 }
 
 // NewSkynetService generates a new service that applies the given options to each
@@ -42,7 +41,6 @@ func NewSkynetService(opts ...option.RequestOption) (r SkynetService) {
 	r.NamespacedApikeys = NewSkynetNamespacedApikeyService(opts...)
 	r.Config = NewSkynetConfigService(opts...)
 	r.Search = NewSkynetSearchService(opts...)
-	r.Skynet = NewSkynetSkynetService(opts...)
 	return
 }
 

@@ -3,8 +3,8 @@ package respjson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
-	rj "github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apijson"
+	rj "github.com/stainless-sdks/nextbillion-sdk-go/packages/respjson"
 	"reflect"
 	"testing"
 )

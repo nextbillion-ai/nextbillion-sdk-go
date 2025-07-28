@@ -1,7 +1,7 @@
 package sentinel
 
 import (
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/encoding/json/shims"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/encoding/json/shims"
 	"reflect"
 	"sync"
 )
