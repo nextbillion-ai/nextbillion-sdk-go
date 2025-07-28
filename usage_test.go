@@ -24,17 +24,12 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	route, err := client.Fleetify.Routes.New(context.TODO(), nextbillionsdk.FleetifyRouteNewParams{
-		Key:         "REPLACE_ME",
-		DriverEmail: "REPLACE_ME",
-		Steps: []nextbillionsdk.RouteStepsRequestParam{{
-			Arrival:  0,
-			Location: []float64{0},
-			Type:     nextbillionsdk.RouteStepsRequestTypeStart,
-		}},
+	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
+		Destination: "41.349302,2.136480",
+		Origin:      "41.349302,2.136480",
 	})
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())
 	}
-	t.Logf("%+v\n", route.Data)
+	t.Logf("%+v\n", response.Msg)
 }
