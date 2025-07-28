@@ -146,6 +146,7 @@ Methods:
 
 Response Types:
 
+- <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#Asset">Asset</a>
 - <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#TripStop">TripStop</a>
 - <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#SkynetTripGetResponse">SkynetTripGetResponse</a>
 - <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#SkynetTripGetSummaryResponse">SkynetTripGetSummaryResponse</a>
