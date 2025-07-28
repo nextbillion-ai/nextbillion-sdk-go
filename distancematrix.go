@@ -3,7 +3,7 @@
 package nextbillionsdk
 
 import (
-	"github.com/stainless-sdks/nextbillion-sdk-go/option"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
 )
 
 // DistancematrixService contains methods and other services that help with

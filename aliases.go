@@ -3,8 +3,8 @@
 package nextbillionsdk
 
 import (
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apierror"
-	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apierror"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
 )
 
 // aliased to make [param.APIUnion] private when embedding

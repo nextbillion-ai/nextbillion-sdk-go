@@ -1,8 +1,8 @@
 package sentinel_test
 
 import (
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/encoding/json/sentinel"
-	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/encoding/json/sentinel"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
 	"reflect"
 	"slices"
 	"testing"

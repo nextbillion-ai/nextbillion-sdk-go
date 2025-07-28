@@ -1,7 +1,7 @@
 package apijson
 
 import (
-	"github.com/stainless-sdks/nextbillion-sdk-go/packages/respjson"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
 	"reflect"
 )
 

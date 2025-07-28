@@ -2,8 +2,8 @@ package apijson_test
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apijson"
-	"github.com/stainless-sdks/nextbillion-sdk-go/packages/respjson"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
 	"testing"
 )
 
