@@ -13,7 +13,7 @@ import (
 	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
 )
 
-func TestDistancematrixJsonNew(t *testing.T) {
+func TestDistanceMatrixJsonNew(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,7 +26,7 @@ func TestDistancematrixJsonNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.Distancematrix.Json.New(context.TODO())
+	err := client.DistanceMatrix.Json.New(context.TODO())
 	if err != nil {
 		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
@@ -36,7 +36,7 @@ func TestDistancematrixJsonNew(t *testing.T) {
 	}
 }
 
-func TestDistancematrixJsonGetWithOptionalParams(t *testing.T) {
+func TestDistanceMatrixJsonGetWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -49,14 +49,14 @@ func TestDistancematrixJsonGetWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Distancematrix.Json.Get(context.TODO(), nextbillionsdk.DistancematrixJsonGetParams{
+	_, err := client.DistanceMatrix.Json.Get(context.TODO(), nextbillionsdk.DistanceMatrixJsonGetParams{
 		Destinations:      "destinations=41.349302,2.136480|41.389925,2.136258|41.357961,2.097878",
 		Key:               "key=API_KEY",
 		Origins:           "origins:41.349302,2.136480|41.389925,2.136258|41.357961,2.097878",
-		Approaches:        nextbillionsdk.DistancematrixJsonGetParamsApproachesUnrestricted,
-		Avoid:             nextbillionsdk.DistancematrixJsonGetParamsAvoidToll,
+		Approaches:        nextbillionsdk.DistanceMatrixJsonGetParamsApproachesUnrestricted,
+		Avoid:             nextbillionsdk.DistanceMatrixJsonGetParamsAvoidToll,
 		Bearings:          nextbillionsdk.String("bearings=0,180;0,180"),
-		Mode:              nextbillionsdk.DistancematrixJsonGetParamsModeCar,
+		Mode:              nextbillionsdk.DistanceMatrixJsonGetParamsModeCar,
 		RouteFailedPrompt: nextbillionsdk.Bool(true),
 	})
 	if err != nil {
