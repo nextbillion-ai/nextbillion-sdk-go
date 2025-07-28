@@ -6,8 +6,8 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/requestconfig"
-	"github.com/stainless-sdks/nextbillion-sdk-go/option"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
 )
 
 // MapService contains methods and other services that help with interacting with

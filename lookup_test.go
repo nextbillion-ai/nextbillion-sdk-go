@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/nextbillion-sdk-go"
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/testutil"
-	"github.com/stainless-sdks/nextbillion-sdk-go/option"
+	"github.com/nextbillion-ai/nextbillion-sdk-go"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/testutil"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
 )
 
 func TestLookupByID(t *testing.T) {

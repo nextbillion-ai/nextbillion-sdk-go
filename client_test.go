@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/nextbillion-sdk-go"
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal"
-	"github.com/stainless-sdks/nextbillion-sdk-go/option"
+	"github.com/nextbillion-ai/nextbillion-sdk-go"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
 )
 
 type closureTransport struct {
