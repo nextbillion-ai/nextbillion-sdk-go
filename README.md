@@ -53,8 +53,8 @@ func main() {
 		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("NEXTBILLION_SDK_API_KEY")
 	)
 	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "REPLACE_ME",
-		Origin:      "REPLACE_ME",
+		Destination: "1.304046,103.823580",
+		Origin:      "1.310611,103.804930",
 	})
 	if err != nil {
 		panic(err.Error())
@@ -297,8 +297,8 @@ To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
 _, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-	Destination: "REPLACE_ME",
-	Origin:      "REPLACE_ME",
+	Destination: "1.304046,103.823580",
+	Origin:      "1.310611,103.804930",
 })
 if err != nil {
 	var apierr *nextbillionsdk.Error
@@ -327,8 +327,8 @@ defer cancel()
 client.Directions.ComputeRoute(
 	ctx,
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "REPLACE_ME",
-		Origin:      "REPLACE_ME",
+		Destination: "1.304046,103.823580",
+		Origin:      "1.310611,103.804930",
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -366,8 +366,8 @@ client := nextbillionsdk.NewClient(
 client.Directions.ComputeRoute(
 	context.TODO(),
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "REPLACE_ME",
-		Origin:      "REPLACE_ME",
+		Destination: "1.304046,103.823580",
+		Origin:      "1.310611,103.804930",
 	},
 	option.WithMaxRetries(5),
 )
@@ -384,8 +384,8 @@ var response *http.Response
 response, err := client.Directions.ComputeRoute(
 	context.TODO(),
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "REPLACE_ME",
-		Origin:      "REPLACE_ME",
+		Destination: "1.304046,103.823580",
+		Origin:      "1.310611,103.804930",
 	},
 	option.WithResponseInto(&response),
 )
