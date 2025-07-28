@@ -6,23 +6,23 @@ import (
 	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
 )
 
-// DistancematrixService contains methods and other services that help with
+// DistanceMatrixService contains methods and other services that help with
 // interacting with the nextbillion-sdk API.
 //
 // Note, unlike clients, this service does not read variables from the environment
 // automatically. You should not instantiate this service directly, and instead use
-// the [NewDistancematrixService] method instead.
-type DistancematrixService struct {
+// the [NewDistanceMatrixService] method instead.
+type DistanceMatrixService struct {
 	Options []option.RequestOption
-	Json    DistancematrixJsonService
+	Json    DistanceMatrixJsonService
 }
 
-// NewDistancematrixService generates a new service that applies the given options
+// NewDistanceMatrixService generates a new service that applies the given options
 // to each request. These options are applied after the parent client's options (if
 // there is one), and before any request-specific options.
-func NewDistancematrixService(opts ...option.RequestOption) (r DistancematrixService) {
-	r = DistancematrixService{}
+func NewDistanceMatrixService(opts ...option.RequestOption) (r DistanceMatrixService) {
+	r = DistanceMatrixService{}
 	r.Options = opts
-	r.Json = NewDistancematrixJsonService(opts...)
+	r.Json = NewDistanceMatrixJsonService(opts...)
 	return
 }

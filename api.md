@@ -393,18 +393,18 @@ Methods:
 
 - <code title="get /restrictions_items">client.RestrictionsItems.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#RestrictionsItemService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#RestrictionsItemListParams">RestrictionsItemListParams</a>) ([]<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#RestrictionsItemListResponse">RestrictionsItemListResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
-# Distancematrix
+# DistanceMatrix
 
 ## Json
 
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#DistancematrixJsonGetResponse">DistancematrixJsonGetResponse</a>
+- <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#DistanceMatrixJsonGetResponse">DistanceMatrixJsonGetResponse</a>
 
 Methods:
 
-- <code title="post /distancematrix/json">client.Distancematrix.Json.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#DistancematrixJsonService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
-- <code title="get /distancematrix/json">client.Distancematrix.Json.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#DistancematrixJsonService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#DistancematrixJsonGetParams">DistancematrixJsonGetParams</a>) (<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#DistancematrixJsonGetResponse">DistancematrixJsonGetResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="post /distancematrix/json">client.DistanceMatrix.Json.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#DistanceMatrixJsonService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
+- <code title="get /distancematrix/json">client.DistanceMatrix.Json.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#DistanceMatrixJsonService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#DistanceMatrixJsonGetParams">DistanceMatrixJsonGetParams</a>) (<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionsdk</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#DistanceMatrixJsonGetResponse">DistanceMatrixJsonGetResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 # Autocomplete
 
