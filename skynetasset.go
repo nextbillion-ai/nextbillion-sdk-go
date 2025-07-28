@@ -215,7 +215,7 @@ func (r *SkynetAssetGetResponse) UnmarshalJSON(data []byte) error {
 // An object containing the information about the `asset` returned.
 type SkynetAssetGetResponseData struct {
 	// An object with details of the `asset` properties.
-	Asset Asset `json:"asset"`
+	Asset SkynetAssetGetResponseDataAsset `json:"asset"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Asset       respjson.Field
@@ -227,6 +227,145 @@ type SkynetAssetGetResponseData struct {
 // Returns the unmodified JSON received from the API
 func (r SkynetAssetGetResponseData) RawJSON() string { return r.JSON.raw }
 func (r *SkynetAssetGetResponseData) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// An object with details of the `asset` properties.
+type SkynetAssetGetResponseDataAsset struct {
+	// ID of the `asset`. This is the same ID that was generated/provided at the time
+	// of creating the `asset`.
+	ID string `json:"id"`
+	// A string dictionary object containing `attributes` of the `asset`. These
+	// `attributes` were associated with the `asset` at the time of creating or
+	// updating it.
+	//
+	// `attributes` can be added to an `asset` using the _Update Asset Attributes_
+	// method.
+	Attributes any `json:"attributes"`
+	// A UNIX epoch timestamp in seconds representing the time at which the `asset` was
+	// created.
+	CreatedAt int64 `json:"created_at"`
+	// Description of the `asset`. The value would be the same as that provided for the
+	// `description` parameter at the time of creating or updating the `asset`.
+	Description string `json:"description"`
+	// ID of the `device` that is linked to this asset. Please note that there can be
+	// multiple `device_id` linked to a single `asset`. An empty response is returned
+	// if no devices are linked to the `asset`.
+	//
+	// User can link a device to an `asset` using the _Bind Asset to Device_ method.
+	DeviceID string `json:"device_id"`
+	// An object with details of the last tracked location of the asset.
+	LatestLocation SkynetAssetGetResponseDataAssetLatestLocation `json:"latest_location"`
+	// Any valid json object data. Can be used to save customized data. Max size is
+	// 65kb.
+	MetaData MetaData `json:"meta_data"`
+	// Name of the `asset`. The value would be the same as that provided for the `name`
+	// parameter at the time of creating or updating the `asset`.
+	Name string `json:"name"`
+	// State of the asset. It will be "active" when the asset is in use or available
+	// for use, and it will be "deleted" in case the asset has been deleted.
+	State string `json:"state"`
+	// **This parameter will be deprecated soon! Please move existing `tags` to
+	// `attributes` parameter.**
+	//
+	// Tags of the asset. These were associated with the `asset` when it was created or
+	// updated. `tags` can be used for filtering assets in operations like _Get Asset
+	// List_ and asset **Search** methods. They can also be used for monitoring of
+	// assets using **Monitor** methods after linking `tags` and `asset`.
+	Tags []string `json:"tags"`
+	// A UNIX epoch timestamp in seconds representing the last time when the `asset`
+	// was tracked.
+	TrackedAt int64 `json:"tracked_at"`
+	// A UNIX epoch timestamp in seconds representing the time at which the `asset` was
+	// last updated.
+	UpdatedAt int64 `json:"updated_at"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID             respjson.Field
+		Attributes     respjson.Field
+		CreatedAt      respjson.Field
+		Description    respjson.Field
+		DeviceID       respjson.Field
+		LatestLocation respjson.Field
+		MetaData       respjson.Field
+		Name           respjson.Field
+		State          respjson.Field
+		Tags           respjson.Field
+		TrackedAt      respjson.Field
+		UpdatedAt      respjson.Field
+		ExtraFields    map[string]respjson.Field
+		raw            string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetGetResponseDataAsset) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetGetResponseDataAsset) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// An object with details of the last tracked location of the asset.
+type SkynetAssetGetResponseDataAssetLatestLocation struct {
+	// If available, this property returns the accuracy of the GPS information received
+	// at the last tracked location. It is represented as an estimated horizontal
+	// accuracy radius, in meters, at the 68th percentile confidence level.
+	Accuracy float64 `json:"accuracy"`
+	// If available in the GPS information, this property returns the altitude of the
+	// `asset` at the last tracked location. It is represented as height, in meters,
+	// above the WGS84 reference ellipsoid.
+	Altitude float64 `json:"altitude"`
+	// If available in the GPS information, this property returns the heading of the
+	// `asset` calculated from true north in clockwise direction at the last tracked
+	// location. Please note that the bearing is not affected by the device
+	// orientation.
+	//
+	// The bearing will always be in the range of [0, 360).
+	Bearing float64 `json:"bearing"`
+	// An object with the coordinates of the last tracked location.
+	Location SkynetAssetGetResponseDataAssetLatestLocationLocation `json:"location"`
+	// If available in the GPS information, this property returns the speed of the
+	// `asset`, in meters per second, at the last tracked location.
+	Speed float64 `json:"speed"`
+	// A UNIX epoch timestamp in milliseconds, representing the time at which the
+	// location was tracked.
+	Timestamp int64 `json:"timestamp"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Accuracy    respjson.Field
+		Altitude    respjson.Field
+		Bearing     respjson.Field
+		Location    respjson.Field
+		Speed       respjson.Field
+		Timestamp   respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetGetResponseDataAssetLatestLocation) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetGetResponseDataAssetLatestLocation) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// An object with the coordinates of the last tracked location.
+type SkynetAssetGetResponseDataAssetLatestLocationLocation struct {
+	// Latitude of the tracked location of the `asset`.
+	Lat float64 `json:"lat"`
+	// Longitude of the tracked location of the `asset`.
+	Lon float64 `json:"lon"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Lat         respjson.Field
+		Lon         respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetGetResponseDataAssetLatestLocationLocation) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetGetResponseDataAssetLatestLocationLocation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -259,7 +398,7 @@ func (r *SkynetAssetGetListResponse) UnmarshalJSON(data []byte) error {
 // A data object containing the list of assets.
 type SkynetAssetGetListResponseData struct {
 	// An array of objects, with each object representing one `asset`.
-	List []Asset `json:"list"`
+	List []SkynetAssetGetListResponseDataList `json:"list"`
 	// An object with pagination details of the search results. Use this object to
 	// implement pagination in your application.
 	Page Pagination `json:"page"`
@@ -275,6 +414,145 @@ type SkynetAssetGetListResponseData struct {
 // Returns the unmodified JSON received from the API
 func (r SkynetAssetGetListResponseData) RawJSON() string { return r.JSON.raw }
 func (r *SkynetAssetGetListResponseData) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// An object with details of the `asset` properties.
+type SkynetAssetGetListResponseDataList struct {
+	// ID of the `asset`. This is the same ID that was generated/provided at the time
+	// of creating the `asset`.
+	ID string `json:"id"`
+	// A string dictionary object containing `attributes` of the `asset`. These
+	// `attributes` were associated with the `asset` at the time of creating or
+	// updating it.
+	//
+	// `attributes` can be added to an `asset` using the _Update Asset Attributes_
+	// method.
+	Attributes any `json:"attributes"`
+	// A UNIX epoch timestamp in seconds representing the time at which the `asset` was
+	// created.
+	CreatedAt int64 `json:"created_at"`
+	// Description of the `asset`. The value would be the same as that provided for the
+	// `description` parameter at the time of creating or updating the `asset`.
+	Description string `json:"description"`
+	// ID of the `device` that is linked to this asset. Please note that there can be
+	// multiple `device_id` linked to a single `asset`. An empty response is returned
+	// if no devices are linked to the `asset`.
+	//
+	// User can link a device to an `asset` using the _Bind Asset to Device_ method.
+	DeviceID string `json:"device_id"`
+	// An object with details of the last tracked location of the asset.
+	LatestLocation SkynetAssetGetListResponseDataListLatestLocation `json:"latest_location"`
+	// Any valid json object data. Can be used to save customized data. Max size is
+	// 65kb.
+	MetaData MetaData `json:"meta_data"`
+	// Name of the `asset`. The value would be the same as that provided for the `name`
+	// parameter at the time of creating or updating the `asset`.
+	Name string `json:"name"`
+	// State of the asset. It will be "active" when the asset is in use or available
+	// for use, and it will be "deleted" in case the asset has been deleted.
+	State string `json:"state"`
+	// **This parameter will be deprecated soon! Please move existing `tags` to
+	// `attributes` parameter.**
+	//
+	// Tags of the asset. These were associated with the `asset` when it was created or
+	// updated. `tags` can be used for filtering assets in operations like _Get Asset
+	// List_ and asset **Search** methods. They can also be used for monitoring of
+	// assets using **Monitor** methods after linking `tags` and `asset`.
+	Tags []string `json:"tags"`
+	// A UNIX epoch timestamp in seconds representing the last time when the `asset`
+	// was tracked.
+	TrackedAt int64 `json:"tracked_at"`
+	// A UNIX epoch timestamp in seconds representing the time at which the `asset` was
+	// last updated.
+	UpdatedAt int64 `json:"updated_at"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID             respjson.Field
+		Attributes     respjson.Field
+		CreatedAt      respjson.Field
+		Description    respjson.Field
+		DeviceID       respjson.Field
+		LatestLocation respjson.Field
+		MetaData       respjson.Field
+		Name           respjson.Field
+		State          respjson.Field
+		Tags           respjson.Field
+		TrackedAt      respjson.Field
+		UpdatedAt      respjson.Field
+		ExtraFields    map[string]respjson.Field
+		raw            string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetGetListResponseDataList) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetGetListResponseDataList) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// An object with details of the last tracked location of the asset.
+type SkynetAssetGetListResponseDataListLatestLocation struct {
+	// If available, this property returns the accuracy of the GPS information received
+	// at the last tracked location. It is represented as an estimated horizontal
+	// accuracy radius, in meters, at the 68th percentile confidence level.
+	Accuracy float64 `json:"accuracy"`
+	// If available in the GPS information, this property returns the altitude of the
+	// `asset` at the last tracked location. It is represented as height, in meters,
+	// above the WGS84 reference ellipsoid.
+	Altitude float64 `json:"altitude"`
+	// If available in the GPS information, this property returns the heading of the
+	// `asset` calculated from true north in clockwise direction at the last tracked
+	// location. Please note that the bearing is not affected by the device
+	// orientation.
+	//
+	// The bearing will always be in the range of [0, 360).
+	Bearing float64 `json:"bearing"`
+	// An object with the coordinates of the last tracked location.
+	Location SkynetAssetGetListResponseDataListLatestLocationLocation `json:"location"`
+	// If available in the GPS information, this property returns the speed of the
+	// `asset`, in meters per second, at the last tracked location.
+	Speed float64 `json:"speed"`
+	// A UNIX epoch timestamp in milliseconds, representing the time at which the
+	// location was tracked.
+	Timestamp int64 `json:"timestamp"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Accuracy    respjson.Field
+		Altitude    respjson.Field
+		Bearing     respjson.Field
+		Location    respjson.Field
+		Speed       respjson.Field
+		Timestamp   respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetGetListResponseDataListLatestLocation) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetGetListResponseDataListLatestLocation) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// An object with the coordinates of the last tracked location.
+type SkynetAssetGetListResponseDataListLatestLocationLocation struct {
+	// Latitude of the tracked location of the `asset`.
+	Lat float64 `json:"lat"`
+	// Longitude of the tracked location of the `asset`.
+	Lon float64 `json:"lon"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Lat         respjson.Field
+		Lon         respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SkynetAssetGetListResponseDataListLatestLocationLocation) RawJSON() string { return r.JSON.raw }
+func (r *SkynetAssetGetListResponseDataListLatestLocationLocation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
