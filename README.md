@@ -52,19 +52,14 @@ func main() {
 	client := nextbillionsdk.NewClient(
 		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("NEXTBILLION_SDK_API_KEY")
 	)
-	route, err := client.Fleetify.Routes.New(context.TODO(), nextbillionsdk.FleetifyRouteNewParams{
-		Key:         "REPLACE_ME",
-		DriverEmail: "REPLACE_ME",
-		Steps: []nextbillionsdk.RouteStepsRequestParam{{
-			Arrival:  0,
-			Location: []float64{0},
-			Type:     nextbillionsdk.RouteStepsRequestTypeStart,
-		}},
+	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
+		Destination: "41.349302,2.136480",
+		Origin:      "41.349302,2.136480",
 	})
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", route.Data)
+	fmt.Printf("%+v\n", response.Msg)
 }
 
 ```
@@ -270,7 +265,7 @@ client := nextbillionsdk.NewClient(
 	option.WithHeader("X-Some-Header", "custom_header_info"),
 )
 
-client.Fleetify.Routes.New(context.TODO(), ...,
+client.Directions.ComputeRoute(context.TODO(), ...,
 	// Override the header
 	option.WithHeader("X-Some-Header", "some_other_custom_header_info"),
 	// Add an undocumented field to the request body, using sjson syntax
@@ -301,14 +296,9 @@ When the API returns a non-success status code, we return an error with type
 To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
-_, err := client.Fleetify.Routes.New(context.TODO(), nextbillionsdk.FleetifyRouteNewParams{
-	Key:         "REPLACE_ME",
-	DriverEmail: "REPLACE_ME",
-	Steps: []nextbillionsdk.RouteStepsRequestParam{{
-		Arrival:  0,
-		Location: []float64{0},
-		Type:     nextbillionsdk.RouteStepsRequestTypeStart,
-	}},
+_, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
+	Destination: "41.349302,2.136480",
+	Origin:      "41.349302,2.136480",
 })
 if err != nil {
 	var apierr *nextbillionsdk.Error
@@ -316,7 +306,7 @@ if err != nil {
 		println(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request
 		println(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response
 	}
-	panic(err.Error()) // GET "/fleetify/routes": 400 Bad Request { ... }
+	panic(err.Error()) // GET "/directions/json": 400 Bad Request { ... }
 }
 ```
 
@@ -334,16 +324,11 @@ To set a per-retry timeout, use `option.WithRequestTimeout()`.
 // This sets the timeout for the request, including all the retries.
 ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 defer cancel()
-client.Fleetify.Routes.New(
+client.Directions.ComputeRoute(
 	ctx,
-	nextbillionsdk.FleetifyRouteNewParams{
-		Key:         "REPLACE_ME",
-		DriverEmail: "REPLACE_ME",
-		Steps: []nextbillionsdk.RouteStepsRequestParam{{
-			Arrival:  0,
-			Location: []float64{0},
-			Type:     nextbillionsdk.RouteStepsRequestTypeStart,
-		}},
+	nextbillionsdk.DirectionComputeRouteParams{
+		Destination: "41.349302,2.136480",
+		Origin:      "41.349302,2.136480",
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -378,16 +363,11 @@ client := nextbillionsdk.NewClient(
 )
 
 // Override per-request:
-client.Fleetify.Routes.New(
+client.Directions.ComputeRoute(
 	context.TODO(),
-	nextbillionsdk.FleetifyRouteNewParams{
-		Key:         "REPLACE_ME",
-		DriverEmail: "REPLACE_ME",
-		Steps: []nextbillionsdk.RouteStepsRequestParam{{
-			Arrival:  0,
-			Location: []float64{0},
-			Type:     nextbillionsdk.RouteStepsRequestTypeStart,
-		}},
+	nextbillionsdk.DirectionComputeRouteParams{
+		Destination: "41.349302,2.136480",
+		Origin:      "41.349302,2.136480",
 	},
 	option.WithMaxRetries(5),
 )
@@ -401,23 +381,18 @@ you need to examine response headers, status codes, or other details.
 ```go
 // Create a variable to store the HTTP response
 var response *http.Response
-route, err := client.Fleetify.Routes.New(
+response, err := client.Directions.ComputeRoute(
 	context.TODO(),
-	nextbillionsdk.FleetifyRouteNewParams{
-		Key:         "REPLACE_ME",
-		DriverEmail: "REPLACE_ME",
-		Steps: []nextbillionsdk.RouteStepsRequestParam{{
-			Arrival:  0,
-			Location: []float64{0},
-			Type:     nextbillionsdk.RouteStepsRequestTypeStart,
-		}},
+	nextbillionsdk.DirectionComputeRouteParams{
+		Destination: "41.349302,2.136480",
+		Origin:      "41.349302,2.136480",
 	},
 	option.WithResponseInto(&response),
 )
 if err != nil {
 	// handle error
 }
-fmt.Printf("%+v\n", route)
+fmt.Printf("%+v\n", response)
 
 fmt.Printf("Status Code: %d\n", response.StatusCode)
 fmt.Printf("Headers: %+#v\n", response.Header)
