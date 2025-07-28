@@ -42,7 +42,7 @@ func (r *SkynetSearchPolygonService) New(ctx context.Context, params SkynetSearc
 }
 
 // Polygon Search
-func (r *SkynetSearchPolygonService) List(ctx context.Context, query SkynetSearchPolygonListParams, opts ...option.RequestOption) (res *SearchResponse, err error) {
+func (r *SkynetSearchPolygonService) Get(ctx context.Context, query SkynetSearchPolygonGetParams, opts ...option.RequestOption) (res *SearchResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "skynet/search/polygon"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
@@ -243,7 +243,7 @@ func (r *SkynetSearchPolygonNewParamsSortSortDestination) UnmarshalJSON(data []b
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type SkynetSearchPolygonListParams struct {
+type SkynetSearchPolygonGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
@@ -311,18 +311,18 @@ type SkynetSearchPolygonListParams struct {
 	//     `sort-destination` .
 	//
 	// Any of "`distance`", "`duration`", "`straight_distance`".
-	SortBy SkynetSearchPolygonListParamsSortBy `query:"sort_by,omitzero" json:"-"`
+	SortBy SkynetSearchPolygonGetParamsSortBy `query:"sort_by,omitzero" json:"-"`
 	// Specifies the driving mode to be used for determining travel duration or driving
 	// distance for sorting the assets in search result.
 	//
 	// Any of "`car`", "`truck`".
-	SortDrivingMode SkynetSearchPolygonListParamsSortDrivingMode `query:"sort_driving_mode,omitzero" json:"-"`
+	SortDrivingMode SkynetSearchPolygonGetParamsSortDrivingMode `query:"sort_driving_mode,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [SkynetSearchPolygonListParams]'s query parameters as
+// URLQuery serializes [SkynetSearchPolygonGetParams]'s query parameters as
 // `url.Values`.
-func (r SkynetSearchPolygonListParams) URLQuery() (v url.Values, err error) {
+func (r SkynetSearchPolygonGetParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -338,19 +338,19 @@ func (r SkynetSearchPolygonListParams) URLQuery() (v url.Values, err error) {
 //     .
 //   - **straight_distance** : Sort the assets by straight-line distance to the given
 //     `sort-destination` .
-type SkynetSearchPolygonListParamsSortBy string
+type SkynetSearchPolygonGetParamsSortBy string
 
 const (
-	SkynetSearchPolygonListParamsSortByDistance         SkynetSearchPolygonListParamsSortBy = "`distance`"
-	SkynetSearchPolygonListParamsSortByDuration         SkynetSearchPolygonListParamsSortBy = "`duration`"
-	SkynetSearchPolygonListParamsSortByStraightDistance SkynetSearchPolygonListParamsSortBy = "`straight_distance`"
+	SkynetSearchPolygonGetParamsSortByDistance         SkynetSearchPolygonGetParamsSortBy = "`distance`"
+	SkynetSearchPolygonGetParamsSortByDuration         SkynetSearchPolygonGetParamsSortBy = "`duration`"
+	SkynetSearchPolygonGetParamsSortByStraightDistance SkynetSearchPolygonGetParamsSortBy = "`straight_distance`"
 )
 
 // Specifies the driving mode to be used for determining travel duration or driving
 // distance for sorting the assets in search result.
-type SkynetSearchPolygonListParamsSortDrivingMode string
+type SkynetSearchPolygonGetParamsSortDrivingMode string
 
 const (
-	SkynetSearchPolygonListParamsSortDrivingModeCar   SkynetSearchPolygonListParamsSortDrivingMode = "`car`"
-	SkynetSearchPolygonListParamsSortDrivingModeTruck SkynetSearchPolygonListParamsSortDrivingMode = "`truck`"
+	SkynetSearchPolygonGetParamsSortDrivingModeCar   SkynetSearchPolygonGetParamsSortDrivingMode = "`car`"
+	SkynetSearchPolygonGetParamsSortDrivingModeTruck SkynetSearchPolygonGetParamsSortDrivingMode = "`truck`"
 )

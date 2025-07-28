@@ -31,18 +31,18 @@ func TestRestrictionNewWithOptionalParams(t *testing.T) {
 		nextbillionsdk.RestrictionNewParamsRestrictionTypeTurn,
 		nextbillionsdk.RestrictionNewParams{
 			Key: "key=API_KEY",
-			RichGroupDtoRequest: nextbillionsdk.RichGroupDtoRequestParam{
+			RichGroupRequest: nextbillionsdk.RichGroupRequestParam{
 				Area:      "area",
 				Name:      "name",
 				Comment:   nextbillionsdk.String("comment"),
-				Direction: nextbillionsdk.RichGroupDtoRequestDirectionForward,
+				Direction: nextbillionsdk.RichGroupRequestDirectionForward,
 				EndTime:   nextbillionsdk.Float(0),
 				Geofence:  [][]float64{{0}},
 				Height:    nextbillionsdk.Int(0),
 				Length:    nextbillionsdk.Int(0),
 				Mode:      []string{"0w"},
 				RepeatOn:  nextbillionsdk.String(`repeatOn="Mo-Fr 07:00-09:00,17:00-19:00"`),
-				Segments: []nextbillionsdk.RichGroupDtoRequestSegmentParam{{
+				Segments: []nextbillionsdk.RichGroupRequestSegmentParam{{
 					From: nextbillionsdk.Float(0),
 					To:   nextbillionsdk.Float(0),
 				}},
@@ -50,7 +50,7 @@ func TestRestrictionNewWithOptionalParams(t *testing.T) {
 				SpeedLimit: nextbillionsdk.Float(0),
 				StartTime:  nextbillionsdk.Float(0),
 				Tracks:     [][]float64{{0}},
-				Turns: []nextbillionsdk.RichGroupDtoRequestTurnParam{{
+				Turns: []nextbillionsdk.RichGroupRequestTurnParam{{
 					From: nextbillionsdk.Int(0),
 					To:   nextbillionsdk.Int(0),
 					Via:  nextbillionsdk.Int(0),
@@ -118,18 +118,18 @@ func TestRestrictionUpdateWithOptionalParams(t *testing.T) {
 		0,
 		nextbillionsdk.RestrictionUpdateParams{
 			Key: "key=API_KEY",
-			RichGroupDtoRequest: nextbillionsdk.RichGroupDtoRequestParam{
+			RichGroupRequest: nextbillionsdk.RichGroupRequestParam{
 				Area:      "area",
 				Name:      "name",
 				Comment:   nextbillionsdk.String("comment"),
-				Direction: nextbillionsdk.RichGroupDtoRequestDirectionForward,
+				Direction: nextbillionsdk.RichGroupRequestDirectionForward,
 				EndTime:   nextbillionsdk.Float(0),
 				Geofence:  [][]float64{{0}},
 				Height:    nextbillionsdk.Int(0),
 				Length:    nextbillionsdk.Int(0),
 				Mode:      []string{"0w"},
 				RepeatOn:  nextbillionsdk.String(`repeatOn="Mo-Fr 07:00-09:00,17:00-19:00"`),
-				Segments: []nextbillionsdk.RichGroupDtoRequestSegmentParam{{
+				Segments: []nextbillionsdk.RichGroupRequestSegmentParam{{
 					From: nextbillionsdk.Float(0),
 					To:   nextbillionsdk.Float(0),
 				}},
@@ -137,7 +137,7 @@ func TestRestrictionUpdateWithOptionalParams(t *testing.T) {
 				SpeedLimit: nextbillionsdk.Float(0),
 				StartTime:  nextbillionsdk.Float(0),
 				Tracks:     [][]float64{{0}},
-				Turns: []nextbillionsdk.RichGroupDtoRequestTurnParam{{
+				Turns: []nextbillionsdk.RichGroupRequestTurnParam{{
 					From: nextbillionsdk.Int(0),
 					To:   nextbillionsdk.Int(0),
 					Via:  nextbillionsdk.Int(0),
@@ -171,12 +171,12 @@ func TestRestrictionListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Restrictions.List(context.TODO(), nextbillionsdk.RestrictionListParams{
+		Area:            "area",
 		Key:             "key=API_KEY",
-		MaxLat:          0,
-		MaxLon:          0,
-		MinLat:          0,
-		MinLon:          0,
-		Mode:            []string{"0w"},
+		Limit:           0,
+		Offset:          0,
+		Mode:            nextbillionsdk.RestrictionListParamsMode0w,
+		Name:            nextbillionsdk.String("name"),
 		RestrictionType: nextbillionsdk.RestrictionListParamsRestrictionTypeTurn,
 		Source:          nextbillionsdk.RestrictionListParamsSourceRrt,
 		State:           nextbillionsdk.RestrictionListParamsStateEnabled,
@@ -221,7 +221,7 @@ func TestRestrictionDelete(t *testing.T) {
 	}
 }
 
-func TestRestrictionListPaginatedWithOptionalParams(t *testing.T) {
+func TestRestrictionListByBboxWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -234,17 +234,17 @@ func TestRestrictionListPaginatedWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Restrictions.ListPaginated(context.TODO(), nextbillionsdk.RestrictionListPaginatedParams{
-		Area:            "area",
+	_, err := client.Restrictions.ListByBbox(context.TODO(), nextbillionsdk.RestrictionListByBboxParams{
 		Key:             "key=API_KEY",
-		Limit:           0,
-		Offset:          0,
-		Mode:            nextbillionsdk.RestrictionListPaginatedParamsMode0w,
-		Name:            nextbillionsdk.String("name"),
-		RestrictionType: nextbillionsdk.RestrictionListPaginatedParamsRestrictionTypeTurn,
-		Source:          nextbillionsdk.RestrictionListPaginatedParamsSourceRrt,
-		State:           nextbillionsdk.RestrictionListPaginatedParamsStateEnabled,
-		Status:          nextbillionsdk.RestrictionListPaginatedParamsStatusActive,
+		MaxLat:          0,
+		MaxLon:          0,
+		MinLat:          0,
+		MinLon:          0,
+		Mode:            []string{"0w"},
+		RestrictionType: nextbillionsdk.RestrictionListByBboxParamsRestrictionTypeTurn,
+		Source:          nextbillionsdk.RestrictionListByBboxParamsSourceRrt,
+		State:           nextbillionsdk.RestrictionListByBboxParamsStateEnabled,
+		Status:          nextbillionsdk.RestrictionListByBboxParamsStatusActive,
 		Transform:       nextbillionsdk.Bool(true),
 	})
 	if err != nil {

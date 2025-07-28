@@ -37,7 +37,7 @@ func NewSkynetSearchService(opts ...option.RequestOption) (r SkynetSearchService
 }
 
 // Around Search
-func (r *SkynetSearchService) GetAround(ctx context.Context, query SkynetSearchGetAroundParams, opts ...option.RequestOption) (res *SearchResponse, err error) {
+func (r *SkynetSearchService) Around(ctx context.Context, query SkynetSearchAroundParams, opts ...option.RequestOption) (res *SearchResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "skynet/search/around"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
@@ -45,7 +45,7 @@ func (r *SkynetSearchService) GetAround(ctx context.Context, query SkynetSearchG
 }
 
 // Bound Search
-func (r *SkynetSearchService) GetBound(ctx context.Context, query SkynetSearchGetBoundParams, opts ...option.RequestOption) (res *SearchResponse, err error) {
+func (r *SkynetSearchService) Bound(ctx context.Context, query SkynetSearchBoundParams, opts ...option.RequestOption) (res *SearchResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "skynet/search/bound"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
@@ -184,7 +184,7 @@ func (r *SearchResponseDataAssetRankingInfo) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type SkynetSearchGetAroundParams struct {
+type SkynetSearchAroundParams struct {
 	// Location coordinates of the point which would act as the center of the circular
 	// area to be searched.
 	Center string `query:"center,required" format:"latitude,longitude" json:"-"`
@@ -247,18 +247,18 @@ type SkynetSearchGetAroundParams struct {
 	//     `sort-destination` .
 	//
 	// Any of "`distance`", "`duration`", "`straight_distance`".
-	SortBy SkynetSearchGetAroundParamsSortBy `query:"sort_by,omitzero" json:"-"`
+	SortBy SkynetSearchAroundParamsSortBy `query:"sort_by,omitzero" json:"-"`
 	// Specifies the driving mode to be used for determining travel duration or driving
 	// distance for sorting the assets in search result.
 	//
 	// Any of "`car`", "`truck`".
-	SortDrivingMode SkynetSearchGetAroundParamsSortDrivingMode `query:"sort_driving_mode,omitzero" json:"-"`
+	SortDrivingMode SkynetSearchAroundParamsSortDrivingMode `query:"sort_driving_mode,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [SkynetSearchGetAroundParams]'s query parameters as
+// URLQuery serializes [SkynetSearchAroundParams]'s query parameters as
 // `url.Values`.
-func (r SkynetSearchGetAroundParams) URLQuery() (v url.Values, err error) {
+func (r SkynetSearchAroundParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -274,24 +274,24 @@ func (r SkynetSearchGetAroundParams) URLQuery() (v url.Values, err error) {
 //     .
 //   - **straight_distance** : Sort the assets by straight-line distance to the given
 //     `sort-destination` .
-type SkynetSearchGetAroundParamsSortBy string
+type SkynetSearchAroundParamsSortBy string
 
 const (
-	SkynetSearchGetAroundParamsSortByDistance         SkynetSearchGetAroundParamsSortBy = "`distance`"
-	SkynetSearchGetAroundParamsSortByDuration         SkynetSearchGetAroundParamsSortBy = "`duration`"
-	SkynetSearchGetAroundParamsSortByStraightDistance SkynetSearchGetAroundParamsSortBy = "`straight_distance`"
+	SkynetSearchAroundParamsSortByDistance         SkynetSearchAroundParamsSortBy = "`distance`"
+	SkynetSearchAroundParamsSortByDuration         SkynetSearchAroundParamsSortBy = "`duration`"
+	SkynetSearchAroundParamsSortByStraightDistance SkynetSearchAroundParamsSortBy = "`straight_distance`"
 )
 
 // Specifies the driving mode to be used for determining travel duration or driving
 // distance for sorting the assets in search result.
-type SkynetSearchGetAroundParamsSortDrivingMode string
+type SkynetSearchAroundParamsSortDrivingMode string
 
 const (
-	SkynetSearchGetAroundParamsSortDrivingModeCar   SkynetSearchGetAroundParamsSortDrivingMode = "`car`"
-	SkynetSearchGetAroundParamsSortDrivingModeTruck SkynetSearchGetAroundParamsSortDrivingMode = "`truck`"
+	SkynetSearchAroundParamsSortDrivingModeCar   SkynetSearchAroundParamsSortDrivingMode = "`car`"
+	SkynetSearchAroundParamsSortDrivingModeTruck SkynetSearchAroundParamsSortDrivingMode = "`truck`"
 )
 
-type SkynetSearchGetBoundParams struct {
+type SkynetSearchBoundParams struct {
 	// Specify two, pipe (|) delimited location coordinates which would act as corners
 	// of the bounding box area to be searched. The first one should be the southwest
 	// coordinate of the `bounds` and the second one should be the northeast coordinate
@@ -354,18 +354,18 @@ type SkynetSearchGetBoundParams struct {
 	//     `sort-destination` .
 	//
 	// Any of "`distance`", "`duration`", "`straight_distance`".
-	SortBy SkynetSearchGetBoundParamsSortBy `query:"sort_by,omitzero" json:"-"`
+	SortBy SkynetSearchBoundParamsSortBy `query:"sort_by,omitzero" json:"-"`
 	// Specifies the driving mode to be used for determining travel duration or driving
 	// distance for sorting the assets in search result.
 	//
 	// Any of "`car`", "`truck`".
-	SortDrivingMode SkynetSearchGetBoundParamsSortDrivingMode `query:"sort_driving_mode,omitzero" json:"-"`
+	SortDrivingMode SkynetSearchBoundParamsSortDrivingMode `query:"sort_driving_mode,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [SkynetSearchGetBoundParams]'s query parameters as
+// URLQuery serializes [SkynetSearchBoundParams]'s query parameters as
 // `url.Values`.
-func (r SkynetSearchGetBoundParams) URLQuery() (v url.Values, err error) {
+func (r SkynetSearchBoundParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -381,19 +381,19 @@ func (r SkynetSearchGetBoundParams) URLQuery() (v url.Values, err error) {
 //     .
 //   - **straight_distance** : Sort the assets by straight-line distance to the given
 //     `sort-destination` .
-type SkynetSearchGetBoundParamsSortBy string
+type SkynetSearchBoundParamsSortBy string
 
 const (
-	SkynetSearchGetBoundParamsSortByDistance         SkynetSearchGetBoundParamsSortBy = "`distance`"
-	SkynetSearchGetBoundParamsSortByDuration         SkynetSearchGetBoundParamsSortBy = "`duration`"
-	SkynetSearchGetBoundParamsSortByStraightDistance SkynetSearchGetBoundParamsSortBy = "`straight_distance`"
+	SkynetSearchBoundParamsSortByDistance         SkynetSearchBoundParamsSortBy = "`distance`"
+	SkynetSearchBoundParamsSortByDuration         SkynetSearchBoundParamsSortBy = "`duration`"
+	SkynetSearchBoundParamsSortByStraightDistance SkynetSearchBoundParamsSortBy = "`straight_distance`"
 )
 
 // Specifies the driving mode to be used for determining travel duration or driving
 // distance for sorting the assets in search result.
-type SkynetSearchGetBoundParamsSortDrivingMode string
+type SkynetSearchBoundParamsSortDrivingMode string
 
 const (
-	SkynetSearchGetBoundParamsSortDrivingModeCar   SkynetSearchGetBoundParamsSortDrivingMode = "`car`"
-	SkynetSearchGetBoundParamsSortDrivingModeTruck SkynetSearchGetBoundParamsSortDrivingMode = "`truck`"
+	SkynetSearchBoundParamsSortDrivingModeCar   SkynetSearchBoundParamsSortDrivingMode = "`car`"
+	SkynetSearchBoundParamsSortDrivingModeTruck SkynetSearchBoundParamsSortDrivingMode = "`truck`"
 )

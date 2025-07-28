@@ -27,7 +27,6 @@ type SkynetService struct {
 	NamespacedApikeys SkynetNamespacedApikeyService
 	Config            SkynetConfigService
 	Search            SkynetSearchService
-	Skynet            SkynetSkynetService
 }
 
 // NewSkynetService generates a new service that applies the given options to each
@@ -42,7 +41,6 @@ func NewSkynetService(opts ...option.RequestOption) (r SkynetService) {
 	r.NamespacedApikeys = NewSkynetNamespacedApikeyService(opts...)
 	r.Config = NewSkynetConfigService(opts...)
 	r.Search = NewSkynetSearchService(opts...)
-	r.Skynet = NewSkynetSkynetService(opts...)
 	return
 }
 
