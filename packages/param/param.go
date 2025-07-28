@@ -2,7 +2,7 @@ package param
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/encoding/json/sentinel"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/encoding/json/sentinel"
 	"reflect"
 )
 

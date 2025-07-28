@@ -2,7 +2,7 @@
 package json
 
 import (
-	"github.com/stainless-sdks/nextbillion-sdk-go/internal/encoding/json/shims"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/encoding/json/shims"
 	"reflect"
 	"time"
 )

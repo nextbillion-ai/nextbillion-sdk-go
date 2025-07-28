@@ -2,7 +2,7 @@ package param_test
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
+	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
 	"testing"
 )
 
