@@ -9,12 +9,12 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apijson"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apiquery"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/requestconfig"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go/packages/param"
+	"github.com/stainless-sdks/nextbillion-sdk-go/packages/respjson"
 )
 
 // FleetifyRouteService contains methods and other services that help with
@@ -65,7 +65,7 @@ func (r *FleetifyRouteService) Redispatch(ctx context.Context, routeID string, p
 // Please note the routing characteristics returned here are the same as those
 // configured in the input request. The fields which were not specified in the
 // input will be returned as blanks.
-type Routing struct {
+type RoutingResponse struct {
 	// Returns the configuration of approaches for each step, that is used when
 	// generating the route to help the driver with turn-by-turn navigation.
 	Approaches string `json:"approaches"`
@@ -104,8 +104,8 @@ type Routing struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r Routing) RawJSON() string { return r.JSON.raw }
-func (r *Routing) UnmarshalJSON(data []byte) error {
+func (r RoutingResponse) RawJSON() string { return r.JSON.raw }
+func (r *RoutingResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -158,7 +158,7 @@ type FleetifyRouteNewResponseData struct {
 	// Please note the routing characteristics returned here are the same as those
 	// configured in the input request. The fields which were not specified in the
 	// input will be returned as blanks.
-	Routing Routing `json:"routing"`
+	Routing RoutingResponse `json:"routing"`
 	// Returns a shorter unique ID of the dispatched route for easier referencing and
 	// displaying purposes.
 	ShortID string `json:"short_id"`
@@ -284,7 +284,7 @@ type FleetifyRouteRedispatchResponseData struct {
 	// Please note the routing characteristics returned here are the same as those
 	// configured in the input request. The fields which were not specified in the
 	// input will be returned as blanks.
-	Routing Routing `json:"routing"`
+	Routing RoutingResponse `json:"routing"`
 	// Returns a shorter unique ID of the route for easier referencing and displaying
 	// purposes.
 	ShortID string                                   `json:"short_id"`

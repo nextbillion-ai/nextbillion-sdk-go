@@ -18,10 +18,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apierror"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiform"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apierror"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apiform"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/apiquery"
 )
 
 func getDefaultHeaders() map[string]string {

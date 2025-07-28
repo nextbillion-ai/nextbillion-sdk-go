@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"time"
 
-	shimjson "github.com/nextbillion-ai/nextbillion-sdk-go/internal/encoding/json"
+	shimjson "github.com/stainless-sdks/nextbillion-sdk-go/internal/encoding/json"
 
 	"github.com/tidwall/sjson"
 )

@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/testutil"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/testutil"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
 func TestSkynetSearchPolygonNewWithOptionalParams(t *testing.T) {
@@ -58,7 +58,7 @@ func TestSkynetSearchPolygonNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestSkynetSearchPolygonListWithOptionalParams(t *testing.T) {
+func TestSkynetSearchPolygonGetWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -71,7 +71,7 @@ func TestSkynetSearchPolygonListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Search.Polygon.List(context.TODO(), nextbillionsdk.SkynetSearchPolygonListParams{
+	_, err := client.Skynet.Search.Polygon.Get(context.TODO(), nextbillionsdk.SkynetSearchPolygonGetParams{
 		Key:                    "key=API_KEY",
 		Polygon:                "polygon=17.4239,78.4590|17.4575,78.4624|17.4547,78.5483|17.4076,78.5527|17.4239,78.4590",
 		Filter:                 nextbillionsdk.String("filter=tag:delivery,truck"),
@@ -80,9 +80,9 @@ func TestSkynetSearchPolygonListWithOptionalParams(t *testing.T) {
 		MaxSearchLimit:         nextbillionsdk.Bool(true),
 		Pn:                     nextbillionsdk.Int(0),
 		Ps:                     nextbillionsdk.Int(100),
-		SortBy:                 nextbillionsdk.SkynetSearchPolygonListParamsSortByDistance,
+		SortBy:                 nextbillionsdk.SkynetSearchPolygonGetParamsSortByDistance,
 		SortDestination:        nextbillionsdk.String("sort_destination= 34.0241,-118.2550"),
-		SortDrivingMode:        nextbillionsdk.SkynetSearchPolygonListParamsSortDrivingModeCar,
+		SortDrivingMode:        nextbillionsdk.SkynetSearchPolygonGetParamsSortDrivingModeCar,
 	})
 	if err != nil {
 		var apierr *nextbillionsdk.Error

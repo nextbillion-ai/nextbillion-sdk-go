@@ -8,12 +8,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/testutil"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/testutil"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
-func TestSkynetConfigNewWithOptionalParams(t *testing.T) {
+func TestSkynetConfigGetWithOptionalParams(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,9 +26,35 @@ func TestSkynetConfigNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Config.New(context.TODO(), nextbillionsdk.SkynetConfigNewParams{
+	_, err := client.Skynet.Config.Get(context.TODO(), nextbillionsdk.SkynetConfigGetParams{
 		Key:     "key=API_KEY",
-		Cluster: nextbillionsdk.SkynetConfigNewParamsClusterAmerica,
+		Cluster: nextbillionsdk.SkynetConfigGetParamsClusterAmerica,
+	})
+	if err != nil {
+		var apierr *nextbillionsdk.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
+func TestSkynetConfigUpdateWithOptionalParams(t *testing.T) {
+	t.Skip("skipped: tests are disabled for the time being")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nextbillionsdk.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.Skynet.Config.Update(context.TODO(), nextbillionsdk.SkynetConfigUpdateParams{
+		Key:     "key=API_KEY",
+		Cluster: nextbillionsdk.SkynetConfigUpdateParamsClusterAmerica,
 		Webhook: []string{"string"},
 	})
 	if err != nil {
@@ -40,7 +66,7 @@ func TestSkynetConfigNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestSkynetConfigListWithOptionalParams(t *testing.T) {
+func TestSkynetConfigTestWebhook(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -53,33 +79,7 @@ func TestSkynetConfigListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Config.List(context.TODO(), nextbillionsdk.SkynetConfigListParams{
-		Key:     "key=API_KEY",
-		Cluster: nextbillionsdk.SkynetConfigListParamsClusterAmerica,
-	})
-	if err != nil {
-		var apierr *nextbillionsdk.Error
-		if errors.As(err, &apierr) {
-			t.Log(string(apierr.DumpRequest(true)))
-		}
-		t.Fatalf("err should be nil: %s", err.Error())
-	}
-}
-
-func TestSkynetConfigTestwebhook(t *testing.T) {
-	t.Skip("skipped: tests are disabled for the time being")
-	baseURL := "http://localhost:4010"
-	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
-		baseURL = envURL
-	}
-	if !testutil.CheckTestServer(t, baseURL) {
-		return
-	}
-	client := nextbillionsdk.NewClient(
-		option.WithBaseURL(baseURL),
-		option.WithAPIKey("My API Key"),
-	)
-	_, err := client.Skynet.Config.Testwebhook(context.TODO(), nextbillionsdk.SkynetConfigTestwebhookParams{
+	_, err := client.Skynet.Config.TestWebhook(context.TODO(), nextbillionsdk.SkynetConfigTestWebhookParams{
 		Key: "key=API_KEY",
 	})
 	if err != nil {

@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nextbillion-ai/nextbillion-sdk-go"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/testutil"
-	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
+	"github.com/stainless-sdks/nextbillion-sdk-go"
+	"github.com/stainless-sdks/nextbillion-sdk-go/internal/testutil"
+	"github.com/stainless-sdks/nextbillion-sdk-go/option"
 )
 
 func TestSkynetMonitorNewWithOptionalParams(t *testing.T) {
@@ -142,6 +142,36 @@ func TestSkynetMonitorUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
+func TestSkynetMonitorListWithOptionalParams(t *testing.T) {
+	t.Skip("skipped: tests are disabled for the time being")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nextbillionsdk.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.Skynet.Monitor.List(context.TODO(), nextbillionsdk.SkynetMonitorListParams{
+		Key:     "key=API_KEY",
+		Cluster: nextbillionsdk.SkynetMonitorListParamsClusterAmerica,
+		Pn:      nextbillionsdk.Int(0),
+		Ps:      nextbillionsdk.Int(100),
+		Sort:    nextbillionsdk.String("updated_at:desc"),
+		Tags:    nextbillionsdk.String("tags=tag_1,tag_2"),
+	})
+	if err != nil {
+		var apierr *nextbillionsdk.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
 func TestSkynetMonitorDelete(t *testing.T) {
 	t.Skip("skipped: tests are disabled for the time being")
 	baseURL := "http://localhost:4010"
@@ -162,36 +192,6 @@ func TestSkynetMonitorDelete(t *testing.T) {
 			Key: "key=API_KEY",
 		},
 	)
-	if err != nil {
-		var apierr *nextbillionsdk.Error
-		if errors.As(err, &apierr) {
-			t.Log(string(apierr.DumpRequest(true)))
-		}
-		t.Fatalf("err should be nil: %s", err.Error())
-	}
-}
-
-func TestSkynetMonitorGetListWithOptionalParams(t *testing.T) {
-	t.Skip("skipped: tests are disabled for the time being")
-	baseURL := "http://localhost:4010"
-	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
-		baseURL = envURL
-	}
-	if !testutil.CheckTestServer(t, baseURL) {
-		return
-	}
-	client := nextbillionsdk.NewClient(
-		option.WithBaseURL(baseURL),
-		option.WithAPIKey("My API Key"),
-	)
-	_, err := client.Skynet.Monitor.GetList(context.TODO(), nextbillionsdk.SkynetMonitorGetListParams{
-		Key:     "key=API_KEY",
-		Cluster: nextbillionsdk.SkynetMonitorGetListParamsClusterAmerica,
-		Pn:      nextbillionsdk.Int(0),
-		Ps:      nextbillionsdk.Int(100),
-		Sort:    nextbillionsdk.String("updated_at:desc"),
-		Tags:    nextbillionsdk.String("tags=tag_1,tag_2"),
-	})
 	if err != nil {
 		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
