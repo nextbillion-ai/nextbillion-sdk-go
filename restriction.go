@@ -112,16 +112,16 @@ type RichGroupRequestParam struct {
 	// Specify the maximum truck height, in centimeter, that will be allowed under the
 	// restriction. A value of 0 indicates no limit.
 	//
-	// Please note this parameter is effective only when `restriction_type` is `truck`.
-	// At least one of truck parameters - `weight`, `height`, `width` and `truck` -
-	// needs to be provided when restriction type is `truck`.
+	// Please note this parameter is effective only when restriction_type is truck. At
+	// least one of truck parameters - weight, height, width and truck - needs to be
+	// provided when restriction type is truck.
 	Height param.Opt[int64] `json:"height,omitzero"`
 	// Specify the maximum truck length, in centimeter, that will be allowed under the
 	// restriction. A value of 0 indicates no limit.
 	//
-	// Please note this parameter is effective only when `restriction_type` is `truck`.
-	// At least one of truck parameters - `weight`, `height`, `width` and `truck` -
-	// needs to be provided when restriction type is `truck`.
+	// Please note this parameter is effective only when restriction_type is truck. At
+	// least one of truck parameters - weight, height, width and truck - needs to be
+	// provided when restriction type is truck.
 	Length param.Opt[int64] `json:"length,omitzero"`
 	// It represents the days and times when the restriction is in effect. Users can
 	// use this property to set recurring or one-time restrictions as per the
@@ -132,12 +132,12 @@ type RichGroupRequestParam struct {
 	// is being applied.
 	RepeatOn param.Opt[string] `json:"repeat_on,omitzero"`
 	// Provide the the fixed speed of the segment where the restriction needs to be
-	// applied. Please note that this parameter is mandatory when the `restrictionType`
-	// is `fixedspeed`.
+	// applied. Please note that this parameter is mandatory when the restrictionType
+	// is fixedspeed.
 	Speed param.Opt[float64] `json:"speed,omitzero"`
 	// Provide the the maximum speed of the segment where the restriction needs to be
-	// applied. Please note that this parameter is mandatory when the `restrictionType`
-	// is `maxspeed`.
+	// applied. Please note that this parameter is mandatory when the restrictionType
+	// is maxspeed.
 	SpeedLimit param.Opt[float64] `json:"speed_limit,omitzero"`
 	// Provide a UNIX epoch timestamp in seconds, representing the start time for the
 	// restriction to be in-effect.
@@ -145,29 +145,29 @@ type RichGroupRequestParam struct {
 	// Specify the maximum truck weight, in kilograms, that the restriction will allow.
 	// A value of 0 indicates no limit.
 	//
-	// Please note this parameter is effective only when `restriction_type` is `truck`.
-	// At least one of truck parameters - `weight`, `height`, `width` and `truck` -
-	// needs to be provided for is `truck` restriction type.
+	// Please note this parameter is effective only when restriction_type is truck. At
+	// least one of truck parameters - weight, height, width and truck - needs to be
+	// provided for is truck restriction type.
 	Weight param.Opt[int64] `json:"weight,omitzero"`
 	// Specify the maximum truck width, in centimeter, that will be allowed under the
 	// restriction. A value of 0 indicates no limit.
 	//
-	// Please note this parameter is effective only when `restriction_type` is `truck`.
-	// At least one of truck parameters - `weight`, `height`, `width` and `truck` -
-	// needs to be provided when restriction type is `truck`.
+	// Please note this parameter is effective only when restriction_type is truck. At
+	// least one of truck parameters - weight, height, width and truck - needs to be
+	// provided when restriction type is truck.
 	Width param.Opt[int64] `json:"width,omitzero"`
 	// Represents the traffic direction on the segments to which the restriction will
 	// be applied.
 	//
-	// Any of "`forward`", "`backward`", "`both`".
+	// Any of "forward", "backward", "both".
 	Direction RichGroupRequestDirection `json:"direction,omitzero"`
 	// An array of coordinates denoting the boundary of an area in which the
 	// restrictions are to be applied. The format in which coordinates should be listed
-	// is defined by the `latlon` field.
+	// is defined by the latlon field.
 	//
-	// Geofences can be used to create all restriction types, except for a `turn` type
-	// restriction. Please note that `segments` is not required when using `geofence`
-	// to create restrictions.
+	// Geofences can be used to create all restriction types, except for a turn type
+	// restriction. Please note that segments is not required when using geofence to
+	// create restrictions.
 	Geofence [][]float64 `json:"geofence,omitzero"`
 	// Provide the driving modes for which the restriction should be effective. If the
 	// value is an empty array or if it is not provided then the restriction would be
@@ -178,17 +178,16 @@ type RichGroupRequestParam struct {
 	// An array of objects to collect the details of the segments of a road on which
 	// the restriction has to be applied. Each object corresponds to a new segment.
 	//
-	// Please note that `segments` is mandatory for all `restrtiction_type` except
-	// `turn`.
+	// Please note that segments is mandatory for all restrtiction_type except turn.
 	Segments []RichGroupRequestSegmentParam `json:"segments,omitzero"`
 	// Specify a sequence of coordinates (track) where the restriction is to be
 	// applied. The coordinates will be snapped to nearest road. Please note when using
-	// `tracks`, `segments` and `turns` are not required.
+	// tracks, segments and turns are not required.
 	Tracks [][]float64 `json:"tracks,omitzero"`
 	// An array of objects to collect the details of the turns of a road on which the
 	// restriction has to be applied. Each object corresponds to a new turn.
 	//
-	// Please note that `turns` is mandatory for when `restrtiction_type=turn`.
+	// Please note that turns is mandatory for when restrtiction_type=turn.
 	Turns []RichGroupRequestTurnParam `json:"turns,omitzero"`
 	paramObj
 }
@@ -206,9 +205,9 @@ func (r *RichGroupRequestParam) UnmarshalJSON(data []byte) error {
 type RichGroupRequestDirection string
 
 const (
-	RichGroupRequestDirectionForward  RichGroupRequestDirection = "`forward`"
-	RichGroupRequestDirectionBackward RichGroupRequestDirection = "`backward`"
-	RichGroupRequestDirectionBoth     RichGroupRequestDirection = "`both`"
+	RichGroupRequestDirectionForward  RichGroupRequestDirection = "forward"
+	RichGroupRequestDirectionBackward RichGroupRequestDirection = "backward"
+	RichGroupRequestDirectionBoth     RichGroupRequestDirection = "both"
 )
 
 type RichGroupRequestSegmentParam struct {
@@ -232,8 +231,8 @@ type RichGroupRequestTurnParam struct {
 	From param.Opt[int64] `json:"from,omitzero"`
 	// An integer value that represents the ID of the ending node of the turn.
 	To param.Opt[int64] `json:"to,omitzero"`
-	// An integer value that represents the ID of a node connecting `from` and `to`
-	// nodes of the turn.
+	// An integer value that represents the ID of a node connecting from and to nodes
+	// of the turn.
 	Via param.Opt[int64] `json:"via,omitzero"`
 	paramObj
 }
@@ -289,10 +288,10 @@ type RichGroupResponse struct {
 	// Any of "closure", "maxspeed", "fixedspeed", "parking", "turn", "truck".
 	RestrictionType RichGroupResponseRestrictionType `json:"restriction_type"`
 	// Returns the fixed speed of segments. This field is not present in the response
-	// if the restriction type is not `fixedspeed`
+	// if the restriction type is not fixedspeed
 	Speed float64 `json:"speed"`
 	// Returns the maximum speed of segments. This field is not present in the response
-	// if the restriction type is not `maxspeed`
+	// if the restriction type is not maxspeed
 	SpeedLimit float64 `json:"speed_limit"`
 	// The time when the restriction starts to be in-effect. It is a UNIX timestamp.
 	StartTime float64 `json:"start_time"`
@@ -303,11 +302,10 @@ type RichGroupResponse struct {
 	State RichGroupResponseState `json:"state"`
 	// Returns the status of the restriction at the time of making the request i.e.
 	// whether the restriction is in force or not. It will have one of the following
-	// values: `active` or `inactive`.
+	// values: active or inactive.
 	//
 	// Please note that this field can not be directly influenced by the users. It will
-	// always be calculated using the `start_time`, `end_time` and `repeat_on`
-	// parameters.
+	// always be calculated using the start_time, end_time and repeat_on parameters.
 	//
 	// Any of "active", "inactive".
 	Status RichGroupResponseStatus `json:"status"`
@@ -380,11 +378,10 @@ const (
 
 // Returns the status of the restriction at the time of making the request i.e.
 // whether the restriction is in force or not. It will have one of the following
-// values: `active` or `inactive`.
+// values: active or inactive.
 //
 // Please note that this field can not be directly influenced by the users. It will
-// always be calculated using the `start_time`, `end_time` and `repeat_on`
-// parameters.
+// always be calculated using the start_time, end_time and repeat_on parameters.
 type RichGroupResponseStatus string
 
 const (
@@ -414,7 +411,7 @@ func (r *RestrictionListResponse) UnmarshalJSON(data []byte) error {
 
 type RestrictionListResponseMeta struct {
 	// An integer value indicating the maximum number of items retrieved per "page".
-	// This is the same number as provided for the `limit` parameter in input.
+	// This is the same number as provided for the limit parameter in input.
 	Limit int64 `json:"limit"`
 	// An integer value indicating the number of items in the collection that were
 	// skipped to display the current response. Please note that the offset starts from
@@ -441,7 +438,7 @@ func (r *RestrictionListResponseMeta) UnmarshalJSON(data []byte) error {
 type RestrictionDeleteResponse struct {
 	// It is the unique ID of the restriction.
 	ID float64 `json:"id"`
-	// Returns the state of the restriction. It would always be `deleted`.
+	// Returns the state of the restriction. It would always be deleted.
 	State string `json:"state"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -552,7 +549,7 @@ type RestrictionListParams struct {
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
 	// The number of restrictions to be returned in the response. Please note that if
-	// the `limit` is set to a number more than the total number of available
+	// the limit is set to a number more than the total number of available
 	// restrictions, then all restrictions would be returned together.
 	Limit int64 `query:"limit,required" json:"-"`
 	// An integer value indicating the number of items in the collection that need to
@@ -560,7 +557,7 @@ type RestrictionListParams struct {
 	// first item returned in the result would be the item at (offset + 1) position in
 	// collection.
 	//
-	// Users can use `offset` along with `limit` to implement paginated result.
+	// Users can use offset along with limit to implement paginated result.
 	Offset int64 `query:"offset,required" json:"-"`
 	// The name of the restriction. This should be same as that provided while creating
 	// or updating the restriction.
@@ -569,12 +566,11 @@ type RestrictionListParams struct {
 	Transform param.Opt[bool] `query:"transform,omitzero" json:"-"`
 	// Specify the modes of travel that the restriction pertains to.
 	//
-	// Any of "`0w`", "`2w`", "`3w`", "`4w`", "`6w`".
+	// Any of "0w", "2w", "3w", "4w", "6w".
 	Mode RestrictionListParamsMode `query:"mode,omitzero" json:"-"`
 	// Specify the type of restrictions to fetch.
 	//
-	// Any of "`turn`", "`parking`", "`fixedspeed`", "`maxspeed`", "`closure`",
-	// "`truck`".
+	// Any of "turn", "parking", "fixedspeed", "maxspeed", "closure", "truck".
 	RestrictionType RestrictionListParamsRestrictionType `query:"restriction_type,omitzero" json:"-"`
 	// It represents where it comes from, currently the possible values include "rrt",
 	// "xsm"
@@ -583,9 +579,9 @@ type RestrictionListParams struct {
 	Source RestrictionListParamsSource `query:"source,omitzero" json:"-"`
 	// This parameter is used to filter restrictions based on their state i.e. whether
 	// the restriction is currently enabled, disabled, or deleted. For example, users
-	// can retrieve a list of all the deleted restrictions by setting `state=deleted`.
+	// can retrieve a list of all the deleted restrictions by setting state=deleted.
 	//
-	// Any of "`enabled`", "`disabled`", "`deleted`".
+	// Any of "enabled", "disabled", "deleted".
 	State RestrictionListParamsState `query:"state,omitzero" json:"-"`
 	// Restrictions can be active or inactive at a given time by virtue of their
 	// nature. For example, maximum speed limits can be active on the roads leading to
@@ -595,7 +591,7 @@ type RestrictionListParams struct {
 	// Use this parameter to filter the restrictions based on their status at the time
 	// of making the request i.e. whether they are in force or not.
 	//
-	// Any of "`active`", "`inactive`".
+	// Any of "active", "inactive".
 	Status RestrictionListParamsStatus `query:"status,omitzero" json:"-"`
 	paramObj
 }
@@ -612,23 +608,23 @@ func (r RestrictionListParams) URLQuery() (v url.Values, err error) {
 type RestrictionListParamsMode string
 
 const (
-	RestrictionListParamsMode0w RestrictionListParamsMode = "`0w`"
-	RestrictionListParamsMode2w RestrictionListParamsMode = "`2w`"
-	RestrictionListParamsMode3w RestrictionListParamsMode = "`3w`"
-	RestrictionListParamsMode4w RestrictionListParamsMode = "`4w`"
-	RestrictionListParamsMode6w RestrictionListParamsMode = "`6w`"
+	RestrictionListParamsMode0w RestrictionListParamsMode = "0w"
+	RestrictionListParamsMode2w RestrictionListParamsMode = "2w"
+	RestrictionListParamsMode3w RestrictionListParamsMode = "3w"
+	RestrictionListParamsMode4w RestrictionListParamsMode = "4w"
+	RestrictionListParamsMode6w RestrictionListParamsMode = "6w"
 )
 
 // Specify the type of restrictions to fetch.
 type RestrictionListParamsRestrictionType string
 
 const (
-	RestrictionListParamsRestrictionTypeTurn       RestrictionListParamsRestrictionType = "`turn`"
-	RestrictionListParamsRestrictionTypeParking    RestrictionListParamsRestrictionType = "`parking`"
-	RestrictionListParamsRestrictionTypeFixedspeed RestrictionListParamsRestrictionType = "`fixedspeed`"
-	RestrictionListParamsRestrictionTypeMaxspeed   RestrictionListParamsRestrictionType = "`maxspeed`"
-	RestrictionListParamsRestrictionTypeClosure    RestrictionListParamsRestrictionType = "`closure`"
-	RestrictionListParamsRestrictionTypeTruck      RestrictionListParamsRestrictionType = "`truck`"
+	RestrictionListParamsRestrictionTypeTurn       RestrictionListParamsRestrictionType = "turn"
+	RestrictionListParamsRestrictionTypeParking    RestrictionListParamsRestrictionType = "parking"
+	RestrictionListParamsRestrictionTypeFixedspeed RestrictionListParamsRestrictionType = "fixedspeed"
+	RestrictionListParamsRestrictionTypeMaxspeed   RestrictionListParamsRestrictionType = "maxspeed"
+	RestrictionListParamsRestrictionTypeClosure    RestrictionListParamsRestrictionType = "closure"
+	RestrictionListParamsRestrictionTypeTruck      RestrictionListParamsRestrictionType = "truck"
 )
 
 // It represents where it comes from, currently the possible values include "rrt",
@@ -642,13 +638,13 @@ const (
 
 // This parameter is used to filter restrictions based on their state i.e. whether
 // the restriction is currently enabled, disabled, or deleted. For example, users
-// can retrieve a list of all the deleted restrictions by setting `state=deleted`.
+// can retrieve a list of all the deleted restrictions by setting state=deleted.
 type RestrictionListParamsState string
 
 const (
-	RestrictionListParamsStateEnabled  RestrictionListParamsState = "`enabled`"
-	RestrictionListParamsStateDisabled RestrictionListParamsState = "`disabled`"
-	RestrictionListParamsStateDeleted  RestrictionListParamsState = "`deleted`"
+	RestrictionListParamsStateEnabled  RestrictionListParamsState = "enabled"
+	RestrictionListParamsStateDisabled RestrictionListParamsState = "disabled"
+	RestrictionListParamsStateDeleted  RestrictionListParamsState = "deleted"
 )
 
 // Restrictions can be active or inactive at a given time by virtue of their
@@ -661,8 +657,8 @@ const (
 type RestrictionListParamsStatus string
 
 const (
-	RestrictionListParamsStatusActive   RestrictionListParamsStatus = "`active`"
-	RestrictionListParamsStatusInactive RestrictionListParamsStatus = "`inactive`"
+	RestrictionListParamsStatusActive   RestrictionListParamsStatus = "active"
+	RestrictionListParamsStatusInactive RestrictionListParamsStatus = "inactive"
 )
 
 type RestrictionDeleteParams struct {
@@ -693,7 +689,7 @@ type RestrictionListByBboxParams struct {
 	MinLat float64 `query:"min_lat,required" json:"-"`
 	// Specifies the minimum longitude value for the bounding box.
 	MinLon float64 `query:"min_lon,required" json:"-"`
-	// This is internal parameter with a default value as `false`.
+	// This is internal parameter with a default value as false.
 	Transform param.Opt[bool] `query:"transform,omitzero" json:"-"`
 	// Specify the modes of travel that the restriction pertains to.
 	//
@@ -714,9 +710,9 @@ type RestrictionListByBboxParams struct {
 	Source RestrictionListByBboxParamsSource `query:"source,omitzero" json:"-"`
 	// This parameter is used to filter restrictions based on their state i.e. whether
 	// the restriction is currently enabled, disabled, or deleted. For example, users
-	// can retrieve a list of all the deleted restrictions by setting `state=deleted`.
+	// can retrieve a list of all the deleted restrictions by setting state=deleted.
 	//
-	// Any of "`enabled`", "`disabled`", "`deleted`".
+	// Any of "enabled", "disabled", "deleted".
 	State RestrictionListByBboxParamsState `query:"state,omitzero" json:"-"`
 	// Restrictions can be active or inactive at a given time by virtue of their
 	// nature. For example, maximum speed limits can be active on the roads leading to
@@ -726,7 +722,7 @@ type RestrictionListByBboxParams struct {
 	// Use this parameter to filter the restrictions based on their status at the time
 	// of making the request i.e. whether they are in force or not.
 	//
-	// Any of "`active`", "`inactive`".
+	// Any of "active", "inactive".
 	Status RestrictionListByBboxParamsStatus `query:"status,omitzero" json:"-"`
 	paramObj
 }
@@ -767,13 +763,13 @@ const (
 
 // This parameter is used to filter restrictions based on their state i.e. whether
 // the restriction is currently enabled, disabled, or deleted. For example, users
-// can retrieve a list of all the deleted restrictions by setting `state=deleted`.
+// can retrieve a list of all the deleted restrictions by setting state=deleted.
 type RestrictionListByBboxParamsState string
 
 const (
-	RestrictionListByBboxParamsStateEnabled  RestrictionListByBboxParamsState = "`enabled`"
-	RestrictionListByBboxParamsStateDisabled RestrictionListByBboxParamsState = "`disabled`"
-	RestrictionListByBboxParamsStateDeleted  RestrictionListByBboxParamsState = "`deleted`"
+	RestrictionListByBboxParamsStateEnabled  RestrictionListByBboxParamsState = "enabled"
+	RestrictionListByBboxParamsStateDisabled RestrictionListByBboxParamsState = "disabled"
+	RestrictionListByBboxParamsStateDeleted  RestrictionListByBboxParamsState = "deleted"
 )
 
 // Restrictions can be active or inactive at a given time by virtue of their
@@ -786,19 +782,19 @@ const (
 type RestrictionListByBboxParamsStatus string
 
 const (
-	RestrictionListByBboxParamsStatusActive   RestrictionListByBboxParamsStatus = "`active`"
-	RestrictionListByBboxParamsStatusInactive RestrictionListByBboxParamsStatus = "`inactive`"
+	RestrictionListByBboxParamsStatusActive   RestrictionListByBboxParamsStatus = "active"
+	RestrictionListByBboxParamsStatusInactive RestrictionListByBboxParamsStatus = "inactive"
 )
 
 type RestrictionSetStateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Use this field to specify the new `state` of the restriction. Please note that
+	// Use this field to specify the new state of the restriction. Please note that
 	// this method cannot update the state of restrictions that are currently in
 	// 'deleted' state.
 	//
-	// Any of "`enabled`", "`disabled`", "`deleted`".
+	// Any of "enabled", "disabled", "deleted".
 	State RestrictionSetStateParamsState `json:"state,omitzero,required"`
 	paramObj
 }
@@ -820,13 +816,13 @@ func (r RestrictionSetStateParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-// Use this field to specify the new `state` of the restriction. Please note that
+// Use this field to specify the new state of the restriction. Please note that
 // this method cannot update the state of restrictions that are currently in
 // 'deleted' state.
 type RestrictionSetStateParamsState string
 
 const (
-	RestrictionSetStateParamsStateEnabled  RestrictionSetStateParamsState = "`enabled`"
-	RestrictionSetStateParamsStateDisabled RestrictionSetStateParamsState = "`disabled`"
-	RestrictionSetStateParamsStateDeleted  RestrictionSetStateParamsState = "`deleted`"
+	RestrictionSetStateParamsStateEnabled  RestrictionSetStateParamsState = "enabled"
+	RestrictionSetStateParamsStateDisabled RestrictionSetStateParamsState = "disabled"
+	RestrictionSetStateParamsStateDeleted  RestrictionSetStateParamsState = "deleted"
 )

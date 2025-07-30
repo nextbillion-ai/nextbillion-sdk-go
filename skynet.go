@@ -55,7 +55,7 @@ func (r *SkynetService) Subscribe(ctx context.Context, body SkynetSubscribeParam
 type SkynetSubscribeResponse struct {
 	// Subscription ID as provided in the input action message.
 	ID string `json:"id"`
-	// Returns the error message when `status: error`. Otherwise, response doesn't
+	// Returns the error message when status: error. Otherwise, response doesn't
 	// contain this field.
 	Error string `json:"error"`
 	// Status of the action. It can have only two values - "success" or "error".
@@ -93,7 +93,7 @@ type SkynetSubscribeParams struct {
 	//     [connection details](https://188--nbai-docs-stg.netlify.app/docs/tracking/api/live-tracking-api#connect-to-web-socket-server)
 	//     for more details.
 	//
-	// Any of "`TRIP_SUBSCRIBE`", "`TRIP_UNSUBSCRIBE`", "`HEARTBEAT`".
+	// Any of "TRIP_SUBSCRIBE", "TRIP_UNSUBSCRIBE", "HEARTBEAT".
 	Action SkynetSubscribeParamsAction `json:"action,omitzero,required"`
 	// Specify a custom ID for the subscription. It can be used to reference a given
 	// subscription in the downstream applications / systems.
@@ -124,9 +124,9 @@ func (r *SkynetSubscribeParams) UnmarshalJSON(data []byte) error {
 type SkynetSubscribeParamsAction string
 
 const (
-	SkynetSubscribeParamsActionTripSubscribe   SkynetSubscribeParamsAction = "`TRIP_SUBSCRIBE`"
-	SkynetSubscribeParamsActionTripUnsubscribe SkynetSubscribeParamsAction = "`TRIP_UNSUBSCRIBE`"
-	SkynetSubscribeParamsActionHeartbeat       SkynetSubscribeParamsAction = "`HEARTBEAT`"
+	SkynetSubscribeParamsActionTripSubscribe   SkynetSubscribeParamsAction = "TRIP_SUBSCRIBE"
+	SkynetSubscribeParamsActionTripUnsubscribe SkynetSubscribeParamsAction = "TRIP_UNSUBSCRIBE"
+	SkynetSubscribeParamsActionHeartbeat       SkynetSubscribeParamsAction = "HEARTBEAT"
 )
 
 // The property ID is required.
@@ -134,7 +134,7 @@ type SkynetSubscribeParamsParams struct {
 	// Specify the ID of an active trip that needs to be subscribed. The ID of a trip
 	// is returned in the response when _Start A Trip_ request is acknowledged.
 	//
-	// This attribute is mandatory when `action` is set to either "TRIP_SUBSCRIBE" or
+	// This attribute is mandatory when action is set to either "TRIP_SUBSCRIBE" or
 	// "TRIP_UNSUBSCRIBE"
 	ID string `json:"id,required"`
 	paramObj

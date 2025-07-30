@@ -47,7 +47,7 @@ func (r *IsochroneService) Compute(ctx context.Context, query IsochroneComputePa
 type IsochroneComputeResponse struct {
 	// A
 	// [GeoJSON FeatureCollection](https://datatracker.ietf.org/doc/html/rfc7946#section-3.3)
-	// object with details of the isochrone contours. Each `feature` object in this
+	// object with details of the isochrone contours. Each feature object in this
 	// collection represents an isochrone.
 	Features []IsochroneComputeResponseFeature `json:"features"`
 	// Displays the error message in case of a failed request or operation. Please note
@@ -55,12 +55,12 @@ type IsochroneComputeResponse struct {
 	// request.
 	Msg string `json:"msg"`
 	// A string indicating the state of the response. On normal responses, the value
-	// will be `Ok`. Indicative HTTP error codes are returned for different errors. See
+	// will be Ok. Indicative HTTP error codes are returned for different errors. See
 	// the [API Errors Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// Type of the GeoJSON object. As prescribed in
 	// [GeoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946#section-1.4),
-	// its value is `FeatureCollection` as the `feature` property contains a list of
+	// its value is FeatureCollection as the feature property contains a list of
 	// geoJSON feature objects.
 	Type string `json:"type"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -86,7 +86,7 @@ type IsochroneComputeResponseFeature struct {
 	Geometry IsochroneComputeResponseFeatureGeometry `json:"geometry"`
 	// An object with details of how the isochrone contour can be drawn on a map.
 	Properties IsochroneComputeResponseFeatureProperties `json:"properties"`
-	// Type of the GeoJSON object. Its value is `Feature` as per the
+	// Type of the GeoJSON object. Its value is Feature as per the
 	// [GeoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946#section-1.4)
 	// object.
 	Type string `json:"type"`
@@ -133,10 +133,10 @@ func (r *IsochroneComputeResponseFeatureGeometry) UnmarshalJSON(data []byte) err
 type IsochroneComputeResponseFeatureProperties struct {
 	// The hex code of the color of the isochrone contour line
 	Color string `json:"color"`
-	// The value of the metric used in this contour. See the `metric` property to
-	// determine whether this is a `time` or `distance` contour. When the `metric` is
-	// `time` this value denotes the travel time in minutes and when the `metric` is
-	// `distance` this value denotes the travel distance in kilometers.
+	// The value of the metric used in this contour. See the metric property to
+	// determine whether this is a time or distance contour. When the metric is time
+	// this value denotes the travel time in minutes and when the metric is distance
+	// this value denotes the travel distance in kilometers.
 	Contour float64 `json:"contour"`
 	// The hex code for the fill color of the isochrone contour line.
 	Fill string `json:"fill"`
@@ -145,7 +145,7 @@ type IsochroneComputeResponseFeatureProperties struct {
 	// The fill opacity for the isochrone contour line. It is a float value starting
 	// from 0.0 with a max value of 1.0. Higher number indicates a higher fill opacity.
 	FillOpacity float64 `json:"fillOpacity"`
-	// The metric that the contour represents - either `distance` or `time`
+	// The metric that the contour represents - either distance or time
 	Metric string `json:"metric"`
 	// The opacity of the isochrone contour line. It is a float value starting from 0.0
 	// with a max value of 1.0. Higher number indicates a higher line opacity
@@ -225,7 +225,7 @@ type IsochroneComputeParams struct {
 	// [support@nextbillion.ai](mailto:support@nextbillion.ai) in case you need
 	// additional profiles.
 	//
-	// Any of "`car`", "`truck`".
+	// Any of "car", "truck".
 	Mode IsochroneComputeParamsMode `query:"mode,omitzero" json:"-"`
 	paramObj
 }
@@ -253,6 +253,6 @@ func (r IsochroneComputeParams) URLQuery() (v url.Values, err error) {
 type IsochroneComputeParamsMode string
 
 const (
-	IsochroneComputeParamsModeCar   IsochroneComputeParamsMode = "`car`"
-	IsochroneComputeParamsModeTruck IsochroneComputeParamsMode = "`truck`"
+	IsochroneComputeParamsModeCar   IsochroneComputeParamsMode = "car"
+	IsochroneComputeParamsModeTruck IsochroneComputeParamsMode = "truck"
 )

@@ -54,46 +54,46 @@ func (r *OptimizationV2Service) Submit(ctx context.Context, params OptimizationV
 type JobParam struct {
 	// Provide an unique ID for the job. The IDs are case-sensitive.
 	ID string `json:"id,required"`
-	// An integer denoting the index (in the `location` array) of the location
+	// An integer denoting the index (in the location array) of the location
 	// coordinates where the job needs to be performed. The valid range of values is
-	// \[0, length of `location` array).
+	// \[0, length of location array).
 	//
-	// Please note the `location_index` is mandatory when using the `jobs` object.
+	// Please note the location_index is mandatory when using the jobs object.
 	LocationIndex int64 `json:"location_index,required"`
 	// Add a custom description for the job.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// Specify whether the job route should follow LIFO (last in, first out). Use this
-	// parameter when `pickup` or `delivery` jobs are involved and the loading or
-	// unloading sequence of cargo is important. The default is `false`.
+	// parameter when pickup or delivery jobs are involved and the loading or unloading
+	// sequence of cargo is important. The default is false.
 	FollowLifoOrder param.Opt[bool] `json:"follow_lifo_order,omitzero"`
 	// Specify a joint order group ID that this job is associated with. Tasks having
 	// the same joint order group ID are treated as a single unit: either all tasks in
-	// the group are assigned, or none are. Users can add tasks of both `jobs` and
-	// `shipments` types to a single joint order group by using the same unique ID.
+	// the group are assigned, or none are. Users can add tasks of both jobs and
+	// shipments types to a single joint order group by using the same unique ID.
 	// Please note that:
 	//
 	//   - Each job in a single joint order group will be fulfilled by a unique vehicle.
 	//   - Jobs belonging to a joint order group can be served in any sequence.
-	//   - Joint order settings will not be effective if \`solution\` or \`relations\`
+	//   - Joint order settings will not be effective if \solution\ or \relations\
 	//     attributes are also provided in the input request.
 	JointOrder param.Opt[int64] `json:"joint_order,omitzero"`
 	// It determines the allowable delay, in seconds, to begin a job after its
 	// designated time window has concluded. Please note that this parameter would
-	// override the `constraint.max_visit_lateness` (global) if both are specified.
+	// override the constraint.max_visit_lateness (global) if both are specified.
 	MaxVisitLateness param.Opt[int64] `json:"max_visit_lateness,omitzero"`
 	// Specify the cost of keeping this job unassigned, namely, the cost of outsourcing
 	// the job. When provided, the optimizer weighs the cost of assigning the job
 	// against the cost of keeping it unassigned and chooses a solution with lower
-	// cost. In the solution, the `outsourcing_cost` of unassigned jobs is added to the
+	// cost. In the solution, the outsourcing_cost of unassigned jobs is added to the
 	// total cost of the solution.
 	//
-	// If the `outsourcing_cost` is not provided, which is to say that the job can not
-	// be outsourced, then the optimizer tries to fulfill the job irrespective of the
-	// cost incurred, subject to other constraints.
+	// If the outsourcing_cost is not provided, which is to say that the job can not be
+	// outsourced, then the optimizer tries to fulfill the job irrespective of the cost
+	// incurred, subject to other constraints.
 	//
-	// Please note that `revenue` and `outsourcing_cost` can not be specified
-	// simultaneously for a job. Also, the `outsourcing_cost` would override the
-	// priority settings of the job.
+	// Please note that revenue and outsourcing_cost can not be specified
+	// simultaneously for a job. Also, the outsourcing_cost would override the priority
+	// settings of the job.
 	OutsourcingCost param.Opt[int64] `json:"outsourcing_cost,omitzero"`
 	// Specify the priority of this job. The valid values are in the range of \[0,
 	// 100\]. Default value is 0.
@@ -102,10 +102,10 @@ type JobParam struct {
 	// assigned or not, but has nothing to do with the sequence of job fulfilment.
 	Priority param.Opt[int64] `json:"priority,omitzero"`
 	// Specify the revenue earned by completing this job. The optimizer uses the
-	// `revenue` input to identify the potential profit earned by fulfilling this job
-	// after taking into account the costs incurred to do so. The`options.objective`
-	// and `vehicles.costs` input are taken into account to identify the costs of
-	// fulfilling the job.
+	// revenue input to identify the potential profit earned by fulfilling this job
+	// after taking into account the costs incurred to do so. Theoptions.objective and
+	// vehicles.costs input are taken into account to identify the costs of fulfilling
+	// the job.
 	//
 	// In general, the optimizer will prefer fulfilling the tasks with higher profits
 	// over the tasks with lower profits, should it need to reject some tasks in order
@@ -113,48 +113,48 @@ type JobParam struct {
 	// negative, it will remain unassigned whatsoever.
 	Revenue param.Opt[int64] `json:"revenue,omitzero"`
 	// Use this parameter to prioritize completing a task relative to certain other
-	// tasks. A task configured with a `sequence_order` of 2 will be done after the
-	// task with `sequence_order` of 1, but before the task with `sequence_order` of 3.
-	// Valid range of values for this input is \[0,100\].
+	// tasks. A task configured with a sequence_order of 2 will be done after the task
+	// with sequence_order of 1, but before the task with sequence_order of 3. Valid
+	// range of values for this input is \[0,100\].
 	//
 	// Please note that:
 	//
 	//   - Only the tasks within the same route are compared and ordered as per their
-	//     `sequence_order`.
+	//     sequence_order.
 	//
-	//   - Tasks without a `sequence_order` are not involved in the comparison.
+	//   - Tasks without a sequence_order are not involved in the comparison.
 	//
-	//   - Following is the precedence of `sequence_order` when used along side some of
-	//     the other constraints:
+	//   - Following is the precedence of sequence_order when used along side some of the
+	//     other constraints:
 	//
-	//   - `relations` are prioritized over `sequence_order` comparisons.
+	//   - relations are prioritized over sequence_order comparisons.
 	//
-	//   - `sequence_order` will override `order_grouping` configurations.
+	//   - sequence_order will override order_grouping configurations.
 	SequenceOrder param.Opt[int64] `json:"sequence_order,omitzero"`
 	// Use this attribute to define the time duration, in seconds, needed to complete
 	// the job. Default value is 0.
 	Service param.Opt[int64] `json:"service,omitzero"`
-	// Specify the job set-up duration, in seconds. `setup` is the one-time effort
-	// needed apart from working on the original task - for example, effort to record
-	// some information for compliance, or effort to set-up the equipment, or perform
-	// any other action for completing all steps required to fulfil the job.
+	// Specify the job set-up duration, in seconds. setup is the one-time effort needed
+	// apart from working on the original task - for example, effort to record some
+	// information for compliance, or effort to set-up the equipment, or perform any
+	// other action for completing all steps required to fulfil the job.
 	//
-	// Please note that `setup` time is applied only once for a given task location.
-	// `setup` time, unlike `service` time, is not repeated in case there are multiple
+	// Please note that setup time is applied only once for a given task location.
+	// setup time, unlike service time, is not repeated in case there are multiple
 	// tasks at the same location.
 	Setup param.Opt[int64] `json:"setup,omitzero"`
 	// In case the job involves a delivery step, use this attribute to describe
 	// delivery quantity. This attribute supports multidimensional quantities, to
 	// support delivering quantities of different units/dimensions. It is recommended
 	// to keep the dimensions of quantity for pickup/delivery consistent when defining
-	// them in `jobs` and `vehicles` (in `capacity` attribute).
+	// them in jobs and vehicles (in capacity attribute).
 	//
 	// Please note that the quantity of delivery will be added to the assigned
 	// vehicle’s initial load.
 	//
 	// In case depots are being added, the delivery configured here can be fulfilled by
-	// vehicles starting from specific depots. Refer to `depot_ids` and
-	// `vehicles.start_depot_ids` to know more.
+	// vehicles starting from specific depots. Refer to depot_ids and
+	// vehicles.start_depot_ids to know more.
 	Delivery []int64 `json:"delivery,omitzero"`
 	// Specify the depots which can be used to fulfil this job. In case of a pickup
 	// job, the assigned vehicle will deliver the goods to the depot specified here, at
@@ -173,60 +173,60 @@ type JobParam struct {
 	// Use this parameter to specify the type of loads which are incompatible with the
 	// job’s load type. Once this property is configured, the job can only be serviced
 	// by a vehicle which has not serviced any other task with an incompatible
-	// `load_types` . Add multiple load types to indicate all the types which are
+	// load_types . Add multiple load types to indicate all the types which are
 	// incompatible for this job. The incompatible load type considerations are ignored
 	// for the first task of the route.
 	//
 	// For example, an input value of \[“groceries”, “food”\] means that current job’s
 	// load is incompatible with both groceries and food type of loads. Consequently,
 	// the optimizer will not assign this job to a vehicle which has served any task
-	// with `load_types` as either groceries or food.
+	// with load_types as either groceries or food.
 	//
 	// Note:
 	//
 	//   - This parameter is effective only when a pickup / delivery is configured for
 	//     the job.
-	//   - If the job is part of any `relations` then, configured
-	//     `incompatible_load_types` might be ignored.
+	//   - If the job is part of any relations then, configured incompatible_load_types
+	//     might be ignored.
 	IncompatibleLoadTypes []string `json:"incompatible_load_types,omitzero"`
 	// Use this parameter to specify the type of loads for the given job. Once this
 	// property is configured, the job can not be served by a vehicle which has
-	// serviced any task whose load is incompatible with any of the`load_types`
-	// provided in this input. The load type considerations are ignored for the first
-	// task of the route.
+	// serviced any task whose load is incompatible with any of theload_types provided
+	// in this input. The load type considerations are ignored for the first task of
+	// the route.
 	//
 	// For example, an input value of \[“groceries”, “food”\] means that job’s load
 	// characteristics belong to either one or both types. Consequently, the optimizer
 	// will assign this job to a vehicle which has served other tasks whose
-	// `incompatible_load_types` do not contain either groceries or food.
+	// incompatible_load_types do not contain either groceries or food.
 	//
 	// Note:
 	//
 	//   - This parameter is effective only when a pickup / delivery is configured for
 	//     the job.
-	//   - If the job is part of any `relations` then, `load_types` might be ignored.
+	//   - If the job is part of any relations then, load_types might be ignored.
 	LoadTypes []string `json:"load_types,omitzero"`
 	// Specify any custom data that should be attached along with job fulfilment
-	// details in the `steps` attribute of the optimized solution. Users can leverage
+	// details in the steps attribute of the optimized solution. Users can leverage
 	// this property to provide additional details/context when sharing information
 	// about the job with integrated systems (TMS, Fleet Management, Driver dispatch
 	// etc).
 	//
-	// Please note that the `metadata` content must always be specified in a`key` :
-	// `value` pair format, where the “key” is always a string.
+	// Please note that the metadata content must always be specified in akey : value
+	// pair format, where the “key” is always a string.
 	Metadata any `json:"metadata,omitzero"`
 	// In case the job involves a pickup step, use this attribute to describe pickup
 	// quantity. This attribute supports multidimensional quantities, to support
 	// picking up quantities of different units/dimensions. It is recommended to keep
 	// the dimensions of quantity for pickup/delivery consistent when defining them in
-	// `jobs` and `vehicles` (in `capacity` attribute).
+	// jobs and vehicles (in capacity attribute).
 	//
 	// Please note that the vehicle will continue to carry the picked-up quantity until
 	// its last stop.
 	//
 	// In case depots are being added, the pickup configured here can be fulfilled by
-	// vehicles ending at specific depots. Refer to `depot_ids` and
-	// `vehicles.end_depot_ids` to know more.
+	// vehicles ending at specific depots. Refer to depot_ids and
+	// vehicles.end_depot_ids to know more.
 	Pickup []int64 `json:"pickup,omitzero"`
 	// Define the skills needed to complete the job. This attribute supports
 	// multidimensional skills allowing users to add multiple skills.
@@ -247,7 +247,7 @@ type JobParam struct {
 	// specify the final characteristics for the task: total height, total length,
 	// total width.
 	//
-	// Please note that vehicles which contain the `volume` input, will only be
+	// Please note that vehicles which contain the volume input, will only be
 	// considered for arranging such items.
 	Volume JobVolumeParam `json:"volume,omitzero"`
 	// An array of integers specifying the IDs of the zone(s) that this job belongs to.
@@ -256,13 +256,12 @@ type JobParam struct {
 	//
 	//   - If zone IDs are provided for any one of the jobs, then all other jobs should
 	//     also be specified with zone IDs. Zone IDs provided here will override any zone
-	//     geometries provided in the `zones` attribute and these IDs will be used for
+	//     geometries provided in the zones attribute and these IDs will be used for
 	//     allocating appropriate vehicles.
 	//   - Jobs can be auto-allocated to zones if this parameter is not specified while
-	//     the zone geometries (either `zones.geometry` or `zones.geofence_id`) are
-	//     provided.
+	//     the zone geometries (either zones.geometry or zones.geofence_id) are provided.
 	//   - Jobs not falling in any zones can be fulfilled by only those vehicles which
-	//     are allowed to take up tasks outside zones as well. Refer to `vehicles`
+	//     are allowed to take up tasks outside zones as well. Refer to vehicles
 	//     attribute for more information.
 	Zones []int64 `json:"zones,omitzero"`
 	paramObj
@@ -283,7 +282,7 @@ func (r *JobParam) UnmarshalJSON(data []byte) error {
 // specify the final characteristics for the task: total height, total length,
 // total width.
 //
-// Please note that vehicles which contain the `volume` input, will only be
+// Please note that vehicles which contain the volume input, will only be
 // considered for arranging such items.
 type JobVolumeParam struct {
 	// Cargo length, in meters.
@@ -315,7 +314,7 @@ type JobVolumeParam struct {
 	//     and cannot be adjusted. As a result, if the cargo’s height exceeds the
 	//     vehicle’s available height, it cannot be loaded into the compartment.
 	//
-	// Any of "`strict`", "`parallel`", "`fixed_bottom`", "`\" \"`".
+	// Any of "strict", "parallel", "fixed_bottom".
 	Alignment string `json:"alignment,omitzero"`
 	paramObj
 }
@@ -330,7 +329,7 @@ func (r *JobVolumeParam) UnmarshalJSON(data []byte) error {
 
 func init() {
 	apijson.RegisterFieldValidator[JobVolumeParam](
-		"alignment", "`strict`", "`parallel`", "`fixed_bottom`", "`\" \"`",
+		"alignment", "strict", "parallel", "fixed_bottom",
 	)
 }
 
@@ -342,19 +341,19 @@ type ShipmentParam struct {
 	Pickup ShipmentPickupParam `json:"pickup,omitzero,required"`
 	// Specify whether the shipment route should follow LIFO (last in, first out). Use
 	// this parameter when the loading or unloading sequence of cargo is important. The
-	// default value is \`false\`.
+	// default value is \false\.
 	FollowLifoOrder param.Opt[bool] `json:"follow_lifo_order,omitzero"`
 	// Specify a joint order group ID that this shipment is associated with. Tasks
 	// having the same joint order group ID are treated as a single unit: either all
-	// tasks in the group are assigned, or none are. Users can add tasks of both `jobs`
-	// and `shipments` types to a single joint order group by using the same unique ID.
+	// tasks in the group are assigned, or none are. Users can add tasks of both jobs
+	// and shipments types to a single joint order group by using the same unique ID.
 	// Please note that:
 	//
 	//   - Each shipment in a single joint order group will be fulfilled by a unique
 	//     vehicle.
 	//   - Shipments belonging to a joint order group can be served in any sequence while
 	//     maintaining the pickup -> delivery sequence for an individual shipment.
-	//   - Joint order settings will not be effective if \`solution\` or \`relations\`
+	//   - Joint order settings will not be effective if \solution\ or \relations\
 	//     attributes are also provided in the input request.
 	JointOrder param.Opt[int64] `json:"joint_order,omitzero"`
 	// Use this parameter to limit the drive time for which a shipment stays in the
@@ -365,22 +364,22 @@ type ShipmentParam struct {
 	// delivery. The service or setup times of other tasks performed in between will
 	// also be not accumulated against the time-in-vehicle limit.
 	//
-	// Please note that this property would be overridden if any `relations`
+	// Please note that this property would be overridden if any relations
 	// configuration is used except for “precedence” type. If “precedence” type
-	// relations is used then `max_time_in_vehicle` will override it.
+	// relations is used then max_time_in_vehicle will override it.
 	MaxTimeInVehicle param.Opt[int64] `json:"max_time_in_vehicle,omitzero"`
 	// Specify the cost of keeping this shipment unassigned, namely, the cost of
 	// outsourcing the shipment. When provided, the optimizer weighs the cost of
 	// assigning the shipment against the cost of keeping it unassigned and chooses a
-	// solution with lower cost. In the solution, the `outsourcing_cost` of unassigned
+	// solution with lower cost. In the solution, the outsourcing_cost of unassigned
 	// shipments is added to the total cost of the solution.
 	//
-	// If the `outsourcing_cost` is not provided, which is to say that the shipment can
+	// If the outsourcing_cost is not provided, which is to say that the shipment can
 	// not be outsourced, then the optimizer tries to fulfill the shipment irrespective
 	// of the cost incurred, subject to other constraints.
 	//
-	// Please note that `revenue` and `outsourcing_cost` can not be specified
-	// simultaneously for a shipment. Also, the `outsourcing_cost` would override the
+	// Please note that revenue and outsourcing_cost can not be specified
+	// simultaneously for a shipment. Also, the outsourcing_cost would override the
 	// priority settings of the shipment.
 	OutsourcingCost param.Opt[int64] `json:"outsourcing_cost,omitzero"`
 	// Describe the priority of this shipment. The valid values are in the range of
@@ -391,10 +390,10 @@ type ShipmentParam struct {
 	// shipments.
 	Priority param.Opt[int64] `json:"priority,omitzero"`
 	// Specify the revenue earned by completing this shipment. The optimizer uses the
-	// `revenue` input to identify the potential profit earned by fulfilling this
+	// revenue input to identify the potential profit earned by fulfilling this
 	// shipment after taking into account the costs incurred to do so.
-	// The`options.objective` and `vehicles.costs` input are taken into account to
-	// identify the costs of fulfilling the shipment.
+	// Theoptions.objective and vehicles.costs input are taken into account to identify
+	// the costs of fulfilling the shipment.
 	//
 	// In general, the optimizer will prefer fulfilling the tasks with higher profits
 	// over the tasks with lower profits, should it need to reject some tasks in order
@@ -403,10 +402,10 @@ type ShipmentParam struct {
 	Revenue param.Opt[int64] `json:"revenue,omitzero"`
 	// This parameter defines the quantity that needs to be shipped. This attribute
 	// supports multidimensional quantities, to support shipment of quantities of
-	// different units/dimensions. It is recommended to keep the dimensions of `amount`
-	// in `shipments` and that of `capacity` in `vehicles` consistent.
+	// different units/dimensions. It is recommended to keep the dimensions of amount
+	// in shipments and that of capacity in vehicles consistent.
 	//
-	// Please note that the `amount` will be added to the assigned vehicle’s initial
+	// Please note that the amount will be added to the assigned vehicle’s initial
 	// load.
 	//
 	// Read more about the behavior of this attribute in the
@@ -415,31 +414,31 @@ type ShipmentParam struct {
 	// Use this parameter to specify the type of loads which are incompatible with the
 	// shipment’s load type. Once this property is configured, the shipment can only be
 	// serviced by a vehicle which has not serviced any other task with an incompatible
-	// `load_types` . Add multiple load types to indicate all the types which are
+	// load_types . Add multiple load types to indicate all the types which are
 	// incompatible for this shipment. The incompatible load type considerations are
 	// ignored for the first task of the route.
 	//
 	// For example, an input value of \[“groceries”, “food”\] means that shipment’s
 	// load is incompatible with both groceries and food type of loads. Consequently,
 	// the optimizer will not assign this shipment to a vehicle which has served any
-	// task with `load_types` as either groceries or food.
+	// task with load_types as either groceries or food.
 	//
-	// Please note that if the shipment is part of any `relations` then, configured
-	// `incompatible_load_types` might be ignored.
+	// Please note that if the shipment is part of any relations then, configured
+	// incompatible_load_types might be ignored.
 	IncompatibleLoadTypes []string `json:"incompatible_load_types,omitzero"`
 	// Use this parameter to specify the type of loads for the given shipment. Once
 	// this property is configured, the shipment can not be served by a vehicle which
-	// has serviced any task whose load is incompatible with any of the`load_types`
+	// has serviced any task whose load is incompatible with any of theload_types
 	// provided in this input. The load type considerations are ignored for the first
 	// task of the route.
 	//
 	// For example, an input value of \[“groceries”, “food”\] means that shipment’s
 	// load characteristics belong to either one or both types. Consequently, the
 	// optimizer will assign this shipment to a vehicle which has served other tasks
-	// whose `incompatible_load_types` do not contain either groceries or food.
+	// whose incompatible_load_types do not contain either groceries or food.
 	//
-	// Please note that if the shipment is part of any `relations` then, configured
-	// `load_types` might be ignored.
+	// Please note that if the shipment is part of any relations then, configured
+	// load_types might be ignored.
 	LoadTypes []string `json:"load_types,omitzero"`
 	// Define the skills needed to complete the shipment. This attribute supports
 	// multidimensional skills allowing users to add multiple skills for a shipment.
@@ -454,7 +453,7 @@ type ShipmentParam struct {
 	// please specify the final characteristics for the task: total height, total
 	// depth, total width.
 	//
-	// Please note that vehicles which contain the `volume` input, will only be
+	// Please note that vehicles which contain the volume input, will only be
 	// considered for arranging such items.
 	Volume ShipmentVolumeParam `json:"volume,omitzero"`
 	// An array of integers specifying the IDs of the zone(s) that this shipment
@@ -466,13 +465,13 @@ type ShipmentParam struct {
 	//
 	//   - If zone IDs are provided for any one of the shipments, then all other
 	//     shipments should also be specified with zone IDs. Zone IDs provided here will
-	//     override any zone geometries provided in the `zones` attribute and these IDs
+	//     override any zone geometries provided in the zones attribute and these IDs
 	//     will be used for allocating appropriate vehicles.
 	//   - Shipment steps can be auto-allocated to zones if this parameter is not
-	//     specified while the zone geometries (either `zones.geometry` or
-	//     `zones.geofence_id`) are provided.
+	//     specified while the zone geometries (either zones.geometry or
+	//     zones.geofence_id) are provided.
 	//   - Shipments not falling in any zones can be fulfilled by only those vehicles
-	//     which are allowed to take up tasks outside zones as well. Refer to `vehicles`
+	//     which are allowed to take up tasks outside zones as well. Refer to vehicles
 	//     attribute for more information.
 	Zones []int64 `json:"zones,omitzero"`
 	paramObj
@@ -492,25 +491,24 @@ func (r *ShipmentParam) UnmarshalJSON(data []byte) error {
 type ShipmentDeliveryParam struct {
 	// Indicate the ID of this shipment delivery step. An error will be reported if
 	// there are duplicate IDs for multiple shipment deliveries. The IDs are case
-	// sensitive. Please note `id` is mandatory when using the `shipments` attribute.
+	// sensitive. Please note id is mandatory when using the shipments attribute.
 	ID string `json:"id,required"`
 	// Indicate the index of location for this shipment delivery. The index references
-	// the locations present in the `location` array. The valid range of value is \[0,
-	// length of `location` array).
+	// the locations present in the location array. The valid range of value is \[0,
+	// length of location array).
 	//
-	// Please note `location_index` is mandatory when using the `shipment` attribute.
+	// Please note location_index is mandatory when using the shipment attribute.
 	LocationIndex int64 `json:"location_index,required"`
 	// Specify a custom description for the shipment delivery step.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// It determines the allowable delay, in seconds, to begin a shipment delivery
 	// after its designated time window has concluded. Please note that this parameter
-	// would override the `constraint.max_visit_lateness` (global) if both are
-	// specified.
+	// would override the constraint.max_visit_lateness (global) if both are specified.
 	MaxVisitLateness param.Opt[int64] `json:"max_visit_lateness,omitzero"`
 	// Use this parameter to prioritize completing the shipment delivery relative to
-	// certain other tasks. A task configured with a `sequence_order` of 2 will be done
-	// after the task with `sequence_order` of 1, but before the task with
-	// `sequence_order` of 3. Valid range of values for this input is \[0,100\].
+	// certain other tasks. A task configured with a sequence_order of 2 will be done
+	// after the task with sequence_order of 1, but before the task with sequence_order
+	// of 3. Valid range of values for this input is \[0,100\].
 	//
 	// Please note that:
 	//
@@ -518,38 +516,37 @@ type ShipmentDeliveryParam struct {
 	//     corresponding pickup's sequence order.
 	//
 	//   - Only the tasks within the same route are compared and ordered as per their
-	//     `sequence_order`.
+	//     sequence_order.
 	//
-	//   - Tasks without a `sequence_order` are not involved in the comparison.
+	//   - Tasks without a sequence_order are not involved in the comparison.
 	//
-	//   - Following is the precedence of `sequence_order` when used along side some of
-	//     the other constraints:
+	//   - Following is the precedence of sequence_order when used along side some of the
+	//     other constraints:
 	//
-	//   - `relations` are prioritized over `sequence_order` comparisons.
+	//   - relations are prioritized over sequence_order comparisons.
 	//
-	//   - `sequence_order` will override `order_grouping` configurations.
+	//   - sequence_order will override order_grouping configurations.
 	SequenceOrder param.Opt[int64] `json:"sequence_order,omitzero"`
 	// Provide the time duration, in seconds, needed to complete the shipment delivery.
 	// Default value is 0.
 	Service param.Opt[int64] `json:"service,omitzero"`
-	// Specify the set-up duration, in seconds, for the delivery. `setup` is the
-	// one-time effort needed apart from working on the original task- for example,
-	// effort to record some information for compliance, or effort to set-up the
-	// equipment, or perform any other action for completing all steps required to
-	// fulfil the job.
+	// Specify the set-up duration, in seconds, for the delivery. setup is the one-time
+	// effort needed apart from working on the original task- for example, effort to
+	// record some information for compliance, or effort to set-up the equipment, or
+	// perform any other action for completing all steps required to fulfil the job.
 	//
-	// Please note that `setup` time is applied only once for a given task location.
-	// `setup` time, unlike `service` time, is not repeated in case there are multiple
+	// Please note that setup time is applied only once for a given task location.
+	// setup time, unlike service time, is not repeated in case there are multiple
 	// tasks at the same location.
 	Setup param.Opt[int64] `json:"setup,omitzero"`
 	// Specify any custom data that should be attached along with delivery fulfilment
-	// details in the `step` attribute of the optimized solution. Users can leverage
-	// this property to provide additional details/context when sharing information
-	// about the delivery step with integrated systems (TMS, Fleet Management, Driver
+	// details in the step attribute of the optimized solution. Users can leverage this
+	// property to provide additional details/context when sharing information about
+	// the delivery step with integrated systems (TMS, Fleet Management, Driver
 	// dispatch etc).
 	//
-	// Please note that the `metadata` content must always be specified in a `key` :
-	// `value` pair format, where the “key” is always a string.
+	// Please note that the metadata content must always be specified in a key : value
+	// pair format, where the “key” is always a string.
 	Metadata any `json:"metadata,omitzero"`
 	// Describe time periods within which the shipment delivery should start. The time
 	// periods should be expressed as a UNIX timestamp in seconds.
@@ -574,22 +571,22 @@ func (r *ShipmentDeliveryParam) UnmarshalJSON(data []byte) error {
 type ShipmentPickupParam struct {
 	// Indicate the ID of this shipment pickup step. An error will be reported if there
 	// are duplicate IDs for multiple shipment pick-ups. The IDs are case-sensitive.
-	// Please note `id` is mandatory when using the `shipments` attribute.
+	// Please note id is mandatory when using the shipments attribute.
 	ID string `json:"id,required"`
 	// Indicate the index of the location for this shipment pickup. The index
-	// references the locations present in the `location` array. The valid range of
-	// value is \[0, length of `location` array).
+	// references the locations present in the location array. The valid range of value
+	// is \[0, length of location array).
 	LocationIndex int64 `json:"location_index,required"`
 	// Specify a custom description for the shipment pickup step.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// It determines the allowable delay, in seconds, to begin a shipment pickup after
 	// its designated time window has concluded. Please note that this parameter would
-	// override the `constraint.max_visit_lateness` (global) if both are specified.
+	// override the constraint.max_visit_lateness (global) if both are specified.
 	MaxVisitLateness param.Opt[int64] `json:"max_visit_lateness,omitzero"`
 	// Use this parameter to prioritize completing the shipment pickup relative to
-	// certain other tasks. A task configured with a `sequence_order` of 2 will be done
-	// after the task with `sequence_order` of 1, but before the task with
-	// `sequence_order` of 3. Valid range of values for this input is \[0,100\].
+	// certain other tasks. A task configured with a sequence_order of 2 will be done
+	// after the task with sequence_order of 1, but before the task with sequence_order
+	// of 3. Valid range of values for this input is \[0,100\].
 	//
 	// Please note that:
 	//
@@ -597,37 +594,37 @@ type ShipmentPickupParam struct {
 	//     corresponding delivery's sequence order.
 	//
 	//   - Only the tasks within the same route are compared and ordered as per their
-	//     `sequence_order`.
+	//     sequence_order.
 	//
-	//   - Tasks without a `sequence_order` are not involved in the comparison.
+	//   - Tasks without a sequence_order are not involved in the comparison.
 	//
-	//   - Following is the precedence of `sequence_order` when used along side some of
-	//     the other constraints:
+	//   - Following is the precedence of sequence_order when used along side some of the
+	//     other constraints:
 	//
-	//   - `relations` are prioritized over `sequence_order` comparisons.
+	//   - relations are prioritized over sequence_order comparisons.
 	//
-	//   - `sequence_order` will override `order_grouping` configurations.
+	//   - sequence_order will override order_grouping configurations.
 	SequenceOrder param.Opt[int64] `json:"sequence_order,omitzero"`
 	// Provide the time duration, in seconds, needed to complete the shipment pickup.
 	// Default value is 0.
 	Service param.Opt[int64] `json:"service,omitzero"`
-	// Specify the set-up duration, in seconds, for the pickup. `setup` is the one-time
+	// Specify the set-up duration, in seconds, for the pickup. setup is the one-time
 	// effort needed apart from working on the original task- for example, effort to
 	// record some information for compliance, or effort to set-up the equipment, or
 	// perform any other action for completing all steps required to fulfil the job.
 	//
-	// Please note that `setup` time is applied only once for a given task location.
-	// `setup` time, unlike `service` time, is not repeated in case there are multiple
+	// Please note that setup time is applied only once for a given task location.
+	// setup time, unlike service time, is not repeated in case there are multiple
 	// tasks at the same location.
 	Setup param.Opt[int64] `json:"setup,omitzero"`
 	// Specify any custom data that should be attached along with pickup fulfilment
-	// details in the `steps` attribute of the optimized solution. Users can leverage
+	// details in the steps attribute of the optimized solution. Users can leverage
 	// this property to provide additional details/context when sharing information
 	// about the pickup step with integrated systems (TMS, Fleet Management, Driver
 	// dispatch etc).
 	//
-	// Please note that the `metadata` content must always be specified in a`key` :
-	// `value` pair format, where the “key” is always a string.
+	// Please note that the metadata content must always be specified in akey : value
+	// pair format, where the “key” is always a string.
 	Metadata any `json:"metadata,omitzero"`
 	// Describe time periods within which the shipment pickup should be start. The time
 	// periods should be expressed as a UNIX timestamp in seconds.
@@ -653,7 +650,7 @@ func (r *ShipmentPickupParam) UnmarshalJSON(data []byte) error {
 // please specify the final characteristics for the task: total height, total
 // depth, total width.
 //
-// Please note that vehicles which contain the `volume` input, will only be
+// Please note that vehicles which contain the volume input, will only be
 // considered for arranging such items.
 type ShipmentVolumeParam struct {
 	// Cargo length, in meters.
@@ -685,7 +682,7 @@ type ShipmentVolumeParam struct {
 	//     and cannot be adjusted. As a result, if the cargo’s height exceeds the
 	//     vehicle’s available height, it cannot be loaded into the compartment.
 	//
-	// Any of "`strict`", "`parallel`", "`fixed_bottom`", "`\" \"`".
+	// Any of "strict", "parallel", "fixed_bottom".
 	Alignment string `json:"alignment,omitzero"`
 	paramObj
 }
@@ -700,14 +697,14 @@ func (r *ShipmentVolumeParam) UnmarshalJSON(data []byte) error {
 
 func init() {
 	apijson.RegisterFieldValidator[ShipmentVolumeParam](
-		"alignment", "`strict`", "`parallel`", "`fixed_bottom`", "`\" \"`",
+		"alignment", "strict", "parallel", "fixed_bottom",
 	)
 }
 
 type OptimizationV2GetResultResponse struct {
-	// Returns the `description` of the optimization job as given in the input POST
+	// Returns the description of the optimization job as given in the input POST
 	// optimization request. This field will not be present in the response if no
-	// `description` was provided in the input request.
+	// description was provided in the input request.
 	Description string `json:"description"`
 	// Returns the message in case of errors or failures, otherwise a blank string is
 	// returned.
@@ -717,7 +714,7 @@ type OptimizationV2GetResultResponse struct {
 	// It indicates the overall status or result of the API request denoting whether
 	// the operation was successful or did it encounter any errors.
 	//
-	// Any of "`Ok`", "`Error`".
+	// Any of "Ok", "Error".
 	Status OptimizationV2GetResultResponseStatus `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -753,7 +750,7 @@ type OptimizationV2GetResultResponseResult struct {
 	// Returns all the routing profiles used in the solution. If no routing profiles
 	// were provided in the input or if the vehicles tagged to profiles were not used
 	// in the solution, the "default" routing properties are returned. Default routing
-	// properties are indicated by `options.routing` in the input.
+	// properties are indicated by options.routing in the input.
 	RoutingProfiles any `json:"routing_profiles"`
 	// An object to describe the summarized result of the optimization request. This
 	// object can be useful to quickly get an overview of the important result
@@ -783,19 +780,19 @@ func (r *OptimizationV2GetResultResponseResult) UnmarshalJSON(data []byte) error
 
 type OptimizationV2GetResultResponseResultRoute struct {
 	// Returns the capacity configuration of the vehicle that was used for this route.
-	// This field would return either the vehicle's `capacity` or one of the
-	// `alternative_capacities` provided in the input request.
+	// This field would return either the vehicle's capacity or one of the
+	// alternative_capacities provided in the input request.
 	AdoptedCapacity []int64 `json:"adopted_capacity"`
 	// Returns the cost of the route. The unit of cost type depends on the value of
-	// `travel_cost` attribute in the optimization request.
+	// travel_cost attribute in the optimization request.
 	Cost int64 `json:"cost"`
 	// Returns the total quantities, for each dimension (or unit), of deliveries
-	// performed in the route. Please note that when both `shipments` and `jobs` are
+	// performed in the route. Please note that when both shipments and jobs are
 	// provided, this field corresponds to the sum of quantities delivered as part of
-	// the assigned `shipments` and `jobs` on the route.
+	// the assigned shipments and jobs on the route.
 	Delivery []int64 `json:"delivery"`
 	// Return the description of the assigned vehicle. It would be the same as that
-	// provided in the `description` field of `vehicles` part of the input POST
+	// provided in the description field of vehicles part of the input POST
 	// optimization request.
 	Description string `json:"description"`
 	// Returns the total distance of the route, in meters.
@@ -809,9 +806,9 @@ type OptimizationV2GetResultResponseResultRoute struct {
 	// provided with any metadata.
 	Metadata any `json:"metadata"`
 	// Returns the total quantities, for each dimension (or unit), of pickups performed
-	// in the route. Please note that when both `shipments` and `jobs` are provided,
-	// this field corresponds to the sum of quantities picked-up as part of the
-	// assigned `shipments` and `jobs` on the route.
+	// in the route. Please note that when both shipments and jobs are provided, this
+	// field corresponds to the sum of quantities picked-up as part of the assigned
+	// shipments and jobs on the route.
 	Pickup []int64 `json:"pickup"`
 	// Returns the sum of priorities of all tasks on the route.
 	Priority int64 `json:"priority"`
@@ -873,16 +870,16 @@ func (r *OptimizationV2GetResultResponseResultRoute) UnmarshalJSON(data []byte) 
 // is an array of objects with each object representing one step.
 type OptimizationV2GetResultResponseResultRouteStep struct {
 	// Returns the ID of the task. The ID returned here are the same values that were
-	// provided for the given task in the `jobs` or the `shipments` objects of the
-	// input POST optimization request.
+	// provided for the given task in the jobs or the shipments objects of the input
+	// POST optimization request.
 	//
 	// **Note:** Since both integer and string value types are supported for job IDs,
 	// the value type returned for this field will depend on the value type provided in
 	// the input request.
 	ID string `json:"id"`
-	// Returns the time at which the vehicle arrives at the `step` location. If
-	// `time_windows` is provided for the task it will be returned as an UNIX timestamp
-	// expressed in seconds. When `time_windows` is not provided, it is returned as the
+	// Returns the time at which the vehicle arrives at the step location. If
+	// time_windows is provided for the task it will be returned as an UNIX timestamp
+	// expressed in seconds. When time_windows is not provided, it is returned as the
 	// total duration, in seconds, elapsed since the start of the route.
 	//
 	// Please note it includes all the other durations as well (setup, service,
@@ -893,23 +890,23 @@ type OptimizationV2GetResultResponseResultRouteStep struct {
 	// which the vehicle commenced its journey. Conversely, for "end" steps, the field
 	// will hold the ID of the depot where the vehicle concluded its trip.
 	//
-	// Please note that `start_depot_ids` or `end_depot_ids` input for the vehicle must
-	// be configured to get this field in the response for respective step types in a
+	// Please note that start_depot_ids or end_depot_ids input for the vehicle must be
+	// configured to get this field in the response for respective step types in a
 	// route.
 	Depot string `json:"depot"`
 	// Returns the description of this step. The description returned here are the same
-	// values that were provided for the given task in the `jobs` or the `shipments`
+	// values that were provided for the given task in the jobs or the shipments
 	// objects of the input POST optimization request.
 	Description string `json:"description"`
 	// Returns the distance covered, in meters, from the start of the route and up
 	// until the current step.
 	//
 	// Please note that the value of this parameter accumulates with each step. In case
-	// , the `travel_cost: air_distance`, then the distance here represents straight
-	// line distance.
+	// , the travel_cost: air_distance, then the distance here represents straight line
+	// distance.
 	Distance int64 `json:"distance"`
 	// Returns the total drive time, in seconds, from the start of the route up until
-	// the start of the `step`. Please note that this value does not include any other
+	// the start of the step. Please note that this value does not include any other
 	// category of durations (service, wait, setup) and the value of this parameter
 	// accumulates with each step.
 	Duration int64 `json:"duration"`
@@ -925,13 +922,13 @@ type OptimizationV2GetResultResponseResultRouteStep struct {
 	// Returns the location coordinates of the step in the \[latitude, longitude\]
 	// format.
 	//
-	// The index of this location is also returned by the `location_index` parameter.
+	// The index of this location is also returned by the location_index parameter.
 	Location []float64 `json:"location"`
-	// Returns the index (in the `location` array) of the location coordinates where
-	// the step is performed. The index will always be in the range of \[0, length of
-	// `location` array).
+	// Returns the index (in the location array) of the location coordinates where the
+	// step is performed. The index will always be in the range of \[0, length of
+	// location array).
 	//
-	// Actual coordinates are also returned by the `location` parameter.
+	// Actual coordinates are also returned by the location parameter.
 	LocationIndex int64 `json:"location_index"`
 	// Returns the custom information that was provided when the given task (job /
 	// pickup / delivery) was configured. This field would not be present for the tasks
@@ -943,17 +940,16 @@ type OptimizationV2GetResultResponseResultRouteStep struct {
 	// common stop for all grouped tasks.
 	ProjectedLocation []float64 `json:"projected_location"`
 	// When a vehicle is configured to make multiple runs to the depot (via
-	// `max_depot_runs`), this field returns the iteration to which the step belongs
-	// to. Each run will begin with a "start" step from the depot's location and
-	// conclude with an "end" step at either the last task's or the configured end
-	// location.
+	// max_depot_runs), this field returns the iteration to which the step belongs to.
+	// Each run will begin with a "start" step from the depot's location and conclude
+	// with an "end" step at either the last task's or the configured end location.
 	Run int64 `json:"run"`
 	// Returns the service time, in seconds, for the task when the step type is not
-	// `start` or `end`.
+	// start or end.
 	//
-	// When the step type is `start` or `end` , the field also returns the service
-	// time, in seconds, spent at the depot when if the vehicle is starting or
-	// completing the trip at one of the depots.
+	// When the step type is start or end , the field also returns the service time, in
+	// seconds, spent at the depot when if the vehicle is starting or completing the
+	// trip at one of the depots.
 	Service int64 `json:"service"`
 	// Returns the setup time, in seconds, for the task.
 	Setup int64 `json:"setup"`
@@ -962,8 +958,8 @@ type OptimizationV2GetResultResponseResultRouteStep struct {
 	// custom duration or distance matrix were used for cost calculations.
 	SnappedLocation []float64 `json:"snapped_location"`
 	// Returns the type of the step. Its value will always be one of the following:
-	// `start`, `job`, `pickup`, `delivery`, `end`. In case the type is `start` or
-	// `end`, `steps` object will not have the `id` field.
+	// start, job, pickup, delivery, end. In case the type is start or end, steps
+	// object will not have the id field.
 	Type string `json:"type"`
 	// Returns the wait time of the vehicle at this step, in seconds.
 	WaitingTime int64 `json:"waiting_time"`
@@ -1003,16 +999,16 @@ func (r *OptimizationV2GetResultResponseResultRouteStep) UnmarshalJSON(data []by
 // parameters.
 type OptimizationV2GetResultResponseResultSummary struct {
 	// Returns the total cost of all the routes returned in the solution. The unit of
-	// cost type depends on the value of `travel_cost` attribute in the optimization
+	// cost type depends on the value of travel_cost attribute in the optimization
 	// request.
 	Cost int64 `json:"cost"`
 	// Returns the sum of all quantities that were delivered in the optimized solution.
 	// If quantities of different dimensions were delivered, then a matching number of
-	// elements is returned in the `delivery` array.
+	// elements is returned in the delivery array.
 	//
-	// Please note that when both `shipments` and `jobs` are provided, this field
+	// Please note that when both shipments and jobs are provided, this field
 	// corresponds to the sum of quantities delivered as part of all the assigned
-	// `shipments` and `jobs` .
+	// shipments and jobs .
 	Delivery []int64 `json:"delivery"`
 	// Returns the total distance of all routes, in meters. It is equal to the sum of
 	// distances of individual routes.
@@ -1026,17 +1022,17 @@ type OptimizationV2GetResultResponseResultSummary struct {
 	NumLateVisits int64 `json:"num_late_visits"`
 	// Returns the sum of all quantities that were picked-up in the optimized solution.
 	// If quantities of different dimensions were picked-up, then a matching number of
-	// elements is returned in the `pickup` array.
+	// elements is returned in the pickup array.
 	//
-	// Please note that when both `shipments` and `jobs` are provided, this field
+	// Please note that when both shipments and jobs are provided, this field
 	// corresponds to the sum of quantities picked-up as part of all the assigned
-	// `shipments` and `jobs` .
+	// shipments and jobs .
 	Pickup []int64 `json:"pickup"`
 	// Returns the sum of priorities of all tasks that were assigned.
 	Priority int64 `json:"priority"`
 	// Returns the revenue earned by completing all the assigned tasks. Overall profit
 	// earned by following the suggested route plan can be inferred by subtracting the
-	// `cost` of the solution from the reported `revenue`.
+	// cost of the solution from the reported revenue.
 	Revenue int64 `json:"revenue"`
 	// Returns the total number of routes in the solution.
 	Routes int64 `json:"routes"`
@@ -1084,8 +1080,8 @@ func (r *OptimizationV2GetResultResponseResultSummary) UnmarshalJSON(data []byte
 
 type OptimizationV2GetResultResponseResultUnassigned struct {
 	// Returns the ID of the unassigned task. The ID returned is the same as that
-	// provided for the given task in the `jobs` or the `shipments` part in the input
-	// POST optimization request.
+	// provided for the given task in the jobs or the shipments part in the input POST
+	// optimization request.
 	//
 	// **Note:** Since both integer and string value types are supported for task IDs,
 	// the value type returned for this field will depend on the value type provided in
@@ -1095,30 +1091,29 @@ type OptimizationV2GetResultResponseResultUnassigned struct {
 	// format.
 	Location []float64 `json:"location"`
 	// Returns the cost of outsourcing the task. This is the same value as provided in
-	// the input. The field is present only if a `outsourcing_cost` was provided for
-	// the unassigned task.
+	// the input. The field is present only if a outsourcing_cost was provided for the
+	// unassigned task.
 	OutsourcingCost int64 `json:"outsourcing_cost"`
 	// Returns the most likely reason due to which the task remained unassigned. The
 	// optimization service can capture the following causes of tasks remaining
 	// unassigned, among others:
 	//
-	//   - unmatched `skills` of the tasks
-	//   - insufficient `capacity` of vehicle to accommodate the tasks
-	//   - `time_window` requirements of the tasks or the vehicles
-	//   - violation of vehicle’s `max_activity_waiting_time` constraint
-	//   - violation of vehicle’s `max_tasks` or `max_stops` constraints
-	//   - violation of vehicle’s `max_distance` or `max_travel_time` constraints
-	//   - task unassigned due to zone constraints
-	//   - task unassigned due to depot constraints
-	//   - task unassigned due to load type incompatibility constraints
-	//   - task unassigned due to max time in vehicle constraint
-	//   - task unassigned as it is unprofitable
-	//   - task unassigned due to low outsourcing cost
-	//   - task unassigned due to infeasible conditions specified in `relations`
-	//     attribute
+	// - unmatched skills of the tasks
+	// - insufficient capacity of vehicle to accommodate the tasks
+	// - time_window requirements of the tasks or the vehicles
+	// - violation of vehicle’s max_activity_waiting_time constraint
+	// - violation of vehicle’s max_tasks or max_stops constraints
+	// - violation of vehicle’s max_distance or max_travel_time constraints
+	// - task unassigned due to zone constraints
+	// - task unassigned due to depot constraints
+	// - task unassigned due to load type incompatibility constraints
+	// - task unassigned due to max time in vehicle constraint
+	// - task unassigned as it is unprofitable
+	// - task unassigned due to low outsourcing cost
+	// - task unassigned due to infeasible conditions specified in relations attribute
 	Reason string `json:"reason"`
 	// Returns the type of the task that was unassigned. Will always belong to one of
-	// `job`, `pickup`, or `delivery`.
+	// job, pickup, or delivery.
 	Type string `json:"type"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -1143,8 +1138,8 @@ func (r *OptimizationV2GetResultResponseResultUnassigned) UnmarshalJSON(data []b
 type OptimizationV2GetResultResponseStatus string
 
 const (
-	OptimizationV2GetResultResponseStatusOk    OptimizationV2GetResultResponseStatus = "`Ok`"
-	OptimizationV2GetResultResponseStatusError OptimizationV2GetResultResponseStatus = "`Error`"
+	OptimizationV2GetResultResponseStatusOk    OptimizationV2GetResultResponseStatus = "Ok"
+	OptimizationV2GetResultResponseStatusError OptimizationV2GetResultResponseStatus = "Error"
 )
 
 type OptimizationV2GetResultParams struct {
@@ -1170,11 +1165,11 @@ type OptimizationV2SubmitParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// The `locations` object is used to define all the locations that will be used
+	// The locations object is used to define all the locations that will be used
 	// during the optimization process. Read more about this attribute in the
 	// [Location Object](#location-object) section.
 	Locations OptimizationV2SubmitParamsLocations `json:"locations,omitzero,required"`
-	// The `vehicles` attribute describes the characteristics and constraints of the
+	// The vehicles attribute describes the characteristics and constraints of the
 	// vehicles that will be used for fulfilling the tasks. Read more about this
 	// attribute in the [Vehicle Object](#vehicle-object) section.
 	Vehicles []VehicleParam `json:"vehicles,omitzero,required"`
@@ -1185,100 +1180,99 @@ type OptimizationV2SubmitParams struct {
 	// reoptimization
 	ExistingSolutionID param.Opt[string] `json:"existing_solution_id,omitzero"`
 	// An array of arrays to denote the user-defined costs of traveling between each
-	// pair of geographic coordinates mentioned in the `location` array. The number of
+	// pair of geographic coordinates mentioned in the location array. The number of
 	// arrays should be equal to the number of coordinate points mentioned in the
-	// `location` array and each array should contain the same number of elements as
-	// well. Please note that `cost_matrix` is effective only when
-	// `travel_cost=customized`. Read more about this attribute in the
+	// location array and each array should contain the same number of elements as
+	// well. Please note that cost_matrix is effective only when
+	// travel_cost=customized. Read more about this attribute in the
 	// [Custom Cost Matrix](#custom-cost-matrix) section.
 	CostMatrix [][]int64 `json:"cost_matrix,omitzero"`
-	// `depots` object is used to collect the details of a depot. Depots can be used as
-	// a starting point and/or ending point for the routes and vehicles. They also can
-	// be used to fulfil pickup and delivery type`jobs` . The loads which are to be
+	// depots object is used to collect the details of a depot. Depots can be used as a
+	// starting point and/or ending point for the routes and vehicles. They also can be
+	// used to fulfil pickup and delivery typejobs . The loads which are to be
 	// delivered at task locations will be picked from depots and loads picked-up from
 	// task locations will be delivered back to the depots. A depot can be configured
 	// using the following fields:
 	Depots []OptimizationV2SubmitParamsDepot `json:"depots,omitzero"`
 	// An array of arrays to denote the user-defined distances, in meters, for
-	// travelling between each pair of geographic coordinates mentioned in the
-	// `location` array. When this input is provided, actual distances between the
-	// locations will be ignored in favor of the values provided in this input for any
-	// distance calculations during the optimization process. The values provided here
-	// will also be used for cost calculations when `travel_cost` is “distance”.
+	// travelling between each pair of geographic coordinates mentioned in the location
+	// array. When this input is provided, actual distances between the locations will
+	// be ignored in favor of the values provided in this input for any distance
+	// calculations during the optimization process. The values provided here will also
+	// be used for cost calculations when travel_cost is “distance”.
 	//
 	// The number of arrays in the input should be equal to the number of coordinate
-	// points mentioned in the `location` array and each array, in turn, should contain
+	// points mentioned in the location array and each array, in turn, should contain
 	// the same number of elements as well.
 	//
 	// **Note:**
 	//
-	//   - `duration_matrix` is mandatory when using`distance_matrix`.
-	//   - When using `distance_matrix` route geometry will not be available in the
+	//   - duration_matrix is mandatory when usingdistance_matrix.
+	//   - When using distance_matrix route geometry will not be available in the
 	//     optimized solution.
 	DistanceMatrix [][]int64 `json:"distance_matrix,omitzero"`
 	// An array of arrays to denote the user-defined durations, in seconds, for
-	// travelling between each pair of geographic coordinates mentioned in the
-	// `location` array. When this input is provided, actual durations between the
-	// locations will be ignored in favor of the values provided in the matrix for any
-	// ETA calculations during the optimization process. The values provided in the
-	// matrix will also be used for cost calculations when `travel_cost` is “duration”.
+	// travelling between each pair of geographic coordinates mentioned in the location
+	// array. When this input is provided, actual durations between the locations will
+	// be ignored in favor of the values provided in the matrix for any ETA
+	// calculations during the optimization process. The values provided in the matrix
+	// will also be used for cost calculations when travel_cost is “duration”.
 	//
 	// The number of arrays in the input should be equal to the number of coordinate
-	// points mentioned in the `location` array and each array, in turn, should contain
+	// points mentioned in the location array and each array, in turn, should contain
 	// the same number of elements as well.
 	//
-	// Please note that, unlike `distance_matrix`, `duration_matrix` can be used
+	// Please note that, unlike distance_matrix, duration_matrix can be used
 	// independently in following cases:
 	//
-	// - when `travel_cost` is “duration”
-	// - when `travel_cost` is “customized” and a `cost_matrix` is provided
+	// - when travel_cost is “duration”
+	// - when travel_cost is “customized” and a cost_matrix is provided
 	//
 	// Also, the route geometry will not be available in the optimized solution when
-	// using `duration_matrix`.
+	// using duration_matrix.
 	DurationMatrix [][]int64 `json:"duration_matrix,omitzero"`
-	// `jobs` object is used to collect the details of a particular job or task that
+	// jobs object is used to collect the details of a particular job or task that
 	// needs to be completed as part of the optimization process. Each job can have
-	// either a `pickup` or `delivery` step, but not both. Read more about this
-	// attribute in the [Job Object](#job-object) section.
+	// either a pickup or delivery step, but not both. Read more about this attribute
+	// in the [Job Object](#job-object) section.
 	//
-	// Please note that either the `jobs` or the `shipments` attribute should be
-	// specified to build a valid request.
+	// Please note that either the jobs or the shipments attribute should be specified
+	// to build a valid request.
 	Jobs []JobParam `json:"jobs,omitzero"`
 	// It represents the set of options that can be used to configure optimization
 	// algorithms so that the solver provides a solution that meets the desired
 	// business objectives.
 	Options OptimizationV2SubmitParamsOptions `json:"options,omitzero"`
-	// `relations` attribute is an array of individual relation objects. `type`
-	// parameter and `steps` object are mandatory when using this attribute.
+	// relations attribute is an array of individual relation objects. type parameter
+	// and steps object are mandatory when using this attribute.
 	//
 	// Please note:
 	//
-	//   - The soft constraints are **not** effective when using the `relations`
-	//     attribute.
+	//   - The soft constraints are **not** effective when using the relations attribute.
 	//   - In case a given relation can't be satisfied, the optimizer will flag all the
 	//     tasks involved in that "relation" as unassigned.
 	//
 	// Read more about this attribute in the [Relations Object](#relations-object)
 	// section.
 	Relations []OptimizationV2SubmitParamsRelation `json:"relations,omitzero"`
-	// The `shipments` object is used to collect the details of shipments that need to
-	// be completed as part of the optimization process.
+	// The shipments object is used to collect the details of shipments that need to be
+	// completed as part of the optimization process.
 	//
 	// Each shipment should have a pickup and the corresponding delivery step.
 	//
-	// Please note that either the `jobs` or the `shipments` attribute should be
-	// specified to build a valid request.
+	// Please note that either the jobs or the shipments attribute should be specified
+	// to build a valid request.
 	Shipments []ShipmentParam `json:"shipments,omitzero"`
 	// This attribute is related to the re-optimization feature. It allows for the
 	// previous optimization result to be provided in case new orders are received and
-	// the solution needs to be re-planned. The `solution` attribute should contain the
-	// same routes as the previous optimization result. `solution` attribute is an
-	// array of objects with each object corresponding to one route.
+	// the solution needs to be re-planned. The solution attribute should contain the
+	// same routes as the previous optimization result. solution attribute is an array
+	// of objects with each object corresponding to one route.
 	Solution []OptimizationV2SubmitParamsSolution `json:"solution,omitzero"`
-	// `unassigned` attribute is related to the re-optimization feature. This attribute
+	// unassigned attribute is related to the re-optimization feature. This attribute
 	// should contain the tasks that were not assigned during an earlier optimization
-	// process. Please note that the `unassigned` part in request should be consistent
-	// with the `unassigned` part in the previous optimization result.
+	// process. Please note that the unassigned part in request should be consistent
+	// with the unassigned part in the previous optimization result.
 	//
 	// Users can reduce the number of unassigned tasks in the re-optimized solution, by
 	// following strategies such as:
@@ -1300,8 +1294,8 @@ type OptimizationV2SubmitParams struct {
 	//
 	// # Please note that
 	//
-	//   - Each zone should have a geometry specified either through`geometry` or through
-	//     the `geofence_id` parameter.
+	//   - Each zone should have a geometry specified either throughgeometry or through
+	//     the geofence_id parameter.
 	//   - When zone IDs are not provided for individual tasks (jobs or shipments) then
 	//     the API will automatically allocate zones based on the task’s geolocation and
 	//     the geometries of the zones provided here. Otherwise, if the zone IDs are
@@ -1328,7 +1322,7 @@ func (r OptimizationV2SubmitParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-// The `locations` object is used to define all the locations that will be used
+// The locations object is used to define all the locations that will be used
 // during the optimization process. Read more about this attribute in the
 // [Location Object](#location-object) section.
 //
@@ -1341,9 +1335,9 @@ type OptimizationV2SubmitParamsLocations struct {
 	// of the location while configuring all such tasks.
 	//
 	// Please use this array to determine the index of a location when setting the
-	// `location_index` parameter in `jobs`, `shipments`, `vehicles` or other parts of
-	// the request. The length of this array determines the valid values for
-	// `location_index` parameter.
+	// location_index parameter in jobs, shipments, vehicles or other parts of the
+	// request. The length of this array determines the valid values for location_index
+	// parameter.
 	Location []string `json:"location,omitzero,required"`
 	// A unique ID for the set of locations. It should be a positive integer.
 	ID param.Opt[int64] `json:"id,omitzero"`
@@ -1353,7 +1347,7 @@ type OptimizationV2SubmitParamsLocations struct {
 	// However, you can skip a coordinate and show its position in the list using “”
 	// (empty string). Please note these values are case-sensitive.
 	//
-	// Any of "`unrestricted`", "`curb`", `""(empty string)`.
+	// Any of "unrestricted", "curb", `""(empty string)`.
 	Approaches []string `json:"approaches,omitzero"`
 	paramObj
 }
@@ -1370,12 +1364,12 @@ func (r *OptimizationV2SubmitParamsLocations) UnmarshalJSON(data []byte) error {
 type OptimizationV2SubmitParamsDepot struct {
 	// Provide an unique ID for the depot. The IDs are case sensitive.
 	ID string `json:"id,required"`
-	// Specify the index of coordinates (in the `location` array) denoting the depot’s
-	// location. The valid range of values is \[0, length of `location` array). If the
-	// location index exceeds the count of input locations in the `location` array, the
+	// Specify the index of coordinates (in the location array) denoting the depot’s
+	// location. The valid range of values is \[0, length of location array). If the
+	// location index exceeds the count of input locations in the location array, the
 	// API will report an error.
 	//
-	// Please note the `location_index` is mandatory when using the `depots` object.
+	// Please note the location_index is mandatory when using the depots object.
 	LocationIndex int64 `json:"location_index,required"`
 	// Add a custom description for the depot.
 	Description param.Opt[string] `json:"description,omitzero"`
@@ -1392,9 +1386,9 @@ type OptimizationV2SubmitParamsDepot struct {
 	//     overlap with each other.
 	//   - Time windows should always be specified in the format of \[start_timestamp,
 	//     end_timestamp\].
-	//   - Depot's time-windows are ineffective used when `max_activity_waiting_time` is
+	//   - Depot's time-windows are ineffective used when max_activity_waiting_time is
 	//     specified in the input.
-	//   - Using `relations` along with depot time-window is not allowed and the service
+	//   - Using relations along with depot time-window is not allowed and the service
 	//     will return an error.
 	TimeWindows [][]int64 `json:"time_windows,omitzero"`
 	paramObj
@@ -1420,15 +1414,14 @@ type OptimizationV2SubmitParamsOptions struct {
 	// Whereas the hard constraints are the constraints that will not be violated by
 	// the solver. Users can use multiple constraints together.
 	//
-	// Please note that soft constraints are ineffective when using `relations`
-	// attribute in a request. The hard constraint, `max_activity_waiting_time`, is
-	// effective only when relation type is `in_same_route` and ineffective for all
-	// other types.
+	// Please note that soft constraints are ineffective when using relations attribute
+	// in a request. The hard constraint, max_activity_waiting_time, is effective only
+	// when relation type is in_same_route and ineffective for all other types.
 	Constraint OptimizationV2SubmitParamsOptionsConstraint `json:"constraint,omitzero"`
 	// Set grouping rules for the tasks and routes.
 	//
-	// - Use `order_grouping` to group nearby tasks
-	// - Use `route_grouping` to control route sequencing.
+	// - Use order_grouping to group nearby tasks
+	// - Use route_grouping to control route sequencing.
 	Grouping OptimizationV2SubmitParamsOptionsGrouping `json:"grouping,omitzero"`
 	// This attribute is used to configure the objective of the optimization job.
 	Objective OptimizationV2SubmitParamsOptionsObjective `json:"objective,omitzero"`
@@ -1454,24 +1447,23 @@ func (r *OptimizationV2SubmitParamsOptions) UnmarshalJSON(data []byte) error {
 // Whereas the hard constraints are the constraints that will not be violated by
 // the solver. Users can use multiple constraints together.
 //
-// Please note that soft constraints are ineffective when using `relations`
-// attribute in a request. The hard constraint, `max_activity_waiting_time`, is
-// effective only when relation type is `in_same_route` and ineffective for all
-// other types.
+// Please note that soft constraints are ineffective when using relations attribute
+// in a request. The hard constraint, max_activity_waiting_time, is effective only
+// when relation type is in_same_route and ineffective for all other types.
 type OptimizationV2SubmitParamsOptionsConstraint struct {
 	// This is a hard constraint which specifies the maximum waiting time, in seconds,
-	// for each `step`. It ensures that the vehicles do not have unreasonable wait
-	// times between jobs or shipments. This feature is useful for use cases where
-	// avoiding long wait times between jobs or shipments is a primary concern.
+	// for each step. It ensures that the vehicles do not have unreasonable wait times
+	// between jobs or shipments. This feature is useful for use cases where avoiding
+	// long wait times between jobs or shipments is a primary concern.
 	//
 	// Please note that the waiting time constraint applies to all tasks in the
 	// optimization request, ensuring that no single task exceeds the specified maximum
-	// waiting time. When being used together with `relations` attribute, this
-	// parameter is effective only for `in_same_route` relation type.
+	// waiting time. When being used together with relations attribute, this parameter
+	// is effective only for in_same_route relation type.
 	MaxActivityWaitingTime param.Opt[int64] `json:"max_activity_waiting_time,omitzero"`
 	// This is a soft constraint for vehicle overtime. Overtime is defined as the time
 	// that a vehicle spends to complete a set of jobs after its time window has ended.
-	// `max_vehicle_overtime` attribute specifies the maximum amount of overtime a
+	// max_vehicle_overtime attribute specifies the maximum amount of overtime a
 	// vehicle can have, in seconds. If a vehicle’s overtime exceeds this value, it
 	// will be considered a violation of this constraint.
 	//
@@ -1484,7 +1476,7 @@ type OptimizationV2SubmitParamsOptionsConstraint struct {
 	//
 	// Please note that this constraint applies to all tasks in the optimization
 	// request. In case lateness duration needs to be applied for individual tasks,
-	// please use the `max_visit_lateness` parameter under `jobs` and `shipments`
+	// please use the max_visit_lateness parameter under jobs and shipments
 	MaxVisitLateness param.Opt[int64] `json:"max_visit_lateness,omitzero"`
 	paramObj
 }
@@ -1499,8 +1491,8 @@ func (r *OptimizationV2SubmitParamsOptionsConstraint) UnmarshalJSON(data []byte)
 
 // Set grouping rules for the tasks and routes.
 //
-// - Use `order_grouping` to group nearby tasks
-// - Use `route_grouping` to control route sequencing.
+// - Use order_grouping to group nearby tasks
+// - Use route_grouping to control route sequencing.
 type OptimizationV2SubmitParamsOptionsGrouping struct {
 	// When specified, routes are built taking into account the distance to the nearest
 	// tasks. A higher proximity factor helps build routes with closer distances
@@ -1559,7 +1551,7 @@ func (r *OptimizationV2SubmitParamsOptionsGrouping) UnmarshalJSON(data []byte) e
 // when configuring those tasks.
 type OptimizationV2SubmitParamsOptionsGroupingOrderGrouping struct {
 	// Specify the straight line distance, in meters, which will be used to identify
-	// the tasks that should be grouped together. The default value is `null`.
+	// the tasks that should be grouped together. The default value is null.
 	GroupingDiameter param.Opt[float64] `json:"grouping_diameter,omitzero"`
 	paramObj
 }
@@ -1588,19 +1580,19 @@ type OptimizationV2SubmitParamsOptionsGroupingRouteGrouping struct {
 	// lower penalty factor, like 1.0, may have several zone violations.
 	PenaltyFactor param.Opt[float64] `json:"penalty_factor,omitzero"`
 	// Specify the diameter of the zone, routes within which will be prioritised before
-	// routes falling in other zones. Please note that `zone_diameter` is the straight
+	// routes falling in other zones. Please note that zone_diameter is the straight
 	// line distance, in meters.
 	ZoneDiameter param.Opt[float64] `json:"zone_diameter,omitzero"`
 	// Specify the source for creating boundaries of the routing zones. The default
 	// value is “system_generated”.
 	//
 	//   - system_generated - Routing zone boundaries are created automatically by the
-	//     optimizer based on the `zone_diameter` provided.
+	//     optimizer based on the zone_diameter provided.
 	//   - custom_definition - Custom routing zone boundaries should be provided by the
-	//     user in input using the `zones` attribute. An error would be returned if the
-	//     `zones` attribute is null or missing in the input request.
+	//     user in input using the zones attribute. An error would be returned if the
+	//     zones attribute is null or missing in the input request.
 	//
-	// Any of "`system_generated`", "`custom_definition`".
+	// Any of "system_generated", "custom_definition".
 	ZoneSource string `json:"zone_source,omitzero"`
 	paramObj
 }
@@ -1615,17 +1607,17 @@ func (r *OptimizationV2SubmitParamsOptionsGroupingRouteGrouping) UnmarshalJSON(d
 
 func init() {
 	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsGroupingRouteGrouping](
-		"zone_source", "`system_generated`", "`custom_definition`",
+		"zone_source", "system_generated", "custom_definition",
 	)
 }
 
 // This attribute is used to configure the objective of the optimization job.
 type OptimizationV2SubmitParamsOptionsObjective struct {
 	// Choose where the optimizer should schedule the driver’s wait time. When set to
-	// `true` the driver waits at the location of the task until its time window allows
-	// him to start the task. When set to `false` the driver waits at the location of
-	// the previous task and starts driving only at such a time that makes him arrive
-	// at the next task location in time to start the task as soon as he reaches.
+	// true the driver waits at the location of the task until its time window allows
+	// him to start the task. When set to false the driver waits at the location of the
+	// previous task and starts driving only at such a time that makes him arrive at
+	// the next task location in time to start the task as soon as he reaches.
 	AllowEarlyArrival param.Opt[bool] `json:"allow_early_arrival,omitzero"`
 	// Specify whether to minimize the number of depots used in optimization routes.
 	MinimiseNumDepots param.Opt[bool] `json:"minimise_num_depots,omitzero"`
@@ -1640,8 +1632,8 @@ type OptimizationV2SubmitParamsOptionsObjective struct {
 	//   - It is recommended to specify a duration of at least 5-7 minutes in case the
 	//     input problem contains a large set of tasks or vehicles.
 	SolvingTimeLimit param.Opt[int64] `json:"solving_time_limit,omitzero"`
-	// The `custom` parameter is used to define special objectives apart from the
-	// simpler travel cost minimization objectives.
+	// The custom parameter is used to define special objectives apart from the simpler
+	// travel cost minimization objectives.
 	Custom OptimizationV2SubmitParamsOptionsObjectiveCustom `json:"custom,omitzero"`
 	// If the input doesn’t include features of soft constraints, customized
 	// objectives, re-optimization, relations, max travel cost or automatic fixed cost,
@@ -1651,23 +1643,23 @@ type OptimizationV2SubmitParamsOptionsObjective struct {
 	// If “optimal” mode is unable to process some features in the input, then it will
 	// still goes to “flexible” mode.
 	//
-	// Any of "`flexible`", "`fast`", "`internal`".
+	// Any of "flexible", "fast", "internal".
 	SolverMode string `json:"solver_mode,omitzero"`
-	// The `travel_cost` parameter specifies the type of cost used by the solver to
+	// The travel_cost parameter specifies the type of cost used by the solver to
 	// determine the routes.
 	//
-	// If the `travel_cost` parameter is set to `distance`, the solver will minimize
-	// the total distance traveled by vehicles while determining a solution. This
-	// objective would be useful in cases where the primary objective is to reduce fuel
+	// If the travel_cost parameter is set to distance, the solver will minimize the
+	// total distance traveled by vehicles while determining a solution. This objective
+	// would be useful in cases where the primary objective is to reduce fuel
 	// consumption or travel expenses.
 	//
-	// If the `travel_cost` parameter is set to `duration`, the solver will minimize
-	// the total time taken by the vehicles to complete all tasks while determining a
+	// If the travel_cost parameter is set to duration, the solver will minimize the
+	// total time taken by the vehicles to complete all tasks while determining a
 	// solution. This objective would be useful in cases where the primary objective is
 	// to minimize completion time or maximize the number of orders fulfilled within a
 	// given time window.
 	//
-	// If the `travel_cost` parameter is set to `air_distance`, the solver will try to
+	// If the travel_cost parameter is set to air_distance, the solver will try to
 	// calculate the distance,in meters, between two points using the great-circle
 	// distance formula (i.e., the shortest distance between two points on a sphere)
 	// instead of the actual road distance. This would be useful in cases where the
@@ -1675,13 +1667,13 @@ type OptimizationV2SubmitParamsOptionsObjective struct {
 	// significantly longer than the actual straight-line distance. For example, in
 	// Drone Delivery services.
 	//
-	// If the `travel_cost` is set to `customized` the solver would use the custom cost
-	// values provided by the user (in `cost_matrix` attribute) and prefer a solution
+	// If the travel_cost is set to customized the solver would use the custom cost
+	// values provided by the user (in cost_matrix attribute) and prefer a solution
 	// with lower overall cost. This enables the user to have greater control over the
 	// routes preferred by the solver and hence the sequence in which the jobs are
 	// completed.
 	//
-	// Any of "`duration`", "`distance`", "`air_distance`", "`customized`".
+	// Any of "duration", "distance", "air_distance", "customized".
 	TravelCost string `json:"travel_cost,omitzero"`
 	paramObj
 }
@@ -1696,51 +1688,51 @@ func (r *OptimizationV2SubmitParamsOptionsObjective) UnmarshalJSON(data []byte) 
 
 func init() {
 	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsObjective](
-		"solver_mode", "`flexible`", "`fast`", "`internal`",
+		"solver_mode", "flexible", "fast", "internal",
 	)
 	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsObjective](
-		"travel_cost", "`duration`", "`distance`", "`air_distance`", "`customized`",
+		"travel_cost", "duration", "distance", "air_distance", "customized",
 	)
 }
 
-// The `custom` parameter is used to define special objectives apart from the
-// simpler travel cost minimization objectives.
+// The custom parameter is used to define special objectives apart from the simpler
+// travel cost minimization objectives.
 //
 // The properties Type, Value are required.
 type OptimizationV2SubmitParamsOptionsObjectiveCustom struct {
-	// The `type` parameter accepts two inputs:
+	// The type parameter accepts two inputs:
 	//
-	//   - `min`: This type of customized objective will minimize the metric provided in
-	//     the `value` parameter.
-	//   - `min-max`: This type of customized objective will approximate an even
-	//     distribution of the metric provided in the `value` parameter, among all the
+	//   - min: This type of customized objective will minimize the metric provided in
+	//     the value parameter.
+	//   - min-max: This type of customized objective will approximate an even
+	//     distribution of the metric provided in the value parameter, among all the
 	//     routes in solution.
 	//
-	// Please note that `type` is mandatory only when using `custom` attribute.
+	// Please note that type is mandatory only when using custom attribute.
 	//
-	// Any of "`min`", "`min-max`".
+	// Any of "min", "min-max".
 	Type string `json:"type,omitzero,required"`
-	// The `value` parameter accepts four inputs, two of them are valid for `min` type
-	// and other two are valid for `min-max` type custom objective. Let’s look at the
-	// values for `min` type objective:
+	// The value parameter accepts four inputs, two of them are valid for min type and
+	// other two are valid for min-max type custom objective. Let’s look at the values
+	// for min type objective:
 	//
-	//   - `vehicles`: Solver will minimize the number of vehicles used in the solution.
-	//   - `completion_time`: Solver will minimize the total time taken to complete all
+	//   - vehicles: Solver will minimize the number of vehicles used in the solution.
+	//   - completion_time: Solver will minimize the total time taken to complete all
 	//     tasks.
 	//
-	// The next set of values are acceptable when `type` is set to `min-max`.
+	// The next set of values are acceptable when type is set to min-max.
 	//
-	//   - `tasks`: Solver will evenly distribute the tasks on each route.
-	//   - `travel_cost`: Solver will assign tasks such that the traveling cost of each
+	//   - tasks: Solver will evenly distribute the tasks on each route.
+	//   - travel_cost: Solver will assign tasks such that the traveling cost of each
 	//     route is within a close range of other routes. The travel cost metric
-	//     considered here is the one set using `objective.travel_cost` .
+	//     considered here is the one set using objective.travel_cost .
 	//
-	// Please note that `value` is mandatory only when using `custom` attribute. The
-	// above values provide flexibility to tune the optimization algorithm to fulfill
+	// Please note that value is mandatory only when using custom attribute. The above
+	// values provide flexibility to tune the optimization algorithm to fulfill
 	// practical objectives beyond the relatively simpler time or distance minimization
 	// approaches.
 	//
-	// Any of "`vehicles`", "`completion_time`", "`travel_cost`", "`tasks`".
+	// Any of "vehicles", "completion_time", "travel_cost", "tasks".
 	Value string `json:"value,omitzero,required"`
 	paramObj
 }
@@ -1755,10 +1747,10 @@ func (r *OptimizationV2SubmitParamsOptionsObjectiveCustom) UnmarshalJSON(data []
 
 func init() {
 	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsObjectiveCustom](
-		"type", "`min`", "`min-max`",
+		"type", "min", "min-max",
 	)
 	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsObjectiveCustom](
-		"value", "`vehicles`", "`completion_time`", "`travel_cost`", "`tasks`",
+		"value", "vehicles", "completion_time", "travel_cost", "tasks",
 	)
 }
 
@@ -1768,7 +1760,7 @@ type OptimizationV2SubmitParamsOptionsRouting struct {
 	// Specify if crossing an international border is allowed for operations near
 	// border areas. When set to false, the API will prohibit any routes crossing
 	// international borders. When set to true, the service will return routes which
-	// cross the borders between countries, if required for the given set `locations`
+	// cross the borders between countries, if required for the given set locations
 	//
 	// This feature is available in North America region only. Please get in touch with
 	// [support@nextbillion.ai](mailto:support@nextbillion.ai) to enquire/enable other
@@ -1782,7 +1774,7 @@ type OptimizationV2SubmitParamsOptionsRouting struct {
 	// mins.
 	//
 	// If the users want to regenerate the result set, they can set this parameter to
-	// `true` and optimizer will not use the cached results.
+	// true and optimizer will not use the cached results.
 	//
 	// This feature is helpful in expediting the optimization process and generate
 	// results quickly. It also helps users to quickly simulate route plans for
@@ -1797,14 +1789,14 @@ type OptimizationV2SubmitParamsOptionsRouting struct {
 	// goods) of the truck, in tonnes. When used, the optimizer will use only those
 	// routes which are legally allowed to carry the load specified per axle.
 	//
-	// Please note this parameter is effective only when `mode=truck`.
+	// Please note this parameter is effective only when mode=truck.
 	TruckAxleLoad param.Opt[float64] `json:"truck_axle_load,omitzero"`
 	// Specify the truck dimensions, in centimeters, in the format of
 	// “height,width,length”. Please note that this parameter is effective only when
-	// `mode=truck`.
+	// mode=truck.
 	TruckSize param.Opt[string] `json:"truck_size,omitzero"`
 	// Specify the truck weight including the trailers and shipped goods, in kilograms.
-	// Please note that this parameter is effective only when `mode=truck`.
+	// Please note that this parameter is effective only when mode=truck.
 	TruckWeight param.Opt[int64] `json:"truck_weight,omitzero"`
 	// Any of "taxi", "hov".
 	Allow []string `json:"allow,omitzero"`
@@ -1813,61 +1805,61 @@ type OptimizationV2SubmitParamsOptionsRouting struct {
 	// Please note that:
 	//
 	//   - The values are case-sensitive.
-	//   - When using `avoid:bbox` feature, users need to specify the boundaries of the
+	//   - When using avoid:bbox feature, users need to specify the boundaries of the
 	//     bounding box to be avoided. Multiple bounding boxes can be provided
 	//     simultaneously. Please note that bounding box is a hard filter and if it
 	//     blocks all possible routes between given locations, a 4xx error is returned.
 	//     Mention the bounding box boundaries in the following format: bbox:
 	//     min_latitude,min_longitude,max_latitude,max_longitude.
-	//   - When using `avoid=sharp_turn`, the range of allowed turn angles is \[120,240\]
+	//   - When using avoid=sharp_turn, the range of allowed turn angles is \[120,240\]
 	//     in the clockwise direction from the current road. Any roads with turn angles
 	//     outside the range will be avoided.
-	//   - If `none` is provided along with other values, an error is returned as a valid
+	//   - If none is provided along with other values, an error is returned as a valid
 	//     route is not feasible.
 	//
-	// Any of "`toll`", "`highway`", "`bbox`", "`left_turn`", "`right_turn`",
-	// "`sharp_turn`", "`uturn`", "`service_road`", "`ferry`", "`none` ".
+	// Any of "toll", "highway", "bbox", "left_turn", "right_turn", "sharp_turn",
+	// "uturn", "service_road", "ferry", "none ".
 	Avoid []string `json:"avoid,omitzero"`
 	// Use this parameter to apply a single speed value for all ETA and drive time
-	// calculations. In case, the `travel_cost` is set to duration then setting this
+	// calculations. In case, the travel_cost is set to duration then setting this
 	// parameter also impacts the cost of the solution.
 	//
-	// Any of "`avgspeed`".
+	// Any of "avgspeed".
 	Context string `json:"context,omitzero"`
 	// Specify the type of hazardous material being carried and the service will avoid
 	// roads which are not suitable for the type of goods specified. Provide multiple
-	// values separated by a comma `,` .
+	// values separated by a comma , .
 	//
-	// Please note that this parameter is effective only when `mode=truck`.
+	// Please note that this parameter is effective only when mode=truck.
 	//
-	// Any of "`general`", "`circumstantial`", "`explosive`", "`harmful_to_water`".
+	// Any of "general", "circumstantial", "explosive", "harmful_to_water".
 	HazmatType []string `json:"hazmat_type,omitzero"`
 	// Define the traveling mode to be used for determining the optimized routes.
 	//
-	// Any of "`car`", "`truck`".
+	// Any of "car", "truck".
 	Mode string `json:"mode,omitzero"`
-	// Defines all the vehicle profiles. `profiles` is implemented as a dictionary of
+	// Defines all the vehicle profiles. profiles is implemented as a dictionary of
 	// objects where each profile name is the unique key and the associated value is an
 	// object describing the routing properties of that profile. All routing properties
-	// available in `options.routing` can be added as values for a given profile.
+	// available in options.routing can be added as values for a given profile.
 	//
 	// Please note:
 	//
-	//   - The routing properties configured using `options.routing` (and not part of any
-	//     \`profiles\`) are considered as default route settings i.e. they are applied
-	//     to vehicles which are not associated with any profile.
+	//   - The routing properties configured using options.routing (and not part of any
+	//     \profiles\) are considered as default route settings i.e. they are applied to
+	//     vehicles which are not associated with any profile.
 	//
-	//   - The default route settings are independent from those defined for any
-	//     `profiles` . Consequently, for vehicles which are tagged to a given profile,
-	//     only the routing properties configured for the given profile will apply.
+	//   - The default route settings are independent from those defined for any profiles
+	//     . Consequently, for vehicles which are tagged to a given profile, only the
+	//     routing properties configured for the given profile will apply.
 	//
 	//   - If the "mode" is not specified for any profile, by default it is considered to
-	//     be `car` .
+	//     be car .
 	//
 	//   - "default" is a reserved keyword and can not be used as the name for any custom
 	//     profile.
 	//
-	//   - `profiles` can't be nested in other profiles.
+	//   - profiles can't be nested in other profiles.
 	//
 	//   - The number of profiles, including default route settings, are limited to
 	//
@@ -1897,75 +1889,71 @@ func (r *OptimizationV2SubmitParamsOptionsRouting) UnmarshalJSON(data []byte) er
 
 func init() {
 	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsRouting](
-		"context", "`avgspeed`",
+		"context", "avgspeed",
 	)
 	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsOptionsRouting](
-		"mode", "`car`", "`truck`",
+		"mode", "car", "truck",
 	)
 }
 
 // The properties Steps, Type are required.
 type OptimizationV2SubmitParamsRelation struct {
-	// The `steps` property specifies the tasks or steps that are part of the relation
-	// and must be carried out in a manner defined in the `type` parameter. Please note
-	// you can add any number of steps here, except when relation type is `precedence`
+	// The steps property specifies the tasks or steps that are part of the relation
+	// and must be carried out in a manner defined in the type parameter. Please note
+	// you can add any number of steps here, except when relation type is precedence
 	// where only 2 tasks can be added.
 	Steps []OptimizationV2SubmitParamsRelationStep `json:"steps,omitzero,required"`
 	// Specifies the type of relation constraint. The following types are supported:
 	//
-	//   - `in_same_route`: Ensures that all `steps` are covered in the same route in
+	//   - in_same_route: Ensures that all steps are covered in the same route in
 	//     solution.
-	//   - `in_sequence`: Ensures that all steps are in the same route and their sequence
-	//     matches the order specified in the `steps` field. Insertion of new steps
-	//     between the `steps` specified, is allowed.
-	//   - `in_direct_sequence`: Similar to `in_sequence`, but insertion of new `steps`
-	//     is not allowed in the final route.
-	//   - `precedence`: Restricts the travel time between the first step and second
-	//     step. If the precedence requirement cannot be satisfied, then the task
-	//     specified at the second step will not be assigned. Only 2 steps can be
-	//     specified in a single `precedence` type relations. Please use multiple
-	//     `precedence` relations to apply restrictions on more than 2 tasks.
+	//   - in_sequence: Ensures that all steps are in the same route and their sequence
+	//     matches the order specified in the steps field. Insertion of new steps between
+	//     the steps specified, is allowed.
+	//   - in_direct_sequence: Similar to in_sequence, but insertion of new steps is not
+	//     allowed in the final route.
+	//   - precedence: Restricts the travel time between the first step and second step.
+	//     If the precedence requirement cannot be satisfied, then the task specified at
+	//     the second step will not be assigned. Only 2 steps can be specified in a
+	//     single precedence type relations. Please use multiple precedence relations to
+	//     apply restrictions on more than 2 tasks.
 	//
-	// If the `vehicle` field is specified in the relations input, all steps will be
+	// If the vehicle field is specified in the relations input, all steps will be
 	// served by that particular vehicle. Otherwise, the route can be allocated to any
 	// feasible vehicle.
 	//
-	// Please note that the `type` field is mandatory when using the `relations`
-	// object.
+	// Please note that the type field is mandatory when using the relations object.
 	//
-	// Any of "`in_same_route`", "`in_sequence`", "`in_direct_sequence`",
-	// "`precedence`".
+	// Any of "in_same_route", "in_sequence", "in_direct_sequence", "precedence".
 	Type string `json:"type,omitzero,required"`
-	// **Deprecated! Please use the** `vehicle` **parameter to specify the vehicle
-	// ID.**
+	// **Deprecated! Please use the** vehicle **parameter to specify the vehicle ID.**
 	//
 	// Specifies the ID of the vehicle that would fulfil the steps. ID should be
-	// consistent with input IDs provided in the `vehicles` object.
+	// consistent with input IDs provided in the vehicles object.
 	ID param.Opt[int64] `json:"id,omitzero"`
-	// This attribute is effective only when `precedence` type relation is used.
-	// `max_duration` restricts the travel time of the vehicle to go from location of
-	// first task to the location of second task specified in `steps` object. The unit
+	// This attribute is effective only when precedence type relation is used.
+	// max_duration restricts the travel time of the vehicle to go from location of
+	// first task to the location of second task specified in steps object. The unit
 	// for this parameter is seconds. It accepts values greater than 0 only.
 	//
-	// Please note that `max_duration` is a hard constraint. Hence, if aggressive
+	// Please note that max_duration is a hard constraint. Hence, if aggressive
 	// durations are provided such that the second task cannot be reached within the
-	// specified `max_duration`, it might be done before the first task (usually in
-	// case of `jobs`) or remain un-assigned (usually in case of `shipments`).
+	// specified max_duration, it might be done before the first task (usually in case
+	// of jobs) or remain un-assigned (usually in case of shipments).
 	MaxDuration param.Opt[int64] `json:"max_duration,omitzero"`
-	// This attribute is effective only when `precedence` type relation is used. Use
-	// `min_duration` to enforce a minimum time-gap between the two tasks specified in
-	// `steps` object. When specified, the second task will get completed after a gap
-	// of `min_duration` with respect to the first task. The unit for this parameter is
+	// This attribute is effective only when precedence type relation is used. Use
+	// min_duration to enforce a minimum time-gap between the two tasks specified in
+	// steps object. When specified, the second task will get completed after a gap of
+	// min_duration with respect to the first task. The unit for this parameter is
 	// seconds.
 	//
-	// Please note that `min_duration` is implemented as a soft constraint and it can
-	// be violated in presence of other relation types. The optimizer will tend to
-	// provide solutions where `min_duration` is not violated, but it is not
-	// guaranteed.
+	// Please note that min_duration is implemented as a soft constraint and it can be
+	// violated in presence of other relation types. The optimizer will tend to provide
+	// solutions where min_duration is not violated, but it is not guaranteed.
 	MinDuration param.Opt[int64] `json:"min_duration,omitzero"`
 	// Specifies the ID of the vehicle that would fulfill the steps. Providing the same
 	// vehicle ID to multiple ‘relations’ is prohibited. The vehicle ID provided here
-	// should be consistent with ID provided in the `vehicles` attribute.
+	// should be consistent with ID provided in the vehicles attribute.
 	Vehicle param.Opt[string] `json:"vehicle,omitzero"`
 	paramObj
 }
@@ -1980,22 +1968,22 @@ func (r *OptimizationV2SubmitParamsRelation) UnmarshalJSON(data []byte) error {
 
 func init() {
 	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsRelation](
-		"type", "`in_same_route`", "`in_sequence`", "`in_direct_sequence`", "`precedence`",
+		"type", "in_same_route", "in_sequence", "in_direct_sequence", "precedence",
 	)
 }
 
 // The property Type is required.
 type OptimizationV2SubmitParamsRelationStep struct {
-	// Specifies the type of the step. The `start` and `end` step types have to be the
+	// Specifies the type of the step. The start and end step types have to be the
 	// first and last steps, respectively, in a relation.
 	//
-	// Please note that the `type` is mandatory when using the `relations` object.
+	// Please note that the type is mandatory when using the relations object.
 	//
-	// Any of "`start`", "`end`", "`job`", "`pickup`", "`delivery`".
+	// Any of "start", "end", "job", "pickup", "delivery".
 	Type string `json:"type,omitzero,required"`
 	// This represents the ID of the task and should be consistent with the input IDs
-	// provided in the `jobs` or `shipments` objects for a given step. The `id` is
-	// required for all steps other than `start` and `end`.
+	// provided in the jobs or shipments objects for a given step. The id is required
+	// for all steps other than start and end.
 	ID param.Opt[string] `json:"id,omitzero"`
 	paramObj
 }
@@ -2010,7 +1998,7 @@ func (r *OptimizationV2SubmitParamsRelationStep) UnmarshalJSON(data []byte) erro
 
 func init() {
 	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsRelationStep](
-		"type", "`start`", "`end`", "`job`", "`pickup`", "`delivery`",
+		"type", "start", "end", "job", "pickup", "delivery",
 	)
 }
 
@@ -2021,8 +2009,8 @@ type OptimizationV2SubmitParamsSolution struct {
 	// Describe the steps in this route.
 	Steps []OptimizationV2SubmitParamsSolutionStep `json:"steps,omitzero,required"`
 	// Specify the ID of the vehicle that was assigned to the route. This field is
-	// mandatory when using the `solution` attribute and providing an empty string
-	// would result in error. The IDs are case-sensitive.
+	// mandatory when using the solution attribute and providing an empty string would
+	// result in error. The IDs are case-sensitive.
 	//
 	// **Note:** Since the vehicles can be configured using either a string or an
 	// integer ID, please ensure that the same value type is provided for this field as
@@ -2066,27 +2054,27 @@ func (r *OptimizationV2SubmitParamsSolution) UnmarshalJSON(data []byte) error {
 //
 // The properties ID, Arrival, Type are required.
 type OptimizationV2SubmitParamsSolutionStep struct {
-	// The ID of the step. This field is mandatory for all steps except for `start` and
-	// `end` type.
+	// The ID of the step. This field is mandatory for all steps except for start and
+	// end type.
 	//
-	// Please note that the ID provided here must also be present in either the `jobs`
-	// or the `shipments` objects.
+	// Please note that the ID provided here must also be present in either the jobs or
+	// the shipments objects.
 	//
 	// **Note:** We have modified the data type of this field. The latest change is
 	// backward compatible and both integer and string type IDs are valid for this
 	// field, as long as they match the IDs of the jobs or shipments already
 	// configured.
 	ID string `json:"id,required"`
-	// Specify the time at which the vehicle arrives at the `step` location. If
-	// `time_windows` is provided, then `arrival` will be an UNIX timestamp expressed
-	// in seconds. Otherwise, it will be the total duration, in seconds, elapsed since
-	// the start of the route.
+	// Specify the time at which the vehicle arrives at the step location. If
+	// time_windows is provided, then arrival will be an UNIX timestamp expressed in
+	// seconds. Otherwise, it will be the total duration, in seconds, elapsed since the
+	// start of the route.
 	//
-	// Please note that arrival is mandatory when using the `solution` object.
+	// Please note that arrival is mandatory when using the solution object.
 	Arrival int64 `json:"arrival,required"`
 	// Specify the type of the step.
 	//
-	// Any of "`start`", "`end`", "`job`", "`pickup`", "`delivery`", "`break`".
+	// Any of "start", "end", "job", "pickup", "delivery", "break".
 	Type string `json:"type,omitzero,required"`
 	// Specify the description of this step.
 	Description param.Opt[string] `json:"description,omitzero"`
@@ -2094,19 +2082,18 @@ type OptimizationV2SubmitParamsSolutionStep struct {
 	// the current step.
 	//
 	// Please note that the value of this parameter accumulates with each step. In case
-	// , the `travel_cost: air_distance`, then the distance here should be the straight
+	// , the travel_cost: air_distance, then the distance here should be the straight
 	// line distance.
 	Distance param.Opt[int64] `json:"distance,omitzero"`
 	// Specify the drive time, in seconds, from the start of the route up until the
-	// start of the `step`. Please note that the value of this parameter accumulates
-	// with each step.
+	// start of the step. Please note that the value of this parameter accumulates with
+	// each step.
 	Duration param.Opt[int64] `json:"duration,omitzero"`
-	// Specify the index (in the `location` array) of the location coordinates where
-	// the step is performed. The valid range of values is \[0, length of `location`
-	// array). Alternatively, `location` property can also be used to specify the
-	// location.
+	// Specify the index (in the location array) of the location coordinates where the
+	// step is performed. The valid range of values is \[0, length of location array).
+	// Alternatively, location property can also be used to specify the location.
 	//
-	// Please note that either `location` or `location_index` is mandatory.
+	// Please note that either location or location_index is mandatory.
 	LocationIndex param.Opt[int64] `json:"location_index,omitzero"`
 	// Specify the service time, in seconds, at this step.
 	Service param.Opt[int64] `json:"service,omitzero"`
@@ -2118,10 +2105,10 @@ type OptimizationV2SubmitParamsSolutionStep struct {
 	// dimensions, please specify the load for each type.
 	Load []int64 `json:"load,omitzero"`
 	// Specify the location coordinates of the step in the \[latitude, longitude\]
-	// format. Alternatively, `location_index` property can also be used to specify the
+	// format. Alternatively, location_index property can also be used to specify the
 	// location of the step.
 	//
-	// Please note that either `location` or `location_index` is mandatory.
+	// Please note that either location or location_index is mandatory.
 	Location []float64 `json:"location,omitzero"`
 	paramObj
 }
@@ -2136,14 +2123,14 @@ func (r *OptimizationV2SubmitParamsSolutionStep) UnmarshalJSON(data []byte) erro
 
 func init() {
 	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsSolutionStep](
-		"type", "`start`", "`end`", "`job`", "`pickup`", "`delivery`", "`break`",
+		"type", "start", "end", "job", "pickup", "delivery", "break",
 	)
 }
 
-// `unassigned` attribute is related to the re-optimization feature. This attribute
+// unassigned attribute is related to the re-optimization feature. This attribute
 // should contain the tasks that were not assigned during an earlier optimization
-// process. Please note that the `unassigned` part in request should be consistent
-// with the `unassigned` part in the previous optimization result.
+// process. Please note that the unassigned part in request should be consistent
+// with the unassigned part in the previous optimization result.
 //
 // Users can reduce the number of unassigned tasks in the re-optimized solution, by
 // following strategies such as:
@@ -2157,7 +2144,7 @@ func init() {
 // meeting all the necessary constraints and objectives.
 type OptimizationV2SubmitParamsUnassigned struct {
 	// Specify the unassigned job IDs from the previous optimization result. Please
-	// note the IDs should also be present in the `jobs` part of the input.
+	// note the IDs should also be present in the jobs part of the input.
 	//
 	// **Note:** We have modified the data type of this field. However, the latest
 	// change is backward compatible and both integer and string type job IDs are valid
@@ -2191,13 +2178,13 @@ type OptimizationV2SubmitParamsZone struct {
 	// Provide the ID of a pre-created geofence using the
 	// [Geofence API](https://docs.nextbillion.ai/docs/tracking/api/geofence).
 	//
-	// Please note that one of `geometry` or `geofence_id` should be provided.
+	// Please note that one of geometry or geofence_id should be provided.
 	GeofenceID param.Opt[string] `json:"geofence_id,omitzero"`
 	// It is a [geoJSON object](https://datatracker.ietf.org/doc/html/rfc7946#page-9)
 	// with details of the geographic boundaries of the zone. Only “Polygon” and
 	// “MultiPolygon” geoJSON types are supported.
 	//
-	// Please note that one of `geometry` or `geofence_id` should be provided.
+	// Please note that one of geometry or geofence_id should be provided.
 	Geometry OptimizationV2SubmitParamsZoneGeometry `json:"geometry,omitzero"`
 	paramObj
 }
@@ -2214,16 +2201,16 @@ func (r *OptimizationV2SubmitParamsZone) UnmarshalJSON(data []byte) error {
 // with details of the geographic boundaries of the zone. Only “Polygon” and
 // “MultiPolygon” geoJSON types are supported.
 //
-// Please note that one of `geometry` or `geofence_id` should be provided.
+// Please note that one of geometry or geofence_id should be provided.
 type OptimizationV2SubmitParamsZoneGeometry struct {
 	// Provide a description to identify the zone
 	Description param.Opt[string] `json:"description,omitzero"`
 	// An array of coordinates in the \[longitude, latitude\] format, representing the
 	// zone boundary.
 	Coordinates [][]float64 `json:"coordinates,omitzero"`
-	// Type of the geoJSON geometry. Should always be `Polygon` or `MultiPolygon`.
+	// Type of the geoJSON geometry. Should always be Polygon or MultiPolygon.
 	//
-	// Any of "`Polygon`", "`MultiPolygon`".
+	// Any of "Polygon", "MultiPolygon".
 	Type string `json:"type,omitzero"`
 	paramObj
 }
@@ -2238,6 +2225,6 @@ func (r *OptimizationV2SubmitParamsZoneGeometry) UnmarshalJSON(data []byte) erro
 
 func init() {
 	apijson.RegisterFieldValidator[OptimizationV2SubmitParamsZoneGeometry](
-		"type", "`Polygon`", "`MultiPolygon`",
+		"type", "Polygon", "MultiPolygon",
 	)
 }

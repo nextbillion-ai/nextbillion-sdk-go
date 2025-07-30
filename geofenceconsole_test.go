@@ -43,7 +43,7 @@ func TestGeofenceConsolePreviewWithOptionalParams(t *testing.T) {
 				ContoursMinute: nextbillionai.Int(0),
 				Denoise:        nextbillionai.Float(0),
 				DepartureTime:  nextbillionai.Int(0),
-				Mode:           "`car`",
+				Mode:           "car",
 			},
 			MetaData: "{\n  \"country\": \"USA\",\n  \"state\": \"California\"\n}",
 			Name:     nextbillionai.String(`"name":"Los Angeles Downtown"`),

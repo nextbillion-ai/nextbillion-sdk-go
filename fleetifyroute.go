@@ -139,8 +139,8 @@ type FleetifyRouteNewResponseData struct {
 	// request was created.
 	CreatedAt int64 `json:"created_at"`
 	// Returns the total route distance, in meters, for informative display in the
-	// driver app. It is the same as the value provided for `distance` field in the
-	// input request.
+	// driver app. It is the same as the value provided for distance field in the input
+	// request.
 	Distance int64 `json:"distance"`
 	// Returns the details of the document that was specified in the input for
 	// collecting the proof-of-completion for all steps in the dispatched routes. Each
@@ -172,7 +172,7 @@ type FleetifyRouteNewResponseData struct {
 	UpdatedAt int64 `json:"updated_at"`
 	// Returns the ID of the vehicle to which the route was dispatched. The vehicle ID
 	// returned here is the same as the one used in the route optimization request for
-	// the given vehicle. An empty string is returned if the `ro_request_id` was not
+	// the given vehicle. An empty string is returned if the ro_request_id was not
 	// provided in the input.
 	VehicleID string `json:"vehicle_id"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -265,8 +265,8 @@ type FleetifyRouteRedispatchResponseData struct {
 	// request was created.
 	CreatedAt int64 `json:"created_at"`
 	// Returns the total route distance, in meters, for informative display in the
-	// driver app. It is the same as the value provided for `distance` field in the
-	// input request.
+	// driver app. It is the same as the value provided for distance field in the input
+	// request.
 	Distance int64 `json:"distance"`
 	// Returns the details of the document that was specified in the input for
 	// collecting the proof-of-completion for all steps in the dispatched routes. Each
@@ -296,7 +296,7 @@ type FleetifyRouteRedispatchResponseData struct {
 	UpdatedAt int64 `json:"updated_at"`
 	// Returns the ID of the vehicle to which the route was dispatched. The vehicle ID
 	// returned here is the same as the one used in the route optimization request for
-	// the given vehicle. An empty string is returned if the `ro_request_id` was not
+	// the given vehicle. An empty string is returned if the ro_request_id was not
 	// provided in the input.
 	VehicleID string `json:"vehicle_id"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -331,7 +331,7 @@ type FleetifyRouteRedispatchResponseDataCompletion struct {
 	// Returns the status of the route. It can take one of the following values -
 	// "scheduled", "completed".
 	//
-	// Any of "`scheduled`", "`completed`".
+	// Any of "scheduled", "completed".
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -394,10 +394,10 @@ type FleetifyRouteRedispatchResponseDataSteps struct {
 	CreatedAt int64 `json:"created_at"`
 	// Returns the details of the document that was used for collecting the proof of
 	// completion for the step. In case no document template ID was provided for the
-	// given step, then a `null` value is returned. Each object represents a new field
-	// in the document.
+	// given step, then a null value is returned. Each object represents a new field in
+	// the document.
 	DocumentSnapshot []any `json:"document_snapshot"`
-	// Returns the duration for `layover` or `break` type steps.
+	// Returns the duration for layover or break type steps.
 	Duration int64 `json:"duration"`
 	// Returns the location coordinates where the step is executed.
 	Location []float64 `json:"location"`
@@ -408,10 +408,9 @@ type FleetifyRouteRedispatchResponseDataSteps struct {
 	// Returns a unique short ID of the step for easier referencing and displaying
 	// purposes.
 	ShortID string `json:"short_id"`
-	// Returns the step type. It can belong to one of the following: `start`, `job` ,
-	// `pickup`, `delivery`, `break`, `layover` , and `end`. For any given step, it
-	// would be the same as that specified in the input request while configuring the
-	// step details.
+	// Returns the step type. It can belong to one of the following: start, job ,
+	// pickup, delivery, break, layover , and end. For any given step, it would be the
+	// same as that specified in the input request while configuring the step details.
 	Type string `json:"type"`
 	// Returns the UNIX timestamp, in seconds precision, at which this step was last
 	// updated.
@@ -465,10 +464,10 @@ func (r *FleetifyRouteRedispatchResponseDataStepsCompletion) UnmarshalJSON(data 
 // will be available for display on the Driver's app under step details.
 type FleetifyRouteRedispatchResponseDataStepsMeta struct {
 	// Returns the customer name associated with the step. It can configured in the
-	// input request using the `metadata` attribute of the step.
+	// input request using the metadata attribute of the step.
 	CustomerName string `json:"customer_name"`
 	// Returns the customer's phone number associated with the step. It can configured
-	// in the input request using the `metadata` attribute of the step.
+	// in the input request using the metadata attribute of the step.
 	CustomerPhoneNumber string `json:"customer_phone_number"`
 	// Returns the custom instructions to carry out while performing the task. These
 	// instructions can be provided at the time of configuring the step details in the
@@ -515,7 +514,7 @@ type FleetifyRouteNewParams struct {
 	// create, read and manage document templates.
 	//
 	// Please note that the document template ID assigned to a route does not apply to
-	// following step types - `start`, `end`, `break`, `layover`.
+	// following step types - start, end, break, layover.
 	DocumentTemplateID param.Opt[string] `json:"document_template_id,omitzero"`
 	// Specify the Route Optimization request ID. When this ID is provided, all other
 	// fields will be ignored (including the required fields) and the route
@@ -523,9 +522,9 @@ type FleetifyRouteNewParams struct {
 	//
 	// Please note that:
 	//
-	//   - The driver's email ID must be provided in input `vehicle.metadata` as
-	//     `user_email` such that the route optimization result must contain a valid
-	//     driver email, step's arrival time, etc., to make a successful dispatch.
+	//   - The driver's email ID must be provided in input vehicle.metadata as user_email
+	//     such that the route optimization result must contain a valid driver email,
+	//     step's arrival time, etc., to make a successful dispatch.
 	//   - Document Template for collecting proof of delivery or completion can not be
 	//     specified when using this field to dispatch a route.
 	//   - In case of an error at any part among the routes, the API will immediately
@@ -533,8 +532,8 @@ type FleetifyRouteNewParams struct {
 	//   - On a successful dispatch, the API returns the last route, if there are many,
 	//     in the response payload.
 	RoRequestID param.Opt[string] `json:"ro_request_id,omitzero"`
-	// The `routing` object allows defining the routing characteristics that should be
-	// used to generate a route when the Driver uses the in-app navigation. Only `car`
+	// The routing object allows defining the routing characteristics that should be
+	// used to generate a route when the Driver uses the in-app navigation. Only car
 	// mode is supported currently.
 	Routing FleetifyRouteNewParamsRouting `json:"routing,omitzero"`
 	paramObj
@@ -556,22 +555,22 @@ func (r FleetifyRouteNewParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-// The `routing` object allows defining the routing characteristics that should be
-// used to generate a route when the Driver uses the in-app navigation. Only `car`
+// The routing object allows defining the routing characteristics that should be
+// used to generate a route when the Driver uses the in-app navigation. Only car
 // mode is supported currently.
 type FleetifyRouteNewParamsRouting struct {
 	// Specify the total load per axle (including the weight of trailers and shipped
 	// goods) of the truck, in tonnes. When specified, the dispatched route uses only
 	// those roads which can be used by a truck to carry the specified load per axle.
 	//
-	// Please note this parameter is effective only when `mode=truck`.
+	// Please note this parameter is effective only when mode=truck.
 	TruckAxleLoad param.Opt[int64] `json:"truck_axle_load,omitzero"`
 	// Specify the dimensions of a truck, in centimeters (cm), in the format of
 	// <height, width, length>. When specified, the dispatched route uses only those
 	// roads which allow trucks with specified dimensions.
 	//
-	// Please note this parameter is effective only when `mode=truck`. Also, the
-	// maximum dimensions that can be specified are as follows:
+	// Please note this parameter is effective only when mode=truck. Also, the maximum
+	// dimensions that can be specified are as follows:
 	//
 	// Height = 1000 cm
 	// Width = 5000 cm
@@ -581,36 +580,36 @@ type FleetifyRouteNewParamsRouting struct {
 	// kilograms (kg). When specified, the dispatched route uses only those roads which
 	// allow trucks with specified weight.
 	//
-	// Please note this parameter is effective only when `mode=truck`. Also, the
-	// maximum weight that can be specified for a truck is 100,000 kgs.
+	// Please note this parameter is effective only when mode=truck. Also, the maximum
+	// weight that can be specified for a truck is 100,000 kgs.
 	TruckWeight param.Opt[int64] `json:"truck_weight,omitzero"`
 	// Specify the side of the road from which the route should approach the step
-	// location. When set to `unrestricted` a route can arrive at the step location
-	// from either side of the road and when set to `curb` the route will arrive at the
-	// step location only from the driving side of the region. Use a semi-colon `;` to
-	// specify approach configurations for multiple steps.
+	// location. When set to unrestricted a route can arrive at the step location from
+	// either side of the road and when set to curb the route will arrive at the step
+	// location only from the driving side of the region. Use a semi-colon ; to specify
+	// approach configurations for multiple steps.
 	//
-	// Any of "`unrestricted`", "`curb`".
+	// Any of "unrestricted", "curb".
 	Approaches string `json:"approaches,omitzero"`
 	// Setting this will ensure the generated route avoids the object(s) specified in
-	// the input. Multiple values should be separated by a pipe (|). If `none` is
+	// the input. Multiple values should be separated by a pipe (|). If none is
 	// provided along with other values, an error is returned as a valid route is not
 	// feasible.
 	//
-	// Any of "`toll`", "`highway`", "`ferry`", "`sharp_turn`", "`uturn`",
-	// "`left_turn`", "`right_turn`", "`service_road`", "`none`".
+	// Any of "toll", "highway", "ferry", "sharp_turn", "uturn", "left_turn",
+	// "right_turn", "service_road", "none".
 	Avoid string `json:"avoid,omitzero"`
 	// Specify the type of hazardous material being carried and the dispatch service
 	// will avoid roads which are not suitable for the type of goods specified.
-	// Multiple values can be separated using a pipe operator `|` .
+	// Multiple values can be separated using a pipe operator | .
 	//
-	// Please note that this parameter is effective only when `mode=truck`.
+	// Please note that this parameter is effective only when mode=truck.
 	//
-	// Any of "`general`", "`circumstantial`", "`explosive`", "`harmful_to_water`".
+	// Any of "general", "circumstantial", "explosive", "harmful_to_water".
 	HazmatType string `json:"hazmat_type,omitzero"`
 	// Specify the driving mode that the service should use to determine a route
 	//
-	// Any of "`car`".
+	// Any of "car".
 	Mode string `json:"mode,omitzero"`
 	paramObj
 }
@@ -625,16 +624,16 @@ func (r *FleetifyRouteNewParamsRouting) UnmarshalJSON(data []byte) error {
 
 func init() {
 	apijson.RegisterFieldValidator[FleetifyRouteNewParamsRouting](
-		"approaches", "`unrestricted`", "`curb`",
+		"approaches", "unrestricted", "curb",
 	)
 	apijson.RegisterFieldValidator[FleetifyRouteNewParamsRouting](
-		"avoid", "`toll`", "`highway`", "`ferry`", "`sharp_turn`", "`uturn`", "`left_turn`", "`right_turn`", "`service_road`", "`none`",
+		"avoid", "toll", "highway", "ferry", "sharp_turn", "uturn", "left_turn", "right_turn", "service_road", "none",
 	)
 	apijson.RegisterFieldValidator[FleetifyRouteNewParamsRouting](
-		"hazmat_type", "`general`", "`circumstantial`", "`explosive`", "`harmful_to_water`",
+		"hazmat_type", "general", "circumstantial", "explosive", "harmful_to_water",
 	)
 	apijson.RegisterFieldValidator[FleetifyRouteNewParamsRouting](
-		"mode", "`car`",
+		"mode", "car",
 	)
 }
 
@@ -672,7 +671,7 @@ type FleetifyRouteRedispatchParamsOperation struct {
 	Data FleetifyRouteRedispatchParamsOperationData `json:"data,omitzero,required"`
 	// Specify the type of operation to be performed for the step.
 	//
-	// Any of "`create`", "`update`", "`delete`".
+	// Any of "create", "update", "delete".
 	Operation string `json:"operation,omitzero,required"`
 	paramObj
 }
@@ -687,7 +686,7 @@ func (r *FleetifyRouteRedispatchParamsOperation) UnmarshalJSON(data []byte) erro
 
 func init() {
 	apijson.RegisterFieldValidator[FleetifyRouteRedispatchParamsOperation](
-		"operation", "`create`", "`update`", "`delete`",
+		"operation", "create", "update", "delete",
 	)
 }
 
@@ -699,23 +698,23 @@ type FleetifyRouteRedispatchParamsOperationData struct {
 	// create, read and manage the document templates.
 	//
 	// Please note that the document template ID can not be assigned to following step
-	// types - `start`, `end`, `break`, `layover`.
+	// types - start, end, break, layover.
 	DocumentTemplateID param.Opt[string] `json:"document_template_id,omitzero"`
-	// Specify the ID of the step to be updated or deleted. Either one of `id` or
-	// `short_id` of the step can be provided. This input will be ignored when
-	// `operation: create` .
+	// Specify the ID of the step to be updated or deleted. Either one of id or
+	// short_id of the step can be provided. This input will be ignored when operation:
+	// create .
 	StepID param.Opt[string] `json:"step_id,omitzero"`
 	// Specify the mode of completion to be used for the step. Currently, following
 	// values are allowed:
 	//
-	//   - `manual`: Steps must be marked as completed manually through the Driver App.
-	//   - `geofence`: Steps are marked as completed automatically based on the entry
+	//   - manual: Steps must be marked as completed manually through the Driver App.
+	//   - geofence: Steps are marked as completed automatically based on the entry
 	//     conditions and geofence specified.
-	//   - `geofence_manual_fallback`: Steps will be marked as completed automatically
+	//   - geofence_manual_fallback: Steps will be marked as completed automatically
 	//     based on geofence and entry condition configurations but there will also be a
 	//     provision for manually updating the status in case, geofence detection fails.
 	//
-	// Any of "`manual`", "`geofence`", "`geofence_manual_fallback`".
+	// Any of "manual", "geofence", "geofence_manual_fallback".
 	CompletionMode RouteStepCompletionMode `json:"completion_mode,omitzero"`
 	Step           RouteStepsRequestParam  `json:"step,omitzero"`
 	paramObj

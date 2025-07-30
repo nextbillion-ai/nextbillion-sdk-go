@@ -59,13 +59,13 @@ func (r *SkynetConfigService) TestWebhook(ctx context.Context, body SkynetConfig
 }
 
 type SkynetConfigGetResponse struct {
-	// A data object containing the `config` response.
+	// A data object containing the config response.
 	Data SkynetConfigGetResponseData `json:"data"`
 	// Displays the error message in case of a failed request. If the request is
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -84,7 +84,7 @@ func (r *SkynetConfigGetResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// A data object containing the `config` response.
+// A data object containing the config response.
 type SkynetConfigGetResponseData struct {
 	Config SkynetConfigGetResponseDataConfig `json:"config"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -121,7 +121,7 @@ func (r *SkynetConfigGetResponseDataConfig) UnmarshalJSON(data []byte) error {
 
 type SkynetConfigTestWebhookResponse struct {
 	// A string indicating the state of the response. Please note this value will
-	// always be `Ok`.
+	// always be Ok.
 	//
 	// The sample event information will be received on the webhook, if they were
 	// successfully configured. If no event information is received by the webhook,

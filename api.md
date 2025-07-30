@@ -535,16 +535,6 @@ Methods:
 
 - <code title="post /postalcode">client.Postalcode.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#PostalcodeService.GetCoordinates">GetCoordinates</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, params <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionai</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#PostalcodeGetCoordinatesParams">PostalcodeGetCoordinatesParams</a>) (<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionai</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#PostalcodeGetCoordinatesResponse">PostalcodeGetCoordinatesResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
-# Areas
-
-Response Types:
-
-- <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionai</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#AreaListResponse">AreaListResponse</a>
-
-Methods:
-
-- <code title="get /areas">client.Areas.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#AreaService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionai</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#AreaListParams">AreaListParams</a>) ([]<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionai</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#AreaListResponse">AreaListResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
-
 # Lookup
 
 Response Types:
@@ -554,3 +544,13 @@ Response Types:
 Methods:
 
 - <code title="get /lookup">client.Lookup.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#LookupService.ByID">ByID</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionai</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#LookupByIDParams">LookupByIDParams</a>) (<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionai</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#LookupByIDResponse">LookupByIDResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+# Areas
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionai</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#AreaListResponse">AreaListResponse</a>
+
+Methods:
+
+- <code title="get /areas">client.Areas.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#AreaService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionai</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#AreaListParams">AreaListParams</a>) ([]<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go">nextbillionai</a>.<a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go#AreaListResponse">AreaListResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
