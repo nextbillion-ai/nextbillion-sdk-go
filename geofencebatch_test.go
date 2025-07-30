@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,34 +22,34 @@ func TestGeofenceBatchNewWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geofence.Batch.New(context.TODO(), nextbillionsdk.GeofenceBatchNewParams{
+	_, err := client.Geofence.Batch.New(context.TODO(), nextbillionai.GeofenceBatchNewParams{
 		Key: "key=API_KEY",
-		Geofences: []nextbillionsdk.GeofenceEntityCreateParam{{
-			Type: nextbillionsdk.GeofenceEntityCreateTypeCircle,
-			Circle: nextbillionsdk.GeofenceEntityCreateCircleParam{
-				Center: nextbillionsdk.GeofenceEntityCreateCircleCenterParam{
+		Geofences: []nextbillionai.GeofenceEntityCreateParam{{
+			Type: nextbillionai.GeofenceEntityCreateTypeCircle,
+			Circle: nextbillionai.GeofenceEntityCreateCircleParam{
+				Center: nextbillionai.GeofenceEntityCreateCircleCenterParam{
 					Lat: 0,
 					Lon: 0,
 				},
 				Radius: 0,
 			},
-			CustomID: nextbillionsdk.String("custom_id"),
-			Isochrone: nextbillionsdk.GeofenceEntityCreateIsochroneParam{
+			CustomID: nextbillionai.String("custom_id"),
+			Isochrone: nextbillionai.GeofenceEntityCreateIsochroneParam{
 				Coordinates:    `"coordinates": "13.25805884,77.91083661"`,
-				ContoursMeter:  nextbillionsdk.Int(0),
-				ContoursMinute: nextbillionsdk.Int(0),
-				Denoise:        nextbillionsdk.Float(0),
-				DepartureTime:  nextbillionsdk.Int(0),
-				Mode:           "car",
+				ContoursMeter:  nextbillionai.Int(0),
+				ContoursMinute: nextbillionai.Int(0),
+				Denoise:        nextbillionai.Float(0),
+				DepartureTime:  nextbillionai.Int(0),
+				Mode:           "`car`",
 			},
 			MetaData: "{\n  \"country\": \"USA\",\n  \"state\": \"California\"\n}",
-			Name:     nextbillionsdk.String(`"name":"Los Angeles Downtown"`),
-			Polygon: nextbillionsdk.GeofenceEntityCreatePolygonParam{
-				Geojson: nextbillionsdk.GeofenceEntityCreatePolygonGeojsonParam{
+			Name:     nextbillionai.String(`"name":"Los Angeles Downtown"`),
+			Polygon: nextbillionai.GeofenceEntityCreatePolygonParam{
+				Geojson: nextbillionai.GeofenceEntityCreatePolygonGeojsonParam{
 					Coordinates: [][]float64{{0}},
 					Type:        "type",
 				},
@@ -58,7 +58,7 @@ func TestGeofenceBatchNewWithOptionalParams(t *testing.T) {
 		}},
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -75,16 +75,16 @@ func TestGeofenceBatchList(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geofence.Batch.List(context.TODO(), nextbillionsdk.GeofenceBatchListParams{
+	_, err := client.Geofence.Batch.List(context.TODO(), nextbillionai.GeofenceBatchListParams{
 		IDs: "ids",
 		Key: "key=API_KEY",
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -101,16 +101,16 @@ func TestGeofenceBatchDeleteWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geofence.Batch.Delete(context.TODO(), nextbillionsdk.GeofenceBatchDeleteParams{
+	_, err := client.Geofence.Batch.Delete(context.TODO(), nextbillionai.GeofenceBatchDeleteParams{
 		Key: "key=API_KEY",
 		IDs: []string{"string"},
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk
+package nextbillionai
 
 import (
 	"context"
@@ -56,7 +56,7 @@ type PolygonGeojson struct {
 	// An array of coordinates in the [longitude, latitude] format, representing the
 	// geofence boundary.
 	Coordinates [][]float64 `json:"coordinates"`
-	// Type of the geoJSON geometry. Will always be Polygon.
+	// Type of the geoJSON geometry. Will always be `Polygon`.
 	Type string `json:"type"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -112,7 +112,7 @@ func (r *GeofenceConsolePreviewResponseData) UnmarshalJSON(data []byte) error {
 type GeofenceConsoleSearchResponse struct {
 	Data GeofenceConsoleSearchResponseData `json:"data,required"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be Ok. Indicative error messages are returned for different errors.
+	// value will be `Ok`. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].

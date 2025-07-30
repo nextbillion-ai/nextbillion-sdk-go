@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,16 +22,16 @@ func TestSkynetConfigGetWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Config.Get(context.TODO(), nextbillionsdk.SkynetConfigGetParams{
+	_, err := client.Skynet.Config.Get(context.TODO(), nextbillionai.SkynetConfigGetParams{
 		Key:     "key=API_KEY",
-		Cluster: nextbillionsdk.SkynetConfigGetParamsClusterAmerica,
+		Cluster: nextbillionai.SkynetConfigGetParamsClusterAmerica,
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -48,17 +48,17 @@ func TestSkynetConfigUpdateWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Config.Update(context.TODO(), nextbillionsdk.SkynetConfigUpdateParams{
+	_, err := client.Skynet.Config.Update(context.TODO(), nextbillionai.SkynetConfigUpdateParams{
 		Key:     "key=API_KEY",
-		Cluster: nextbillionsdk.SkynetConfigUpdateParamsClusterAmerica,
+		Cluster: nextbillionai.SkynetConfigUpdateParamsClusterAmerica,
 		Webhook: []string{"string"},
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -75,15 +75,15 @@ func TestSkynetConfigTestWebhook(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Config.TestWebhook(context.TODO(), nextbillionsdk.SkynetConfigTestWebhookParams{
+	_, err := client.Skynet.Config.TestWebhook(context.TODO(), nextbillionai.SkynetConfigTestWebhookParams{
 		Key: "key=API_KEY",
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

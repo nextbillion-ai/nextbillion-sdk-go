@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,22 +22,22 @@ func TestPostalcodeGetCoordinatesWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Postalcode.GetCoordinates(context.TODO(), nextbillionsdk.PostalcodeGetCoordinatesParams{
+	_, err := client.Postalcode.GetCoordinates(context.TODO(), nextbillionai.PostalcodeGetCoordinatesParams{
 		Key: "key=API_KEY",
-		At: nextbillionsdk.PostalcodeGetCoordinatesParamsAt{
-			Lat: nextbillionsdk.Float(0),
-			Lng: nextbillionsdk.Float(0),
+		At: nextbillionai.PostalcodeGetCoordinatesParamsAt{
+			Lat: nextbillionai.Float(0),
+			Lng: nextbillionai.Float(0),
 		},
-		Country:    nextbillionsdk.String("country"),
-		Format:     nextbillionsdk.PostalcodeGetCoordinatesParamsFormatGeojson,
-		Postalcode: nextbillionsdk.String("postalcode"),
+		Country:    nextbillionai.String("country"),
+		Format:     nextbillionai.PostalcodeGetCoordinatesParamsFormatGeojson,
+		Postalcode: nextbillionai.String("postalcode"),
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

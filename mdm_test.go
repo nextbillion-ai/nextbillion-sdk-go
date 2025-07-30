@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,31 +22,31 @@ func TestMdmNewDistanceMatrixWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Mdm.NewDistanceMatrix(context.TODO(), nextbillionsdk.MdmNewDistanceMatrixParams{
+	_, err := client.Mdm.NewDistanceMatrix(context.TODO(), nextbillionai.MdmNewDistanceMatrixParams{
 		Key:                  "key=API_KEY",
-		Option:               nextbillionsdk.MdmNewDistanceMatrixParamsOptionFlexible,
+		Option:               nextbillionai.MdmNewDistanceMatrixParamsOptionFlexible,
 		Origins:              "origins",
-		Spliter:              nextbillionsdk.MdmNewDistanceMatrixParamsSpliterOdNumberSpliter,
-		Area:                 nextbillionsdk.MdmNewDistanceMatrixParamsAreaSingapore,
-		Avoid:                nextbillionsdk.MdmNewDistanceMatrixParamsAvoidToll,
-		CrossBorder:          nextbillionsdk.Bool(true),
-		DepartureTime:        nextbillionsdk.Int(0),
-		Destinations:         nextbillionsdk.String("destinations"),
-		DestinationsApproach: nextbillionsdk.MdmNewDistanceMatrixParamsDestinationsApproachUnrestricted,
-		HazmatType:           nextbillionsdk.MdmNewDistanceMatrixParamsHazmatTypeGeneral,
-		Mode:                 nextbillionsdk.MdmNewDistanceMatrixParamsModeCar,
-		OriginsApproach:      nextbillionsdk.MdmNewDistanceMatrixParamsOriginsApproachUnrestricted,
-		RouteType:            nextbillionsdk.MdmNewDistanceMatrixParamsRouteTypeFastest,
-		TruckAxleLoad:        nextbillionsdk.Float(0),
-		TruckSize:            nextbillionsdk.String(`"truck_size"=200,210,600`),
-		TruckWeight:          nextbillionsdk.Int(0),
+		Spliter:              nextbillionai.MdmNewDistanceMatrixParamsSpliterOdNumberSpliter,
+		Area:                 nextbillionai.MdmNewDistanceMatrixParamsAreaSingapore,
+		Avoid:                nextbillionai.MdmNewDistanceMatrixParamsAvoidToll,
+		CrossBorder:          nextbillionai.Bool(true),
+		DepartureTime:        nextbillionai.Int(0),
+		Destinations:         nextbillionai.String("destinations"),
+		DestinationsApproach: nextbillionai.MdmNewDistanceMatrixParamsDestinationsApproachUnrestricted,
+		HazmatType:           nextbillionai.MdmNewDistanceMatrixParamsHazmatTypeGeneral,
+		Mode:                 nextbillionai.MdmNewDistanceMatrixParamsModeCar,
+		OriginsApproach:      nextbillionai.MdmNewDistanceMatrixParamsOriginsApproachUnrestricted,
+		RouteType:            nextbillionai.MdmNewDistanceMatrixParamsRouteTypeFastest,
+		TruckAxleLoad:        nextbillionai.Float(0),
+		TruckSize:            nextbillionai.String(`"truck_size"=200,210,600`),
+		TruckWeight:          nextbillionai.Int(0),
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -63,16 +63,16 @@ func TestMdmGetDistanceMatrixStatus(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Mdm.GetDistanceMatrixStatus(context.TODO(), nextbillionsdk.MdmGetDistanceMatrixStatusParams{
+	_, err := client.Mdm.GetDistanceMatrixStatus(context.TODO(), nextbillionai.MdmGetDistanceMatrixStatusParams{
 		ID:  "id",
 		Key: "key=API_KEY",
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

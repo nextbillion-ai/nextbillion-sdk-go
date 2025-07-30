@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk
+package nextbillionai
 
 import (
 	"context"
@@ -59,7 +59,7 @@ type SearchResponse struct {
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be Ok. Indicative error messages are returned for different errors.
+	// value will be `Ok`. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -81,7 +81,7 @@ func (r *SearchResponse) UnmarshalJSON(data []byte) error {
 // A data object containing the search result.
 type SearchResponseData struct {
 	// An array of objects with details of the asset(s) returned in the search result.
-	// Each object represents one asset
+	// Each object represents one `asset`
 	Assets []SearchResponseDataAsset `json:"assets"`
 	// An object with pagination details of the search results. Use this object to
 	// implement pagination in your application.
@@ -102,15 +102,15 @@ func (r *SearchResponseData) UnmarshalJSON(data []byte) error {
 }
 
 type SearchResponseDataAsset struct {
-	// ID of asset which was last located inside the specified area in the input
+	// ID of `asset` which was last located inside the specified area in the input
 	// request. This is the same ID that was generated/provided at the time of creating
-	// the asset.
+	// the `asset`.
 	ID string `json:"id"`
-	// A UNIX timestamp in seconds representing the time at which the asset was
+	// A UNIX timestamp in seconds representing the time at which the `asset` was
 	// created.
 	CreatedAt int64 `json:"created_at"`
-	// Description of the asset. The value would be the same as that provided for the
-	// description parameter at the time of creating or updating the asset.
+	// Description of the `asset`. The value would be the same as that provided for the
+	// `description` parameter at the time of creating or updating the `asset`.
 	Description string `json:"description"`
 	// An object with details of the tracked location. Please note that if there are no
 	// tracking records for an asset, no location data will be returned.
@@ -118,21 +118,21 @@ type SearchResponseDataAsset struct {
 	// Any valid json object data. Can be used to save customized data. Max size is
 	// 65kb.
 	MetaData MetaData `json:"meta_data"`
-	// Name of asset. The value would be the same as that provided for the name
-	// parameter at the time of creating or updating the asset.
+	// Name of `asset`. The value would be the same as that provided for the `name`
+	// parameter at the time of creating or updating the `asset`.
 	Name string `json:"name"`
 	// An object returning the sorting details of the asset as per the configuration
 	// specified in the input.
 	RankingInfo SearchResponseDataAssetRankingInfo `json:"ranking_info"`
-	// **This parameter will be deprecated soon! Please move existing tags to
-	// attributes parameter.**
+	// **This parameter will be deprecated soon! Please move existing `tags` to
+	// `attributes` parameter.**
 	//
-	// Tags associated with the asset.
+	// Tags associated with the `asset`.
 	Tags []string `json:"tags"`
-	// A UNIX epoch timestamp in seconds representing the last time when the asset was
-	// tracked.
+	// A UNIX epoch timestamp in seconds representing the last time when the `asset`
+	// was tracked.
 	TrackedAt int64 `json:"tracked_at"`
-	// A UNIX timestamp in seconds representing the time at which the asset was last
+	// A UNIX timestamp in seconds representing the time at which the `asset` was last
 	// updated.
 	UpdatedAt int64 `json:"updated_at"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -161,10 +161,10 @@ func (r *SearchResponseDataAsset) UnmarshalJSON(data []byte) error {
 // An object returning the sorting details of the asset as per the configuration
 // specified in the input.
 type SearchResponseDataAssetRankingInfo struct {
-	// Driving distance between the asset and the sort_destination.
+	// Driving distance between the asset and the `sort_destination`.
 	Distance float64 `json:"distance"`
-	// Driving duration between the asset and the sort_destination. Please note this
-	// field in not returned in the response when sort_by = straight_distance .
+	// Driving duration between the asset and the `sort_destination`. Please note this
+	// field in not returned in the response when `sort_by = straight_distance` .
 	Duration float64 `json:"duration"`
 	// Index of the ranked asset. The index value starts from 0.
 	Index int64 `json:"index"`
@@ -193,64 +193,65 @@ type SkynetSearchAroundParams struct {
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
 	// Radius, in meters, of the circular area to be searched.
 	Radius float64 `query:"radius,required" json:"-"`
-	// **tags parameter will be deprecated soon! Please use the
-	// include_any_of_attributes or include_all_of_attributes parameters to match
+	// **`tags` parameter will be deprecated soon! Please use the
+	// `include_any_of_attributes` or `include_all_of_attributes` parameters to match
 	// assets based on their labels or markers.**
 	//
 	// Use this parameter to filter the assets found inside the specified area by their
-	// tags. Multiple tags can be separated using commas (,).
+	// `tags`. Multiple `tags` can be separated using commas (`,`).
 	//
 	// Please note the tags are case sensitive.
 	Filter param.Opt[string] `query:"filter,omitzero" format:"filter=tag:value_1,value_2..." json:"-"`
 	// Use this parameter to filter the assets found inside the specified area by their
-	// attributes. Only the assets having all the attributes that are added to this
-	// parameter, will be returned in the search results. Multiple attributes can be
-	// separated using pipes (|).
+	// `attributes`. Only the assets having all the `attributes` that are added to this
+	// parameter, will be returned in the search results. Multiple `attributes` can be
+	// separated using pipes (`|`).
 	//
 	// Please note the attributes are case sensitive. Also, this parameter can not be
-	// used in conjunction with include_any_of_attributes parameter.
+	// used in conjunction with `include_any_of_attributes` parameter.
 	IncludeAllOfAttributes param.Opt[string] `query:"include_all_of_attributes,omitzero" format:"key_1:value_1|key_2:value_2" json:"-"`
 	// Use this parameter to filter the assets found inside the specified area by their
-	// attributes. Assets having at least one of the attributes added to this
-	// parameter, will be returned in the search results. Multiple attributes can be
-	// separated using pipes (|).
+	// `attributes`. Assets having at least one of the `attributes` added to this
+	// parameter, will be returned in the search results. Multiple `attributes` can be
+	// separated using pipes (`|`).
 	//
 	// Please note the attributes are case sensitive. Also, this parameter can not be
-	// used in conjunction with include_all_of_attributes parameter.
+	// used in conjunction with `include_all_of_attributes` parameter.
 	IncludeAnyOfAttributes param.Opt[string] `query:"include_any_of_attributes,omitzero" format:"key1:value1|key2:value2|..." json:"-"`
 	// When true, the maximum limit is 20Km for around search API and 48000 Km2 for
 	// other search methods.
 	MaxSearchLimit param.Opt[bool] `query:"max_search_limit,omitzero" json:"-"`
-	// Denotes page number. Use this along with the ps parameter to implement
+	// Denotes page number. Use this along with the `ps` parameter to implement
 	// pagination for your searched results. This parameter does not have a maximum
 	// limit but would return an empty response in case a higher value is provided when
 	// the result-set itself is smaller.
 	Pn param.Opt[int64] `query:"pn,omitzero" json:"-"`
-	// Denotes number of search results per page. Use this along with the pn parameter
-	// to implement pagination for your searched results.
+	// Denotes number of search results per page. Use this along with the `pn`
+	// parameter to implement pagination for your searched results.
 	Ps param.Opt[int64] `query:"ps,omitzero" json:"-"`
 	// Specifies the location coordinates of the point which acts as destination for
 	// sorting the assets in the search results. The service will sort each asset based
 	// on the driving distance or travel time to this destination, from its current
-	// location. Use the sort_by parameter to configure the metric that should be used
-	// for sorting the assets. Please note that sort_destination is required when
-	// sort_by is provided.
+	// location. Use the `sort_by` parameter to configure the metric that should be
+	// used for sorting the assets. Please note that `sort_destination` is required
+	// when `sort_by` is provided.
 	SortDestination param.Opt[string] `query:"sort_destination,omitzero" format:"latitude,lontitude" json:"-"`
 	// Specify the metric to sort the assets returned in the search result. The valid
 	// values are:
 	//
 	//   - **distance** : Sorts the assets by driving distance to the given
-	//     sort_destination .
-	//   - **duration** : Sorts the assets by travel time to the given sort_destination .
+	//     `sort_destination` .
+	//   - **duration** : Sorts the assets by travel time to the given `sort_destination`
+	//     .
 	//   - **straight_distance** : Sort the assets by straight-line distance to the given
-	//     sort-destination .
+	//     `sort-destination` .
 	//
-	// Any of "distance", "duration", "straight_distance".
+	// Any of "`distance`", "`duration`", "`straight_distance`".
 	SortBy SkynetSearchAroundParamsSortBy `query:"sort_by,omitzero" json:"-"`
 	// Specifies the driving mode to be used for determining travel duration or driving
 	// distance for sorting the assets in search result.
 	//
-	// Any of "car", "truck".
+	// Any of "`car`", "`truck`".
 	SortDrivingMode SkynetSearchAroundParamsSortDrivingMode `query:"sort_driving_mode,omitzero" json:"-"`
 	paramObj
 }
@@ -268,16 +269,17 @@ func (r SkynetSearchAroundParams) URLQuery() (v url.Values, err error) {
 // values are:
 //
 //   - **distance** : Sorts the assets by driving distance to the given
-//     sort_destination .
-//   - **duration** : Sorts the assets by travel time to the given sort_destination .
+//     `sort_destination` .
+//   - **duration** : Sorts the assets by travel time to the given `sort_destination`
+//     .
 //   - **straight_distance** : Sort the assets by straight-line distance to the given
-//     sort-destination .
+//     `sort-destination` .
 type SkynetSearchAroundParamsSortBy string
 
 const (
-	SkynetSearchAroundParamsSortByDistance         SkynetSearchAroundParamsSortBy = "distance"
-	SkynetSearchAroundParamsSortByDuration         SkynetSearchAroundParamsSortBy = "duration"
-	SkynetSearchAroundParamsSortByStraightDistance SkynetSearchAroundParamsSortBy = "straight_distance"
+	SkynetSearchAroundParamsSortByDistance         SkynetSearchAroundParamsSortBy = "`distance`"
+	SkynetSearchAroundParamsSortByDuration         SkynetSearchAroundParamsSortBy = "`duration`"
+	SkynetSearchAroundParamsSortByStraightDistance SkynetSearchAroundParamsSortBy = "`straight_distance`"
 )
 
 // Specifies the driving mode to be used for determining travel duration or driving
@@ -285,77 +287,78 @@ const (
 type SkynetSearchAroundParamsSortDrivingMode string
 
 const (
-	SkynetSearchAroundParamsSortDrivingModeCar   SkynetSearchAroundParamsSortDrivingMode = "car"
-	SkynetSearchAroundParamsSortDrivingModeTruck SkynetSearchAroundParamsSortDrivingMode = "truck"
+	SkynetSearchAroundParamsSortDrivingModeCar   SkynetSearchAroundParamsSortDrivingMode = "`car`"
+	SkynetSearchAroundParamsSortDrivingModeTruck SkynetSearchAroundParamsSortDrivingMode = "`truck`"
 )
 
 type SkynetSearchBoundParams struct {
 	// Specify two, pipe (|) delimited location coordinates which would act as corners
 	// of the bounding box area to be searched. The first one should be the southwest
-	// coordinate of the bounds and the second one should be the northeast coordinate
-	// of the bounds.
+	// coordinate of the `bounds` and the second one should be the northeast coordinate
+	// of the `bounds`.
 	Bound string `query:"bound,required" format:"latitude_1,longitude_2|latitude_1,longitude_2" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// **tags parameter will be deprecated soon! Please use the
-	// include_any_of_attributes or include_all_of_attributes parameters to match
+	// **`tags` parameter will be deprecated soon! Please use the
+	// `include_any_of_attributes` or `include_all_of_attributes` parameters to match
 	// assets based on their labels or markers.**
 	//
 	// Use this parameter to filter the assets found inside the specified area by their
-	// tags. Multiple tags can be separated using commas (,).
+	// `tags`. Multiple `tags` can be separated using commas (`,`).
 	//
 	// Please note the tags are case sensitive.
 	Filter param.Opt[string] `query:"filter,omitzero" format:"filter=tag:value_1,value_2..." json:"-"`
 	// Use this parameter to filter the assets found inside the specified area by their
-	// attributes. Only the assets having all the attributes that are added to this
-	// parameter, will be returned in the search results. Multiple attributes can be
-	// separated using pipes (|).
+	// `attributes`. Only the assets having all the `attributes` that are added to this
+	// parameter, will be returned in the search results. Multiple `attributes` can be
+	// separated using pipes (`|`).
 	//
 	// Please note the attributes are case sensitive. Also, this parameter can not be
-	// used in conjunction with include_any_of_attributes parameter.
+	// used in conjunction with `include_any_of_attributes` parameter.
 	IncludeAllOfAttributes param.Opt[string] `query:"include_all_of_attributes,omitzero" format:"key_1:value_1|key_2:value_2" json:"-"`
 	// Use this parameter to filter the assets found inside the specified area by their
-	// attributes. Assets having at least one of the attributes added to this
-	// parameter, will be returned in the search results. Multiple attributes can be
-	// separated using pipes (|).
+	// `attributes`. Assets having at least one of the `attributes` added to this
+	// parameter, will be returned in the search results. Multiple `attributes` can be
+	// separated using pipes (`|`).
 	//
 	// Please note the attributes are case sensitive. Also, this parameter can not be
-	// used in conjunction with include_all_of_attributes parameter.
+	// used in conjunction with `include_all_of_attributes` parameter.
 	IncludeAnyOfAttributes param.Opt[string] `query:"include_any_of_attributes,omitzero" format:"key1:value1|key2:value2|..." json:"-"`
 	// When true, the maximum limit is 20Km for around search API and 48000 Km2 for
 	// other search methods.
 	MaxSearchLimit param.Opt[bool] `query:"max_search_limit,omitzero" json:"-"`
-	// Denotes page number. Use this along with the ps parameter to implement
+	// Denotes page number. Use this along with the `ps` parameter to implement
 	// pagination for your searched results. This parameter does not have a maximum
 	// limit but would return an empty response in case a higher value is provided when
 	// the result-set itself is smaller.
 	Pn param.Opt[int64] `query:"pn,omitzero" json:"-"`
-	// Denotes number of search results per page. Use this along with the pn parameter
-	// to implement pagination for your searched results.
+	// Denotes number of search results per page. Use this along with the `pn`
+	// parameter to implement pagination for your searched results.
 	Ps param.Opt[int64] `query:"ps,omitzero" json:"-"`
 	// Specifies the location coordinates of the point which acts as destination for
 	// sorting the assets in the search results. The service will sort each asset based
 	// on the driving distance or travel time to this destination, from its current
-	// location. Use the sort_by parameter to configure the metric that should be used
-	// for sorting the assets. Please note that sort_destination is required when
-	// sort_by is provided.
+	// location. Use the `sort_by` parameter to configure the metric that should be
+	// used for sorting the assets. Please note that `sort_destination` is required
+	// when `sort_by` is provided.
 	SortDestination param.Opt[string] `query:"sort_destination,omitzero" format:"latitude,lontitude" json:"-"`
 	// Specify the metric to sort the assets returned in the search result. The valid
 	// values are:
 	//
 	//   - **distance** : Sorts the assets by driving distance to the given
-	//     sort_destination .
-	//   - **duration** : Sorts the assets by travel time to the given sort_destination .
+	//     `sort_destination` .
+	//   - **duration** : Sorts the assets by travel time to the given `sort_destination`
+	//     .
 	//   - **straight_distance** : Sort the assets by straight-line distance to the given
-	//     sort-destination .
+	//     `sort-destination` .
 	//
-	// Any of "distance", "duration", "straight_distance".
+	// Any of "`distance`", "`duration`", "`straight_distance`".
 	SortBy SkynetSearchBoundParamsSortBy `query:"sort_by,omitzero" json:"-"`
 	// Specifies the driving mode to be used for determining travel duration or driving
 	// distance for sorting the assets in search result.
 	//
-	// Any of "car", "truck".
+	// Any of "`car`", "`truck`".
 	SortDrivingMode SkynetSearchBoundParamsSortDrivingMode `query:"sort_driving_mode,omitzero" json:"-"`
 	paramObj
 }
@@ -373,16 +376,17 @@ func (r SkynetSearchBoundParams) URLQuery() (v url.Values, err error) {
 // values are:
 //
 //   - **distance** : Sorts the assets by driving distance to the given
-//     sort_destination .
-//   - **duration** : Sorts the assets by travel time to the given sort_destination .
+//     `sort_destination` .
+//   - **duration** : Sorts the assets by travel time to the given `sort_destination`
+//     .
 //   - **straight_distance** : Sort the assets by straight-line distance to the given
-//     sort-destination .
+//     `sort-destination` .
 type SkynetSearchBoundParamsSortBy string
 
 const (
-	SkynetSearchBoundParamsSortByDistance         SkynetSearchBoundParamsSortBy = "distance"
-	SkynetSearchBoundParamsSortByDuration         SkynetSearchBoundParamsSortBy = "duration"
-	SkynetSearchBoundParamsSortByStraightDistance SkynetSearchBoundParamsSortBy = "straight_distance"
+	SkynetSearchBoundParamsSortByDistance         SkynetSearchBoundParamsSortBy = "`distance`"
+	SkynetSearchBoundParamsSortByDuration         SkynetSearchBoundParamsSortBy = "`duration`"
+	SkynetSearchBoundParamsSortByStraightDistance SkynetSearchBoundParamsSortBy = "`straight_distance`"
 )
 
 // Specifies the driving mode to be used for determining travel duration or driving
@@ -390,6 +394,6 @@ const (
 type SkynetSearchBoundParamsSortDrivingMode string
 
 const (
-	SkynetSearchBoundParamsSortDrivingModeCar   SkynetSearchBoundParamsSortDrivingMode = "car"
-	SkynetSearchBoundParamsSortDrivingModeTruck SkynetSearchBoundParamsSortDrivingMode = "truck"
+	SkynetSearchBoundParamsSortDrivingModeCar   SkynetSearchBoundParamsSortDrivingMode = "`car`"
+	SkynetSearchBoundParamsSortDrivingModeTruck SkynetSearchBoundParamsSortDrivingMode = "`truck`"
 )

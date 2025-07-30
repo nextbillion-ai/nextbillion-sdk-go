@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk
+package nextbillionai
 
 import (
 	"context"
@@ -76,7 +76,7 @@ type RevgeocodeGetResponseItem struct {
 	// meters.
 	Distance int64 `json:"distance"`
 	// The bounding box enclosing the geometric shape (area or line) that an individual
-	// result covers. place typed results have no mapView.
+	// result covers. `place` typed results have no `mapView`.
 	MapView MapView `json:"mapView"`
 	// Returns the operating hours of the place, if available.
 	OpeningHours RevgeocodeGetResponseItemOpeningHours `json:"openingHours"`
@@ -200,10 +200,10 @@ func (r *RevgeocodeGetResponseItemOpeningHoursTimeRangeStartTime) UnmarshalJSON(
 // Score of the result. A higher score indicates a closer match.
 type RevgeocodeGetResponseItemScoring struct {
 	// A breakdown of how closely individual field of the result matched with the
-	// provided query q.
+	// provided query `q`.
 	FieldScore any `json:"fieldScore"`
 	// A score, out of 1, indicating how closely the result matches with the provided
-	// query q .
+	// query `q` .
 	QueryScore float64 `json:"queryScore"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -240,18 +240,18 @@ type RevgeocodeGetParams struct {
 	//
 	//     The country codes are to be provided in all uppercase.
 	//
-	//     Format: countryCode:{countryCode}[,{countryCode}]
+	//     Format: `countryCode:{countryCode}[,{countryCode}]`
 	//
 	//   - a circular area, provided as latitude, longitude, and radius (an integer with
 	//     meters as unit)
 	//
-	//     Format: circle:{latitude},{longitude};r={radius}
+	//     Format: `circle:{latitude},{longitude};r={radius}`
 	//
 	//   - a bounding box, provided as _west longitude_, _south latitude_, _east
 	//     longitude_, _north latitude_
 	//
-	//     Format: bbox:{west longitude},{south latitude},{east longitude},{north
-	//     latitude}
+	//     Format:
+	//     `bbox:{west longitude},{south latitude},{east longitude},{north latitude}`
 	In param.Opt[string] `query:"in,omitzero" json:"-"`
 	// Select the language to be used for result rendering from a list of
 	// [BCP 47](https://en.wikipedia.org/wiki/IETF_language_tag) compliant language

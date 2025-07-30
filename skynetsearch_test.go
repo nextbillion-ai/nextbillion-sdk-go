@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,26 +22,26 @@ func TestSkynetSearchAroundWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Search.Around(context.TODO(), nextbillionsdk.SkynetSearchAroundParams{
+	_, err := client.Skynet.Search.Around(context.TODO(), nextbillionai.SkynetSearchAroundParams{
 		Center:                 "56.597801,43.967836",
 		Key:                    "key=API_KEY",
 		Radius:                 0,
-		Filter:                 nextbillionsdk.String("filter=tag:delivery,truck"),
-		IncludeAllOfAttributes: nextbillionsdk.String("include_all_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
-		IncludeAnyOfAttributes: nextbillionsdk.String("include_any_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
-		MaxSearchLimit:         nextbillionsdk.Bool(true),
-		Pn:                     nextbillionsdk.Int(0),
-		Ps:                     nextbillionsdk.Int(100),
-		SortBy:                 nextbillionsdk.SkynetSearchAroundParamsSortByDistance,
-		SortDestination:        nextbillionsdk.String("sort_destination= 34.0241,-118.2550"),
-		SortDrivingMode:        nextbillionsdk.SkynetSearchAroundParamsSortDrivingModeCar,
+		Filter:                 nextbillionai.String("filter=tag:delivery,truck"),
+		IncludeAllOfAttributes: nextbillionai.String("include_all_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
+		IncludeAnyOfAttributes: nextbillionai.String("include_any_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
+		MaxSearchLimit:         nextbillionai.Bool(true),
+		Pn:                     nextbillionai.Int(0),
+		Ps:                     nextbillionai.Int(100),
+		SortBy:                 nextbillionai.SkynetSearchAroundParamsSortByDistance,
+		SortDestination:        nextbillionai.String("sort_destination= 34.0241,-118.2550"),
+		SortDrivingMode:        nextbillionai.SkynetSearchAroundParamsSortDrivingModeCar,
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -58,25 +58,25 @@ func TestSkynetSearchBoundWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Search.Bound(context.TODO(), nextbillionsdk.SkynetSearchBoundParams{
+	_, err := client.Skynet.Search.Bound(context.TODO(), nextbillionai.SkynetSearchBoundParams{
 		Bound:                  "bounds=44.7664,-0.6941|44.9206,-0.4639",
 		Key:                    "key=API_KEY",
-		Filter:                 nextbillionsdk.String("filter=tag:delivery,truck"),
-		IncludeAllOfAttributes: nextbillionsdk.String("include_all_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
-		IncludeAnyOfAttributes: nextbillionsdk.String("include_any_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
-		MaxSearchLimit:         nextbillionsdk.Bool(true),
-		Pn:                     nextbillionsdk.Int(0),
-		Ps:                     nextbillionsdk.Int(100),
-		SortBy:                 nextbillionsdk.SkynetSearchBoundParamsSortByDistance,
-		SortDestination:        nextbillionsdk.String("sort_destination= 34.0241,-118.2550"),
-		SortDrivingMode:        nextbillionsdk.SkynetSearchBoundParamsSortDrivingModeCar,
+		Filter:                 nextbillionai.String("filter=tag:delivery,truck"),
+		IncludeAllOfAttributes: nextbillionai.String("include_all_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
+		IncludeAnyOfAttributes: nextbillionai.String("include_any_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
+		MaxSearchLimit:         nextbillionai.Bool(true),
+		Pn:                     nextbillionai.Int(0),
+		Ps:                     nextbillionai.Int(100),
+		SortBy:                 nextbillionai.SkynetSearchBoundParamsSortByDistance,
+		SortDestination:        nextbillionai.String("sort_destination= 34.0241,-118.2550"),
+		SortDrivingMode:        nextbillionai.SkynetSearchBoundParamsSortDrivingModeCar,
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
