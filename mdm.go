@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk
+package nextbillionai
 
 import (
 	"context"
@@ -52,7 +52,7 @@ func (r *MdmService) GetDistanceMatrixStatus(ctx context.Context, query MdmGetDi
 
 type MdmNewDistanceMatrixResponse struct {
 	// A string indicating the state of the response. On successful responses, the
-	// value will be Ok. Indicative error messages/codes are returned in case of
+	// value will be `Ok`. Indicative error messages/codes are returned in case of
 	// errors. See the [API Error Codes](#api-error-codes) section below for more
 	// information.
 	Code string `json:"code"`
@@ -85,7 +85,7 @@ func (r *MdmNewDistanceMatrixResponse) UnmarshalJSON(data []byte) error {
 type MdmGetDistanceMatrixStatusResponse struct {
 	// A code representing the status of the request.
 	//
-	// Any of "Ok", "Processing", "Failed".
+	// Any of "`Ok`", "`Processing`", "`Failed`".
 	Code MdmGetDistanceMatrixStatusResponseCode `json:"code"`
 	// Returns the GCS result of a successful task. Please note that this is an
 	// internal field.
@@ -120,9 +120,9 @@ func (r *MdmGetDistanceMatrixStatusResponse) UnmarshalJSON(data []byte) error {
 type MdmGetDistanceMatrixStatusResponseCode string
 
 const (
-	MdmGetDistanceMatrixStatusResponseCodeOk         MdmGetDistanceMatrixStatusResponseCode = "Ok"
-	MdmGetDistanceMatrixStatusResponseCodeProcessing MdmGetDistanceMatrixStatusResponseCode = "Processing"
-	MdmGetDistanceMatrixStatusResponseCodeFailed     MdmGetDistanceMatrixStatusResponseCode = "Failed"
+	MdmGetDistanceMatrixStatusResponseCodeOk         MdmGetDistanceMatrixStatusResponseCode = "`Ok`"
+	MdmGetDistanceMatrixStatusResponseCodeProcessing MdmGetDistanceMatrixStatusResponseCode = "`Processing`"
+	MdmGetDistanceMatrixStatusResponseCodeFailed     MdmGetDistanceMatrixStatusResponseCode = "`Failed`"
 )
 
 type MdmNewDistanceMatrixParams struct {
@@ -134,7 +134,7 @@ type MdmNewDistanceMatrixParams struct {
 	//
 	// Any of "flexible".
 	Option MdmNewDistanceMatrixParamsOption `query:"option,omitzero,required" json:"-"`
-	// origins are the starting point of your route. Ensure that origins are routable
+	// `origins` are the starting point of your route. Ensure that origins are routable
 	// land locations. Multiple origins should be separated by a pipe symbol (|).
 	//
 	// **Format:** latitude_1,longitude_1|latitude_2,longitude_2|…
@@ -142,8 +142,8 @@ type MdmNewDistanceMatrixParams struct {
 	// Specify if crossing an international border is expected for operations near
 	// border areas. When set to false, the API will prohibit routes going back & forth
 	// between countries. Consequently, routes within the same country will be
-	// preferred if they are feasible for the given set of destination or waypoints .
-	// When set to true, the routes will be allowed to go back & forth between
+	// preferred if they are feasible for the given set of `destination` or `waypoints`
+	// . When set to true, the routes will be allowed to go back & forth between
 	// countries as needed.
 	//
 	// This feature is available in North America region only. Please get in touch with
@@ -151,21 +151,22 @@ type MdmNewDistanceMatrixParams struct {
 	// areas.
 	CrossBorder param.Opt[bool] `json:"cross_border,omitzero"`
 	// This is a number in UNIX epoch timestamp in seconds format that can be used to
-	// provide the departure time. The response will return the distance and duration
-	// of the route based on typical traffic for at the given start time.If no input is
-	// provided for this parameter then the traffic conditions at the time of making
-	// the request are considered.
+	// provide the departure time. The response will return the `distance` and
+	// `duration` of the route based on typical traffic for at the given start time.If
+	// no input is provided for this parameter then the traffic conditions at the time
+	// of making the request are considered.
 	//
-	// Please note that when route_type is set to shortest then the departure_time will
-	// be ineffective as the service will return the result for the shortest path
-	// possible irrespective of the traffic conditions.
+	// Please note that when `route_type` is set to `shortest` then the
+	// `departure_time` will be ineffective as the service will return the result for
+	// the shortest path possible irrespective of the traffic conditions.
 	DepartureTime param.Opt[int64] `json:"departure_time,omitzero"`
-	// destinations are the ending coordinates of your route. Ensure that destinations
-	// are routable land locations. Multiple destinations should be separated by a pipe
-	// symbol (|).
+	// `destinations` are the ending coordinates of your route. Ensure that
+	// destinations are routable land locations. Multiple destinations should be
+	// separated by a pipe symbol (|).
 	//
-	// In case destinations are not provided or if it is left empty, then the input
-	// value of origins will be copied to destinations to create the OD matrix pairs.
+	// In case `destinations` are not provided or if it is left empty, then the input
+	// value of `origins` will be copied to `destinations` to create the OD matrix
+	// pairs.
 	//
 	// **Format:** latitude_1,longitude_1|latitude_2,longitude_2|…
 	Destinations param.Opt[string] `json:"destinations,omitzero"`
@@ -173,23 +174,23 @@ type MdmNewDistanceMatrixParams struct {
 	// goods) of the truck, in tonnes. When used, the service will return routes which
 	// are legally allowed to carry the load specified per axle.
 	//
-	// Please note this parameter is effective only when mode=truck.
+	// Please note this parameter is effective only when `mode=truck`.
 	TruckAxleLoad param.Opt[float64] `json:"truck_axle_load,omitzero"`
 	// This defines the dimensions of a truck in centimeters (cm) in the format of
-	// "height,width,length". This parameter is effective only when mode=truck and
-	// option=flexible. Maximum dimensions are as follows:
+	// "height,width,length". This parameter is effective only when `mode=truck` and
+	// `option=flexible`. Maximum dimensions are as follows:
 	//
 	// Height = 1000 cm Width = 5000 cm Length = 5000 cm
 	TruckSize param.Opt[string] `json:"truck_size,omitzero"`
 	// This parameter defines the weight of the truck including trailers and shipped
-	// goods in kilograms (kg). This parameter is effective only when mode=truck and
-	// option=flexible.
+	// goods in kilograms (kg). This parameter is effective only when `mode=truck` and
+	// `option=flexible`.
 	TruckWeight param.Opt[int64] `json:"truck_weight,omitzero"`
 	// Specify a spliter to split the matrix by. It accepts 2 values:
 	//
-	// - od_number_spliter:
+	// - `od_number_spliter`:
 	//
-	// - straight_distance_spliter:
+	// - `straight_distance_spliter`:
 	//
 	// Please note it is an internal, debug field only.
 	//
@@ -204,18 +205,18 @@ type MdmNewDistanceMatrixParams struct {
 	// Any of "singapore", "usa", "india".
 	Area MdmNewDistanceMatrixParamsArea `json:"area,omitzero"`
 	// Setting this will ensure the route avoids the object(s) specified as input.
-	// Multiple values should be separated by a pipe (|). If none is provided along
+	// Multiple values should be separated by a pipe (|). If `none` is provided along
 	// with other values, an error is returned as a valid route is not feasible.
 	//
 	// - **Note:**
 	//
-	//   - This parameter is effective only when route_type=fastest.
+	//   - This parameter is effective only when `route_type=fastest`.
 	//
 	//   - When this parameter is not provided in the input, ferries are set to be
-	//     avoided by default. When avoid input is provided, only the mentioned objects
-	//     are avoided.
+	//     avoided by default. When `avoid` input is provided, only the mentioned
+	//     objects are avoided.
 	//
-	//   - When using avoid=bbox users also need to specify the boundaries of the
+	//   - When using `avoid=bbox` users also need to specify the boundaries of the
 	//     bounding box to be avoid. Multiple bounding boxes can be specified
 	//     simultaneously. Please note that bounding box is a hard filter and if it
 	//     blocks all possible routes between given locations, a 4xx error is returned.
@@ -225,42 +226,43 @@ type MdmNewDistanceMatrixParams struct {
 	//   - **Example:** avoid=bbox: 34.0635,-118.2547, 34.0679,-118.2478 | bbox:
 	//     34.0521,-118.2342, 34.0478,-118.2437
 	//
-	//   - When using avoid=sharp_turn, default range of permissible turn angles is
+	//   - When using `avoid=sharp_turn`, default range of permissible turn angles is
 	//     \[120,240\].
 	//
-	// Any of "toll", "ferry", "highway", "sharp_turn", "service_road", "bbox",
-	// "left_turn", "right_turn", "none".
+	// Any of "`toll`", "`ferry`", "`highway`", "`sharp_turn`", "`service_road`",
+	// "`bbox`", "`left_turn`", "`right_turn`", "`none`".
 	Avoid MdmNewDistanceMatrixParamsAvoid `json:"avoid,omitzero"`
-	// Specify the side of the road from which to approach destinations points. Please
-	// note that the given approach will be applied to all the destinations.
+	// Specify the side of the road from which to approach `destinations` points.
+	// Please note that the given approach will be applied to all the `destinations`.
 	//
-	// Any of "unrestricted", "curb".
+	// Any of "`unrestricted`", "`curb`".
 	DestinationsApproach MdmNewDistanceMatrixParamsDestinationsApproach `json:"destinations_approach,omitzero"`
 	// Specify the type of hazardous material being carried and the service will avoid
 	// roads which are not suitable for the type of goods specified. Multiple values
-	// can be separated using a pipe operator | .
+	// can be separated using a pipe operator `|` .
 	//
-	// Please note that this parameter is effective only when mode=truck.
+	// Please note that this parameter is effective only when `mode=truck`.
 	//
-	// Any of "general", "circumstantial", "explosive", "harmful_to_water".
+	// Any of "`general`", "`circumstantial`", "`explosive`", "`harmful_to_water`".
 	HazmatType MdmNewDistanceMatrixParamsHazmatType `json:"hazmat_type,omitzero"`
 	// Set which driving mode the service should use to determine a route.
 	//
-	// For example, if you use car, the API will return a route that a car can take.
-	// Using truck will return a route a truck can use, taking into account appropriate
-	// truck routing restrictions.
+	// For example, if you use `car`, the API will return a route that a car can take.
+	// Using `truck` will return a route a truck can use, taking into account
+	// appropriate truck routing restrictions.
 	//
-	// Any of "car", "truck".
+	// Any of "`car`", "`truck`".
 	Mode MdmNewDistanceMatrixParamsMode `json:"mode,omitzero"`
-	// Specify the side of the road from which to approach origins points. Please note
-	// that the given approach will be applied to all the points provided as origins.
+	// Specify the side of the road from which to approach `origins` points. Please
+	// note that the given approach will be applied to all the points provided as
+	// `origins`.
 	//
-	// Any of "unrestricted", "curb".
+	// Any of "`unrestricted`", "`curb`".
 	OriginsApproach MdmNewDistanceMatrixParamsOriginsApproach `json:"origins_approach,omitzero"`
-	// Set the route type that needs to be returned. Please note that route_type is
-	// effective only when option=flexible.
+	// Set the route type that needs to be returned. Please note that `route_type` is
+	// effective only when `option=flexible`.
 	//
-	// Any of "fastest", "shortest".
+	// Any of "`fastest`", "`shortest`".
 	RouteType MdmNewDistanceMatrixParamsRouteType `json:"route_type,omitzero"`
 	paramObj
 }
@@ -292,9 +294,9 @@ const (
 
 // Specify a spliter to split the matrix by. It accepts 2 values:
 //
-// - od_number_spliter:
+// - `od_number_spliter`:
 //
-// - straight_distance_spliter:
+// - `straight_distance_spliter`:
 //
 // Please note it is an internal, debug field only.
 //
@@ -319,18 +321,18 @@ const (
 )
 
 // Setting this will ensure the route avoids the object(s) specified as input.
-// Multiple values should be separated by a pipe (|). If none is provided along
+// Multiple values should be separated by a pipe (|). If `none` is provided along
 // with other values, an error is returned as a valid route is not feasible.
 //
 // - **Note:**
 //
-//   - This parameter is effective only when route_type=fastest.
+//   - This parameter is effective only when `route_type=fastest`.
 //
 //   - When this parameter is not provided in the input, ferries are set to be
-//     avoided by default. When avoid input is provided, only the mentioned objects
-//     are avoided.
+//     avoided by default. When `avoid` input is provided, only the mentioned
+//     objects are avoided.
 //
-//   - When using avoid=bbox users also need to specify the boundaries of the
+//   - When using `avoid=bbox` users also need to specify the boundaries of the
 //     bounding box to be avoid. Multiple bounding boxes can be specified
 //     simultaneously. Please note that bounding box is a hard filter and if it
 //     blocks all possible routes between given locations, a 4xx error is returned.
@@ -340,73 +342,74 @@ const (
 //   - **Example:** avoid=bbox: 34.0635,-118.2547, 34.0679,-118.2478 | bbox:
 //     34.0521,-118.2342, 34.0478,-118.2437
 //
-//   - When using avoid=sharp_turn, default range of permissible turn angles is
+//   - When using `avoid=sharp_turn`, default range of permissible turn angles is
 //     \[120,240\].
 type MdmNewDistanceMatrixParamsAvoid string
 
 const (
-	MdmNewDistanceMatrixParamsAvoidToll        MdmNewDistanceMatrixParamsAvoid = "toll"
-	MdmNewDistanceMatrixParamsAvoidFerry       MdmNewDistanceMatrixParamsAvoid = "ferry"
-	MdmNewDistanceMatrixParamsAvoidHighway     MdmNewDistanceMatrixParamsAvoid = "highway"
-	MdmNewDistanceMatrixParamsAvoidSharpTurn   MdmNewDistanceMatrixParamsAvoid = "sharp_turn"
-	MdmNewDistanceMatrixParamsAvoidServiceRoad MdmNewDistanceMatrixParamsAvoid = "service_road"
-	MdmNewDistanceMatrixParamsAvoidBbox        MdmNewDistanceMatrixParamsAvoid = "bbox"
-	MdmNewDistanceMatrixParamsAvoidLeftTurn    MdmNewDistanceMatrixParamsAvoid = "left_turn"
-	MdmNewDistanceMatrixParamsAvoidRightTurn   MdmNewDistanceMatrixParamsAvoid = "right_turn"
-	MdmNewDistanceMatrixParamsAvoidNone        MdmNewDistanceMatrixParamsAvoid = "none"
+	MdmNewDistanceMatrixParamsAvoidToll        MdmNewDistanceMatrixParamsAvoid = "`toll`"
+	MdmNewDistanceMatrixParamsAvoidFerry       MdmNewDistanceMatrixParamsAvoid = "`ferry`"
+	MdmNewDistanceMatrixParamsAvoidHighway     MdmNewDistanceMatrixParamsAvoid = "`highway`"
+	MdmNewDistanceMatrixParamsAvoidSharpTurn   MdmNewDistanceMatrixParamsAvoid = "`sharp_turn`"
+	MdmNewDistanceMatrixParamsAvoidServiceRoad MdmNewDistanceMatrixParamsAvoid = "`service_road`"
+	MdmNewDistanceMatrixParamsAvoidBbox        MdmNewDistanceMatrixParamsAvoid = "`bbox`"
+	MdmNewDistanceMatrixParamsAvoidLeftTurn    MdmNewDistanceMatrixParamsAvoid = "`left_turn`"
+	MdmNewDistanceMatrixParamsAvoidRightTurn   MdmNewDistanceMatrixParamsAvoid = "`right_turn`"
+	MdmNewDistanceMatrixParamsAvoidNone        MdmNewDistanceMatrixParamsAvoid = "`none`"
 )
 
-// Specify the side of the road from which to approach destinations points. Please
-// note that the given approach will be applied to all the destinations.
+// Specify the side of the road from which to approach `destinations` points.
+// Please note that the given approach will be applied to all the `destinations`.
 type MdmNewDistanceMatrixParamsDestinationsApproach string
 
 const (
-	MdmNewDistanceMatrixParamsDestinationsApproachUnrestricted MdmNewDistanceMatrixParamsDestinationsApproach = "unrestricted"
-	MdmNewDistanceMatrixParamsDestinationsApproachCurb         MdmNewDistanceMatrixParamsDestinationsApproach = "curb"
+	MdmNewDistanceMatrixParamsDestinationsApproachUnrestricted MdmNewDistanceMatrixParamsDestinationsApproach = "`unrestricted`"
+	MdmNewDistanceMatrixParamsDestinationsApproachCurb         MdmNewDistanceMatrixParamsDestinationsApproach = "`curb`"
 )
 
 // Specify the type of hazardous material being carried and the service will avoid
 // roads which are not suitable for the type of goods specified. Multiple values
-// can be separated using a pipe operator | .
+// can be separated using a pipe operator `|` .
 //
-// Please note that this parameter is effective only when mode=truck.
+// Please note that this parameter is effective only when `mode=truck`.
 type MdmNewDistanceMatrixParamsHazmatType string
 
 const (
-	MdmNewDistanceMatrixParamsHazmatTypeGeneral        MdmNewDistanceMatrixParamsHazmatType = "general"
-	MdmNewDistanceMatrixParamsHazmatTypeCircumstantial MdmNewDistanceMatrixParamsHazmatType = "circumstantial"
-	MdmNewDistanceMatrixParamsHazmatTypeExplosive      MdmNewDistanceMatrixParamsHazmatType = "explosive"
-	MdmNewDistanceMatrixParamsHazmatTypeHarmfulToWater MdmNewDistanceMatrixParamsHazmatType = "harmful_to_water"
+	MdmNewDistanceMatrixParamsHazmatTypeGeneral        MdmNewDistanceMatrixParamsHazmatType = "`general`"
+	MdmNewDistanceMatrixParamsHazmatTypeCircumstantial MdmNewDistanceMatrixParamsHazmatType = "`circumstantial`"
+	MdmNewDistanceMatrixParamsHazmatTypeExplosive      MdmNewDistanceMatrixParamsHazmatType = "`explosive`"
+	MdmNewDistanceMatrixParamsHazmatTypeHarmfulToWater MdmNewDistanceMatrixParamsHazmatType = "`harmful_to_water`"
 )
 
 // Set which driving mode the service should use to determine a route.
 //
-// For example, if you use car, the API will return a route that a car can take.
-// Using truck will return a route a truck can use, taking into account appropriate
-// truck routing restrictions.
+// For example, if you use `car`, the API will return a route that a car can take.
+// Using `truck` will return a route a truck can use, taking into account
+// appropriate truck routing restrictions.
 type MdmNewDistanceMatrixParamsMode string
 
 const (
-	MdmNewDistanceMatrixParamsModeCar   MdmNewDistanceMatrixParamsMode = "car"
-	MdmNewDistanceMatrixParamsModeTruck MdmNewDistanceMatrixParamsMode = "truck"
+	MdmNewDistanceMatrixParamsModeCar   MdmNewDistanceMatrixParamsMode = "`car`"
+	MdmNewDistanceMatrixParamsModeTruck MdmNewDistanceMatrixParamsMode = "`truck`"
 )
 
-// Specify the side of the road from which to approach origins points. Please note
-// that the given approach will be applied to all the points provided as origins.
+// Specify the side of the road from which to approach `origins` points. Please
+// note that the given approach will be applied to all the points provided as
+// `origins`.
 type MdmNewDistanceMatrixParamsOriginsApproach string
 
 const (
-	MdmNewDistanceMatrixParamsOriginsApproachUnrestricted MdmNewDistanceMatrixParamsOriginsApproach = "unrestricted"
-	MdmNewDistanceMatrixParamsOriginsApproachCurb         MdmNewDistanceMatrixParamsOriginsApproach = "curb"
+	MdmNewDistanceMatrixParamsOriginsApproachUnrestricted MdmNewDistanceMatrixParamsOriginsApproach = "`unrestricted`"
+	MdmNewDistanceMatrixParamsOriginsApproachCurb         MdmNewDistanceMatrixParamsOriginsApproach = "`curb`"
 )
 
-// Set the route type that needs to be returned. Please note that route_type is
-// effective only when option=flexible.
+// Set the route type that needs to be returned. Please note that `route_type` is
+// effective only when `option=flexible`.
 type MdmNewDistanceMatrixParamsRouteType string
 
 const (
-	MdmNewDistanceMatrixParamsRouteTypeFastest  MdmNewDistanceMatrixParamsRouteType = "fastest"
-	MdmNewDistanceMatrixParamsRouteTypeShortest MdmNewDistanceMatrixParamsRouteType = "shortest"
+	MdmNewDistanceMatrixParamsRouteTypeFastest  MdmNewDistanceMatrixParamsRouteType = "`fastest`"
+	MdmNewDistanceMatrixParamsRouteTypeShortest MdmNewDistanceMatrixParamsRouteType = "`shortest`"
 )
 
 type MdmGetDistanceMatrixStatusParams struct {

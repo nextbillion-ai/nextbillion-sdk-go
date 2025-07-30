@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,34 +22,34 @@ func TestFleetifyDocumentTemplateNew(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Fleetify.DocumentTemplates.New(context.TODO(), nextbillionsdk.FleetifyDocumentTemplateNewParams{
+	_, err := client.Fleetify.DocumentTemplates.New(context.TODO(), nextbillionai.FleetifyDocumentTemplateNewParams{
 		Key: "key",
-		Content: []nextbillionsdk.DocumentTemplateContentRequestParam{{
+		Content: []nextbillionai.DocumentTemplateContentRequestParam{{
 			Label: `"label": "Specify Completion Time"`,
-			Type:  nextbillionsdk.DocumentTemplateContentRequestTypeString,
-			Meta: nextbillionsdk.DocumentTemplateContentRequestMetaParam{
-				Options: []nextbillionsdk.DocumentTemplateContentRequestMetaOptionParam{{
+			Type:  nextbillionai.DocumentTemplateContentRequestTypeString,
+			Meta: nextbillionai.DocumentTemplateContentRequestMetaParam{
+				Options: []nextbillionai.DocumentTemplateContentRequestMetaOptionParam{{
 					Label: `"label": "Option 1"`,
 					Value: `"value": "Car"`,
 				}},
 			},
-			Name:     nextbillionsdk.String(`"name" : "Completion DateTime"`),
-			Required: nextbillionsdk.Bool(true),
-			Validation: nextbillionsdk.DocumentTemplateContentRequestValidationParam{
-				Max:      nextbillionsdk.Int(0),
-				MaxItems: nextbillionsdk.Int(0),
-				Min:      nextbillionsdk.Int(0),
-				MinItems: nextbillionsdk.Int(0),
+			Name:     nextbillionai.String(`"name" : "Completion DateTime"`),
+			Required: nextbillionai.Bool(true),
+			Validation: nextbillionai.DocumentTemplateContentRequestValidationParam{
+				Max:      nextbillionai.Int(0),
+				MaxItems: nextbillionai.Int(0),
+				Min:      nextbillionai.Int(0),
+				MinItems: nextbillionai.Int(0),
 			},
 		}},
 		Name: "name",
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -66,19 +66,19 @@ func TestFleetifyDocumentTemplateGet(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Fleetify.DocumentTemplates.Get(
 		context.TODO(),
 		"id",
-		nextbillionsdk.FleetifyDocumentTemplateGetParams{
+		nextbillionai.FleetifyDocumentTemplateGetParams{
 			Key: "key",
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -95,38 +95,38 @@ func TestFleetifyDocumentTemplateUpdateWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Fleetify.DocumentTemplates.Update(
 		context.TODO(),
 		"id",
-		nextbillionsdk.FleetifyDocumentTemplateUpdateParams{
+		nextbillionai.FleetifyDocumentTemplateUpdateParams{
 			Key: "key",
-			Content: []nextbillionsdk.DocumentTemplateContentRequestParam{{
+			Content: []nextbillionai.DocumentTemplateContentRequestParam{{
 				Label: `"label": "Specify Completion Time"`,
-				Type:  nextbillionsdk.DocumentTemplateContentRequestTypeString,
-				Meta: nextbillionsdk.DocumentTemplateContentRequestMetaParam{
-					Options: []nextbillionsdk.DocumentTemplateContentRequestMetaOptionParam{{
+				Type:  nextbillionai.DocumentTemplateContentRequestTypeString,
+				Meta: nextbillionai.DocumentTemplateContentRequestMetaParam{
+					Options: []nextbillionai.DocumentTemplateContentRequestMetaOptionParam{{
 						Label: `"label": "Option 1"`,
 						Value: `"value": "Car"`,
 					}},
 				},
-				Name:     nextbillionsdk.String(`"name" : "Completion DateTime"`),
-				Required: nextbillionsdk.Bool(true),
-				Validation: nextbillionsdk.DocumentTemplateContentRequestValidationParam{
-					Max:      nextbillionsdk.Int(0),
-					MaxItems: nextbillionsdk.Int(0),
-					Min:      nextbillionsdk.Int(0),
-					MinItems: nextbillionsdk.Int(0),
+				Name:     nextbillionai.String(`"name" : "Completion DateTime"`),
+				Required: nextbillionai.Bool(true),
+				Validation: nextbillionai.DocumentTemplateContentRequestValidationParam{
+					Max:      nextbillionai.Int(0),
+					MaxItems: nextbillionai.Int(0),
+					Min:      nextbillionai.Int(0),
+					MinItems: nextbillionai.Int(0),
 				},
 			}},
-			Name: nextbillionsdk.String("name"),
+			Name: nextbillionai.String("name"),
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -143,15 +143,15 @@ func TestFleetifyDocumentTemplateList(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Fleetify.DocumentTemplates.List(context.TODO(), nextbillionsdk.FleetifyDocumentTemplateListParams{
+	_, err := client.Fleetify.DocumentTemplates.List(context.TODO(), nextbillionai.FleetifyDocumentTemplateListParams{
 		Key: "key",
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -168,19 +168,19 @@ func TestFleetifyDocumentTemplateDelete(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Fleetify.DocumentTemplates.Delete(
 		context.TODO(),
 		"id",
-		nextbillionsdk.FleetifyDocumentTemplateDeleteParams{
+		nextbillionai.FleetifyDocumentTemplateDeleteParams{
 			Key: "key",
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

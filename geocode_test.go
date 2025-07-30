@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,20 +22,20 @@ func TestGeocodeGetWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geocode.Get(context.TODO(), nextbillionsdk.GeocodeGetParams{
+	_, err := client.Geocode.Get(context.TODO(), nextbillionai.GeocodeGetParams{
 		Key:   "key=API_KEY",
 		Q:     "q=125, Berliner, berlin",
-		At:    nextbillionsdk.String("at=52.5308,13.3856"),
-		In:    nextbillionsdk.String("in=countryCode:CAN,MEX,USA"),
-		Lang:  nextbillionsdk.String("lang=en"),
-		Limit: nextbillionsdk.Int(0),
+		At:    nextbillionai.String("at=52.5308,13.3856"),
+		In:    nextbillionai.String("in=countryCode:CAN,MEX,USA"),
+		Lang:  nextbillionai.String("lang=en"),
+		Limit: nextbillionai.Int(0),
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -52,22 +52,22 @@ func TestGeocodeBatchNew(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geocode.BatchNew(context.TODO(), nextbillionsdk.GeocodeBatchNewParams{
+	_, err := client.Geocode.BatchNew(context.TODO(), nextbillionai.GeocodeBatchNewParams{
 		Key: "key=API_KEY",
-		Body: []nextbillionsdk.GeocodeBatchNewParamsBody{{
+		Body: []nextbillionai.GeocodeBatchNewParamsBody{{
 			Q:     `"q":"125, Berliner, berlin"`,
-			At:    nextbillionsdk.String(`"at": "52.5308,13.3856"`),
-			In:    nextbillionsdk.String(`"in":"countryCode:CAN,MEX,USA"`),
-			Lang:  nextbillionsdk.String(`"lang":"en"`),
-			Limit: nextbillionsdk.Int(0),
+			At:    nextbillionai.String(`"at": "52.5308,13.3856"`),
+			In:    nextbillionai.String(`"in":"countryCode:CAN,MEX,USA"`),
+			Lang:  nextbillionai.String(`"lang":"en"`),
+			Limit: nextbillionai.Int(0),
 		}},
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -84,25 +84,25 @@ func TestGeocodeStructuredGetWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geocode.StructuredGet(context.TODO(), nextbillionsdk.GeocodeStructuredGetParams{
+	_, err := client.Geocode.StructuredGet(context.TODO(), nextbillionai.GeocodeStructuredGetParams{
 		CountryCode: "countryCode",
 		Key:         "key=API_KEY",
-		At:          nextbillionsdk.String("at=52.5308,13.3856"),
-		City:        nextbillionsdk.String("city"),
-		County:      nextbillionsdk.String("county"),
-		HouseNumber: nextbillionsdk.String("houseNumber"),
-		In:          nextbillionsdk.String("in=circle:52.53,13.38;r=10000"),
-		Limit:       nextbillionsdk.Int(0),
-		PostalCode:  nextbillionsdk.String("postalCode"),
-		State:       nextbillionsdk.String("state"),
-		Street:      nextbillionsdk.String("street"),
+		At:          nextbillionai.String("at=52.5308,13.3856"),
+		City:        nextbillionai.String("city"),
+		County:      nextbillionai.String("county"),
+		HouseNumber: nextbillionai.String("houseNumber"),
+		In:          nextbillionai.String("in=circle:52.53,13.38;r=10000"),
+		Limit:       nextbillionai.Int(0),
+		PostalCode:  nextbillionai.String("postalCode"),
+		State:       nextbillionai.String("state"),
+		Street:      nextbillionai.String("street"),
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk
+package nextbillionai
 
 import (
 	"context"
@@ -56,8 +56,8 @@ type BatchNewResponse struct {
 	// request.
 	Msg string `json:"msg"`
 	// Returns the overall status of the API request. Its value will belong to one of
-	// success, failed, and pending. It can also contain HTTP error codes in case of a
-	// failed request or operation.
+	// `success`, `failed`, and `pending`. It can also contain HTTP error codes in case
+	// of a failed request or operation.
 	Status string `json:"status"`
 	// Returns the unique ID of the batch processing task. Use this ID using the GET
 	// request to retrieve the solution once the task processing is completed.
@@ -88,7 +88,7 @@ type BatchGetResponse struct {
 	// query in the input.
 	Responses []BatchGetResponseResponse `json:"responses"`
 	// Returns the overall status of the API request. Its value will always be one of
-	// success, failed, and pending.
+	// `success`, `failed`, and `pending`.
 	Status string `json:"status"`
 	// Returns the unique ID of the batch processing task.
 	TrackID string `json:"track_id"`
@@ -111,9 +111,9 @@ func (r *BatchGetResponse) UnmarshalJSON(data []byte) error {
 
 type BatchGetResponseResponse struct {
 	// An object returning the routing solution of an individual query. The JSON format
-	// and structure of the response would vary depending on the routing endpoint used
-	// in each individual query. However, it will be consistent with standard response
-	// for a given routing endpoint.
+	// and structure of the `response` would vary depending on the routing endpoint
+	// used in each individual query. However, it will be consistent with standard
+	// response for a given routing endpoint.
 	Response any `json:"response"`
 	// Returns the HTTP status code for the individual routing request. See the
 	// [API Errors Codes](#api-error-codes) section below for more information.

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,13 +22,13 @@ func TestDistanceMatrixJsonNew(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	err := client.DistanceMatrix.Json.New(context.TODO())
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -45,22 +45,22 @@ func TestDistanceMatrixJsonGetWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.DistanceMatrix.Json.Get(context.TODO(), nextbillionsdk.DistanceMatrixJsonGetParams{
+	_, err := client.DistanceMatrix.Json.Get(context.TODO(), nextbillionai.DistanceMatrixJsonGetParams{
 		Destinations:      "destinations=41.349302,2.136480|41.389925,2.136258|41.357961,2.097878",
 		Key:               "key=API_KEY",
 		Origins:           "origins:41.349302,2.136480|41.389925,2.136258|41.357961,2.097878",
-		Approaches:        nextbillionsdk.DistanceMatrixJsonGetParamsApproachesUnrestricted,
-		Avoid:             nextbillionsdk.DistanceMatrixJsonGetParamsAvoidToll,
-		Bearings:          nextbillionsdk.String("bearings=0,180;0,180"),
-		Mode:              nextbillionsdk.DistanceMatrixJsonGetParamsModeCar,
-		RouteFailedPrompt: nextbillionsdk.Bool(true),
+		Approaches:        nextbillionai.DistanceMatrixJsonGetParamsApproachesUnrestricted,
+		Avoid:             nextbillionai.DistanceMatrixJsonGetParamsAvoidToll,
+		Bearings:          nextbillionai.String("bearings=0,180;0,180"),
+		Mode:              nextbillionai.DistanceMatrixJsonGetParamsModeCar,
+		RouteFailedPrompt: nextbillionai.Bool(true),
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

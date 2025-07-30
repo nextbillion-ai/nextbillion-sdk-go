@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,20 +22,20 @@ func TestSkynetTripGetWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Trip.Get(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetTripGetParams{
+		nextbillionai.SkynetTripGetParams{
 			Key:     "key=API_KEY",
-			Cluster: nextbillionsdk.SkynetTripGetParamsClusterAmerica,
+			Cluster: nextbillionai.SkynetTripGetParamsClusterAmerica,
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -52,30 +52,30 @@ func TestSkynetTripUpdateWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Trip.Update(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetTripUpdateParams{
+		nextbillionai.SkynetTripUpdateParams{
 			Key:         "key=API_KEY",
 			AssetID:     "asset_id",
-			Cluster:     nextbillionsdk.SkynetTripUpdateParamsClusterAmerica,
+			Cluster:     nextbillionai.SkynetTripUpdateParamsClusterAmerica,
 			Attributes:  "{\n  \"shift_timing\": \"0800-1700\",\n  \"driver_name\": \"John\"\n}",
-			Description: nextbillionsdk.String("description"),
+			Description: nextbillionai.String("description"),
 			MetaData:    `"meta_data":["Scheduled Trip", "Custom Deliveries"]`,
-			Name:        nextbillionsdk.String(`"name": "Employee Pickup"`),
-			Stops: []nextbillionsdk.SkynetTripUpdateParamsStop{{
-				GeofenceID: nextbillionsdk.String("geofence_id"),
+			Name:        nextbillionai.String(`"name": "Employee Pickup"`),
+			Stops: []nextbillionai.SkynetTripUpdateParamsStop{{
+				GeofenceID: nextbillionai.String("geofence_id"),
 				MetaData:   `"meta_data":["Staff Entry Point", "Biometric checkpoint"]`,
-				Name:       nextbillionsdk.String(`"name":"Head Office"`),
+				Name:       nextbillionai.String(`"name":"Head Office"`),
 			}},
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -92,20 +92,20 @@ func TestSkynetTripDeleteWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Trip.Delete(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetTripDeleteParams{
+		nextbillionai.SkynetTripDeleteParams{
 			Key:     "key=API_KEY",
-			Cluster: nextbillionsdk.SkynetTripDeleteParamsClusterAmerica,
+			Cluster: nextbillionai.SkynetTripDeleteParamsClusterAmerica,
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -122,17 +122,17 @@ func TestSkynetTripEndWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Trip.End(context.TODO(), nextbillionsdk.SkynetTripEndParams{
+	_, err := client.Skynet.Trip.End(context.TODO(), nextbillionai.SkynetTripEndParams{
 		Key:     "key=API_KEY",
 		ID:      "id",
-		Cluster: nextbillionsdk.SkynetTripEndParamsClusterAmerica,
+		Cluster: nextbillionai.SkynetTripEndParamsClusterAmerica,
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -149,20 +149,20 @@ func TestSkynetTripGetSummaryWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Trip.GetSummary(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetTripGetSummaryParams{
+		nextbillionai.SkynetTripGetSummaryParams{
 			Key:     "key=API_KEY",
-			Cluster: nextbillionsdk.SkynetTripGetSummaryParamsClusterAmerica,
+			Cluster: nextbillionai.SkynetTripGetSummaryParamsClusterAmerica,
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -179,27 +179,27 @@ func TestSkynetTripStartWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Trip.Start(context.TODO(), nextbillionsdk.SkynetTripStartParams{
+	_, err := client.Skynet.Trip.Start(context.TODO(), nextbillionai.SkynetTripStartParams{
 		Key:         "key=API_KEY",
 		AssetID:     "asset_id",
-		Cluster:     nextbillionsdk.SkynetTripStartParamsClusterAmerica,
+		Cluster:     nextbillionai.SkynetTripStartParamsClusterAmerica,
 		Attributes:  "{\n  \"shift_timing\": \"0800-1700\",\n  \"driver_name\": \"John\"\n}",
-		CustomID:    nextbillionsdk.String("custom_id"),
-		Description: nextbillionsdk.String("description"),
+		CustomID:    nextbillionai.String("custom_id"),
+		Description: nextbillionai.String("description"),
 		MetaData:    `"meta_data":["Scheduled Trip", "Custom Deliveries"]`,
-		Name:        nextbillionsdk.String(`"name": "Employee Pickup"`),
-		Stops: []nextbillionsdk.SkynetTripStartParamsStop{{
-			GeofenceID: nextbillionsdk.String("geofence_id"),
+		Name:        nextbillionai.String(`"name": "Employee Pickup"`),
+		Stops: []nextbillionai.SkynetTripStartParamsStop{{
+			GeofenceID: nextbillionai.String("geofence_id"),
 			MetaData:   `"meta_data":["Staff Entry Point", "Biometric checkpoint"]`,
-			Name:       nextbillionsdk.String(`"name":"Head Office"`),
+			Name:       nextbillionai.String(`"name":"Head Office"`),
 		}},
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

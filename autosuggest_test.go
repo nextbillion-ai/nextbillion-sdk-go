@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,20 +22,20 @@ func TestAutosuggestSuggestWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Autosuggest.Suggest(context.TODO(), nextbillionsdk.AutosuggestSuggestParams{
+	_, err := client.Autosuggest.Suggest(context.TODO(), nextbillionai.AutosuggestSuggestParams{
 		Key:   "key=API_KEY",
 		Q:     "q=125, Berliner, berlin",
-		At:    nextbillionsdk.String("at=52.5308,13.3856"),
-		In:    nextbillionsdk.String("in=countryCode:CAN,MEX,USA"),
-		Lang:  nextbillionsdk.String("lang=en"),
-		Limit: nextbillionsdk.Int(0),
+		At:    nextbillionai.String("at=52.5308,13.3856"),
+		In:    nextbillionai.String("in=countryCode:CAN,MEX,USA"),
+		Lang:  nextbillionai.String("lang=en"),
+		Limit: nextbillionai.Int(0),
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
