@@ -58,7 +58,7 @@ type RouteReportNewResponse struct {
 	// represents an individual route in the input request.
 	RoadSummary []RouteReportNewResponseRoadSummary `json:"road_summary"`
 	// A string indicating the state of the response. On normal responses, the value
-	// will be `Ok`. Indicative HTTP error codes are returned for different errors. See
+	// will be Ok. Indicative HTTP error codes are returned for different errors. See
 	// the
 	// [**API Errors Codes**](https://app.reapi.com/ws/hmx8aL45B5jjrJa8/p/vNNilNksLVz675pI/s/ealJmVGjTQv4x5Wi/edit/path/VYzo7gOlRsQQZo0U#api-error-codes)
 	// section below for more information.
@@ -131,8 +131,8 @@ type RouteReportNewResponseMileageSegmentCountry struct {
 	// Represents the total distance of this segment, in meters.
 	Distance float64 `json:"distance"`
 	// Represents a sequence of ‘n’ consecutive vertices in the route geometry starting
-	// from the `offset`, forming a continuous section of route with a distance
-	// indicated in `distance`field.
+	// from the offset, forming a continuous section of route with a distance indicated
+	// in distancefield.
 	Length int64 `json:"length"`
 	// Represents the index value of the vertex of current segment's starting point in
 	// route geometry. First vertex in the route geometry has an offset of 0.
@@ -160,8 +160,8 @@ type RouteReportNewResponseMileageSegmentState struct {
 	// Represents the real distance of this segment, in meters.
 	Distance float64 `json:"distance"`
 	// Represents a sequence of ‘n’ consecutive vertices in the route geometry starting
-	// from the `offset`, forming a continuous section of route with a distance
-	// indicated in `distance`field.
+	// from the offset, forming a continuous section of route with a distance indicated
+	// in distancefield.
 	Length int64 `json:"length"`
 	// Represents the index value of the vertex of current segment's starting point in
 	// route geometry. First vertex in the route geometry has an offset of 0.
@@ -188,11 +188,11 @@ func (r *RouteReportNewResponseMileageSegmentState) UnmarshalJSON(data []byte) e
 // Returns a summary of distances that the route covers in different states and
 // countries.
 type RouteReportNewResponseMileageSummary struct {
-	// A break up of country-wise distances that the route covers in `key:value` pair
+	// A break up of country-wise distances that the route covers in key:value pair
 	// format.
 	Country any `json:"country"`
-	// A break up of state-wise distances that the route covers specified in
-	// `key:value` pair format.
+	// A break up of state-wise distances that the route covers specified in key:value
+	// pair format.
 	State any `json:"state"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -258,8 +258,8 @@ type RouteReportNewResponseRoadSummarySegmentMaxSpeed struct {
 	// Returns the total distance of this segment, in meters.
 	Distance int64 `json:"distance"`
 	// Represents a sequence of ‘n’ consecutive vertices in the route geometry starting
-	// from the `offset`, forming a continuous section of route where the maximum speed
-	// is same and is indicated in `value`.
+	// from the offset, forming a continuous section of route where the maximum speed
+	// is same and is indicated in value.
 	Length int64 `json:"length"`
 	// Represents the index value of the vertex of current segment's starting point in
 	// route geometry. First vertex in the route geometry has an offset of 0.
@@ -290,8 +290,8 @@ type RouteReportNewResponseRoadSummarySegmentRoadClass struct {
 	// Returns the total distance of this segment, in meters.
 	Distance int64 `json:"distance"`
 	// Represents a sequence of ‘n’ consecutive vertices in the route geometry starting
-	// from the `offset`, forming a continuous section of route with a distance
-	// indicated in `distance`field.
+	// from the offset, forming a continuous section of route with a distance indicated
+	// in distancefield.
 	Length int64 `json:"length"`
 	// Represents the index value of the vertex of current segment's starting point in
 	// route geometry. First vertex in the route geometry has an offset of 0.
@@ -332,10 +332,10 @@ type RouteReportNewResponseRoadSummarySummary struct {
 	HasTunnel bool `json:"has_tunnel"`
 	// An object with details about the different types of road classes that the route
 	// goes through. Distance traversed on a given road class is also returned. The
-	// contents of this object follow the `key:value` pair format.
+	// contents of this object follow the key:value pair format.
 	RoadClass any `json:"road_class"`
 	// Returns the total distance travelled on toll roads. This field is present in the
-	// response only when the `has_toll` property is true.
+	// response only when the has_toll property is true.
 	TollDistance float64 `json:"toll_distance"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -362,18 +362,18 @@ type RouteReportNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Takes a route geometry as input and returns the route details. Accepts
-	// `polyline` and `polyline6` encoded geometry as input.
+	// Takes a route geometry as input and returns the route details. Accepts polyline
+	// and polyline6 encoded geometry as input.
 	//
 	// **Note**: Route geometries generated from sources other than
 	// [NextBillion.ai](http://NextBillion.ai) services, are not supported in this
 	// version.
 	OriginalShape string `json:"original_shape,required"`
-	// Specify the encoding type of route geometry provided in `original_shape` input.
+	// Specify the encoding type of route geometry provided in original_shape input.
 	// Please note that an error is returned when this parameter is not specified while
-	// an input is added to `original_shape` parameter.
+	// an input is added to original_shape parameter.
 	//
-	// Any of "`polyline`", "`polyline6`".
+	// Any of "polyline", "polyline6".
 	OriginalShapeType RouteReportNewParamsOriginalShapeType `json:"original_shape_type,omitzero,required"`
 	paramObj
 }
@@ -394,12 +394,12 @@ func (r RouteReportNewParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-// Specify the encoding type of route geometry provided in `original_shape` input.
+// Specify the encoding type of route geometry provided in original_shape input.
 // Please note that an error is returned when this parameter is not specified while
-// an input is added to `original_shape` parameter.
+// an input is added to original_shape parameter.
 type RouteReportNewParamsOriginalShapeType string
 
 const (
-	RouteReportNewParamsOriginalShapeTypePolyline  RouteReportNewParamsOriginalShapeType = "`polyline`"
-	RouteReportNewParamsOriginalShapeTypePolyline6 RouteReportNewParamsOriginalShapeType = "`polyline6`"
+	RouteReportNewParamsOriginalShapeTypePolyline  RouteReportNewParamsOriginalShapeType = "polyline"
+	RouteReportNewParamsOriginalShapeTypePolyline6 RouteReportNewParamsOriginalShapeType = "polyline6"
 )

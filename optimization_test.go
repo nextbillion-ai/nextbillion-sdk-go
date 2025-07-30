@@ -85,7 +85,7 @@ func TestOptimizationReOptimizeWithOptionalParams(t *testing.T) {
 				Skills:                []int64{1},
 				TimeWindows:           [][]int64{{0}},
 				Volume: nextbillionsdk.JobVolumeParam{
-					Alignment: "`strict`",
+					Alignment: "strict",
 					Depth:     nextbillionsdk.Float(0),
 					Height:    nextbillionsdk.Float(0),
 					Width:     nextbillionsdk.Float(0),
@@ -114,7 +114,7 @@ func TestOptimizationReOptimizeWithOptionalParams(t *testing.T) {
 				Skills:                []int64{1},
 				TimeWindows:           [][]int64{{0}},
 				Volume: nextbillionsdk.JobVolumeParam{
-					Alignment: "`strict`",
+					Alignment: "strict",
 					Depth:     nextbillionsdk.Float(0),
 					Height:    nextbillionsdk.Float(0),
 					Width:     nextbillionsdk.Float(0),
@@ -159,7 +159,7 @@ func TestOptimizationReOptimizeWithOptionalParams(t *testing.T) {
 				Revenue:               nextbillionsdk.Int(0),
 				Skills:                []int64{0},
 				Volume: nextbillionsdk.ShipmentVolumeParam{
-					Alignment: "`strict`",
+					Alignment: "strict",
 					Depth:     nextbillionsdk.Float(0),
 					Height:    nextbillionsdk.Float(0),
 					Width:     nextbillionsdk.Float(0),
@@ -200,7 +200,7 @@ func TestOptimizationReOptimizeWithOptionalParams(t *testing.T) {
 				Revenue:               nextbillionsdk.Int(0),
 				Skills:                []int64{0},
 				Volume: nextbillionsdk.ShipmentVolumeParam{
-					Alignment: "`strict`",
+					Alignment: "strict",
 					Depth:     nextbillionsdk.Float(0),
 					Height:    nextbillionsdk.Float(0),
 					Width:     nextbillionsdk.Float(0),

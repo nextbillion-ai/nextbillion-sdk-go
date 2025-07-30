@@ -28,7 +28,7 @@ func TestRouteReportNew(t *testing.T) {
 	)
 	_, err := client.RouteReport.New(context.TODO(), nextbillionsdk.RouteReportNewParams{
 		Key:               "key=API_KEY",
-		OriginalShape:     "original_shape=sbp}_Almgp`FnLuToKmKviB{eDlcGhpFvj@qbAwoA_mA",
+		OriginalShape:     "original_shape=sbp}_AlmgpFnLuToKmKviB{eDlcGhpFvj@qbAwoA_mA",
 		OriginalShapeType: nextbillionsdk.RouteReportNewParamsOriginalShapeTypePolyline,
 	})
 	if err != nil {

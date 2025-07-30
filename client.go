@@ -39,8 +39,8 @@ type Client struct {
 	RouteReport       RouteReportService
 	SnapToRoads       SnapToRoadService
 	Postalcode        PostalcodeService
-	Lookup            LookupService
 	Areas             AreaService
+	Lookup            LookupService
 }
 
 // DefaultClientOptions read from the environment (NEXTBILLION_SDK_API_KEY,
@@ -88,8 +88,8 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.RouteReport = NewRouteReportService(opts...)
 	r.SnapToRoads = NewSnapToRoadService(opts...)
 	r.Postalcode = NewPostalcodeService(opts...)
-	r.Lookup = NewLookupService(opts...)
 	r.Areas = NewAreaService(opts...)
+	r.Lookup = NewLookupService(opts...)
 
 	return
 }
