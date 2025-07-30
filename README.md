@@ -24,7 +24,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nextbillion-ai/nextbillion-sdk-go@v0.1.0-alpha.6'
+go get -u 'github.com/nextbillion-ai/nextbillion-sdk-go@v0.1.0-alpha.7'
 ```
 
 <!-- x-release-please-end -->
@@ -53,8 +53,8 @@ func main() {
 		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("NEXTBILLION_SDK_API_KEY")
 	)
 	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Origin:      "41.349302,2.136480",
+		Destination: "1.335368,103.785517",
+		Origin:      "1.312164,103.841062",
 	})
 	if err != nil {
 		panic(err.Error())
@@ -297,8 +297,8 @@ To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
 _, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-	Destination: "41.349302,2.136480",
-	Origin:      "41.349302,2.136480",
+	Destination: "1.335368,103.785517",
+	Origin:      "1.312164,103.841062",
 })
 if err != nil {
 	var apierr *nextbillionsdk.Error
@@ -327,8 +327,8 @@ defer cancel()
 client.Directions.ComputeRoute(
 	ctx,
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Origin:      "41.349302,2.136480",
+		Destination: "1.335368,103.785517",
+		Origin:      "1.312164,103.841062",
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -366,8 +366,8 @@ client := nextbillionsdk.NewClient(
 client.Directions.ComputeRoute(
 	context.TODO(),
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Origin:      "41.349302,2.136480",
+		Destination: "1.335368,103.785517",
+		Origin:      "1.312164,103.841062",
 	},
 	option.WithMaxRetries(5),
 )
@@ -384,8 +384,8 @@ var response *http.Response
 response, err := client.Directions.ComputeRoute(
 	context.TODO(),
 	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Origin:      "41.349302,2.136480",
+		Destination: "1.335368,103.785517",
+		Origin:      "1.312164,103.841062",
 	},
 	option.WithResponseInto(&response),
 )

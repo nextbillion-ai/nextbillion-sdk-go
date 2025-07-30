@@ -72,7 +72,7 @@ type LookupByIDResponseItem struct {
 	// Contact information like phone, email or website.
 	Contacts []Contacts `json:"contacts"`
 	// The bounding box enclosing the geometric shape (area or line) that an individual
-	// result covers. `place` typed results have no `mapView`.
+	// result covers. place typed results have no mapView.
 	MapView MapView `json:"mapView"`
 	// Returns the location coordinates of the result.
 	Position Position `json:"position"`
