@@ -682,7 +682,7 @@ type ShipmentVolumeParam struct {
 	//     and cannot be adjusted. As a result, if the cargo’s height exceeds the
 	//     vehicle’s available height, it cannot be loaded into the compartment.
 	//
-	// Any of "strict", "parallel", "fixed_bottom", `" "`.
+	// Any of "strict", "parallel", "fixed_bottom".
 	Alignment string `json:"alignment,omitzero"`
 	paramObj
 }
@@ -697,7 +697,7 @@ func (r *ShipmentVolumeParam) UnmarshalJSON(data []byte) error {
 
 func init() {
 	apijson.RegisterFieldValidator[ShipmentVolumeParam](
-		"alignment", "strict", "parallel", "fixed_bottom", `" "`,
+		"alignment", "strict", "parallel", "fixed_bottom",
 	)
 }
 
