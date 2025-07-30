@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.7 (2025-07-30)
+
+Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
+
+### Features
+
+* Fix for ruby ([75a394f](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/75a394f16a13640305214af9e05de00afc5d9a60))
+* re-order endpoints ([55d8616](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/55d861625befdc95054556099eaf68ab734709ff))
+
 ## 0.1.0-alpha.6 (2025-07-28)
 
 Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
