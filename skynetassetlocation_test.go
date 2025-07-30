@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,26 +22,26 @@ func TestSkynetAssetLocationListWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Asset.Location.List(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetAssetLocationListParams{
+		nextbillionai.SkynetAssetLocationListParams{
 			Key:          "key=API_KEY",
-			Cluster:      nextbillionsdk.SkynetAssetLocationListParamsClusterAmerica,
-			Correction:   nextbillionsdk.String("correction=mapmatch=1,interpolate=0,mode=car"),
-			EndTime:      nextbillionsdk.Int(0),
-			GeometryType: nextbillionsdk.SkynetAssetLocationListParamsGeometryTypePolyline,
-			Pn:           nextbillionsdk.Int(0),
-			Ps:           nextbillionsdk.Int(500),
-			StartTime:    nextbillionsdk.Int(0),
+			Cluster:      nextbillionai.SkynetAssetLocationListParamsClusterAmerica,
+			Correction:   nextbillionai.String("correction=mapmatch=1,interpolate=0,mode=car"),
+			EndTime:      nextbillionai.Int(0),
+			GeometryType: nextbillionai.SkynetAssetLocationListParamsGeometryTypePolyline,
+			Pn:           nextbillionai.Int(0),
+			Ps:           nextbillionai.Int(500),
+			StartTime:    nextbillionai.Int(0),
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -58,20 +58,20 @@ func TestSkynetAssetLocationGetLastWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Asset.Location.GetLast(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetAssetLocationGetLastParams{
+		nextbillionai.SkynetAssetLocationGetLastParams{
 			Key:     "key=API_KEY",
-			Cluster: nextbillionsdk.SkynetAssetLocationGetLastParamsClusterAmerica,
+			Cluster: nextbillionai.SkynetAssetLocationGetLastParamsClusterAmerica,
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

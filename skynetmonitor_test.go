@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,39 +22,39 @@ func TestSkynetMonitorNewWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Monitor.New(context.TODO(), nextbillionsdk.SkynetMonitorNewParams{
+	_, err := client.Skynet.Monitor.New(context.TODO(), nextbillionai.SkynetMonitorNewParams{
 		Key:         "key=API_KEY",
 		Tags:        []string{"string"},
-		Type:        nextbillionsdk.SkynetMonitorNewParamsTypeEnter,
-		Cluster:     nextbillionsdk.SkynetMonitorNewParamsClusterAmerica,
-		CustomID:    nextbillionsdk.String("custom_id"),
-		Description: nextbillionsdk.String("description"),
-		GeofenceConfig: nextbillionsdk.SkynetMonitorNewParamsGeofenceConfig{
+		Type:        nextbillionai.SkynetMonitorNewParamsTypeEnter,
+		Cluster:     nextbillionai.SkynetMonitorNewParamsClusterAmerica,
+		CustomID:    nextbillionai.String("custom_id"),
+		Description: nextbillionai.String("description"),
+		GeofenceConfig: nextbillionai.SkynetMonitorNewParamsGeofenceConfig{
 			GeofenceIDs: []string{"string"},
 		},
 		GeofenceIDs: []string{"string"},
-		IdleConfig: nextbillionsdk.SkynetMonitorNewParamsIdleConfig{
+		IdleConfig: nextbillionai.SkynetMonitorNewParamsIdleConfig{
 			DistanceTolerance: 0,
-			TimeTolerance:     nextbillionsdk.Int(0),
+			TimeTolerance:     nextbillionai.Int(0),
 		},
-		MatchFilter: nextbillionsdk.SkynetMonitorNewParamsMatchFilter{
+		MatchFilter: nextbillionai.SkynetMonitorNewParamsMatchFilter{
 			IncludeAllOfAttributes: "{\n  \"asset_type\": \"delivery\",\n  \"area\": \"Los Angeles downtown\"\n}",
 			IncludeAnyOfAttributes: "{\n  \"asset_type\": \"delivery\",\n  \"area\": \"Los Angeles downtown\"\n}",
 		},
 		MetaData: map[string]interface{}{},
-		Name:     nextbillionsdk.String("name"),
-		SpeedingConfig: nextbillionsdk.SkynetMonitorNewParamsSpeedingConfig{
-			CustomerSpeedLimit: nextbillionsdk.Int(0),
-			TimeTolerance:      nextbillionsdk.Int(0),
-			UseAdminSpeedLimit: nextbillionsdk.Bool(true),
+		Name:     nextbillionai.String("name"),
+		SpeedingConfig: nextbillionai.SkynetMonitorNewParamsSpeedingConfig{
+			CustomerSpeedLimit: nextbillionai.Int(0),
+			TimeTolerance:      nextbillionai.Int(0),
+			UseAdminSpeedLimit: nextbillionai.Bool(true),
 		},
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -71,19 +71,19 @@ func TestSkynetMonitorGet(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Monitor.Get(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetMonitorGetParams{
+		nextbillionai.SkynetMonitorGetParams{
 			Key: "key=API_KEY",
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -100,41 +100,41 @@ func TestSkynetMonitorUpdateWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Monitor.Update(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetMonitorUpdateParams{
+		nextbillionai.SkynetMonitorUpdateParams{
 			Key:         "key=API_KEY",
-			Description: nextbillionsdk.String("description"),
-			GeofenceConfig: nextbillionsdk.SkynetMonitorUpdateParamsGeofenceConfig{
+			Description: nextbillionai.String("description"),
+			GeofenceConfig: nextbillionai.SkynetMonitorUpdateParamsGeofenceConfig{
 				GeofenceIDs: []string{"string"},
 			},
 			GeofenceIDs: []string{"string"},
-			IdleConfig: nextbillionsdk.SkynetMonitorUpdateParamsIdleConfig{
+			IdleConfig: nextbillionai.SkynetMonitorUpdateParamsIdleConfig{
 				DistanceTolerance: 0,
-				TimeTolerance:     nextbillionsdk.Int(0),
+				TimeTolerance:     nextbillionai.Int(0),
 			},
-			MatchFilter: nextbillionsdk.SkynetMonitorUpdateParamsMatchFilter{
+			MatchFilter: nextbillionai.SkynetMonitorUpdateParamsMatchFilter{
 				IncludeAllOfAttributes: "{\n  \"asset_type\": \"delivery\",\n  \"area\": \"Los Angeles downtown\"\n}",
 				IncludeAnyOfAttributes: "{\n  \"asset_type\": \"delivery\",\n  \"area\": \"Los Angeles downtown\"\n}",
 			},
 			MetaData: map[string]interface{}{},
-			Name:     nextbillionsdk.String(`"name":"warehouse_exit"`),
-			SpeedingConfig: nextbillionsdk.SkynetMonitorUpdateParamsSpeedingConfig{
-				CustomerSpeedLimit: nextbillionsdk.String(`"customer_speed_limit":8`),
-				TimeTolerance:      nextbillionsdk.Int(0),
-				UseAdminSpeedLimit: nextbillionsdk.Bool(true),
+			Name:     nextbillionai.String(`"name":"warehouse_exit"`),
+			SpeedingConfig: nextbillionai.SkynetMonitorUpdateParamsSpeedingConfig{
+				CustomerSpeedLimit: nextbillionai.String(`"customer_speed_limit":8`),
+				TimeTolerance:      nextbillionai.Int(0),
+				UseAdminSpeedLimit: nextbillionai.Bool(true),
 			},
 			Tags: []string{"string"},
-			Type: nextbillionsdk.SkynetMonitorUpdateParamsTypeEnter,
+			Type: nextbillionai.SkynetMonitorUpdateParamsTypeEnter,
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -151,20 +151,20 @@ func TestSkynetMonitorListWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Monitor.List(context.TODO(), nextbillionsdk.SkynetMonitorListParams{
+	_, err := client.Skynet.Monitor.List(context.TODO(), nextbillionai.SkynetMonitorListParams{
 		Key:     "key=API_KEY",
-		Cluster: nextbillionsdk.SkynetMonitorListParamsClusterAmerica,
-		Pn:      nextbillionsdk.Int(0),
-		Ps:      nextbillionsdk.Int(100),
-		Sort:    nextbillionsdk.String("updated_at:desc"),
-		Tags:    nextbillionsdk.String("tags=tag_1,tag_2"),
+		Cluster: nextbillionai.SkynetMonitorListParamsClusterAmerica,
+		Pn:      nextbillionai.Int(0),
+		Ps:      nextbillionai.Int(100),
+		Sort:    nextbillionai.String("updated_at:desc"),
+		Tags:    nextbillionai.String("tags=tag_1,tag_2"),
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -181,19 +181,19 @@ func TestSkynetMonitorDelete(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Monitor.Delete(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetMonitorDeleteParams{
+		nextbillionai.SkynetMonitorDeleteParams{
 			Key: "key=API_KEY",
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

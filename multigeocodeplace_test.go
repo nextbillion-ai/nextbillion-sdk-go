@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,41 +22,41 @@ func TestMultigeocodePlaceNewWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Multigeocode.Place.New(context.TODO(), nextbillionsdk.MultigeocodePlaceNewParams{
+	_, err := client.Multigeocode.Place.New(context.TODO(), nextbillionai.MultigeocodePlaceNewParams{
 		Key: "key=API_KEY",
-		Place: []nextbillionsdk.MultigeocodePlaceNewParamsPlace{{
-			Geopoint: nextbillionsdk.MultigeocodePlaceNewParamsPlaceGeopoint{
-				Lat: nextbillionsdk.Float(0),
-				Lng: nextbillionsdk.Float(0),
+		Place: []nextbillionai.MultigeocodePlaceNewParamsPlace{{
+			Geopoint: nextbillionai.MultigeocodePlaceNewParamsPlaceGeopoint{
+				Lat: nextbillionai.Float(0),
+				Lng: nextbillionai.Float(0),
 			},
-			Address:  nextbillionsdk.String("address"),
-			Building: nextbillionsdk.String("building"),
-			City:     nextbillionsdk.String("city"),
-			Country:  nextbillionsdk.String(`"country":"IND"`),
-			District: nextbillionsdk.String("district"),
-			House:    nextbillionsdk.String("house"),
-			Poi: nextbillionsdk.MultigeocodePlaceNewParamsPlacePoi{
-				Title: nextbillionsdk.String("title"),
+			Address:  nextbillionai.String("address"),
+			Building: nextbillionai.String("building"),
+			City:     nextbillionai.String("city"),
+			Country:  nextbillionai.String(`"country":"IND"`),
+			District: nextbillionai.String("district"),
+			House:    nextbillionai.String("house"),
+			Poi: nextbillionai.MultigeocodePlaceNewParamsPlacePoi{
+				Title: nextbillionai.String("title"),
 			},
-			PostalCode:  nextbillionsdk.String("postalCode"),
-			State:       nextbillionsdk.String("state"),
-			Street:      nextbillionsdk.String("street"),
-			SubDistrict: nextbillionsdk.String("subDistrict"),
+			PostalCode:  nextbillionai.String("postalCode"),
+			State:       nextbillionai.String("state"),
+			Street:      nextbillionai.String("street"),
+			SubDistrict: nextbillionai.String("subDistrict"),
 		}},
-		DataSource: nextbillionsdk.MultigeocodePlaceNewParamsDataSource{
-			RefID:  nextbillionsdk.String("refId"),
-			Source: nextbillionsdk.String("source"),
+		DataSource: nextbillionai.MultigeocodePlaceNewParamsDataSource{
+			RefID:  nextbillionai.String("refId"),
+			Source: nextbillionai.String("source"),
 			Status: "enable",
 		},
-		Force: nextbillionsdk.Bool(true),
-		Score: nextbillionsdk.Int(0),
+		Force: nextbillionai.Bool(true),
+		Score: nextbillionai.Int(0),
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -73,19 +73,19 @@ func TestMultigeocodePlaceGet(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Multigeocode.Place.Get(
 		context.TODO(),
 		"docId",
-		nextbillionsdk.MultigeocodePlaceGetParams{
+		nextbillionai.MultigeocodePlaceGetParams{
 			Key: "key=API_KEY",
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -102,44 +102,44 @@ func TestMultigeocodePlaceUpdateWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Multigeocode.Place.Update(
 		context.TODO(),
 		"docId",
-		nextbillionsdk.MultigeocodePlaceUpdateParams{
+		nextbillionai.MultigeocodePlaceUpdateParams{
 			Key: "key=API_KEY",
-			DataSource: nextbillionsdk.MultigeocodePlaceUpdateParamsDataSource{
-				RefID:  nextbillionsdk.String("refId"),
-				Source: nextbillionsdk.String("source"),
+			DataSource: nextbillionai.MultigeocodePlaceUpdateParamsDataSource{
+				RefID:  nextbillionai.String("refId"),
+				Source: nextbillionai.String("source"),
 				Status: "enable",
 			},
-			Place: []nextbillionsdk.PlaceItemParam{{
-				Address:  nextbillionsdk.String("address"),
-				Building: nextbillionsdk.String("building"),
-				City:     nextbillionsdk.String("city"),
-				Country:  nextbillionsdk.String("country"),
-				District: nextbillionsdk.String("district"),
-				Geopoint: nextbillionsdk.PlaceItemGeopointParam{
-					Lat: nextbillionsdk.Float(0),
-					Lng: nextbillionsdk.Float(0),
+			Place: []nextbillionai.PlaceItemParam{{
+				Address:  nextbillionai.String("address"),
+				Building: nextbillionai.String("building"),
+				City:     nextbillionai.String("city"),
+				Country:  nextbillionai.String("country"),
+				District: nextbillionai.String("district"),
+				Geopoint: nextbillionai.PlaceItemGeopointParam{
+					Lat: nextbillionai.Float(0),
+					Lng: nextbillionai.Float(0),
 				},
-				House: nextbillionsdk.String("house"),
-				Poi: nextbillionsdk.PlaceItemPoiParam{
-					Title: nextbillionsdk.String("title"),
+				House: nextbillionai.String("house"),
+				Poi: nextbillionai.PlaceItemPoiParam{
+					Title: nextbillionai.String("title"),
 				},
-				PostalCode:  nextbillionsdk.String("postalCode"),
-				State:       nextbillionsdk.String("state"),
-				Street:      nextbillionsdk.String("street"),
-				SubDistrict: nextbillionsdk.String("subDistrict"),
+				PostalCode:  nextbillionai.String("postalCode"),
+				State:       nextbillionai.String("state"),
+				Street:      nextbillionai.String("street"),
+				SubDistrict: nextbillionai.String("subDistrict"),
 			}},
-			Score: nextbillionsdk.Int(0),
+			Score: nextbillionai.Int(0),
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -156,19 +156,19 @@ func TestMultigeocodePlaceDelete(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Multigeocode.Place.Delete(
 		context.TODO(),
 		"docId",
-		nextbillionsdk.MultigeocodePlaceDeleteParams{
+		nextbillionai.MultigeocodePlaceDeleteParams{
 			Key: "key=API_KEY",
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
