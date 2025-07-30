@@ -57,7 +57,7 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 		Locations: nextbillionsdk.OptimizationV2SubmitParamsLocations{
 			Location:   []string{"string"},
 			ID:         nextbillionsdk.Int(0),
-			Approaches: []string{"`unrestricted`"},
+			Approaches: []string{"unrestricted"},
 		},
 		Vehicles: []nextbillionsdk.VehicleParam{{
 			ID: "id",
@@ -106,7 +106,7 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 			Skills:                []int64{1},
 			TimeWindows:           [][]int64{{0}},
 			Volume: nextbillionsdk.JobVolumeParam{
-				Alignment: "`strict`",
+				Alignment: "strict",
 				Depth:     nextbillionsdk.Float(0),
 				Height:    nextbillionsdk.Float(0),
 				Width:     nextbillionsdk.Float(0),
@@ -127,28 +127,28 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 				RouteGrouping: nextbillionsdk.OptimizationV2SubmitParamsOptionsGroupingRouteGrouping{
 					PenaltyFactor: nextbillionsdk.Float(0),
 					ZoneDiameter:  nextbillionsdk.Float(0),
-					ZoneSource:    "`system_generated`",
+					ZoneSource:    "system_generated",
 				},
 			},
 			Objective: nextbillionsdk.OptimizationV2SubmitParamsOptionsObjective{
 				AllowEarlyArrival: nextbillionsdk.Bool(true),
 				Custom: nextbillionsdk.OptimizationV2SubmitParamsOptionsObjectiveCustom{
-					Type:  "`min`",
-					Value: "`vehicles`",
+					Type:  "min",
+					Value: "vehicles",
 				},
 				MinimiseNumDepots: nextbillionsdk.Bool(true),
-				SolverMode:        "`flexible`",
+				SolverMode:        "flexible",
 				SolvingTimeLimit:  nextbillionsdk.Int(0),
-				TravelCost:        "`duration`",
+				TravelCost:        "duration",
 			},
 			Routing: nextbillionsdk.OptimizationV2SubmitParamsOptionsRouting{
 				Allow:            []string{"taxi"},
-				Avoid:            []string{"`toll`"},
-				Context:          "`avgspeed`",
+				Avoid:            []string{"toll"},
+				Context:          "avgspeed",
 				CrossBorder:      nextbillionsdk.Bool(true),
 				DisableCache:     nextbillionsdk.Bool(true),
-				HazmatType:       []string{"`general`"},
-				Mode:             "`car`",
+				HazmatType:       []string{"general"},
+				Mode:             "car",
 				Profiles:         "\"profiles\":{\n    \"mini-van\":{\n        \"mode\": \"car\",\n        \"avoid\":[\"highway, toll\"]\n        },\n    \"trailer\":{\n        \"mode\": \"truck\",\n        \"truck_weight\":12000,\n        \"truck_size\":\"200, 210, 600\",\n        \"hazmat_type\": [\"general\", \"harmful_to_water\"]\n        }\n    }\n",
 				TrafficTimestamp: nextbillionsdk.Int(0),
 				TruckAxleLoad:    nextbillionsdk.Float(0),
@@ -158,10 +158,10 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 		},
 		Relations: []nextbillionsdk.OptimizationV2SubmitParamsRelation{{
 			Steps: []nextbillionsdk.OptimizationV2SubmitParamsRelationStep{{
-				Type: "`start`",
+				Type: "start",
 				ID:   nextbillionsdk.String(`"id":"Job 1"`),
 			}},
-			Type:        "`in_same_route`",
+			Type:        "in_same_route",
 			ID:          nextbillionsdk.Int(0),
 			MaxDuration: nextbillionsdk.Int(0),
 			MinDuration: nextbillionsdk.Int(0),
@@ -201,7 +201,7 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 			Revenue:               nextbillionsdk.Int(0),
 			Skills:                []int64{0},
 			Volume: nextbillionsdk.ShipmentVolumeParam{
-				Alignment: "`strict`",
+				Alignment: "strict",
 				Depth:     nextbillionsdk.Float(0),
 				Height:    nextbillionsdk.Float(0),
 				Width:     nextbillionsdk.Float(0),
@@ -213,7 +213,7 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 			Steps: []nextbillionsdk.OptimizationV2SubmitParamsSolutionStep{{
 				ID:            `"id": "Job 10"`,
 				Arrival:       0,
-				Type:          "`start`",
+				Type:          "start",
 				Description:   nextbillionsdk.String("description"),
 				Distance:      nextbillionsdk.Int(0),
 				Duration:      nextbillionsdk.Int(0),
@@ -246,7 +246,7 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 			Geometry: nextbillionsdk.OptimizationV2SubmitParamsZoneGeometry{
 				Coordinates: [][]float64{{0}},
 				Description: nextbillionsdk.String("description"),
-				Type:        "`Polygon`",
+				Type:        "Polygon",
 			},
 		}},
 	})

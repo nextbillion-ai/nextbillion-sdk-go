@@ -321,7 +321,7 @@ type MultigeocodePlaceGetResponse struct {
 	// It returns the system calculated weighted score of the place. It depends on how
 	// ‘richly’ the place was defined at the time of creation. In order to modify the
 	// score, use “Update Place” method and update information for parameters which are
-	// not set currently. As an alternative, you can directly update the `score` to a
+	// not set currently. As an alternative, you can directly update the score to a
 	// custom value.
 	Score int64 `json:"score"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -423,8 +423,8 @@ type MultigeocodePlaceNewParams struct {
 	// When 2 places are located within 100 meters of each other and have more than 90%
 	// of matching attributes (at least 11 out of 12 attributes in the “place” object),
 	// they will be considered duplicates and any requests to add such a new place
-	// would be rejected. Set `force=true` to override this duplicate check. You can
-	// use this to create closely located POIs. For instance, places inside a mall,
+	// would be rejected. Set force=true to override this duplicate check. You can use
+	// this to create closely located POIs. For instance, places inside a mall,
 	// university or a government building etc.
 	Force param.Opt[bool] `json:"force,omitzero"`
 	// Search score of the place. This is calculated based on how ‘richly’ the place is
@@ -635,7 +635,7 @@ type MultigeocodePlaceUpdateParamsDataSource struct {
 	//  2. Update the place in an existing dataset by setting the name to the current
 	//     value.
 	Source param.Opt[string] `json:"source,omitzero"`
-	// Set this to either `enable` or `disable` to allow the place to be retrieved by a
+	// Set this to either enable or disable to allow the place to be retrieved by a
 	// search API or block it respectively.
 	//
 	// Any of "enable", "disable".

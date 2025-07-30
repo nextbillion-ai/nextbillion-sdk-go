@@ -49,7 +49,7 @@ type DirectionComputeRouteResponse struct {
 	// objects if more than one routes are present in the response.
 	Route DirectionComputeRouteResponseRoute `json:"route"`
 	// A string indicating the state of the response. On normal responses, the value
-	// will be `Ok`. Indicative HTTP error codes are returned for different errors. See
+	// will be Ok. Indicative HTTP error codes are returned for different errors. See
 	// the [API Errors Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -76,22 +76,22 @@ type DirectionComputeRouteResponseRoute struct {
 	// The duration, in seconds, of the complete trip.
 	Duration float64 `json:"duration"`
 	// Location coordinates of the point where the route ends. It is the same as the
-	// `destination` in the input request. Returned only when `steps` is true in the
-	// input request.
+	// destination in the input request. Returned only when steps is true in the input
+	// request.
 	EndLocation DirectionComputeRouteResponseRouteEndLocation `json:"end_location"`
 	// An object with geoJSON details of the route. This object is returned when the
-	// `geometry` field is set to `geojson` in the input request, otherwise it is not
+	// geometry field is set to geojson in the input request, otherwise it is not
 	// present in the response. The contents of this object follow the
 	// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 	Geojson DirectionComputeRouteResponseRouteGeojson `json:"geojson"`
 	// Encoded geometry of the returned route in the selected format and specified
-	// `overview` verbosity. This parameter is configured in the input request.
+	// overview verbosity. This parameter is configured in the input request.
 	Geometry string `json:"geometry"`
-	// An array of objects returning the details about each `leg` of the route.
-	// `waypoints` split the route into legs.
+	// An array of objects returning the details about each leg of the route. waypoints
+	// split the route into legs.
 	Legs []DirectionComputeRouteResponseRouteLeg `json:"legs"`
 	// Location coordinates of the point where the route starts. It is the same as the
-	// `origin` in the input request. Returned only when `steps` is true in the input
+	// origin in the input request. Returned only when steps is true in the input
 	// request.
 	StartLocation DirectionComputeRouteResponseRouteStartLocation `json:"start_location"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -115,12 +115,12 @@ func (r *DirectionComputeRouteResponseRoute) UnmarshalJSON(data []byte) error {
 }
 
 // Location coordinates of the point where the route ends. It is the same as the
-// `destination` in the input request. Returned only when `steps` is true in the
-// input request.
+// destination in the input request. Returned only when steps is true in the input
+// request.
 type DirectionComputeRouteResponseRouteEndLocation struct {
-	// latitude of the `start_location`.
+	// latitude of the start_location.
 	Latitude float64 `json:"latitude"`
-	// longitude of the `start_location`.
+	// longitude of the start_location.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -138,7 +138,7 @@ func (r *DirectionComputeRouteResponseRouteEndLocation) UnmarshalJSON(data []byt
 }
 
 // An object with geoJSON details of the route. This object is returned when the
-// `geometry` field is set to `geojson` in the input request, otherwise it is not
+// geometry field is set to geojson in the input request, otherwise it is not
 // present in the response. The contents of this object follow the
 // [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 type DirectionComputeRouteResponseRouteGeojson struct {
@@ -191,15 +191,15 @@ type DirectionComputeRouteResponseRouteLeg struct {
 	Distance DirectionComputeRouteResponseRouteLegDistance `json:"distance"`
 	// An object containing leg duration value, in seconds.
 	Duration DirectionComputeRouteResponseRouteLegDuration `json:"duration"`
-	// Location coordinates of the point where the leg ends. Returned only when `steps`
+	// Location coordinates of the point where the leg ends. Returned only when steps
 	// is true in the input request.
 	EndLocation DirectionComputeRouteResponseRouteLegEndLocation `json:"end_location"`
-	// Location coordinates of the point where the leg starts. Returned only when
-	// `steps` is true in the input request.
+	// Location coordinates of the point where the leg starts. Returned only when steps
+	// is true in the input request.
 	StartLocation DirectionComputeRouteResponseRouteLegStartLocation `json:"start_location"`
-	// An array of objects with details of each step of the `legs`. Returned only when
-	// `steps` is `true` in the input request. An empty array is returned when `steps`
-	// is `false` in the input request.
+	// An array of objects with details of each step of the legs. Returned only when
+	// steps is true in the input request. An empty array is returned when steps is
+	// false in the input request.
 	Steps []DirectionComputeRouteResponseRouteLegStep `json:"steps"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -253,12 +253,12 @@ func (r *DirectionComputeRouteResponseRouteLegDuration) UnmarshalJSON(data []byt
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Location coordinates of the point where the leg ends. Returned only when `steps`
+// Location coordinates of the point where the leg ends. Returned only when steps
 // is true in the input request.
 type DirectionComputeRouteResponseRouteLegEndLocation struct {
-	// Latitude of the `end_location` of the `leg`.
+	// Latitude of the end_location of the leg.
 	Latitude float64 `json:"latitude"`
-	// Longitude of the `end_location` of the `leg`.
+	// Longitude of the end_location of the leg.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -275,12 +275,12 @@ func (r *DirectionComputeRouteResponseRouteLegEndLocation) UnmarshalJSON(data []
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Location coordinates of the point where the leg starts. Returned only when
-// `steps` is true in the input request.
+// Location coordinates of the point where the leg starts. Returned only when steps
+// is true in the input request.
 type DirectionComputeRouteResponseRouteLegStartLocation struct {
-	// Latitude of the `start_location` of the `leg`.
+	// Latitude of the start_location of the leg.
 	Latitude float64 `json:"latitude"`
-	// Longitude of the `start_location` of the `leg`.
+	// Longitude of the start_location of the leg.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -302,18 +302,18 @@ type DirectionComputeRouteResponseRouteLegStep struct {
 	Distance DirectionComputeRouteResponseRouteLegStepDistance `json:"distance"`
 	// An object containing step duration value, in seconds.
 	Duration DirectionComputeRouteResponseRouteLegStepDuration `json:"duration"`
-	// Location coordinates of the point where the `step` ends.
+	// Location coordinates of the point where the step ends.
 	EndLocation DirectionComputeRouteResponseRouteLegStepEndLocation `json:"end_location"`
-	// An object with geoJSON details of the `step`.This object is returned when the
-	// `geometry` field is set to `geojson` in the input request, otherwise it is not
+	// An object with geoJSON details of the step.This object is returned when the
+	// geometry field is set to geojson in the input request, otherwise it is not
 	// present in the response. The contents of this object follow the
 	// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 	Geojson DirectionComputeRouteResponseRouteLegStepGeojson `json:"geojson"`
-	// Encoded geometry of the `step` in the selected format.
+	// Encoded geometry of the step in the selected format.
 	Geometry string `json:"geometry"`
-	// An object with maneuver details for the `step`.
+	// An object with maneuver details for the step.
 	Maneuver DirectionComputeRouteResponseRouteLegStepManeuver `json:"maneuver"`
-	// Location coordinates of the point where the `step` starts.
+	// Location coordinates of the point where the step starts.
 	StartLocation DirectionComputeRouteResponseRouteLegStepStartLocation `json:"start_location"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -369,11 +369,11 @@ func (r *DirectionComputeRouteResponseRouteLegStepDuration) UnmarshalJSON(data [
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Location coordinates of the point where the `step` ends.
+// Location coordinates of the point where the step ends.
 type DirectionComputeRouteResponseRouteLegStepEndLocation struct {
-	// Latitude of the `end_location` of the `step`.
+	// Latitude of the end_location of the step.
 	Latitude float64 `json:"latitude"`
-	// Longitude of the `end_location` of the `step`.
+	// Longitude of the end_location of the step.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -390,12 +390,12 @@ func (r *DirectionComputeRouteResponseRouteLegStepEndLocation) UnmarshalJSON(dat
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An object with geoJSON details of the `step`.This object is returned when the
-// `geometry` field is set to `geojson` in the input request, otherwise it is not
+// An object with geoJSON details of the step.This object is returned when the
+// geometry field is set to geojson in the input request, otherwise it is not
 // present in the response. The contents of this object follow the
 // [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 type DirectionComputeRouteResponseRouteLegStepGeojson struct {
-	// An object with details of the geoJSON geometry of the `step`.
+	// An object with details of the geoJSON geometry of the step.
 	Geometry DirectionComputeRouteResponseRouteLegStepGeojsonGeometry `json:"geometry"`
 	// Property associated with the geoJSON shape.
 	Properties string `json:"properties"`
@@ -417,10 +417,10 @@ func (r *DirectionComputeRouteResponseRouteLegStepGeojson) UnmarshalJSON(data []
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An object with details of the geoJSON geometry of the `step`.
+// An object with details of the geoJSON geometry of the step.
 type DirectionComputeRouteResponseRouteLegStepGeojsonGeometry struct {
 	// An array of coordinates in the [longitude, latitude] format, representing the
-	// `step` geometry.
+	// step geometry.
 	Coordinates []float64 `json:"coordinates"`
 	// Type of the geoJSON geometry.
 	Type string `json:"type"`
@@ -439,19 +439,19 @@ func (r *DirectionComputeRouteResponseRouteLegStepGeojsonGeometry) UnmarshalJSON
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An object with maneuver details for the `step`.
+// An object with maneuver details for the step.
 type DirectionComputeRouteResponseRouteLegStepManeuver struct {
 	// The clockwise angle from true north to the direction of travel immediately after
-	// the `maneuver`. Range of values is between 0-359.
+	// the maneuver. Range of values is between 0-359.
 	BearingAfter int64 `json:"bearing_after"`
 	// The clockwise angle from true north to the direction of travel immediately
-	// before the `maneuver`. Range of values is between 0-359.
+	// before the maneuver. Range of values is between 0-359.
 	BearingBefore int64 `json:"bearing_before"`
-	// A coordinate pair describing the location of the `maneuver`.
+	// A coordinate pair describing the location of the maneuver.
 	Coordinate DirectionComputeRouteResponseRouteLegStepManeuverCoordinate `json:"coordinate"`
-	// A string indicating the type of `maneuver`.
+	// A string indicating the type of maneuver.
 	ManeuverType string `json:"maneuver_type"`
-	// Modifier associated with `maneuver_type`.
+	// Modifier associated with maneuver_type.
 	Modifier string `json:"modifier"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -471,11 +471,11 @@ func (r *DirectionComputeRouteResponseRouteLegStepManeuver) UnmarshalJSON(data [
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// A coordinate pair describing the location of the `maneuver`.
+// A coordinate pair describing the location of the maneuver.
 type DirectionComputeRouteResponseRouteLegStepManeuverCoordinate struct {
-	// Latitude of the `maneuver` location.
+	// Latitude of the maneuver location.
 	Latitude float64 `json:"latitude"`
-	// Longitude of the `maneuver` location.
+	// Longitude of the maneuver location.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -494,11 +494,11 @@ func (r *DirectionComputeRouteResponseRouteLegStepManeuverCoordinate) UnmarshalJ
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Location coordinates of the point where the `step` starts.
+// Location coordinates of the point where the step starts.
 type DirectionComputeRouteResponseRouteLegStepStartLocation struct {
-	// Latitude of the `start_location` of the `step`.
+	// Latitude of the start_location of the step.
 	Latitude float64 `json:"latitude"`
-	// Longitude of the `start_location` of the `step`.
+	// Longitude of the start_location of the step.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -516,12 +516,12 @@ func (r *DirectionComputeRouteResponseRouteLegStepStartLocation) UnmarshalJSON(d
 }
 
 // Location coordinates of the point where the route starts. It is the same as the
-// `origin` in the input request. Returned only when `steps` is true in the input
+// origin in the input request. Returned only when steps is true in the input
 // request.
 type DirectionComputeRouteResponseRouteStartLocation struct {
-	// Latitude of the `start_location`.
+	// Latitude of the start_location.
 	Latitude float64 `json:"latitude"`
-	// Longitude of the `start_location`.
+	// Longitude of the start_location.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -733,9 +733,9 @@ type DirectionComputeRouteParams struct {
 	//
 	// This parameter serves as a mandatory filter, ensuring the service returns only
 	// those routes that strictly avoid the object(s) indicated. Multiple values should
-	// be separated by a pipe `|`). If no routes can be found that exclude the
-	// specified object(s), the service will return an error. For a less strict
-	// filtering approach, consider using the avoid parameter.
+	// be separated by a pipe |). If no routes can be found that exclude the specified
+	// object(s), the service will return an error. For a less strict filtering
+	// approach, consider using the avoid parameter.
 	//
 	// \- This parameter is effective only when route_type=fastest.
 	// \- When using exclude=sharp_turn, default range of permissible turn angles is
@@ -918,9 +918,9 @@ const (
 //
 // This parameter serves as a mandatory filter, ensuring the service returns only
 // those routes that strictly avoid the object(s) indicated. Multiple values should
-// be separated by a pipe `|`). If no routes can be found that exclude the
-// specified object(s), the service will return an error. For a less strict
-// filtering approach, consider using the avoid parameter.
+// be separated by a pipe |). If no routes can be found that exclude the specified
+// object(s), the service will return an error. For a less strict filtering
+// approach, consider using the avoid parameter.
 //
 // \- This parameter is effective only when route_type=fastest.
 // \- When using exclude=sharp_turn, default range of permissible turn angles is

@@ -32,7 +32,7 @@ func TestSkynetAssetLocationListWithOptionalParams(t *testing.T) {
 		nextbillionsdk.SkynetAssetLocationListParams{
 			Key:          "key=API_KEY",
 			Cluster:      nextbillionsdk.SkynetAssetLocationListParamsClusterAmerica,
-			Correction:   nextbillionsdk.String("correction=mapmatch=1,interpolate=0,mode=`car`"),
+			Correction:   nextbillionsdk.String("correction=mapmatch=1,interpolate=0,mode=car"),
 			EndTime:      nextbillionsdk.Int(0),
 			GeometryType: nextbillionsdk.SkynetAssetLocationListParamsGeometryTypePolyline,
 			Pn:           nextbillionsdk.Int(0),

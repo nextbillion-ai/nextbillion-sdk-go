@@ -44,7 +44,7 @@ func TestGeofenceBatchNewWithOptionalParams(t *testing.T) {
 				ContoursMinute: nextbillionsdk.Int(0),
 				Denoise:        nextbillionsdk.Float(0),
 				DepartureTime:  nextbillionsdk.Int(0),
-				Mode:           "`car`",
+				Mode:           "car",
 			},
 			MetaData: "{\n  \"country\": \"USA\",\n  \"state\": \"California\"\n}",
 			Name:     nextbillionsdk.String(`"name":"Los Angeles Downtown"`),

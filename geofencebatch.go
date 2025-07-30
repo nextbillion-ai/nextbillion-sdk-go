@@ -62,7 +62,7 @@ type GeofenceBatchNewResponse struct {
 	// A data object containing the IDs of the geofences created.
 	Data GeofenceBatchNewResponseData `json:"data"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -100,7 +100,7 @@ func (r *GeofenceBatchNewResponseData) UnmarshalJSON(data []byte) error {
 type GeofenceBatchListResponse struct {
 	Data GeofenceBatchListResponseData `json:"data,required"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -163,7 +163,7 @@ func (r GeofenceBatchNewParams) URLQuery() (v url.Values, err error) {
 }
 
 type GeofenceBatchListParams struct {
-	// Comma(`,`) separated list of IDs of the geofences to be searched.
+	// Comma(,) separated list of IDs of the geofences to be searched.
 	IDs string `query:"ids,required" format:"ID_1,ID_2,ID_3,...." json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.

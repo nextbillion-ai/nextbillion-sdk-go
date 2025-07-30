@@ -68,16 +68,15 @@ type TrackLocation struct {
 	// radius, in meters, at the 68th percentile confidence level.
 	Accuracy float64 `json:"accuracy"`
 	// If available in the GPS information, this property returns the altitude of the
-	// `asset` at the tracked location. It is represented as height, in meters, above
-	// the WGS84 reference ellipsoid.
+	// asset at the tracked location. It is represented as height, in meters, above the
+	// WGS84 reference ellipsoid.
 	Altitude float64 `json:"altitude"`
 	// Returns the battery level of the GPS device, as a percentage, when the location
 	// was tracked. It has a minimum value of 0 and a maximum value of 100.
 	BatteryLevel int64 `json:"battery_level"`
 	// If available in the GPS information, this property returns the heading of the
-	// `asset` calculated from true north in clockwise direction at the tracked
-	// location. Please note that the bearing is not affected by the device
-	// orientation.
+	// asset calculated from true north in clockwise direction at the tracked location.
+	// Please note that the bearing is not affected by the device orientation.
 	//
 	// The bearing will always be in the range of [0, 360).
 	Bearing float64 `json:"bearing"`
@@ -87,7 +86,7 @@ type TrackLocation struct {
 	// was uploaded.
 	MetaData any `json:"meta_data"`
 	// If available in the GPS information, this property returns the speed of the
-	// `asset`, in meters per second, at the tracked location.
+	// asset, in meters per second, at the tracked location.
 	Speed float64 `json:"speed"`
 	// A UNIX epoch timestamp in milliseconds, representing the time at which the
 	// location was tracked.
@@ -118,9 +117,9 @@ func (r *TrackLocation) UnmarshalJSON(data []byte) error {
 
 // An object with the coordinates of the last tracked location.
 type TrackLocationLocation struct {
-	// Latitude of the tracked location of the `asset`.
+	// Latitude of the tracked location of the asset.
 	Lat float64 `json:"lat"`
-	// Longitude of the tracked location of the `asset`.
+	// Longitude of the tracked location of the asset.
 	Lon float64 `json:"lon"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -143,7 +142,7 @@ type SkynetAssetLocationListResponse struct {
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -166,29 +165,29 @@ type SkynetAssetLocationListResponseData struct {
 	// Distance of the path, in meters, formed by connecting all tracked locations
 	// returned.
 	//
-	// Please note that `distance` is returned only when the `mapmatch` property of
-	// `correction` parameter is set to 1.
+	// Please note that distance is returned only when the mapmatch property of
+	// correction parameter is set to 1.
 	Distance float64 `json:"distance"`
 	// An object with geoJSON details of the route. It is returned only when the
-	// `mapmatch` property of the `correction` parameter is set to 1 and
-	// `geometry_type` is `geojson, otherwise it is not present in the response. The
-	// contents of this object follow the
+	// mapmatch property of the correction parameter is set to 1 and geometry_type is
+	// geojson, otherwise it is not present in the response. The contents of this
+	// object follow the
 	// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 	Geojson SkynetAssetLocationListResponseDataGeojson `json:"geojson"`
 	// Geometry of tracked locations in the requested format. It is returned only if
-	// the `mapmatch` property of the ‘correction’ parameter is set to 1.
+	// the mapmatch property of the ‘correction’ parameter is set to 1.
 	Geometry []string `json:"geometry"`
-	// An array of objects with details of the tracked locations of the `asset`. Each
+	// An array of objects with details of the tracked locations of the asset. Each
 	// object represents one tracked location.
 	List []TrackLocation `json:"list"`
 	// An object with pagination details of the search results. Use this object to
 	// implement pagination in your application.
 	Page Pagination `json:"page"`
 	// An array of objects with details about the snapped points for each of the
-	// tracked locations returned for the `asset`.
+	// tracked locations returned for the asset.
 	//
-	// Please note that this property is returned only when the `mapmatch` property of
-	// `correction` parameter is set to 1.
+	// Please note that this property is returned only when the mapmatch property of
+	// correction parameter is set to 1.
 	SnappedPoints []SkynetAssetLocationListResponseDataSnappedPoint `json:"snapped_points"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -210,9 +209,9 @@ func (r *SkynetAssetLocationListResponseData) UnmarshalJSON(data []byte) error {
 }
 
 // An object with geoJSON details of the route. It is returned only when the
-// `mapmatch` property of the `correction` parameter is set to 1 and
-// `geometry_type` is `geojson, otherwise it is not present in the response. The
-// contents of this object follow the
+// mapmatch property of the correction parameter is set to 1 and geometry_type is
+// geojson, otherwise it is not present in the response. The contents of this
+// object follow the
 // [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 type SkynetAssetLocationListResponseDataGeojson struct {
 	// An object with details of the geoJSON geometry of the route.
@@ -309,13 +308,13 @@ func (r *SkynetAssetLocationListResponseDataSnappedPointLocation) UnmarshalJSON(
 
 type SkynetAssetLocationGetLastResponse struct {
 	// An object containing the information about the last tracked location of the
-	// requested `asset`.
+	// requested asset.
 	Data SkynetAssetLocationGetLastResponseData `json:"data"`
 	// Displays the error message in case of a failed request. If the request is
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -335,7 +334,7 @@ func (r *SkynetAssetLocationGetLastResponse) UnmarshalJSON(data []byte) error {
 }
 
 // An object containing the information about the last tracked location of the
-// requested `asset`.
+// requested asset.
 type SkynetAssetLocationGetLastResponseData struct {
 	// An object with details of the tracked location. Please note that if there are no
 	// tracking records for an asset, no location data will be returned.
@@ -358,42 +357,41 @@ type SkynetAssetLocationListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Describe the geometry characteristics through a `,` separated list of
-	// properties.
+	// Describe the geometry characteristics through a , separated list of properties.
 	//
-	// Setting `mapmatch` to 1 returns the geometry of the tracked points, snapped to
-	// the nearest road.
+	// Setting mapmatch to 1 returns the geometry of the tracked points, snapped to the
+	// nearest road.
 	//
-	// Setting `interpolate` to 1 smoothens the snapped geometry by adding more points,
-	// as needed. Please note, `mapmatch` should be set to 1 for `interpolate` to be
+	// Setting interpolate to 1 smoothens the snapped geometry by adding more points,
+	// as needed. Please note, mapmatch should be set to 1 for interpolate to be
 	// effective.
 	//
-	// `mode` is used to set the transport mode for which the snapped route will be
-	// determined. Allowed values for `mode` are `car` and `truck`.
+	// mode is used to set the transport mode for which the snapped route will be
+	// determined. Allowed values for mode are car and truck.
 	Correction param.Opt[string] `query:"correction,omitzero" format:"mapmatch=boolean,interpolate=boolean,mode=string" json:"-"`
-	// Time until which the tracked locations of the `asset` need to be retrieved.
+	// Time until which the tracked locations of the asset need to be retrieved.
 	EndTime param.Opt[int64] `query:"end_time,omitzero" json:"-"`
-	// Denotes page number. Use this along with the `ps` parameter to implement
+	// Denotes page number. Use this along with the ps parameter to implement
 	// pagination for your searched results. This parameter does not have a maximum
 	// limit but would return an empty response in case a higher value is provided when
 	// the result-set itself is smaller.
 	Pn param.Opt[int64] `query:"pn,omitzero" json:"-"`
-	// Denotes number of search results per page. Use this along with the `pn`
-	// parameter to implement pagination for your searched results.
+	// Denotes number of search results per page. Use this along with the pn parameter
+	// to implement pagination for your searched results.
 	Ps param.Opt[int64] `query:"ps,omitzero" json:"-"`
-	// Time after which the tracked locations of the `asset` need to be retrieved.
+	// Time after which the tracked locations of the asset need to be retrieved.
 	StartTime param.Opt[int64] `query:"start_time,omitzero" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
 	Cluster SkynetAssetLocationListParamsCluster `query:"cluster,omitzero" json:"-"`
 	// Set the geometry format to encode the path linking the tracked locations of the
-	// `asset`.
+	// asset.
 	//
-	// Please note that `geometry_type` is effective only when `mapmatch` property of
-	// `correction` parameter is set to 1.
+	// Please note that geometry_type is effective only when mapmatch property of
+	// correction parameter is set to 1.
 	//
-	// Any of "`polyline`", "`polyline6`", "`geojson`".
+	// Any of "polyline", "polyline6", "geojson".
 	GeometryType SkynetAssetLocationListParamsGeometryType `query:"geometry_type,omitzero" json:"-"`
 	paramObj
 }
@@ -415,16 +413,16 @@ const (
 )
 
 // Set the geometry format to encode the path linking the tracked locations of the
-// `asset`.
+// asset.
 //
-// Please note that `geometry_type` is effective only when `mapmatch` property of
-// `correction` parameter is set to 1.
+// Please note that geometry_type is effective only when mapmatch property of
+// correction parameter is set to 1.
 type SkynetAssetLocationListParamsGeometryType string
 
 const (
-	SkynetAssetLocationListParamsGeometryTypePolyline  SkynetAssetLocationListParamsGeometryType = "`polyline`"
-	SkynetAssetLocationListParamsGeometryTypePolyline6 SkynetAssetLocationListParamsGeometryType = "`polyline6`"
-	SkynetAssetLocationListParamsGeometryTypeGeojson   SkynetAssetLocationListParamsGeometryType = "`geojson`"
+	SkynetAssetLocationListParamsGeometryTypePolyline  SkynetAssetLocationListParamsGeometryType = "polyline"
+	SkynetAssetLocationListParamsGeometryTypePolyline6 SkynetAssetLocationListParamsGeometryType = "polyline6"
+	SkynetAssetLocationListParamsGeometryTypeGeojson   SkynetAssetLocationListParamsGeometryType = "geojson"
 )
 
 type SkynetAssetLocationGetLastParams struct {
