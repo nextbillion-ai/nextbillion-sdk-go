@@ -71,7 +71,7 @@ type PostResponse struct {
 	// Displays an acknowledgement message once the job is submitted.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages/codes are returned in case of
+	// value will be Ok. Indicative error messages/codes are returned in case of
 	// errors. See the [API Error Codes](#api-error-codes) section below for more
 	// information.
 	Status string `json:"status"`
@@ -96,7 +96,7 @@ func (r *PostResponse) UnmarshalJSON(data []byte) error {
 
 type OptimizationComputeResponse struct {
 	// A string indicating the state of the response. This is a separate code than the
-	// HTTP status code. On normal valid responses, the value will be `Ok`.
+	// HTTP status code. On normal valid responses, the value will be Ok.
 	Code string `json:"code"`
 	// Contains the latitude and longitude of a location
 	Location OptimizationComputeResponseLocation `json:"location"`
@@ -149,7 +149,7 @@ type OptimizationComputeResponseTrip struct {
 	Duration float64 `json:"duration"`
 	// The GeoJSON representation of the route.
 	Geojson OptimizationComputeResponseTripGeojson `json:"geojson"`
-	// `polyline` or `polyline6` format of route geometry.
+	// polyline or polyline6 format of route geometry.
 	Geometry string                               `json:"geometry"`
 	Legs     []OptimizationComputeResponseTripLeg `json:"legs"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -172,9 +172,9 @@ func (r *OptimizationComputeResponseTrip) UnmarshalJSON(data []byte) error {
 
 // The GeoJSON representation of the route.
 type OptimizationComputeResponseTripGeojson struct {
-	// The encoded geometry of the geojson in the `trip`.
+	// The encoded geometry of the geojson in the trip.
 	Geometry string `json:"geometry"`
-	// Additional properties associated with the `trip`.
+	// Additional properties associated with the trip.
 	Properties string `json:"properties"`
 	// The type of the GeoJSON object.
 	//
@@ -204,7 +204,7 @@ type OptimizationComputeResponseTripLeg struct {
 	Duration float64 `json:"duration"`
 	// An array of step objects.
 	Steps []OptimizationComputeResponseTripLegStep `json:"steps"`
-	// Summary of the `leg` object.
+	// Summary of the leg object.
 	Summary string `json:"summary"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -224,13 +224,13 @@ func (r *OptimizationComputeResponseTripLeg) UnmarshalJSON(data []byte) error {
 }
 
 type OptimizationComputeResponseTripLegStep struct {
-	// Distance of the `step` object in meters.
+	// Distance of the step object in meters.
 	Distance float64 `json:"distance"`
-	// Duration of the `step` object in seconds.
+	// Duration of the step object in seconds.
 	Duration float64 `json:"duration"`
-	// The GeoJSON representation of the `step`.
+	// The GeoJSON representation of the step.
 	Geojson OptimizationComputeResponseTripLegStepGeojson `json:"geojson"`
-	// Encoded geometry of the `step` in the selected format.
+	// Encoded geometry of the step in the selected format.
 	Geometry string `json:"geometry"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -249,11 +249,11 @@ func (r *OptimizationComputeResponseTripLegStep) UnmarshalJSON(data []byte) erro
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// The GeoJSON representation of the `step`.
+// The GeoJSON representation of the step.
 type OptimizationComputeResponseTripLegStepGeojson struct {
-	// The encoded geometry of the geojson in the `step`.
+	// The encoded geometry of the geojson in the step.
 	Geometry string `json:"geometry"`
-	// Additional properties associated with the `step`.
+	// Additional properties associated with the step.
 	Properties string `json:"properties"`
 	// The type of the GeoJSON object.
 	//
@@ -337,25 +337,24 @@ type OptimizationComputeParams struct {
 	// Indicates whether the return geometry should be computed or not.
 	WithGeometry param.Opt[bool] `query:"with_geometry,omitzero" json:"-"`
 	// A semicolon-separated list indicating the side of the road from which to
-	// approach waypoints in a requested route. If provided, the number of `approaches`
-	// must be the same as the number of `coordinates`. However, you can skip a
-	// coordinate and show its position in the list with the `;` separator.
+	// approach waypoints in a requested route. If provided, the number of approaches
+	// must be the same as the number of coordinates. However, you can skip a
+	// coordinate and show its position in the list with the ; separator.
 	//
-	// Any of "`unrestricted`", "`curb`".
+	// Any of "unrestricted", "curb".
 	Approaches OptimizationComputeParamsApproaches `query:"approaches,omitzero" json:"-"`
-	// Specify the destination coordinate of the returned route. If the input is
-	// `last`, the last coordinate will be the destination.
+	// Specify the destination coordinate of the returned route. If the input is last,
+	// the last coordinate will be the destination.
 	//
-	// Any of "`any`", "`last`".
+	// Any of "any", "last".
 	Destination OptimizationComputeParamsDestination `query:"destination,omitzero" json:"-"`
 	// Sets the output format of the route geometry in the response.
 	//
-	// On providing `polyline` and `polyline6` as input, respective encoded geometry is
-	// returned. However, when `geojson` is provided as the input value, `polyline`
-	// encoded geometry is returned in the response along with a geojson details of the
-	// route.
+	// On providing polyline and polyline6 as input, respective encoded geometry is
+	// returned. However, when geojson is provided as the input value, polyline encoded
+	// geometry is returned in the response along with a geojson details of the route.
 	//
-	// Any of "`polyline`", "`polyline6`", "`geojson`".
+	// Any of "polyline", "polyline6", "geojson".
 	Geometries OptimizationComputeParamsGeometries `query:"geometries,omitzero" json:"-"`
 	// Set which driving mode the service should use to determine a route. For example,
 	// if you use "car", the API will return a route that a car can take. Using "truck"
@@ -382,12 +381,12 @@ type OptimizationComputeParams struct {
 	// [support@nextbillion.ai](mailto:support@nextbillion.ai) in case you need
 	// additional profiles.
 	//
-	// Any of "`car`", "`truck`".
+	// Any of "car", "truck".
 	Mode OptimizationComputeParamsMode `query:"mode,omitzero" json:"-"`
 	// The coordinate at which to start the returned route. If this is not configured,
 	// the return route’s destination will be the first coordinate.
 	//
-	// Any of "`any`", "`first`".
+	// Any of "any", "first".
 	Source OptimizationComputeParamsSource `query:"source,omitzero" json:"-"`
 	paramObj
 }
@@ -402,37 +401,36 @@ func (r OptimizationComputeParams) URLQuery() (v url.Values, err error) {
 }
 
 // A semicolon-separated list indicating the side of the road from which to
-// approach waypoints in a requested route. If provided, the number of `approaches`
-// must be the same as the number of `coordinates`. However, you can skip a
-// coordinate and show its position in the list with the `;` separator.
+// approach waypoints in a requested route. If provided, the number of approaches
+// must be the same as the number of coordinates. However, you can skip a
+// coordinate and show its position in the list with the ; separator.
 type OptimizationComputeParamsApproaches string
 
 const (
-	OptimizationComputeParamsApproachesUnrestricted OptimizationComputeParamsApproaches = "`unrestricted`"
-	OptimizationComputeParamsApproachesCurb         OptimizationComputeParamsApproaches = "`curb`"
+	OptimizationComputeParamsApproachesUnrestricted OptimizationComputeParamsApproaches = "unrestricted"
+	OptimizationComputeParamsApproachesCurb         OptimizationComputeParamsApproaches = "curb"
 )
 
-// Specify the destination coordinate of the returned route. If the input is
-// `last`, the last coordinate will be the destination.
+// Specify the destination coordinate of the returned route. If the input is last,
+// the last coordinate will be the destination.
 type OptimizationComputeParamsDestination string
 
 const (
-	OptimizationComputeParamsDestinationAny  OptimizationComputeParamsDestination = "`any`"
-	OptimizationComputeParamsDestinationLast OptimizationComputeParamsDestination = "`last`"
+	OptimizationComputeParamsDestinationAny  OptimizationComputeParamsDestination = "any"
+	OptimizationComputeParamsDestinationLast OptimizationComputeParamsDestination = "last"
 )
 
 // Sets the output format of the route geometry in the response.
 //
-// On providing `polyline` and `polyline6` as input, respective encoded geometry is
-// returned. However, when `geojson` is provided as the input value, `polyline`
-// encoded geometry is returned in the response along with a geojson details of the
-// route.
+// On providing polyline and polyline6 as input, respective encoded geometry is
+// returned. However, when geojson is provided as the input value, polyline encoded
+// geometry is returned in the response along with a geojson details of the route.
 type OptimizationComputeParamsGeometries string
 
 const (
-	OptimizationComputeParamsGeometriesPolyline  OptimizationComputeParamsGeometries = "`polyline`"
-	OptimizationComputeParamsGeometriesPolyline6 OptimizationComputeParamsGeometries = "`polyline6`"
-	OptimizationComputeParamsGeometriesGeojson   OptimizationComputeParamsGeometries = "`geojson`"
+	OptimizationComputeParamsGeometriesPolyline  OptimizationComputeParamsGeometries = "polyline"
+	OptimizationComputeParamsGeometriesPolyline6 OptimizationComputeParamsGeometries = "polyline6"
+	OptimizationComputeParamsGeometriesGeojson   OptimizationComputeParamsGeometries = "geojson"
 )
 
 // Set which driving mode the service should use to determine a route. For example,
@@ -462,8 +460,8 @@ const (
 type OptimizationComputeParamsMode string
 
 const (
-	OptimizationComputeParamsModeCar   OptimizationComputeParamsMode = "`car`"
-	OptimizationComputeParamsModeTruck OptimizationComputeParamsMode = "`truck`"
+	OptimizationComputeParamsModeCar   OptimizationComputeParamsMode = "car"
+	OptimizationComputeParamsModeTruck OptimizationComputeParamsMode = "truck"
 )
 
 // The coordinate at which to start the returned route. If this is not configured,
@@ -471,8 +469,8 @@ const (
 type OptimizationComputeParamsSource string
 
 const (
-	OptimizationComputeParamsSourceAny   OptimizationComputeParamsSource = "`any`"
-	OptimizationComputeParamsSourceFirst OptimizationComputeParamsSource = "`first`"
+	OptimizationComputeParamsSourceAny   OptimizationComputeParamsSource = "any"
+	OptimizationComputeParamsSourceFirst OptimizationComputeParamsSource = "first"
 )
 
 type OptimizationReOptimizeParams struct {
@@ -497,7 +495,7 @@ type OptimizationReOptimizeParams struct {
 	//
 	// As a best practice:
 	//
-	//  1. Don't provide the `locations` input when re-optimizing, if the original set
+	//  1. Don't provide the locations input when re-optimizing, if the original set
 	//     contains all the required location coordinates.
 	//
 	//  2. If any new location coordinates are required for re-optimization, copy the

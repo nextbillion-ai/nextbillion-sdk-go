@@ -38,7 +38,7 @@ func TestNavigationGetRouteWithOptionalParams(t *testing.T) {
 		Lang:              nextbillionai.String("lang=en"),
 		Mode:              nextbillionai.NavigationGetRouteParamsModeCar,
 		Origin:            nextbillionai.String("origin=41.349302,2.136480"),
-		OriginalShape:     nextbillionai.String("original_shape=sbp}_Almgp`FnLuToKmKviB{eDlcGhpFvj@qbAwoA_mA"),
+		OriginalShape:     nextbillionai.String("original_shape=sbp}_AlmgpFnLuToKmKviB{eDlcGhpFvj@qbAwoA_mA"),
 		OriginalShapeType: nextbillionai.NavigationGetRouteParamsOriginalShapeTypePolyline,
 		Overview:          nextbillionai.NavigationGetRouteParamsOverviewFull,
 		Waypoints:         nextbillionai.String("waypoints=41.349302,2.136480|41.349303,2.136481|41.349304,2.136482"),

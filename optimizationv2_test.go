@@ -57,7 +57,7 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 		Locations: nextbillionai.OptimizationV2SubmitParamsLocations{
 			Location:   []string{"string"},
 			ID:         nextbillionai.Int(0),
-			Approaches: []string{"`unrestricted`"},
+			Approaches: []string{"unrestricted"},
 		},
 		Vehicles: []nextbillionai.VehicleParam{{
 			ID: "id",
@@ -106,7 +106,7 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 			Skills:                []int64{1},
 			TimeWindows:           [][]int64{{0}},
 			Volume: nextbillionai.JobVolumeParam{
-				Alignment: "`strict`",
+				Alignment: "strict",
 				Depth:     nextbillionai.Float(0),
 				Height:    nextbillionai.Float(0),
 				Width:     nextbillionai.Float(0),
@@ -127,28 +127,28 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 				RouteGrouping: nextbillionai.OptimizationV2SubmitParamsOptionsGroupingRouteGrouping{
 					PenaltyFactor: nextbillionai.Float(0),
 					ZoneDiameter:  nextbillionai.Float(0),
-					ZoneSource:    "`system_generated`",
+					ZoneSource:    "system_generated",
 				},
 			},
 			Objective: nextbillionai.OptimizationV2SubmitParamsOptionsObjective{
 				AllowEarlyArrival: nextbillionai.Bool(true),
 				Custom: nextbillionai.OptimizationV2SubmitParamsOptionsObjectiveCustom{
-					Type:  "`min`",
-					Value: "`vehicles`",
+					Type:  "min",
+					Value: "vehicles",
 				},
 				MinimiseNumDepots: nextbillionai.Bool(true),
-				SolverMode:        "`flexible`",
+				SolverMode:        "flexible",
 				SolvingTimeLimit:  nextbillionai.Int(0),
-				TravelCost:        "`duration`",
+				TravelCost:        "duration",
 			},
 			Routing: nextbillionai.OptimizationV2SubmitParamsOptionsRouting{
 				Allow:            []string{"taxi"},
-				Avoid:            []string{"`toll`"},
-				Context:          "`avgspeed`",
+				Avoid:            []string{"toll"},
+				Context:          "avgspeed",
 				CrossBorder:      nextbillionai.Bool(true),
 				DisableCache:     nextbillionai.Bool(true),
-				HazmatType:       []string{"`general`"},
-				Mode:             "`car`",
+				HazmatType:       []string{"general"},
+				Mode:             "car",
 				Profiles:         "\"profiles\":{\n    \"mini-van\":{\n        \"mode\": \"car\",\n        \"avoid\":[\"highway, toll\"]\n        },\n    \"trailer\":{\n        \"mode\": \"truck\",\n        \"truck_weight\":12000,\n        \"truck_size\":\"200, 210, 600\",\n        \"hazmat_type\": [\"general\", \"harmful_to_water\"]\n        }\n    }\n",
 				TrafficTimestamp: nextbillionai.Int(0),
 				TruckAxleLoad:    nextbillionai.Float(0),
@@ -158,10 +158,10 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 		},
 		Relations: []nextbillionai.OptimizationV2SubmitParamsRelation{{
 			Steps: []nextbillionai.OptimizationV2SubmitParamsRelationStep{{
-				Type: "`start`",
+				Type: "start",
 				ID:   nextbillionai.String(`"id":"Job 1"`),
 			}},
-			Type:        "`in_same_route`",
+			Type:        "in_same_route",
 			ID:          nextbillionai.Int(0),
 			MaxDuration: nextbillionai.Int(0),
 			MinDuration: nextbillionai.Int(0),
@@ -201,7 +201,7 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 			Revenue:               nextbillionai.Int(0),
 			Skills:                []int64{0},
 			Volume: nextbillionai.ShipmentVolumeParam{
-				Alignment: "`strict`",
+				Alignment: "strict",
 				Depth:     nextbillionai.Float(0),
 				Height:    nextbillionai.Float(0),
 				Width:     nextbillionai.Float(0),
@@ -213,7 +213,7 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 			Steps: []nextbillionai.OptimizationV2SubmitParamsSolutionStep{{
 				ID:            `"id": "Job 10"`,
 				Arrival:       0,
-				Type:          "`start`",
+				Type:          "start",
 				Description:   nextbillionai.String("description"),
 				Distance:      nextbillionai.Int(0),
 				Duration:      nextbillionai.Int(0),
@@ -246,7 +246,7 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 			Geometry: nextbillionai.OptimizationV2SubmitParamsZoneGeometry{
 				Coordinates: [][]float64{{0}},
 				Description: nextbillionai.String("description"),
-				Type:        "`Polygon`",
+				Type:        "Polygon",
 			},
 		}},
 	})

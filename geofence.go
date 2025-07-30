@@ -106,8 +106,8 @@ type Geofence struct {
 	// ID of the geofence provided/generated at the time of creating the geofence.
 	ID           string               `json:"id"`
 	CircleCenter GeofenceCircleCenter `json:"circle_center"`
-	// When the `type` of the geofence is `circle`, this property returns the radius of
-	// the geofence in meters (m).
+	// When the type of the geofence is circle, this property returns the radius of the
+	// geofence in meters (m).
 	CircleRadius float64 `json:"circle_radius"`
 	// Time at which the geofence was created, expressed as a UNIX timestamp in
 	// seconds.
@@ -118,48 +118,48 @@ type Geofence struct {
 	// For a geofence based on isochrone contour determined using a specific driving
 	// distance, this property returns the duration value, in meters.
 	//
-	// The value would be the same as that provided for the `contours_meter` parameter
-	// at the time of creating or updating the geofence.
+	// The value would be the same as that provided for the contours_meter parameter at
+	// the time of creating or updating the geofence.
 	IcContoursMeter int64 `json:"ic_contours_meter"`
 	// For a geofence based on isochrone contour determined using a specific driving
 	// duration, this property returns the duration value, in minutes. The value would
-	// be the same as the value provided for the `contours_minute` parameter at the
-	// time of creating or updating the geofence.
+	// be the same as the value provided for the contours_minute parameter at the time
+	// of creating or updating the geofence.
 	IcContoursMinute int64 `json:"ic_contours_minute"`
 	// For a geofence based on isochrone contour, this property returns the coordinates
 	// of the location, in [latitude,longitude] format, which was used as the starting
 	// point to identify the geofence boundary.
 	//
-	// The value would be the same as that provided for the `coordinates` parameter at
+	// The value would be the same as that provided for the coordinates parameter at
 	// the time of creating or updating the geofence.
 	IcCoordinates string `json:"ic_coordinates" format:"latitude,longitude"`
 	// For a geofence based on isochrone contour, this property returns the denoise
-	// value which would be the same as that provided for the `denoise` parameter at
-	// the time of creating or updating the geofence.
+	// value which would be the same as that provided for the denoise parameter at the
+	// time of creating or updating the geofence.
 	IcDenoise float64 `json:"ic_denoise"`
 	// For a geofence based on isochrone contour, this property returns the departure
 	// time, as a UNIX epoch timestamp in seconds, which was used to determine the
 	// geofence boundary after taking into account the traffic conditions at the time.
 	//
-	// The value would be the same as that provided for the `departure_time` parameter
-	// at the time of creating or updating the geofence.
+	// The value would be the same as that provided for the departure_time parameter at
+	// the time of creating or updating the geofence.
 	IcDepartureTime int64 `json:"ic_departure_time"`
 	// For a geofence based on isochrone contour, this property returns the driving
 	// mode used to determine the geofence boundary.
 	//
-	// The value would be the same as that provided for the `mode` parameter at the
-	// time of creating or updating the geofence.
+	// The value would be the same as that provided for the mode parameter at the time
+	// of creating or updating the geofence.
 	IcMode float64 `json:"ic_mode"`
 	// Metadata of the geofence added at the time of creating or updating it.
 	MetaData any `json:"meta_data"`
 	// Name of the geofence added at the time of creating or updating it.
 	Name string `json:"name"`
-	// An array of strings representing the `tags` associated with the geofence added
-	// at the time of creating or updating it.
+	// An array of strings representing the tags associated with the geofence added at
+	// the time of creating or updating it.
 	Tags []string `json:"tags"`
 	// Type of the geofence.
 	//
-	// Any of "`circle`", "`polygon`", "`isochrone`".
+	// Any of "circle", "polygon", "isochrone".
 	Type GeofenceType `json:"type"`
 	// Time at which the geofence was last updated, expressed as a UNIX timestamp in
 	// seconds.
@@ -217,20 +217,20 @@ func (r *GeofenceCircleCenter) UnmarshalJSON(data []byte) error {
 type GeofenceType string
 
 const (
-	GeofenceTypeCircle    GeofenceType = "`circle`"
-	GeofenceTypePolygon   GeofenceType = "`polygon`"
-	GeofenceTypeIsochrone GeofenceType = "`isochrone`"
+	GeofenceTypeCircle    GeofenceType = "circle"
+	GeofenceTypePolygon   GeofenceType = "polygon"
+	GeofenceTypeIsochrone GeofenceType = "isochrone"
 )
 
 // The property Type is required.
 type GeofenceEntityCreateParam struct {
 	// Specify the type of the geofence that is being created.
 	//
-	// Any of "`circle`", "`polygon`", "`isochrone`".
+	// Any of "circle", "polygon", "isochrone".
 	Type GeofenceEntityCreateType `json:"type,omitzero,required"`
 	// Set an unique ID for the new geofence. If not provided, an ID will be
-	// automatically generated in UUID format. A valid `custom_id` can contain letters,
-	// numbers, "-", & "\_" only.
+	// automatically generated in UUID format. A valid custom*id can contain letters,
+	// numbers, "-", & "*" only.
 	//
 	// Please note that the ID of a geofence can not be changed once it is created.
 	CustomID param.Opt[string] `json:"custom_id,omitzero"`
@@ -238,23 +238,23 @@ type GeofenceEntityCreateParam struct {
 	// geofence being created.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Provide the details to create a circular geofence. Please note that this object
-	// is mandatory when `type` is `circle`. When the `type` is not `circle`, the
-	// properties of this object will be ignored while creating the geofence.
+	// is mandatory when type is circle. When the type is not circle, the properties of
+	// this object will be ignored while creating the geofence.
 	Circle GeofenceEntityCreateCircleParam `json:"circle,omitzero"`
 	// Provide the details to create an isochrone based geofence. Use this object when
-	// `type` is `isochrone`. When the `type` is not `isochrone`, the properties of
-	// this object will be ignored while creating the geofence.
+	// type is isochrone. When the type is not isochrone, the properties of this object
+	// will be ignored while creating the geofence.
 	Isochrone GeofenceEntityCreateIsochroneParam `json:"isochrone,omitzero"`
 	// Metadata of the geofence. Use this field to define custom attributes that
 	// provide more context and information about the geofence being created like
 	// country, group ID etc.
 	//
-	// The data being added should be in valid JSON object format (i.e. `key` and
-	// `value` pairs). Max size allowed for the object is 65kb.
+	// The data being added should be in valid JSON object format (i.e. key and value
+	// pairs). Max size allowed for the object is 65kb.
 	MetaData any `json:"meta_data,omitzero"`
 	// Provide the details to create a custom polygon type of geofence. Please note
-	// that this object is mandatory when `type` is `polygon`. When the `type` is not
-	// `polygon`, the properties of this object will be ignored while creating the
+	// that this object is mandatory when type is polygon. When the type is not
+	// polygon, the properties of this object will be ignored while creating the
 	// geofence.
 	//
 	// Self-intersecting polygons or polygons containing other polygons are invalid and
@@ -262,10 +262,10 @@ type GeofenceEntityCreateParam struct {
 	//
 	// Area of the polygon should be less than 2000 km<sup>2</sup>.
 	Polygon GeofenceEntityCreatePolygonParam `json:"polygon,omitzero"`
-	// An array of strings to associate multiple tags to the geofence. `tags` can be
-	// used to search or filter geofences (using `Get Geofence List` method).
+	// An array of strings to associate multiple tags to the geofence. tags can be used
+	// to search or filter geofences (using Get Geofence List method).
 	//
-	// Create valid `tags` using a string consisting of alphanumeric characters (A-Z,
+	// Create valid tags using a string consisting of alphanumeric characters (A-Z,
 	// a-z, 0-9) along with the underscore ('\_') and hyphen ('-') symbols.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -283,14 +283,14 @@ func (r *GeofenceEntityCreateParam) UnmarshalJSON(data []byte) error {
 type GeofenceEntityCreateType string
 
 const (
-	GeofenceEntityCreateTypeCircle    GeofenceEntityCreateType = "`circle`"
-	GeofenceEntityCreateTypePolygon   GeofenceEntityCreateType = "`polygon`"
-	GeofenceEntityCreateTypeIsochrone GeofenceEntityCreateType = "`isochrone`"
+	GeofenceEntityCreateTypeCircle    GeofenceEntityCreateType = "circle"
+	GeofenceEntityCreateTypePolygon   GeofenceEntityCreateType = "polygon"
+	GeofenceEntityCreateTypeIsochrone GeofenceEntityCreateType = "isochrone"
 )
 
 // Provide the details to create a circular geofence. Please note that this object
-// is mandatory when `type` is `circle`. When the `type` is not `circle`, the
-// properties of this object will be ignored while creating the geofence.
+// is mandatory when type is circle. When the type is not circle, the properties of
+// this object will be ignored while creating the geofence.
 //
 // The properties Center, Radius are required.
 type GeofenceEntityCreateCircleParam struct {
@@ -314,9 +314,9 @@ func (r *GeofenceEntityCreateCircleParam) UnmarshalJSON(data []byte) error {
 //
 // The properties Lat, Lon are required.
 type GeofenceEntityCreateCircleCenterParam struct {
-	// Latitude of the `center` location.
+	// Latitude of the center location.
 	Lat float64 `json:"lat,required"`
-	// Longitude of the `center` location.
+	// Longitude of the center location.
 	Lon float64 `json:"lon,required"`
 	paramObj
 }
@@ -330,34 +330,34 @@ func (r *GeofenceEntityCreateCircleCenterParam) UnmarshalJSON(data []byte) error
 }
 
 // Provide the details to create an isochrone based geofence. Use this object when
-// `type` is `isochrone`. When the `type` is not `isochrone`, the properties of
-// this object will be ignored while creating the geofence.
+// type is isochrone. When the type is not isochrone, the properties of this object
+// will be ignored while creating the geofence.
 //
 // The property Coordinates is required.
 type GeofenceEntityCreateIsochroneParam struct {
 	// Coordinates of the location, in [latitude,longitude] format, which would act as
 	// the starting point for identifying the isochrone polygon or the boundary of
-	// reachable area. This parameter is mandatory when `type` is `isochrone`.
+	// reachable area. This parameter is mandatory when type is isochrone.
 	Coordinates string `json:"coordinates,required"`
 	// The distance, in meters, for which an isochrone polygon needs to be determined.
 	// When provided, the API would create a geofence representing the area that can be
 	// reached after driving the given number of meters starting from the point
-	// specified in `coordinates`.
+	// specified in coordinates.
 	//
 	// The maximum distance that can be specified is 60000 meters (60km).
 	//
-	// At least one of `contours_meter` or `contours_minute` is mandatory when `type`
-	// is `isochrone`.
+	// At least one of contours_meter or contours_minute is mandatory when type is
+	// isochrone.
 	ContoursMeter param.Opt[int64] `json:"contours_meter,omitzero"`
 	// The duration, in minutes, for which an isochrone polygon needs to be determined.
 	// When provided, the API would create a geofence representing the area that can be
 	// reached after driving for the given number of minutes starting from the point
-	// specified in `coordinates`.
+	// specified in coordinates.
 	//
 	// The maximum duration that can be specified is 40 minutes.
 	//
-	// At least one of `contours_meter` or `contours_minute` is mandatory when `type`
-	// is `isochrone`.
+	// At least one of contours_meter or contours_minute is mandatory when type is
+	// isochrone.
 	ContoursMinute param.Opt[int64] `json:"contours_minute,omitzero"`
 	// A floating point value from 0.0 to 1.0 that can be used to remove smaller
 	// contours. A value of 1.0 will only return the largest contour for a given value.
@@ -371,12 +371,12 @@ type GeofenceEntityCreateIsochroneParam struct {
 	DepartureTime param.Opt[int64] `json:"departure_time,omitzero"`
 	// Set which driving mode the service should use to determine the isochrone line.
 	//
-	// For example, if you use `car`, the API will return an isochrone polygon that a
-	// car can cover within the specified time or after driving the specified distance.
-	// Using `truck` will return an isochrone that a truck can reach after taking into
+	// For example, if you use car, the API will return an isochrone polygon that a car
+	// can cover within the specified time or after driving the specified distance.
+	// Using truck will return an isochrone that a truck can reach after taking into
 	// account appropriate truck routing restrictions.
 	//
-	// Any of "`car`", "`truck`".
+	// Any of "car", "truck".
 	Mode string `json:"mode,omitzero"`
 	paramObj
 }
@@ -391,13 +391,13 @@ func (r *GeofenceEntityCreateIsochroneParam) UnmarshalJSON(data []byte) error {
 
 func init() {
 	apijson.RegisterFieldValidator[GeofenceEntityCreateIsochroneParam](
-		"mode", "`car`", "`truck`",
+		"mode", "car", "truck",
 	)
 }
 
 // Provide the details to create a custom polygon type of geofence. Please note
-// that this object is mandatory when `type` is `polygon`. When the `type` is not
-// `polygon`, the properties of this object will be ignored while creating the
+// that this object is mandatory when type is polygon. When the type is not
+// polygon, the properties of this object will be ignored while creating the
 // geofence.
 //
 // Self-intersecting polygons or polygons containing other polygons are invalid and
@@ -431,7 +431,7 @@ type GeofenceEntityCreatePolygonGeojsonParam struct {
 	// An array of coordinates in the [longitude, latitude] format, representing the
 	// geofence boundary.
 	Coordinates [][]float64 `json:"coordinates,omitzero,required"`
-	// Type of the geoJSON geometry. Should always be `Polygon`.
+	// Type of the geoJSON geometry. Should always be Polygon.
 	Type string `json:"type,required"`
 	paramObj
 }
@@ -448,7 +448,7 @@ type GeofenceNewResponse struct {
 	// A data object containing the ID of the geofence created.
 	Data GeofenceNewResponseData `json:"data"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -468,7 +468,7 @@ func (r *GeofenceNewResponse) UnmarshalJSON(data []byte) error {
 
 // A data object containing the ID of the geofence created.
 type GeofenceNewResponseData struct {
-	// Unique ID of the geofence created. It will be the same as `custom_id`, if
+	// Unique ID of the geofence created. It will be the same as custom_id, if
 	// provided. Else it will be an auto generated UUID. Please note this ID cannot be
 	// updated.
 	ID string `json:"id"`
@@ -489,7 +489,7 @@ func (r *GeofenceNewResponseData) UnmarshalJSON(data []byte) error {
 type GeofenceGetResponse struct {
 	Data GeofenceGetResponseData `json:"data"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -527,7 +527,7 @@ func (r *GeofenceGetResponseData) UnmarshalJSON(data []byte) error {
 type GeofenceListResponse struct {
 	Data GeofenceListResponseData `json:"data"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -568,7 +568,7 @@ func (r *GeofenceListResponseData) UnmarshalJSON(data []byte) error {
 type GeofenceContainsResponse struct {
 	Data GeofenceContainsResponseData `json:"data"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -587,9 +587,9 @@ func (r *GeofenceContainsResponse) UnmarshalJSON(data []byte) error {
 }
 
 type GeofenceContainsResponseData struct {
-	// An array of objects containing each of the geofences provided in the `geofences`
-	// input. If `geofences` in not provided then the array will return all the
-	// geofences associated with the `key`
+	// An array of objects containing each of the geofences provided in the geofences
+	// input. If geofences in not provided then the array will return all the geofences
+	// associated with the key
 	ResultList []GeofenceContainsResponseDataResultList `json:"result_list"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -611,8 +611,7 @@ type GeofenceContainsResponseDataResultList struct {
 	// ID of the geofence provided/generated at the time of creating the geofence.
 	GeofenceID string `json:"geofence_id"`
 	// An array of objects with results of the contains check for each of the
-	// coordinate points in `locations` against the geofence represented by
-	// `geofence_id`.
+	// coordinate points in locations against the geofence represented by geofence_id.
 	Result []GeofenceContainsResponseDataResultListResult `json:"result"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -631,9 +630,9 @@ func (r *GeofenceContainsResponseDataResultList) UnmarshalJSON(data []byte) erro
 }
 
 type GeofenceContainsResponseDataResultListResult struct {
-	// `true` when a coordinate point in `locations` is contained by this geofence.
+	// true when a coordinate point in locations is contained by this geofence.
 	Contain bool `json:"contain"`
-	// Index of the coordinate point in the input `locations`.
+	// Index of the coordinate point in the input locations.
 	LocationIndex int64 `json:"location_index"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -692,29 +691,28 @@ type GeofenceUpdateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Use this parameter to update the `name` of a geofence. Users can assign
-	// meaningful custom names to their geofences.
+	// Use this parameter to update the name of a geofence. Users can assign meaningful
+	// custom names to their geofences.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Use this object to update details of a circular geofence. Please note that this
-	// object is mandatory only when `type` is `circle`. When the `type` is not
-	// `circle`, the properties of this object will be ignored while creating the
-	// geofence.
+	// object is mandatory only when type is circle. When the type is not circle, the
+	// properties of this object will be ignored while creating the geofence.
 	Circle GeofenceUpdateParamsCircle `json:"circle,omitzero"`
 	// Use this object to update details of an isochrone based geofence. Please note
-	// that this object is mandatory only when `type` is `isochrone`. When the `type`
-	// is not `isochrone`, the properties of this object will be ignored while creating
-	// the geofence.
+	// that this object is mandatory only when type is isochrone. When the type is not
+	// isochrone, the properties of this object will be ignored while creating the
+	// geofence.
 	Isochrone GeofenceUpdateParamsIsochrone `json:"isochrone,omitzero"`
-	// Updated the `meta_data` associated with a geofence. Use this field to define
+	// Updated the meta_data associated with a geofence. Use this field to define
 	// custom attributes that provide more context and information about the geofence
 	// being updated like country, group ID etc.
 	//
-	// The data being added should be in valid JSON object format (i.e. `key` and
-	// `value` pairs). Max size allowed for the object is 65kb.
+	// The data being added should be in valid JSON object format (i.e. key and value
+	// pairs). Max size allowed for the object is 65kb.
 	MetaData any `json:"meta_data,omitzero"`
 	// Use this object to update details of a custom polygon geofence. Please note that
-	// this object is mandatory only when `type` is `polygon`. When the `type` is not
-	// `polygon`, the properties of this object will be ignored while creating the
+	// this object is mandatory only when type is polygon. When the type is not
+	// polygon, the properties of this object will be ignored while creating the
 	// geofence.
 	//
 	// Self-intersecting polygons or polygons containing other polygons are invalid and
@@ -722,17 +720,17 @@ type GeofenceUpdateParams struct {
 	//
 	// Area of the polygon should be less than 2000 km<sup>2</sup>.
 	Polygon GeofenceUpdateParamsPolygon `json:"polygon,omitzero"`
-	// Use this parameter to add/modify one or multiple `tags` of a geofence. `tags`
-	// can be used to search or filter geofences (using `Get Geofence List` method).
+	// Use this parameter to add/modify one or multiple tags of a geofence. tags can be
+	// used to search or filter geofences (using Get Geofence List method).
 	//
-	// Valid values for updating `tags` consist of alphanumeric characters (A-Z, a-z,
+	// Valid values for updating tags consist of alphanumeric characters (A-Z, a-z,
 	// 0-9) along with the underscore ('\_') and hyphen ('-') symbols.
 	Tags []string `json:"tags,omitzero"`
-	// Use this parameter to update the `type` of a geofence. Please note that you will
-	// need to provide required details for creating a geofence of the new `type`.
-	// Check other parameters of this method to know more.
+	// Use this parameter to update the type of a geofence. Please note that you will
+	// need to provide required details for creating a geofence of the new type. Check
+	// other parameters of this method to know more.
 	//
-	// Any of "`circle`", "`polygon`", "`isochrone`".
+	// Any of "circle", "polygon", "isochrone".
 	Type GeofenceUpdateParamsType `json:"type,omitzero"`
 	paramObj
 }
@@ -754,9 +752,8 @@ func (r GeofenceUpdateParams) URLQuery() (v url.Values, err error) {
 }
 
 // Use this object to update details of a circular geofence. Please note that this
-// object is mandatory only when `type` is `circle`. When the `type` is not
-// `circle`, the properties of this object will be ignored while creating the
-// geofence.
+// object is mandatory only when type is circle. When the type is not circle, the
+// properties of this object will be ignored while creating the geofence.
 //
 // The property Center is required.
 type GeofenceUpdateParamsCircle struct {
@@ -780,9 +777,9 @@ func (r *GeofenceUpdateParamsCircle) UnmarshalJSON(data []byte) error {
 // Use this parameter to update the coordinate of the location which will act as
 // the center of a circular geofence.
 type GeofenceUpdateParamsCircleCenter struct {
-	// Latitude of the `center` location.
+	// Latitude of the center location.
 	Lat param.Opt[float64] `json:"lat,omitzero"`
-	// Longitude of the `center` location.
+	// Longitude of the center location.
 	Lon param.Opt[float64] `json:"lon,omitzero"`
 	paramObj
 }
@@ -796,29 +793,29 @@ func (r *GeofenceUpdateParamsCircleCenter) UnmarshalJSON(data []byte) error {
 }
 
 // Use this object to update details of an isochrone based geofence. Please note
-// that this object is mandatory only when `type` is `isochrone`. When the `type`
-// is not `isochrone`, the properties of this object will be ignored while creating
-// the geofence.
+// that this object is mandatory only when type is isochrone. When the type is not
+// isochrone, the properties of this object will be ignored while creating the
+// geofence.
 type GeofenceUpdateParamsIsochrone struct {
 	// Use this parameter to update the distance, in meters, for which an isochrone
 	// polygon needs to be determined. When provided, the API would create a geofence
 	// representing the area that can be reached after driving the given number of
-	// meters starting from the point specified in `coordinates`.
+	// meters starting from the point specified in coordinates.
 	//
 	// The maximum distance that can be specified is 60000 meters (60km).
 	//
-	// At least one of `contours_meter` or `contours_minute` is mandatory when `type`
-	// is `isochrone`.
+	// At least one of contours_meter or contours_minute is mandatory when type is
+	// isochrone.
 	ContoursMeter param.Opt[int64] `json:"contours_meter,omitzero"`
 	// Use this parameter to update the duration, in minutes, for which an isochrone
 	// polygon needs to be determined. When provided, the API would create a geofence
 	// representing the area that can be reached after driving for the given number of
-	// minutes starting from the point specified in `coordinates`.
+	// minutes starting from the point specified in coordinates.
 	//
 	// The maximum duration that can be specified is 40 minutes.
 	//
-	// At least one of `contours_meter` or `contours_minute` is mandatory when `type`
-	// is `isochrone`.
+	// At least one of contours_meter or contours_minute is mandatory when type is
+	// isochrone.
 	ContoursMinute param.Opt[int64] `json:"contours_minute,omitzero"`
 	// Use this parameter to update the coordinates of the location, in
 	// [latitude,longitude] format, which would act as the starting point for
@@ -831,19 +828,19 @@ type GeofenceUpdateParamsIsochrone struct {
 	//
 	// Use this parameter to update the denoise value of the isochrone geofence.
 	Denoise param.Opt[float64] `json:"denoise,omitzero"`
-	// Use this parameter to update the `departure_time`, expressed as UNIX epoch
+	// Use this parameter to update the departure_time, expressed as UNIX epoch
 	// timestamp in seconds. The isochrone boundary will be determined based on the
 	// typical traffic conditions at the given time.
 	//
 	// If no input is provided for this parameter then, the traffic conditions at the
 	// time of making the request are considered by default. Please note that because
-	// of this behavior the geofence boundaries may change even if the `departure_time`
+	// of this behavior the geofence boundaries may change even if the departure_time
 	// was not specifically provided at the time of updating the geofence.
 	DepartureTime param.Opt[int64] `json:"departure_time,omitzero"`
 	// Use this parameter to update the driving mode that the service should use to
-	// determine the isochrone line. For example, if you use `car`, the API will return
+	// determine the isochrone line. For example, if you use car, the API will return
 	// an isochrone polygon that a car can cover within the specified time or after
-	// driving the specified distance. Using `truck` will return an isochrone that a
+	// driving the specified distance. Using truck will return an isochrone that a
 	// truck can reach after taking into account appropriate truck routing
 	// restrictions.
 	Mode param.Opt[string] `json:"mode,omitzero"`
@@ -859,8 +856,8 @@ func (r *GeofenceUpdateParamsIsochrone) UnmarshalJSON(data []byte) error {
 }
 
 // Use this object to update details of a custom polygon geofence. Please note that
-// this object is mandatory only when `type` is `polygon`. When the `type` is not
-// `polygon`, the properties of this object will be ignored while creating the
+// this object is mandatory only when type is polygon. When the type is not
+// polygon, the properties of this object will be ignored while creating the
 // geofence.
 //
 // Self-intersecting polygons or polygons containing other polygons are invalid and
@@ -868,7 +865,7 @@ func (r *GeofenceUpdateParamsIsochrone) UnmarshalJSON(data []byte) error {
 //
 // Area of the polygon should be less than 2000 km<sup>2</sup>.
 type GeofenceUpdateParamsPolygon struct {
-	// An object to collect geoJSON details of the `polygon` geofence. The contents of
+	// An object to collect geoJSON details of the polygon geofence. The contents of
 	// this object follow the
 	// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 	Geojson GeofenceUpdateParamsPolygonGeojson `json:"geojson,omitzero"`
@@ -883,11 +880,11 @@ func (r *GeofenceUpdateParamsPolygon) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An object to collect geoJSON details of the `polygon` geofence. The contents of
+// An object to collect geoJSON details of the polygon geofence. The contents of
 // this object follow the
 // [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 type GeofenceUpdateParamsPolygonGeojson struct {
-	// Type of the geoJSON geometry. Should always be `Polygon`.
+	// Type of the geoJSON geometry. Should always be Polygon.
 	Type param.Opt[string] `json:"type,omitzero"`
 	// An array of coordinates in the [longitude, latitude] format, representing the
 	// geofence boundary.
@@ -903,32 +900,32 @@ func (r *GeofenceUpdateParamsPolygonGeojson) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Use this parameter to update the `type` of a geofence. Please note that you will
-// need to provide required details for creating a geofence of the new `type`.
-// Check other parameters of this method to know more.
+// Use this parameter to update the type of a geofence. Please note that you will
+// need to provide required details for creating a geofence of the new type. Check
+// other parameters of this method to know more.
 type GeofenceUpdateParamsType string
 
 const (
-	GeofenceUpdateParamsTypeCircle    GeofenceUpdateParamsType = "`circle`"
-	GeofenceUpdateParamsTypePolygon   GeofenceUpdateParamsType = "`polygon`"
-	GeofenceUpdateParamsTypeIsochrone GeofenceUpdateParamsType = "`isochrone`"
+	GeofenceUpdateParamsTypeCircle    GeofenceUpdateParamsType = "circle"
+	GeofenceUpdateParamsTypePolygon   GeofenceUpdateParamsType = "polygon"
+	GeofenceUpdateParamsTypeIsochrone GeofenceUpdateParamsType = "isochrone"
 )
 
 type GeofenceListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Denotes page number. Use this along with the `ps` parameter to implement
+	// Denotes page number. Use this along with the ps parameter to implement
 	// pagination for your searched results. This parameter does not have a maximum
 	// limit but would return an empty response in case a higher value is provided when
 	// the result-set itself is smaller.
 	Pn param.Opt[int64] `query:"pn,omitzero" json:"-"`
-	// Denotes number of search results per page. Use this along with the `pn`
-	// parameter to implement pagination for your searched results.
+	// Denotes number of search results per page. Use this along with the pn parameter
+	// to implement pagination for your searched results.
 	Ps param.Opt[int64] `query:"ps,omitzero" json:"-"`
-	// Comma (`,`) separated list of `tags` which will be used to filter the geofences.
+	// Comma (,) separated list of tags which will be used to filter the geofences.
 	//
-	// Please note only the geofences which have all the `tags` added to this parameter
+	// Please note only the geofences which have all the tags added to this parameter
 	// will be included in the result. This parameter can accept a string with a
 	// maximum length of 256 characters.
 	Tags param.Opt[string] `query:"tags,omitzero" format:"value_1,value_2,..." json:"-"`
@@ -965,14 +962,14 @@ type GeofenceContainsParams struct {
 	// Pipe (|) separated coordinates, in [latitude,longitude] format, of the locations
 	// to be searched against the geofences.
 	Locations string `query:"locations,required" json:"-"`
-	// A `,` separated list geofence IDs against which the `locations` will be
-	// searched. If not provided, then the 'locations' will be searched against all
-	// your existing geofences.
+	// A , separated list geofence IDs against which the locations will be searched. If
+	// not provided, then the 'locations' will be searched against all your existing
+	// geofences.
 	//
 	// Maximum length of the string can be 256 characters.
 	Geofences param.Opt[string] `query:"geofences,omitzero" format:"geofenceID_1,geofenceID_2,...." json:"-"`
-	// When `true`, an array with detailed information of geofences is returned. When
-	// `false`, an array containing only the IDs of the geofences is returned.
+	// When true, an array with detailed information of geofences is returned. When
+	// false, an array containing only the IDs of the geofences is returned.
 	Verbose param.Opt[string] `query:"verbose,omitzero" json:"-"`
 	paramObj
 }

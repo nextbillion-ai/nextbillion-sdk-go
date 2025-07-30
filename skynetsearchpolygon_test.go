@@ -41,12 +41,12 @@ func TestSkynetSearchPolygonNewWithOptionalParams(t *testing.T) {
 		Pn:             nextbillionai.Int(0),
 		Ps:             nextbillionai.Int(0),
 		Sort: nextbillionai.SkynetSearchPolygonNewParamsSort{
-			SortBy: "`distance`",
+			SortBy: "distance",
 			SortDestination: nextbillionai.SkynetSearchPolygonNewParamsSortSortDestination{
 				Lat: 0,
 				Lon: 0,
 			},
-			SortDrivingMode: "`car`",
+			SortDrivingMode: "car",
 		},
 	})
 	if err != nil {
