@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,16 +22,16 @@ func TestOptimizationV2GetResult(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Optimization.V2.GetResult(context.TODO(), nextbillionsdk.OptimizationV2GetResultParams{
+	_, err := client.Optimization.V2.GetResult(context.TODO(), nextbillionai.OptimizationV2GetResultParams{
 		ID:  "id",
 		Key: "key=API_KEY",
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -48,210 +48,210 @@ func TestOptimizationV2SubmitWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Optimization.V2.Submit(context.TODO(), nextbillionsdk.OptimizationV2SubmitParams{
+	_, err := client.Optimization.V2.Submit(context.TODO(), nextbillionai.OptimizationV2SubmitParams{
 		Key: "key=API_KEY",
-		Locations: nextbillionsdk.OptimizationV2SubmitParamsLocations{
+		Locations: nextbillionai.OptimizationV2SubmitParamsLocations{
 			Location:   []string{"string"},
-			ID:         nextbillionsdk.Int(0),
-			Approaches: []string{"`unrestricted`"},
+			ID:         nextbillionai.Int(0),
+			Approaches: []string{"unrestricted"},
 		},
-		Vehicles: []nextbillionsdk.VehicleParam{{
+		Vehicles: []nextbillionai.VehicleParam{{
 			ID: "id",
-			Location: nextbillionsdk.VehicleLocationParam{
-				Lat: nextbillionsdk.Float(0),
-				Lng: nextbillionsdk.Float(0),
+			Location: nextbillionai.VehicleLocationParam{
+				Lat: nextbillionai.Float(0),
+				Lng: nextbillionai.Float(0),
 			},
 			Attributes: "\"attributes\":{\n    \"driver_rating\": \"4.0\",\n    \"trip_types\": \"premium\"\n  }",
-			Priority:   nextbillionsdk.Int(0),
-			RemainingWaypoints: []nextbillionsdk.LocationParam{{
+			Priority:   nextbillionai.Int(0),
+			RemainingWaypoints: []nextbillionai.LocationParam{{
 				Lat: -90,
 				Lon: -180,
 			}},
 		}},
 		CostMatrix: [][]int64{{0}},
-		Depots: []nextbillionsdk.OptimizationV2SubmitParamsDepot{{
+		Depots: []nextbillionai.OptimizationV2SubmitParamsDepot{{
 			ID:            `"id":"depot 1"`,
 			LocationIndex: 0,
-			Description:   nextbillionsdk.String("“description”:”Los_Angeles_depot”"),
-			Service:       nextbillionsdk.Int(0),
+			Description:   nextbillionai.String("“description”:”Los_Angeles_depot”"),
+			Service:       nextbillionai.Int(0),
 			TimeWindows:   [][]int64{{0}},
 		}},
-		Description:        nextbillionsdk.String(`"description": "Sample Optimization"`),
+		Description:        nextbillionai.String(`"description": "Sample Optimization"`),
 		DistanceMatrix:     [][]int64{{0}},
 		DurationMatrix:     [][]int64{{0}},
-		ExistingSolutionID: nextbillionsdk.String("existing_solution_id"),
-		Jobs: []nextbillionsdk.JobParam{{
+		ExistingSolutionID: nextbillionai.String("existing_solution_id"),
+		Jobs: []nextbillionai.JobParam{{
 			ID:                    `"id":"Job 1"`,
 			LocationIndex:         0,
 			Delivery:              []int64{0},
 			DepotIDs:              []string{"string"},
-			Description:           nextbillionsdk.String("description"),
-			FollowLifoOrder:       nextbillionsdk.Bool(true),
+			Description:           nextbillionai.String("description"),
+			FollowLifoOrder:       nextbillionai.Bool(true),
 			IncompatibleLoadTypes: []string{"string"},
-			JointOrder:            nextbillionsdk.Int(0),
+			JointOrder:            nextbillionai.Int(0),
 			LoadTypes:             []string{"string"},
-			MaxVisitLateness:      nextbillionsdk.Int(0),
+			MaxVisitLateness:      nextbillionai.Int(0),
 			Metadata:              "{\n  \"contact\": \"212-456-7890\",\n  \"metaId\": 1234\n}",
-			OutsourcingCost:       nextbillionsdk.Int(0),
+			OutsourcingCost:       nextbillionai.Int(0),
 			Pickup:                []int64{0},
-			Priority:              nextbillionsdk.Int(0),
-			Revenue:               nextbillionsdk.Int(0),
-			SequenceOrder:         nextbillionsdk.Int(0),
-			Service:               nextbillionsdk.Int(0),
-			Setup:                 nextbillionsdk.Int(0),
+			Priority:              nextbillionai.Int(0),
+			Revenue:               nextbillionai.Int(0),
+			SequenceOrder:         nextbillionai.Int(0),
+			Service:               nextbillionai.Int(0),
+			Setup:                 nextbillionai.Int(0),
 			Skills:                []int64{1},
 			TimeWindows:           [][]int64{{0}},
-			Volume: nextbillionsdk.JobVolumeParam{
-				Alignment: "`strict`",
-				Depth:     nextbillionsdk.Float(0),
-				Height:    nextbillionsdk.Float(0),
-				Width:     nextbillionsdk.Float(0),
+			Volume: nextbillionai.JobVolumeParam{
+				Alignment: "strict",
+				Depth:     nextbillionai.Float(0),
+				Height:    nextbillionai.Float(0),
+				Width:     nextbillionai.Float(0),
 			},
 			Zones: []int64{0},
 		}},
-		Options: nextbillionsdk.OptimizationV2SubmitParamsOptions{
-			Constraint: nextbillionsdk.OptimizationV2SubmitParamsOptionsConstraint{
-				MaxActivityWaitingTime: nextbillionsdk.Int(0),
-				MaxVehicleOvertime:     nextbillionsdk.Int(0),
-				MaxVisitLateness:       nextbillionsdk.Int(0),
+		Options: nextbillionai.OptimizationV2SubmitParamsOptions{
+			Constraint: nextbillionai.OptimizationV2SubmitParamsOptionsConstraint{
+				MaxActivityWaitingTime: nextbillionai.Int(0),
+				MaxVehicleOvertime:     nextbillionai.Int(0),
+				MaxVisitLateness:       nextbillionai.Int(0),
 			},
-			Grouping: nextbillionsdk.OptimizationV2SubmitParamsOptionsGrouping{
-				OrderGrouping: nextbillionsdk.OptimizationV2SubmitParamsOptionsGroupingOrderGrouping{
-					GroupingDiameter: nextbillionsdk.Float(0),
+			Grouping: nextbillionai.OptimizationV2SubmitParamsOptionsGrouping{
+				OrderGrouping: nextbillionai.OptimizationV2SubmitParamsOptionsGroupingOrderGrouping{
+					GroupingDiameter: nextbillionai.Float(0),
 				},
-				ProximityFactor: nextbillionsdk.Float(0),
-				RouteGrouping: nextbillionsdk.OptimizationV2SubmitParamsOptionsGroupingRouteGrouping{
-					PenaltyFactor: nextbillionsdk.Float(0),
-					ZoneDiameter:  nextbillionsdk.Float(0),
-					ZoneSource:    "`system_generated`",
+				ProximityFactor: nextbillionai.Float(0),
+				RouteGrouping: nextbillionai.OptimizationV2SubmitParamsOptionsGroupingRouteGrouping{
+					PenaltyFactor: nextbillionai.Float(0),
+					ZoneDiameter:  nextbillionai.Float(0),
+					ZoneSource:    "system_generated",
 				},
 			},
-			Objective: nextbillionsdk.OptimizationV2SubmitParamsOptionsObjective{
-				AllowEarlyArrival: nextbillionsdk.Bool(true),
-				Custom: nextbillionsdk.OptimizationV2SubmitParamsOptionsObjectiveCustom{
-					Type:  "`min`",
-					Value: "`vehicles`",
+			Objective: nextbillionai.OptimizationV2SubmitParamsOptionsObjective{
+				AllowEarlyArrival: nextbillionai.Bool(true),
+				Custom: nextbillionai.OptimizationV2SubmitParamsOptionsObjectiveCustom{
+					Type:  "min",
+					Value: "vehicles",
 				},
-				MinimiseNumDepots: nextbillionsdk.Bool(true),
-				SolverMode:        "`flexible`",
-				SolvingTimeLimit:  nextbillionsdk.Int(0),
-				TravelCost:        "`duration`",
+				MinimiseNumDepots: nextbillionai.Bool(true),
+				SolverMode:        "flexible",
+				SolvingTimeLimit:  nextbillionai.Int(0),
+				TravelCost:        "duration",
 			},
-			Routing: nextbillionsdk.OptimizationV2SubmitParamsOptionsRouting{
+			Routing: nextbillionai.OptimizationV2SubmitParamsOptionsRouting{
 				Allow:            []string{"taxi"},
-				Avoid:            []string{"`toll`"},
-				Context:          "`avgspeed`",
-				CrossBorder:      nextbillionsdk.Bool(true),
-				DisableCache:     nextbillionsdk.Bool(true),
-				HazmatType:       []string{"`general`"},
-				Mode:             "`car`",
+				Avoid:            []string{"toll"},
+				Context:          "avgspeed",
+				CrossBorder:      nextbillionai.Bool(true),
+				DisableCache:     nextbillionai.Bool(true),
+				HazmatType:       []string{"general"},
+				Mode:             "car",
 				Profiles:         "\"profiles\":{\n    \"mini-van\":{\n        \"mode\": \"car\",\n        \"avoid\":[\"highway, toll\"]\n        },\n    \"trailer\":{\n        \"mode\": \"truck\",\n        \"truck_weight\":12000,\n        \"truck_size\":\"200, 210, 600\",\n        \"hazmat_type\": [\"general\", \"harmful_to_water\"]\n        }\n    }\n",
-				TrafficTimestamp: nextbillionsdk.Int(0),
-				TruckAxleLoad:    nextbillionsdk.Float(0),
-				TruckSize:        nextbillionsdk.String(`"truck_size":"200,210,600"`),
-				TruckWeight:      nextbillionsdk.Int(0),
+				TrafficTimestamp: nextbillionai.Int(0),
+				TruckAxleLoad:    nextbillionai.Float(0),
+				TruckSize:        nextbillionai.String(`"truck_size":"200,210,600"`),
+				TruckWeight:      nextbillionai.Int(0),
 			},
 		},
-		Relations: []nextbillionsdk.OptimizationV2SubmitParamsRelation{{
-			Steps: []nextbillionsdk.OptimizationV2SubmitParamsRelationStep{{
-				Type: "`start`",
-				ID:   nextbillionsdk.String(`"id":"Job 1"`),
+		Relations: []nextbillionai.OptimizationV2SubmitParamsRelation{{
+			Steps: []nextbillionai.OptimizationV2SubmitParamsRelationStep{{
+				Type: "start",
+				ID:   nextbillionai.String(`"id":"Job 1"`),
 			}},
-			Type:        "`in_same_route`",
-			ID:          nextbillionsdk.Int(0),
-			MaxDuration: nextbillionsdk.Int(0),
-			MinDuration: nextbillionsdk.Int(0),
-			Vehicle:     nextbillionsdk.String(`"vehicle": "Vehicle 10"`),
+			Type:        "in_same_route",
+			ID:          nextbillionai.Int(0),
+			MaxDuration: nextbillionai.Int(0),
+			MinDuration: nextbillionai.Int(0),
+			Vehicle:     nextbillionai.String(`"vehicle": "Vehicle 10"`),
 		}},
-		Shipments: []nextbillionsdk.ShipmentParam{{
-			Delivery: nextbillionsdk.ShipmentDeliveryParam{
+		Shipments: []nextbillionai.ShipmentParam{{
+			Delivery: nextbillionai.ShipmentDeliveryParam{
 				ID:               `"id":"Shipment Delivery 1"`,
 				LocationIndex:    0,
-				Description:      nextbillionsdk.String("description"),
-				MaxVisitLateness: nextbillionsdk.Int(0),
+				Description:      nextbillionai.String("description"),
+				MaxVisitLateness: nextbillionai.Int(0),
 				Metadata:         "{\n  \"notes\": \"dropoff at the patio\",\n  \"contact\": \"212-456-7890\",\n  \"metaId\": 1234\n}",
-				SequenceOrder:    nextbillionsdk.Int(0),
-				Service:          nextbillionsdk.Int(0),
-				Setup:            nextbillionsdk.Int(0),
+				SequenceOrder:    nextbillionai.Int(0),
+				Service:          nextbillionai.Int(0),
+				Setup:            nextbillionai.Int(0),
 				TimeWindows:      [][]int64{{0}},
 			},
-			Pickup: nextbillionsdk.ShipmentPickupParam{
+			Pickup: nextbillionai.ShipmentPickupParam{
 				ID:               `"id": "Shipment Pickup 1"`,
 				LocationIndex:    0,
-				Description:      nextbillionsdk.String("description"),
-				MaxVisitLateness: nextbillionsdk.Int(0),
+				Description:      nextbillionai.String("description"),
+				MaxVisitLateness: nextbillionai.Int(0),
 				Metadata:         "{\n  \"notes\": \"involves fragile items\",\n  \"contact\": \"212-456-7890\",\n  \"metaId\": 1234\n}",
-				SequenceOrder:    nextbillionsdk.Int(0),
-				Service:          nextbillionsdk.Int(0),
-				Setup:            nextbillionsdk.Int(0),
+				SequenceOrder:    nextbillionai.Int(0),
+				Service:          nextbillionai.Int(0),
+				Setup:            nextbillionai.Int(0),
 				TimeWindows:      [][]int64{{0}},
 			},
 			Amount:                []int64{0},
-			FollowLifoOrder:       nextbillionsdk.Bool(true),
+			FollowLifoOrder:       nextbillionai.Bool(true),
 			IncompatibleLoadTypes: []string{"string"},
-			JointOrder:            nextbillionsdk.Int(0),
+			JointOrder:            nextbillionai.Int(0),
 			LoadTypes:             []string{"string"},
-			MaxTimeInVehicle:      nextbillionsdk.Int(0),
-			OutsourcingCost:       nextbillionsdk.Int(0),
-			Priority:              nextbillionsdk.Int(0),
-			Revenue:               nextbillionsdk.Int(0),
+			MaxTimeInVehicle:      nextbillionai.Int(0),
+			OutsourcingCost:       nextbillionai.Int(0),
+			Priority:              nextbillionai.Int(0),
+			Revenue:               nextbillionai.Int(0),
 			Skills:                []int64{0},
-			Volume: nextbillionsdk.ShipmentVolumeParam{
-				Alignment: "`strict`",
-				Depth:     nextbillionsdk.Float(0),
-				Height:    nextbillionsdk.Float(0),
-				Width:     nextbillionsdk.Float(0),
+			Volume: nextbillionai.ShipmentVolumeParam{
+				Alignment: "strict",
+				Depth:     nextbillionai.Float(0),
+				Height:    nextbillionai.Float(0),
+				Width:     nextbillionai.Float(0),
 			},
 			Zones: []int64{0},
 		}},
-		Solution: []nextbillionsdk.OptimizationV2SubmitParamsSolution{{
+		Solution: []nextbillionai.OptimizationV2SubmitParamsSolution{{
 			Cost: 0,
-			Steps: []nextbillionsdk.OptimizationV2SubmitParamsSolutionStep{{
+			Steps: []nextbillionai.OptimizationV2SubmitParamsSolutionStep{{
 				ID:            `"id": "Job 10"`,
 				Arrival:       0,
-				Type:          "`start`",
-				Description:   nextbillionsdk.String("description"),
-				Distance:      nextbillionsdk.Int(0),
-				Duration:      nextbillionsdk.Int(0),
+				Type:          "start",
+				Description:   nextbillionai.String("description"),
+				Distance:      nextbillionai.Int(0),
+				Duration:      nextbillionai.Int(0),
 				Load:          []int64{0},
 				Location:      []float64{0},
-				LocationIndex: nextbillionsdk.Int(0),
-				Service:       nextbillionsdk.Int(0),
-				Setup:         nextbillionsdk.Int(0),
-				WaitingTime:   nextbillionsdk.Int(0),
+				LocationIndex: nextbillionai.Int(0),
+				Service:       nextbillionai.Int(0),
+				Setup:         nextbillionai.Int(0),
+				WaitingTime:   nextbillionai.Int(0),
 			}},
 			Vehicle:     "vehicle",
 			Delivery:    []int64{0},
-			Description: nextbillionsdk.String("description"),
-			Distance:    nextbillionsdk.Int(0),
-			Duration:    nextbillionsdk.Int(0),
-			Geometry:    nextbillionsdk.String(`"geometry": "}ebGgcsxRE?CuDOYCYAG???"`),
+			Description: nextbillionai.String("description"),
+			Distance:    nextbillionai.Int(0),
+			Duration:    nextbillionai.Int(0),
+			Geometry:    nextbillionai.String(`"geometry": "}ebGgcsxRE?CuDOYCYAG???"`),
 			Pickup:      []int64{0},
-			Priority:    nextbillionsdk.Int(0),
-			Service:     nextbillionsdk.Int(0),
-			Setup:       nextbillionsdk.Int(0),
-			WaitingTime: nextbillionsdk.Int(0),
+			Priority:    nextbillionai.Int(0),
+			Service:     nextbillionai.Int(0),
+			Setup:       nextbillionai.Int(0),
+			WaitingTime: nextbillionai.Int(0),
 		}},
-		Unassigned: nextbillionsdk.OptimizationV2SubmitParamsUnassigned{
+		Unassigned: nextbillionai.OptimizationV2SubmitParamsUnassigned{
 			Jobs:      []string{"string"},
 			Shipments: [][]string{{"string"}},
 		},
-		Zones: []nextbillionsdk.OptimizationV2SubmitParamsZone{{
+		Zones: []nextbillionai.OptimizationV2SubmitParamsZone{{
 			ID:         0,
-			GeofenceID: nextbillionsdk.String("geofence_id"),
-			Geometry: nextbillionsdk.OptimizationV2SubmitParamsZoneGeometry{
+			GeofenceID: nextbillionai.String("geofence_id"),
+			Geometry: nextbillionai.OptimizationV2SubmitParamsZoneGeometry{
 				Coordinates: [][]float64{{0}},
-				Description: nextbillionsdk.String("description"),
-				Type:        "`Polygon`",
+				Description: nextbillionai.String("description"),
+				Type:        "Polygon",
 			},
 		}},
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

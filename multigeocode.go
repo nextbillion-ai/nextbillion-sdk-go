@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk
+package nextbillionai
 
 import (
 	"context"
@@ -150,7 +150,7 @@ type MultigeocodeSearchParams struct {
 	// location.
 	//
 	// Note: Supports 'meter' (m) and 'kilometer' (km) units. If no radius is given,
-	// the search method returns as many results as specified in `limit`.
+	// the search method returns as many results as specified in limit.
 	Radius param.Opt[string] `json:"radius,omitzero"`
 	// Specifies the state of the search place.
 	State param.Opt[string] `json:"state,omitzero"`

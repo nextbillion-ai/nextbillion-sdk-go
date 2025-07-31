@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,22 +22,22 @@ func TestSkynetAssetNewWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Asset.New(context.TODO(), nextbillionsdk.SkynetAssetNewParams{
+	_, err := client.Skynet.Asset.New(context.TODO(), nextbillionai.SkynetAssetNewParams{
 		Key:         "key=API_KEY",
-		Cluster:     nextbillionsdk.SkynetAssetNewParamsClusterAmerica,
+		Cluster:     nextbillionai.SkynetAssetNewParamsClusterAmerica,
 		Attributes:  "{\n  \"shift_timing\": \"0800-1700\",\n  \"driver_name\": \"John\"\n}",
-		CustomID:    nextbillionsdk.String("custom_id"),
-		Description: nextbillionsdk.String("description"),
+		CustomID:    nextbillionai.String("custom_id"),
+		Description: nextbillionai.String("description"),
 		MetaData:    map[string]interface{}{},
-		Name:        nextbillionsdk.String("name"),
+		Name:        nextbillionai.String("name"),
 		Tags:        []string{"string"},
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -54,20 +54,20 @@ func TestSkynetAssetGetWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Asset.Get(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetAssetGetParams{
+		nextbillionai.SkynetAssetGetParams{
 			Key:     "key=API_KEY",
-			Cluster: nextbillionsdk.SkynetAssetGetParamsClusterAmerica,
+			Cluster: nextbillionai.SkynetAssetGetParamsClusterAmerica,
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -84,25 +84,25 @@ func TestSkynetAssetUpdateWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Asset.Update(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetAssetUpdateParams{
+		nextbillionai.SkynetAssetUpdateParams{
 			Key:         "key=API_KEY",
-			Cluster:     nextbillionsdk.SkynetAssetUpdateParamsClusterAmerica,
+			Cluster:     nextbillionai.SkynetAssetUpdateParamsClusterAmerica,
 			Attributes:  "{\n  \"shift_timing\": \"0800-1700\",\n  \"driver_name\": \"John\"\n}",
-			Description: nextbillionsdk.String("description"),
+			Description: nextbillionai.String("description"),
 			MetaData:    map[string]interface{}{},
-			Name:        nextbillionsdk.String("name"),
+			Name:        nextbillionai.String("name"),
 			Tags:        []string{"string"},
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -119,22 +119,22 @@ func TestSkynetAssetListWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Asset.List(context.TODO(), nextbillionsdk.SkynetAssetListParams{
+	_, err := client.Skynet.Asset.List(context.TODO(), nextbillionai.SkynetAssetListParams{
 		Key:                    "key=API_KEY",
-		Cluster:                nextbillionsdk.SkynetAssetListParamsClusterAmerica,
-		IncludeAllOfAttributes: nextbillionsdk.String("include_all_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
-		IncludeAnyOfAttributes: nextbillionsdk.String("include_any_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
-		Pn:                     nextbillionsdk.Int(0),
-		Ps:                     nextbillionsdk.Int(100),
-		Sort:                   nextbillionsdk.String("updated_at:desc"),
-		Tags:                   nextbillionsdk.String("tags=tag_1,tag_2"),
+		Cluster:                nextbillionai.SkynetAssetListParamsClusterAmerica,
+		IncludeAllOfAttributes: nextbillionai.String("include_all_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
+		IncludeAnyOfAttributes: nextbillionai.String("include_any_of_attributes=vehicle_type:pickup_truck|driver_name:John"),
+		Pn:                     nextbillionai.Int(0),
+		Ps:                     nextbillionai.Int(100),
+		Sort:                   nextbillionai.String("updated_at:desc"),
+		Tags:                   nextbillionai.String("tags=tag_1,tag_2"),
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -151,20 +151,20 @@ func TestSkynetAssetDeleteWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Asset.Delete(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetAssetDeleteParams{
+		nextbillionai.SkynetAssetDeleteParams{
 			Key:     "key=API_KEY",
-			Cluster: nextbillionsdk.SkynetAssetDeleteParamsClusterAmerica,
+			Cluster: nextbillionai.SkynetAssetDeleteParamsClusterAmerica,
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -181,20 +181,20 @@ func TestSkynetAssetBind(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Asset.Bind(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetAssetBindParams{
+		nextbillionai.SkynetAssetBindParams{
 			Key:      "key=API_KEY",
 			DeviceID: "device_id",
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -211,35 +211,35 @@ func TestSkynetAssetTrackWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Asset.Track(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetAssetTrackParams{
+		nextbillionai.SkynetAssetTrackParams{
 			Key:      "key=API_KEY",
 			DeviceID: "device_id",
-			Locations: nextbillionsdk.SkynetAssetTrackParamsLocations{
-				Location: nextbillionsdk.SkynetAssetTrackParamsLocationsLocation{
+			Locations: nextbillionai.SkynetAssetTrackParamsLocations{
+				Location: nextbillionai.SkynetAssetTrackParamsLocationsLocation{
 					Lat: 0,
 					Lon: 0,
 				},
 				Timestamp:    0,
-				Accuracy:     nextbillionsdk.Float(0),
-				Altitude:     nextbillionsdk.Float(0),
-				BatteryLevel: nextbillionsdk.Int(0),
-				Bearing:      nextbillionsdk.Float(0),
+				Accuracy:     nextbillionai.Float(0),
+				Altitude:     nextbillionai.Float(0),
+				BatteryLevel: nextbillionai.Int(0),
+				Bearing:      nextbillionai.Float(0),
 				MetaData:     "{\n  \"driver_name\": \"Tyler Durden\",\n  \"type\": \"parcel\"\n}",
-				Speed:        nextbillionsdk.Float(0),
-				TrackingMode: nextbillionsdk.String("tracking_mode"),
+				Speed:        nextbillionai.Float(0),
+				TrackingMode: nextbillionai.String("tracking_mode"),
 			},
-			Cluster: nextbillionsdk.SkynetAssetTrackParamsClusterAmerica,
+			Cluster: nextbillionai.SkynetAssetTrackParamsClusterAmerica,
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -256,20 +256,20 @@ func TestSkynetAssetUpdateAttributes(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Skynet.Asset.UpdateAttributes(
 		context.TODO(),
 		"id",
-		nextbillionsdk.SkynetAssetUpdateAttributesParams{
+		nextbillionai.SkynetAssetUpdateAttributesParams{
 			Key:        "key=API_KEY",
 			Attributes: "{\n  \"shift_timing\": \"0800-1700\",\n  \"driver_name\": \"John\"\n}",
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

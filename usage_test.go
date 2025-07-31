@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -20,13 +20,13 @@ func TestUsage(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Origin:      "41.349302,2.136480",
+	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionai.DirectionComputeRouteParams{
+		Destination: "1.335368,103.785517",
+		Origin:      "1.312164,103.841063",
 	})
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())

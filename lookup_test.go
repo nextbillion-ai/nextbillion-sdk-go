@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,16 +22,16 @@ func TestLookupByID(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Lookup.ByID(context.TODO(), nextbillionsdk.LookupByIDParams{
+	_, err := client.Lookup.ByID(context.TODO(), nextbillionai.LookupByIDParams{
 		ID:  "id",
 		Key: "key=API_KEY",
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,25 +22,25 @@ func TestSnapToRoadSnapWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.SnapToRoads.Snap(context.TODO(), nextbillionsdk.SnapToRoadSnapParams{
+	_, err := client.SnapToRoads.Snap(context.TODO(), nextbillionai.SnapToRoadSnapParams{
 		Key:             "key=API_KEY",
 		Path:            "path=41.38602272,2.17621539|41.38312885,2.17207083|41.38157854,2.17906668|41.38288511,2.18186215",
-		Approaches:      nextbillionsdk.SnapToRoadSnapParamsApproachesUnrestricted,
-		Avoid:           nextbillionsdk.SnapToRoadSnapParamsAvoidToll,
-		Geometry:        nextbillionsdk.SnapToRoadSnapParamsGeometryPolyline,
-		Mode:            nextbillionsdk.SnapToRoadSnapParamsModeCar,
-		Option:          nextbillionsdk.SnapToRoadSnapParamsOptionFlexible,
-		Radiuses:        nextbillionsdk.String("radiuses=14|16|14"),
-		RoadInfo:        nextbillionsdk.SnapToRoadSnapParamsRoadInfoMaxSpeed,
-		Timestamps:      nextbillionsdk.String("timestamps=1656570000|1656570015|1656570030"),
-		TolerateOutlier: nextbillionsdk.Bool(true),
+		Approaches:      nextbillionai.SnapToRoadSnapParamsApproachesUnrestricted,
+		Avoid:           nextbillionai.SnapToRoadSnapParamsAvoidToll,
+		Geometry:        nextbillionai.SnapToRoadSnapParamsGeometryPolyline,
+		Mode:            nextbillionai.SnapToRoadSnapParamsModeCar,
+		Option:          nextbillionai.SnapToRoadSnapParamsOptionFlexible,
+		Radiuses:        nextbillionai.String("radiuses=14|16|14"),
+		RoadInfo:        nextbillionai.SnapToRoadSnapParamsRoadInfoMaxSpeed,
+		Timestamps:      nextbillionai.String("timestamps=1656570000|1656570015|1656570030"),
+		TolerateOutlier: nextbillionai.Bool(true),
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

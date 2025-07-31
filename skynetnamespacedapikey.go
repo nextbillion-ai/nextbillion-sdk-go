@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk
+package nextbillionai
 
 import (
 	"context"
@@ -80,7 +80,7 @@ func (r *SkynetNamespacedApikeyNewResponse) UnmarshalJSON(data []byte) error {
 
 // An object to return the details about the namespace key created.
 type SkynetNamespacedApikeyNewResponseResult struct {
-	// Returns the unique `key` created for the specified namespace.
+	// Returns the unique key created for the specified namespace.
 	Apikey string `json:"apikey"`
 	// Returns the time, expressed as UNIX epoch timestamp in seconds, when the
 	// namespace key was created.
@@ -88,7 +88,7 @@ type SkynetNamespacedApikeyNewResponseResult struct {
 	// Returns the time, expressed as UNIX epoch timestamp in seconds, when the
 	// namespace key will expire.
 	ExpiresAt int64 `json:"expires_at"`
-	// Returns the name of the `namespace` for which the key is created.
+	// Returns the name of the namespace for which the key is created.
 	Namespace string `json:"namespace"`
 	// An internal subscription ID.
 	SubID string `json:"sub_id"`
@@ -111,11 +111,11 @@ func (r *SkynetNamespacedApikeyNewResponseResult) UnmarshalJSON(data []byte) err
 }
 
 type SkynetNamespacedApikeyDeleteResponse struct {
-	// Its value is `OK` in case of a successful delete operation. Indicative error
+	// Its value is OK in case of a successful delete operation. Indicative error
 	// messages are returned otherwise, for different errors.
 	Msg string `json:"msg"`
 	// A string indicating the state of the response. A successful delete operation ins
-	// indicated by an HTTP code of`200`. See the
+	// indicated by an HTTP code of200. See the
 	// [API Error Codes](https://docs.nextbillion.ai/docs/tracking/api/live-tracking-api#api-error-codes)
 	// section below for possible values in case of errors.
 	Status int64 `json:"status"`
@@ -138,11 +138,10 @@ type SkynetNamespacedApikeyNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Specify a name for the `namespace`. If the namespace specified is unique then a
+	// Specify a name for the namespace. If the namespace specified is unique then a
 	// new namespace along with a new key is created. Whereas if the specified
-	// `namespace` is not unique, a new key will be created in the existing
-	// `namespace`. Please note that a `namespace` cannot be created using another
-	// namespace key.
+	// namespace is not unique, a new key will be created in the existing namespace.
+	// Please note that a namespace cannot be created using another namespace key.
 	Namespace string `query:"namespace,required" json:"-"`
 	paramObj
 }
@@ -175,8 +174,8 @@ type SkynetNamespacedApikeyDeleteParams struct {
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the key to be deleted.
 	KeyToDelete string `query:"key_to_delete,required" json:"-"`
-	// Specify the name of the `namespace` to which the \`key_to_delete\` belongs.
-	// Please note that a namespace key cannot be deleted using another namespace key.
+	// Specify the name of the namespace to which the \key_to_delete\ belongs. Please
+	// note that a namespace key cannot be deleted using another namespace key.
 	Namespace string `query:"namespace,required" json:"-"`
 	paramObj
 }
