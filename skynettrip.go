@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk
+package nextbillionai
 
 import (
 	"context"
@@ -100,53 +100,51 @@ func (r *SkynetTripService) Start(ctx context.Context, params SkynetTripStartPar
 	return
 }
 
-// An object with details of the `asset` properties.
+// An object with details of the asset properties.
 type AssetDetails struct {
-	// ID of the `asset`. This is the same ID that was generated/provided at the time
-	// of creating the `asset`.
+	// ID of the asset. This is the same ID that was generated/provided at the time of
+	// creating the asset.
 	ID string `json:"id"`
-	// A string dictionary object containing `attributes` of the `asset`. These
-	// `attributes` were associated with the `asset` at the time of creating or
-	// updating it.
+	// A string dictionary object containing attributes of the asset. These attributes
+	// were associated with the asset at the time of creating or updating it.
 	//
-	// `attributes` can be added to an `asset` using the _Update Asset Attributes_
-	// method.
+	// attributes can be added to an asset using the _Update Asset Attributes_ method.
 	Attributes any `json:"attributes"`
-	// A UNIX epoch timestamp in seconds representing the time at which the `asset` was
+	// A UNIX epoch timestamp in seconds representing the time at which the asset was
 	// created.
 	CreatedAt int64 `json:"created_at"`
-	// Description of the `asset`. The value would be the same as that provided for the
-	// `description` parameter at the time of creating or updating the `asset`.
+	// Description of the asset. The value would be the same as that provided for the
+	// description parameter at the time of creating or updating the asset.
 	Description string `json:"description"`
-	// ID of the `device` that is linked to this asset. Please note that there can be
-	// multiple `device_id` linked to a single `asset`. An empty response is returned
-	// if no devices are linked to the `asset`.
+	// ID of the device that is linked to this asset. Please note that there can be
+	// multiple device_id linked to a single asset. An empty response is returned if no
+	// devices are linked to the asset.
 	//
-	// User can link a device to an `asset` using the _Bind Asset to Device_ method.
+	// User can link a device to an asset using the _Bind Asset to Device_ method.
 	DeviceID string `json:"device_id"`
 	// An object with details of the last tracked location of the asset.
 	LatestLocation AssetDetailsLatestLocation `json:"latest_location"`
 	// Any valid json object data. Can be used to save customized data. Max size is
 	// 65kb.
 	MetaData MetaData `json:"meta_data"`
-	// Name of the `asset`. The value would be the same as that provided for the `name`
-	// parameter at the time of creating or updating the `asset`.
+	// Name of the asset. The value would be the same as that provided for the name
+	// parameter at the time of creating or updating the asset.
 	Name string `json:"name"`
 	// State of the asset. It will be "active" when the asset is in use or available
 	// for use, and it will be "deleted" in case the asset has been deleted.
 	State string `json:"state"`
-	// **This parameter will be deprecated soon! Please move existing `tags` to
-	// `attributes` parameter.**
+	// **This parameter will be deprecated soon! Please move existing tags to
+	// attributes parameter.**
 	//
-	// Tags of the asset. These were associated with the `asset` when it was created or
-	// updated. `tags` can be used for filtering assets in operations like _Get Asset
+	// Tags of the asset. These were associated with the asset when it was created or
+	// updated. tags can be used for filtering assets in operations like _Get Asset
 	// List_ and asset **Search** methods. They can also be used for monitoring of
-	// assets using **Monitor** methods after linking `tags` and `asset`.
+	// assets using **Monitor** methods after linking tags and asset.
 	Tags []string `json:"tags"`
-	// A UNIX epoch timestamp in seconds representing the last time when the `asset`
-	// was tracked.
+	// A UNIX epoch timestamp in seconds representing the last time when the asset was
+	// tracked.
 	TrackedAt int64 `json:"tracked_at"`
-	// A UNIX epoch timestamp in seconds representing the time at which the `asset` was
+	// A UNIX epoch timestamp in seconds representing the time at which the asset was
 	// last updated.
 	UpdatedAt int64 `json:"updated_at"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -181,11 +179,11 @@ type AssetDetailsLatestLocation struct {
 	// accuracy radius, in meters, at the 68th percentile confidence level.
 	Accuracy float64 `json:"accuracy"`
 	// If available in the GPS information, this property returns the altitude of the
-	// `asset` at the last tracked location. It is represented as height, in meters,
+	// asset at the last tracked location. It is represented as height, in meters,
 	// above the WGS84 reference ellipsoid.
 	Altitude float64 `json:"altitude"`
 	// If available in the GPS information, this property returns the heading of the
-	// `asset` calculated from true north in clockwise direction at the last tracked
+	// asset calculated from true north in clockwise direction at the last tracked
 	// location. Please note that the bearing is not affected by the device
 	// orientation.
 	//
@@ -194,7 +192,7 @@ type AssetDetailsLatestLocation struct {
 	// An object with the coordinates of the last tracked location.
 	Location AssetDetailsLatestLocationLocation `json:"location"`
 	// If available in the GPS information, this property returns the speed of the
-	// `asset`, in meters per second, at the last tracked location.
+	// asset, in meters per second, at the last tracked location.
 	Speed float64 `json:"speed"`
 	// A UNIX epoch timestamp in milliseconds, representing the time at which the
 	// location was tracked.
@@ -220,9 +218,9 @@ func (r *AssetDetailsLatestLocation) UnmarshalJSON(data []byte) error {
 
 // An object with the coordinates of the last tracked location.
 type AssetDetailsLatestLocationLocation struct {
-	// Latitude of the tracked location of the `asset`.
+	// Latitude of the tracked location of the asset.
 	Lat float64 `json:"lat"`
-	// Longitude of the tracked location of the `asset`.
+	// Longitude of the tracked location of the asset.
 	Lon float64 `json:"lon"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -272,7 +270,7 @@ type SkynetTripGetResponse struct {
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -316,8 +314,8 @@ type SkynetTripGetResponseDataTrip struct {
 	// Returns the ID of the asset linked to the trip when the trip was started or
 	// updated.
 	AssetID string `json:"asset_id"`
-	// Returns the `attributes` provided for the trip at the time of starting or
-	// updating it.
+	// Returns the attributes provided for the trip at the time of starting or updating
+	// it.
 	Attributes any `json:"attributes"`
 	// Returns the time, expressed as UNIX epoch timestamp in milliseconds, when the
 	// trip was created.
@@ -386,7 +384,7 @@ type SkynetTripGetSummaryResponse struct {
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -427,13 +425,13 @@ func (r *SkynetTripGetSummaryResponseData) UnmarshalJSON(data []byte) error {
 type SkynetTripGetSummaryResponseDataTrip struct {
 	// Returns the unique identifier of the trip.
 	ID string `json:"id"`
-	// An object with details of the `asset` properties.
+	// An object with details of the asset properties.
 	Asset AssetDetails `json:"asset"`
 	// Returns the ID of the asset linked to the trip when the trip was started or
 	// updated.
 	AssetID string `json:"asset_id"`
-	// Returns the `attributes` provided for the trip at the time of starting or
-	// updating it.
+	// Returns the attributes provided for the trip at the time of starting or updating
+	// it.
 	Attributes any `json:"attributes"`
 	// Returns the time, expressed as UNIX epoch timestamp in milliseconds, when the
 	// trip was created.
@@ -517,7 +515,7 @@ type SkynetTripStartResponse struct {
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be `Ok`. Indicative error messages are returned for different errors.
+	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -537,7 +535,7 @@ func (r *SkynetTripStartResponse) UnmarshalJSON(data []byte) error {
 }
 
 type SkynetTripStartResponseData struct {
-	// Returns the ID of the newly created trip. It will be same as the `custom_id` if
+	// Returns the ID of the newly created trip. It will be same as the custom_id if
 	// that input was provided in the input request. Use this ID to manage this trip
 	// using other available Trip methods.
 	ID string `json:"id"`
@@ -598,14 +596,13 @@ type SkynetTripUpdateParams struct {
 	//
 	// Any of "america".
 	Cluster SkynetTripUpdateParamsCluster `query:"cluster,omitzero" json:"-"`
-	// Use this field to update the `attributes` of the trip. Please note that when
-	// updating the `attributes` field, previously added information will be
-	// overwritten.
+	// Use this field to update the attributes of the trip. Please note that when
+	// updating the attributes field, previously added information will be overwritten.
 	Attributes any `json:"attributes,omitzero"`
 	// Use this JSON object to update additional details about the trip. This property
 	// is used to add any custom information / context about the trip.
 	//
-	// Please note that updating the `meta_data` field will overwrite the previously
+	// Please note that updating the meta_data field will overwrite the previously
 	// added information.
 	MetaData any `json:"meta_data,omitzero"`
 	// Use this object to update the details of the stops made during the trip. Each
@@ -655,7 +652,7 @@ type SkynetTripUpdateParamsStop struct {
 	// Use this JSON object to update additional details about the stop. This property
 	// is used to add any custom information / context about the stop.
 	//
-	// Please note that updating the `meta_data` field will overwrite the previously
+	// Please note that updating the meta_data field will overwrite the previously
 	// added information.
 	MetaData any `json:"meta_data,omitzero"`
 	paramObj
@@ -765,11 +762,11 @@ type SkynetTripStartParams struct {
 	// Specify the ID of the asset which is making this trip. The asset will be linked
 	// to this trip.
 	AssetID string `json:"asset_id,required"`
-	// Set a unique ID for the new `trip`. If not provided, an ID will be automatically
-	// generated in UUID format. A valid `custom_id` can contain letters, numbers, “-”,
-	// & “\_” only.
+	// Set a unique ID for the new trip. If not provided, an ID will be automatically
+	// generated in UUID format. A valid custom_id can contain letters, numbers, “-”, &
+	// “\_” only.
 	//
-	// Please note that the ID of a `trip` can not be changed once it is created.
+	// Please note that the ID of a trip can not be changed once it is created.
 	CustomID param.Opt[string] `json:"custom_id,omitzero"`
 	// Add a custom description for the trip.
 	Description param.Opt[string] `json:"description,omitzero"`
@@ -779,13 +776,13 @@ type SkynetTripStartParams struct {
 	//
 	// Any of "america".
 	Cluster SkynetTripStartParamsCluster `query:"cluster,omitzero" json:"-"`
-	// `attributes` can be used to store custom information about a trip in
-	// `key`:`value` format. Use `attributes` to add any useful information or context
-	// to your trips like the driver name, destination etc.
+	// attributes can be used to store custom information about a trip in key:value
+	// format. Use attributes to add any useful information or context to your trips
+	// like the driver name, destination etc.
 	//
-	// Please note that the maximum number of `key`:`value` pairs that can be added to
-	// an `attributes` object is 100. Also, the overall size of `attributes` object
-	// should not exceed 65kb.
+	// Please note that the maximum number of key:value pairs that can be added to an
+	// attributes object is 100. Also, the overall size of attributes object should not
+	// exceed 65kb.
 	Attributes any `json:"attributes,omitzero"`
 	// An JSON object to collect additional details about the trip. Use this property
 	// to add any custom information / context about the trip. The input will be passed

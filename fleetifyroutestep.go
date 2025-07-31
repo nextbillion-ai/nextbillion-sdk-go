@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk
+package nextbillionai
 
 import (
 	"context"
@@ -85,9 +85,9 @@ func (r *FleetifyRouteStepService) Delete(ctx context.Context, stepID string, pa
 // completed route step.
 //
 // When all steps are completed, the encapsulating route’s status will change to
-// `completed` automatically.
+// completed automatically.
 //
-// Either `Session Token` must be provided to authenticate the request.
+// Either Session Token must be provided to authenticate the request.
 func (r *FleetifyRouteStepService) Complete(ctx context.Context, stepID string, params FleetifyRouteStepCompleteParams, opts ...option.RequestOption) (err error) {
 	opts = append(r.Options[:], opts...)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
@@ -109,31 +109,30 @@ type DocumentSubmission = any
 // Specify the mode of completion to be used for the step. Currently, following
 // values are allowed:
 //
-//   - `manual`: Steps must be marked as completed manually through the Driver App.
-//   - `geofence`: Steps are marked as completed automatically based on the entry
+//   - manual: Steps must be marked as completed manually through the Driver App.
+//   - geofence: Steps are marked as completed automatically based on the entry
 //     conditions and geofence specified.
-//   - `geofence_manual_fallback`: Steps will be marked as completed automatically
+//   - geofence_manual_fallback: Steps will be marked as completed automatically
 //     based on geofence and entry condition configurations but there will also be a
 //     provision for manually updating the status in case, geofence detection fails.
 type RouteStepCompletionMode string
 
 const (
-	RouteStepCompletionModeManual                 RouteStepCompletionMode = "`manual`"
-	RouteStepCompletionModeGeofence               RouteStepCompletionMode = "`geofence`"
-	RouteStepCompletionModeGeofenceManualFallback RouteStepCompletionMode = "`geofence_manual_fallback`"
+	RouteStepCompletionModeManual                 RouteStepCompletionMode = "manual"
+	RouteStepCompletionModeGeofence               RouteStepCompletionMode = "geofence"
+	RouteStepCompletionModeGeofenceManualFallback RouteStepCompletionMode = "geofence_manual_fallback"
 )
 
 // Specify the configurations of the geofence which will be used to detect presence
 // of the driver and complete the tasks automatically. Please note that this
-// attribute is required when `completion_mode` is either "geofence" or
+// attribute is required when completion_mode is either "geofence" or
 // "geofence_manual_fallback".
 type RouteStepGeofenceConfig struct {
 	// Specify the radius of the cicular geofence, in meters. Once specified, the
 	// service will create a geofence with task's location as the center of the circle
-	// having the given radius. Valid values for `radius` are \[10, 5000\].
+	// having the given radius. Valid values for radius are \[10, 5000\].
 	Radius float64 `json:"radius"`
-	// Specify the type of the geofence. Currently, `circle` is the only suppoeted
-	// value.
+	// Specify the type of the geofence. Currently, circle is the only suppoeted value.
 	//
 	// Any of "circle".
 	Type RouteStepGeofenceConfigType `json:"type"`
@@ -161,8 +160,7 @@ func (r RouteStepGeofenceConfig) ToParam() RouteStepGeofenceConfigParam {
 	return param.Override[RouteStepGeofenceConfigParam](json.RawMessage(r.RawJSON()))
 }
 
-// Specify the type of the geofence. Currently, `circle` is the only suppoeted
-// value.
+// Specify the type of the geofence. Currently, circle is the only suppoeted value.
 type RouteStepGeofenceConfigType string
 
 const (
@@ -171,15 +169,14 @@ const (
 
 // Specify the configurations of the geofence which will be used to detect presence
 // of the driver and complete the tasks automatically. Please note that this
-// attribute is required when `completion_mode` is either "geofence" or
+// attribute is required when completion_mode is either "geofence" or
 // "geofence_manual_fallback".
 type RouteStepGeofenceConfigParam struct {
 	// Specify the radius of the cicular geofence, in meters. Once specified, the
 	// service will create a geofence with task's location as the center of the circle
-	// having the given radius. Valid values for `radius` are \[10, 5000\].
+	// having the given radius. Valid values for radius are \[10, 5000\].
 	Radius param.Opt[float64] `json:"radius,omitzero"`
-	// Specify the type of the geofence. Currently, `circle` is the only suppoeted
-	// value.
+	// Specify the type of the geofence. Currently, circle is the only suppoeted value.
 	//
 	// Any of "circle".
 	Type RouteStepGeofenceConfigType `json:"type,omitzero"`
@@ -206,14 +203,13 @@ type RouteStepsRequestParam struct {
 	//     it does not impact or get affected by the route generated.
 	Arrival int64 `json:"arrival,required"`
 	// Specify the location coordinates where the steps should be performed in
-	// `[latitude, longitude]`.
+	// [latitude, longitude].
 	Location []float64 `json:"location,omitzero,required"`
-	// Specify the step type. It can belong to one of the following: `start`, `job` ,
-	// `pickup`, `delivery`, `end`. A `duration` is mandatory when the step type is
-	// either `layover` or a `break`.
+	// Specify the step type. It can belong to one of the following: start, job ,
+	// pickup, delivery, end. A duration is mandatory when the step type is either
+	// layover or a break.
 	//
-	// Any of "`start`", "`job`", "`pickup`", "`delivery`", "`break`", "`layover`",
-	// "`end`".
+	// Any of "start", "job", "pickup", "delivery", "break", "layover", "end".
 	Type RouteStepsRequestType `json:"type,omitzero,required"`
 	// Specify the postal address for the step.
 	Address param.Opt[string] `json:"address,omitzero"`
@@ -224,26 +220,26 @@ type RouteStepsRequestParam struct {
 	// create, read and manage the document templates.
 	//
 	// Please note that the document template ID can not be assigned to following step
-	// types - `start`, `end`, `break`, `layover`.
+	// types - start, end, break, layover.
 	DocumentTemplateID param.Opt[string] `json:"document_template_id,omitzero"`
-	// Specify the duration of the `layover` or `break` type steps, in seconds. Please
-	// note it is mandatory when step type is either "layover" or "break".
+	// Specify the duration of the layover or break type steps, in seconds. Please note
+	// it is mandatory when step type is either "layover" or "break".
 	Duration param.Opt[int64] `json:"duration,omitzero"`
 	// Specify the mode of completion to be used for the step. Currently, following
 	// values are allowed:
 	//
-	//   - `manual`: Steps must be marked as completed manually through the Driver App.
-	//   - `geofence`: Steps are marked as completed automatically based on the entry
+	//   - manual: Steps must be marked as completed manually through the Driver App.
+	//   - geofence: Steps are marked as completed automatically based on the entry
 	//     conditions and geofence specified.
-	//   - `geofence_manual_fallback`: Steps will be marked as completed automatically
+	//   - geofence_manual_fallback: Steps will be marked as completed automatically
 	//     based on geofence and entry condition configurations but there will also be a
 	//     provision for manually updating the status in case, geofence detection fails.
 	//
-	// Any of "`manual`", "`geofence`", "`geofence_manual_fallback`".
+	// Any of "manual", "geofence", "geofence_manual_fallback".
 	CompletionMode RouteStepCompletionMode `json:"completion_mode,omitzero"`
 	// Specify the configurations of the geofence which will be used to detect presence
 	// of the driver and complete the tasks automatically. Please note that this
-	// attribute is required when `completion_mode` is either "geofence" or
+	// attribute is required when completion_mode is either "geofence" or
 	// "geofence_manual_fallback".
 	GeofenceConfig RouteStepGeofenceConfigParam `json:"geofence_config,omitzero"`
 	// An object to specify any additional details about the task to be associated with
@@ -262,19 +258,19 @@ func (r *RouteStepsRequestParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Specify the step type. It can belong to one of the following: `start`, `job` ,
-// `pickup`, `delivery`, `end`. A `duration` is mandatory when the step type is
-// either `layover` or a `break`.
+// Specify the step type. It can belong to one of the following: start, job ,
+// pickup, delivery, end. A duration is mandatory when the step type is either
+// layover or a break.
 type RouteStepsRequestType string
 
 const (
-	RouteStepsRequestTypeStart    RouteStepsRequestType = "`start`"
-	RouteStepsRequestTypeJob      RouteStepsRequestType = "`job`"
-	RouteStepsRequestTypePickup   RouteStepsRequestType = "`pickup`"
-	RouteStepsRequestTypeDelivery RouteStepsRequestType = "`delivery`"
-	RouteStepsRequestTypeBreak    RouteStepsRequestType = "`break`"
-	RouteStepsRequestTypeLayover  RouteStepsRequestType = "`layover`"
-	RouteStepsRequestTypeEnd      RouteStepsRequestType = "`end`"
+	RouteStepsRequestTypeStart    RouteStepsRequestType = "start"
+	RouteStepsRequestTypeJob      RouteStepsRequestType = "job"
+	RouteStepsRequestTypePickup   RouteStepsRequestType = "pickup"
+	RouteStepsRequestTypeDelivery RouteStepsRequestType = "delivery"
+	RouteStepsRequestTypeBreak    RouteStepsRequestType = "break"
+	RouteStepsRequestTypeLayover  RouteStepsRequestType = "layover"
+	RouteStepsRequestTypeEnd      RouteStepsRequestType = "end"
 )
 
 // An object to specify any additional details about the task to be associated with
@@ -314,14 +310,14 @@ type RouteStepsResponse struct {
 	Arrival    int64                        `json:"arrival"`
 	Completion RouteStepsResponseCompletion `json:"completion"`
 	// Represents the timestamp of the creation in seconds since the Unix epoch.
-	// Example: `1738743999`.
+	// Example: 1738743999.
 	CreatedAt int64 `json:"created_at"`
 	// Returns the details of the document that was used for collecting the proof of
 	// completion for the step. In case no document template ID was provided for the
-	// given step, then a `null` value is returned. Each object represents a new field
-	// in the document.
+	// given step, then a null value is returned. Each object represents a new field in
+	// the document.
 	DocumentSnapshot []any `json:"document_snapshot"`
-	// Returns the duration for `layover` or `break` type steps.
+	// Returns the duration for layover or break type steps.
 	Duration int64 `json:"duration"`
 	// Returns the location coordinates where the step is executed.
 	Location []float64 `json:"location"`
@@ -332,13 +328,12 @@ type RouteStepsResponse struct {
 	// Returns a unique short ID of the step for easier referencing and displaying
 	// purposes.
 	ShortID string `json:"short_id"`
-	// Returns the step type. It can belong to one of the following: `start`, `job` ,
-	// `pickup`, `delivery`, `break`, `layover` , and `end`. For any given step, it
-	// would be the same as that specified in the input request while configuring the
-	// step details.
+	// Returns the step type. It can belong to one of the following: start, job ,
+	// pickup, delivery, break, layover , and end. For any given step, it would be the
+	// same as that specified in the input request while configuring the step details.
 	Type string `json:"type"`
 	// Represents the timestamp of the last update in seconds since the Unix epoch.
-	// Example: `1738743999`.
+	// Example: 1738743999.
 	UpdatedAt int64 `json:"updated_at"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -367,42 +362,42 @@ func (r *RouteStepsResponse) UnmarshalJSON(data []byte) error {
 
 type RouteStepsResponseCompletion struct {
 	// Represents the timestamp of the completion in seconds since the Unix epoch.
-	// Example: `1738743999`.
+	// Example: 1738743999.
 	CompletedAt int64 `json:"completed_at"`
 	// Specify the mode of completion to be used for the step. Currently, following
 	// values are allowed:
 	//
-	//   - `manual`: Steps must be marked as completed manually through the Driver App.
-	//   - `geofence`: Steps are marked as completed automatically based on the entry
+	//   - manual: Steps must be marked as completed manually through the Driver App.
+	//   - geofence: Steps are marked as completed automatically based on the entry
 	//     conditions and geofence specified.
-	//   - `geofence_manual_fallback`: Steps will be marked as completed automatically
+	//   - geofence_manual_fallback: Steps will be marked as completed automatically
 	//     based on geofence and entry condition configurations but there will also be a
 	//     provision for manually updating the status in case, geofence detection fails.
 	//
-	// Any of "`manual`", "`geofence`", "`geofence_manual_fallback`".
+	// Any of "manual", "geofence", "geofence_manual_fallback".
 	CompletedByMode RouteStepCompletionMode `json:"completed_by_mode"`
 	// Specify the mode of completion to be used for the step. Currently, following
 	// values are allowed:
 	//
-	//   - `manual`: Steps must be marked as completed manually through the Driver App.
-	//   - `geofence`: Steps are marked as completed automatically based on the entry
+	//   - manual: Steps must be marked as completed manually through the Driver App.
+	//   - geofence: Steps are marked as completed automatically based on the entry
 	//     conditions and geofence specified.
-	//   - `geofence_manual_fallback`: Steps will be marked as completed automatically
+	//   - geofence_manual_fallback: Steps will be marked as completed automatically
 	//     based on geofence and entry condition configurations but there will also be a
 	//     provision for manually updating the status in case, geofence detection fails.
 	//
-	// Any of "`manual`", "`geofence`", "`geofence_manual_fallback`".
+	// Any of "manual", "geofence", "geofence_manual_fallback".
 	CompletionMode RouteStepCompletionMode `json:"completion_mode"`
 	// A key-value map storing form submission data, where keys correspond to field
 	// labels and values can be of any type depend on the type of according document
 	// item.
 	Document DocumentSubmission `json:"document"`
 	// Represents the timestamp of the last doc modification in seconds since the Unix
-	// epoch. Example: `1738743999`.
+	// epoch. Example: 1738743999.
 	DocumentModifiedAt int64 `json:"document_modified_at"`
 	// Specify the configurations of the geofence which will be used to detect presence
 	// of the driver and complete the tasks automatically. Please note that this
-	// attribute is required when `completion_mode` is either "geofence" or
+	// attribute is required when completion_mode is either "geofence" or
 	// "geofence_manual_fallback".
 	GeofenceConfig RouteStepGeofenceConfig `json:"geofence_config"`
 	// Status of the step.
@@ -434,10 +429,10 @@ func (r *RouteStepsResponseCompletion) UnmarshalJSON(data []byte) error {
 // will be available for display on the Driver's app under step details.
 type RouteStepsResponseMeta struct {
 	// Returns the customer name associated with the step. It can configured in the
-	// input request using the `metadata` attribute of the step.
+	// input request using the metadata attribute of the step.
 	CustomerName string `json:"customer_name"`
 	// Returns the customer's phone number associated with the step. It can configured
-	// in the input request using the `metadata` attribute of the step.
+	// in the input request using the metadata attribute of the step.
 	CustomerPhoneNumber string `json:"customer_phone_number"`
 	// Returns the custom instructions to carry out while performing the task. These
 	// instructions can be provided at the time of configuring the step details in the
@@ -540,17 +535,16 @@ type FleetifyRouteStepNewParams struct {
 	//     it does not impact or get affected by the route generated.
 	Arrival int64 `json:"arrival,required"`
 	// Specify the location coordinates where the steps should be performed in
-	// `[latitude, longitude]`.
+	// [latitude, longitude].
 	Location []float64 `json:"location,omitzero,required"`
 	// Indicates the index at which to insert the step, starting from 0 up to the total
 	// number of steps in the route.
 	Position int64 `json:"position,required"`
-	// Specify the step type. It can belong to one of the following: `start`, `job` ,
-	// `pickup`, `delivery`, `end`. A `duration` is mandatory when the step type is
-	// either `layover` or a `break`.
+	// Specify the step type. It can belong to one of the following: start, job ,
+	// pickup, delivery, end. A duration is mandatory when the step type is either
+	// layover or a break.
 	//
-	// Any of "`start`", "`job`", "`pickup`", "`delivery`", "`break`", "`layover`",
-	// "`end`".
+	// Any of "start", "job", "pickup", "delivery", "break", "layover", "end".
 	Type FleetifyRouteStepNewParamsType `json:"type,omitzero,required"`
 	// Specify the postal address for the step.
 	Address param.Opt[string] `json:"address,omitzero"`
@@ -561,26 +555,26 @@ type FleetifyRouteStepNewParams struct {
 	// create, read and manage the document templates.
 	//
 	// Please note that the document template ID can not be assigned to following step
-	// types - `start`, `end`, `break`, `layover`.
+	// types - start, end, break, layover.
 	DocumentTemplateID param.Opt[string] `json:"document_template_id,omitzero"`
-	// Specify the duration of the `layover` or `break` type steps, in seconds. Please
-	// note it is mandatory when step type is either "layover" or "break".
+	// Specify the duration of the layover or break type steps, in seconds. Please note
+	// it is mandatory when step type is either "layover" or "break".
 	Duration param.Opt[int64] `json:"duration,omitzero"`
 	// Specify the mode of completion to be used for the step. Currently, following
 	// values are allowed:
 	//
-	//   - `manual`: Steps must be marked as completed manually through the Driver App.
-	//   - `geofence`: Steps are marked as completed automatically based on the entry
+	//   - manual: Steps must be marked as completed manually through the Driver App.
+	//   - geofence: Steps are marked as completed automatically based on the entry
 	//     conditions and geofence specified.
-	//   - `geofence_manual_fallback`: Steps will be marked as completed automatically
+	//   - geofence_manual_fallback: Steps will be marked as completed automatically
 	//     based on geofence and entry condition configurations but there will also be a
 	//     provision for manually updating the status in case, geofence detection fails.
 	//
-	// Any of "`manual`", "`geofence`", "`geofence_manual_fallback`".
+	// Any of "manual", "geofence", "geofence_manual_fallback".
 	CompletionMode RouteStepCompletionMode `json:"completion_mode,omitzero"`
 	// Specify the configurations of the geofence which will be used to detect presence
 	// of the driver and complete the tasks automatically. Please note that this
-	// attribute is required when `completion_mode` is either "geofence" or
+	// attribute is required when completion_mode is either "geofence" or
 	// "geofence_manual_fallback".
 	GeofenceConfig RouteStepGeofenceConfigParam `json:"geofence_config,omitzero"`
 	// An object to specify any additional details about the task to be associated with
@@ -608,19 +602,19 @@ func (r FleetifyRouteStepNewParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-// Specify the step type. It can belong to one of the following: `start`, `job` ,
-// `pickup`, `delivery`, `end`. A `duration` is mandatory when the step type is
-// either `layover` or a `break`.
+// Specify the step type. It can belong to one of the following: start, job ,
+// pickup, delivery, end. A duration is mandatory when the step type is either
+// layover or a break.
 type FleetifyRouteStepNewParamsType string
 
 const (
-	FleetifyRouteStepNewParamsTypeStart    FleetifyRouteStepNewParamsType = "`start`"
-	FleetifyRouteStepNewParamsTypeJob      FleetifyRouteStepNewParamsType = "`job`"
-	FleetifyRouteStepNewParamsTypePickup   FleetifyRouteStepNewParamsType = "`pickup`"
-	FleetifyRouteStepNewParamsTypeDelivery FleetifyRouteStepNewParamsType = "`delivery`"
-	FleetifyRouteStepNewParamsTypeBreak    FleetifyRouteStepNewParamsType = "`break`"
-	FleetifyRouteStepNewParamsTypeLayover  FleetifyRouteStepNewParamsType = "`layover`"
-	FleetifyRouteStepNewParamsTypeEnd      FleetifyRouteStepNewParamsType = "`end`"
+	FleetifyRouteStepNewParamsTypeStart    FleetifyRouteStepNewParamsType = "start"
+	FleetifyRouteStepNewParamsTypeJob      FleetifyRouteStepNewParamsType = "job"
+	FleetifyRouteStepNewParamsTypePickup   FleetifyRouteStepNewParamsType = "pickup"
+	FleetifyRouteStepNewParamsTypeDelivery FleetifyRouteStepNewParamsType = "delivery"
+	FleetifyRouteStepNewParamsTypeBreak    FleetifyRouteStepNewParamsType = "break"
+	FleetifyRouteStepNewParamsTypeLayover  FleetifyRouteStepNewParamsType = "layover"
+	FleetifyRouteStepNewParamsTypeEnd      FleetifyRouteStepNewParamsType = "end"
 )
 
 // An object to specify any additional details about the task to be associated with
@@ -668,40 +662,39 @@ type FleetifyRouteStepUpdateParams struct {
 	// completion for the step. If an empty string "" is provided, the current document
 	// template associated to the step will be removed.
 	DocumentTemplateID param.Opt[string] `json:"document_template_id,omitzero"`
-	// Specify the duration of the `layover` or `break` type steps, in seconds. Please
-	// note it is mandatory when step type is either "layover" or "break".
+	// Specify the duration of the layover or break type steps, in seconds. Please note
+	// it is mandatory when step type is either "layover" or "break".
 	Duration param.Opt[int64] `json:"duration,omitzero"`
 	// Specify the mode of completion to be used for the step. Currently, following
 	// values are allowed:
 	//
-	//   - `manual`: Steps must be marked as completed manually through the Driver App.
-	//   - `geofence`: Steps are marked as completed automatically based on the entry
+	//   - manual: Steps must be marked as completed manually through the Driver App.
+	//   - geofence: Steps are marked as completed automatically based on the entry
 	//     conditions and geofence specified.
-	//   - `geofence_manual_fallback`: Steps will be marked as completed automatically
+	//   - geofence_manual_fallback: Steps will be marked as completed automatically
 	//     based on geofence and entry condition configurations but there will also be a
 	//     provision for manually updating the status in case, geofence detection fails.
 	//
-	// Any of "`manual`", "`geofence`", "`geofence_manual_fallback`".
+	// Any of "manual", "geofence", "geofence_manual_fallback".
 	CompletionMode RouteStepCompletionMode `json:"completion_mode,omitzero"`
 	// Specify the configurations of the geofence which will be used to detect presence
 	// of the driver and complete the tasks automatically. Please note that this
-	// attribute is required when `completion_mode` is either "geofence" or
+	// attribute is required when completion_mode is either "geofence" or
 	// "geofence_manual_fallback".
 	GeofenceConfig RouteStepGeofenceConfigParam `json:"geofence_config,omitzero"`
 	// Specify the location coordinates where the steps should be performed in
-	// `[latitude, longitude]`.
+	// [latitude, longitude].
 	Location []float64 `json:"location,omitzero"`
 	// An object to specify any additional details about the task to be associated with
 	// the step in the response. The information provided here will be available on the
 	// Driver's app under step details. This attribute can be used to provide context
 	// about or instructions to the driver for performing the task
 	Meta FleetifyRouteStepUpdateParamsMeta `json:"meta,omitzero"`
-	// Specify the step type. It can belong to one of the following: `start`, `job` ,
-	// `pickup`, `delivery`, `end`. A `duration` is mandatory when the step type is
-	// either `layover` or a `break`.
+	// Specify the step type. It can belong to one of the following: start, job ,
+	// pickup, delivery, end. A duration is mandatory when the step type is either
+	// layover or a break.
 	//
-	// Any of "`start`", "`job`", "`pickup`", "`delivery`", "`break`", "`layover`",
-	// "`end`".
+	// Any of "start", "job", "pickup", "delivery", "break", "layover", "end".
 	Type FleetifyRouteStepUpdateParamsType `json:"type,omitzero"`
 	paramObj
 }
@@ -745,19 +738,19 @@ func (r *FleetifyRouteStepUpdateParamsMeta) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Specify the step type. It can belong to one of the following: `start`, `job` ,
-// `pickup`, `delivery`, `end`. A `duration` is mandatory when the step type is
-// either `layover` or a `break`.
+// Specify the step type. It can belong to one of the following: start, job ,
+// pickup, delivery, end. A duration is mandatory when the step type is either
+// layover or a break.
 type FleetifyRouteStepUpdateParamsType string
 
 const (
-	FleetifyRouteStepUpdateParamsTypeStart    FleetifyRouteStepUpdateParamsType = "`start`"
-	FleetifyRouteStepUpdateParamsTypeJob      FleetifyRouteStepUpdateParamsType = "`job`"
-	FleetifyRouteStepUpdateParamsTypePickup   FleetifyRouteStepUpdateParamsType = "`pickup`"
-	FleetifyRouteStepUpdateParamsTypeDelivery FleetifyRouteStepUpdateParamsType = "`delivery`"
-	FleetifyRouteStepUpdateParamsTypeBreak    FleetifyRouteStepUpdateParamsType = "`break`"
-	FleetifyRouteStepUpdateParamsTypeLayover  FleetifyRouteStepUpdateParamsType = "`layover`"
-	FleetifyRouteStepUpdateParamsTypeEnd      FleetifyRouteStepUpdateParamsType = "`end`"
+	FleetifyRouteStepUpdateParamsTypeStart    FleetifyRouteStepUpdateParamsType = "start"
+	FleetifyRouteStepUpdateParamsTypeJob      FleetifyRouteStepUpdateParamsType = "job"
+	FleetifyRouteStepUpdateParamsTypePickup   FleetifyRouteStepUpdateParamsType = "pickup"
+	FleetifyRouteStepUpdateParamsTypeDelivery FleetifyRouteStepUpdateParamsType = "delivery"
+	FleetifyRouteStepUpdateParamsTypeBreak    FleetifyRouteStepUpdateParamsType = "break"
+	FleetifyRouteStepUpdateParamsTypeLayover  FleetifyRouteStepUpdateParamsType = "layover"
+	FleetifyRouteStepUpdateParamsTypeEnd      FleetifyRouteStepUpdateParamsType = "end"
 )
 
 type FleetifyRouteStepDeleteParams struct {
@@ -782,15 +775,15 @@ type FleetifyRouteStepCompleteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" json:"-"`
-	// Sets the status of the route step. Currently only `completed` is supported.
+	// Sets the status of the route step. Currently only completed is supported.
 	//
-	// Note: once marked `completed`, a step cannot transition to other statuses. You
-	// can only update the document afterwards.
+	// Note: once marked completed, a step cannot transition to other statuses. You can
+	// only update the document afterwards.
 	Mode param.Opt[string] `json:"mode,omitzero"`
-	// Sets the status of the route step. Currently only `completed` is supported.
+	// Sets the status of the route step. Currently only completed is supported.
 	//
-	// Note: once marked `completed`, a step cannot transition to other statuses. You
-	// can only update the document afterwards.
+	// Note: once marked completed, a step cannot transition to other statuses. You can
+	// only update the document afterwards.
 	Status param.Opt[string] `json:"status,omitzero"`
 	// A key-value map storing form submission data, where keys correspond to field
 	// labels and values can be of any type depend on the type of according document

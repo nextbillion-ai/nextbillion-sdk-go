@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ```go
 import (
-	"github.com/nextbillion-ai/nextbillion-sdk-go" // imported as nextbillionsdk
+	"github.com/nextbillion-ai/nextbillion-sdk-go" // imported as nextbillionai
 )
 ```
 
@@ -49,12 +49,12 @@ import (
 )
 
 func main() {
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("NEXTBILLION_SDK_API_KEY")
 	)
-	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Origin:      "41.349302,2.136480",
+	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionai.DirectionComputeRouteParams{
+		Destination: "1.335368,103.785517",
+		Origin:      "1.312164,103.841063",
 	})
 	if err != nil {
 		panic(err.Error())
@@ -66,13 +66,13 @@ func main() {
 
 ### Request fields
 
-The nextbillionsdk library uses the [`omitzero`](https://tip.golang.org/doc/go1.24#encodingjsonpkgencodingjson)
+The nextbillionai library uses the [`omitzero`](https://tip.golang.org/doc/go1.24#encodingjsonpkgencodingjson)
 semantics from the Go 1.24+ `encoding/json` release for request fields.
 
 Required primitive fields (`int64`, `string`, etc.) feature the tag <code>\`json:"...,required"\`</code>. These
 fields are always serialized, even their zero values.
 
-Optional primitive types are wrapped in a `param.Opt[T]`. These fields can be set with the provided constructors, `nextbillionsdk.String(string)`, `nextbillionsdk.Int(int64)`, etc.
+Optional primitive types are wrapped in a `param.Opt[T]`. These fields can be set with the provided constructors, `nextbillionai.String(string)`, `nextbillionai.Int(int64)`, etc.
 
 Any `param.Opt[T]`, map, slice, struct or string enum uses the
 tag <code>\`json:"...,omitzero"\`</code>. Its zero value is considered omitted.
@@ -80,17 +80,17 @@ tag <code>\`json:"...,omitzero"\`</code>. Its zero value is considered omitted.
 The `param.IsOmitted(any)` function can confirm the presence of any `omitzero` field.
 
 ```go
-p := nextbillionsdk.ExampleParams{
-	ID:   "id_xxx",                     // required property
-	Name: nextbillionsdk.String("..."), // optional property
+p := nextbillionai.ExampleParams{
+	ID:   "id_xxx",                    // required property
+	Name: nextbillionai.String("..."), // optional property
 
-	Point: nextbillionsdk.Point{
-		X: 0,                     // required field will serialize as 0
-		Y: nextbillionsdk.Int(1), // optional field will serialize as 1
+	Point: nextbillionai.Point{
+		X: 0,                    // required field will serialize as 0
+		Y: nextbillionai.Int(1), // optional field will serialize as 1
 		// ... omitted non-required fields will not be serialized
 	},
 
-	Origin: nextbillionsdk.Origin{}, // the zero value of [Origin] is considered omitted
+	Origin: nextbillionai.Origin{}, // the zero value of [Origin] is considered omitted
 }
 ```
 
@@ -119,7 +119,7 @@ p.SetExtraFields(map[string]any{
 })
 
 // Send a number instead of an object
-custom := param.Override[nextbillionsdk.FooParams](12)
+custom := param.Override[nextbillionai.FooParams](12)
 ```
 
 ### Request unions
@@ -260,7 +260,7 @@ This library uses the functional options pattern. Functions defined in the
 requests. For example:
 
 ```go
-client := nextbillionsdk.NewClient(
+client := nextbillionai.NewClient(
 	// Adds a header to every request made by the client
 	option.WithHeader("X-Some-Header", "custom_header_info"),
 )
@@ -289,19 +289,19 @@ with additional helper methods like `.GetNextPage()`, e.g.:
 ### Errors
 
 When the API returns a non-success status code, we return an error with type
-`*nextbillionsdk.Error`. This contains the `StatusCode`, `*http.Request`, and
+`*nextbillionai.Error`. This contains the `StatusCode`, `*http.Request`, and
 `*http.Response` values of the request, as well as the JSON of the error body
 (much like other response objects in the SDK).
 
 To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
-_, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
-	Destination: "41.349302,2.136480",
-	Origin:      "41.349302,2.136480",
+_, err := client.Directions.ComputeRoute(context.TODO(), nextbillionai.DirectionComputeRouteParams{
+	Destination: "1.335368,103.785517",
+	Origin:      "1.312164,103.841063",
 })
 if err != nil {
-	var apierr *nextbillionsdk.Error
+	var apierr *nextbillionai.Error
 	if errors.As(err, &apierr) {
 		println(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request
 		println(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response
@@ -326,9 +326,9 @@ ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 defer cancel()
 client.Directions.ComputeRoute(
 	ctx,
-	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Origin:      "41.349302,2.136480",
+	nextbillionai.DirectionComputeRouteParams{
+		Destination: "1.335368,103.785517",
+		Origin:      "1.312164,103.841063",
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -345,7 +345,7 @@ The file name and content-type can be customized by implementing `Name() string`
 string` on the run-time type of `io.Reader`. Note that `os.File` implements `Name() string`, so a
 file returned by `os.Open` will be sent with the file name on disk.
 
-We also provide a helper `nextbillionsdk.File(reader io.Reader, filename string, contentType string)`
+We also provide a helper `nextbillionai.File(reader io.Reader, filename string, contentType string)`
 which can be used to wrap any `io.Reader` with the appropriate file name and content type.
 
 ### Retries
@@ -358,16 +358,16 @@ You can use the `WithMaxRetries` option to configure or disable this:
 
 ```go
 // Configure the default for all requests:
-client := nextbillionsdk.NewClient(
+client := nextbillionai.NewClient(
 	option.WithMaxRetries(0), // default is 2
 )
 
 // Override per-request:
 client.Directions.ComputeRoute(
 	context.TODO(),
-	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Origin:      "41.349302,2.136480",
+	nextbillionai.DirectionComputeRouteParams{
+		Destination: "1.335368,103.785517",
+		Origin:      "1.312164,103.841063",
 	},
 	option.WithMaxRetries(5),
 )
@@ -383,9 +383,9 @@ you need to examine response headers, status codes, or other details.
 var response *http.Response
 response, err := client.Directions.ComputeRoute(
 	context.TODO(),
-	nextbillionsdk.DirectionComputeRouteParams{
-		Destination: "41.349302,2.136480",
-		Origin:      "41.349302,2.136480",
+	nextbillionai.DirectionComputeRouteParams{
+		Destination: "1.335368,103.785517",
+		Origin:      "1.312164,103.841063",
 	},
 	option.WithResponseInto(&response),
 )
@@ -433,7 +433,7 @@ or the `option.WithJSONSet()` methods.
 params := FooNewParams{
     ID:   "id_xxxx",
     Data: FooNewParamsData{
-        FirstName: nextbillionsdk.String("John"),
+        FirstName: nextbillionai.String("John"),
     },
 }
 client.Foo.New(context.Background(), params, option.WithJSONSet("data.last_name", "Doe"))
@@ -468,7 +468,7 @@ func Logger(req *http.Request, next option.MiddlewareNext) (res *http.Response, 
     return res, err
 }
 
-client := nextbillionsdk.NewClient(
+client := nextbillionai.NewClient(
 	option.WithMiddleware(Logger),
 )
 ```
