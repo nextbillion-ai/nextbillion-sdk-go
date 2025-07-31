@@ -1,4 +1,4 @@
-package nextbillionai
+package nextbillionsdk
 
 import (
 	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"

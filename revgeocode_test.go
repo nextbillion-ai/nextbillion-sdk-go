@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai_test
+package nextbillionsdk_test
 
 import (
 	"context"
@@ -22,18 +22,18 @@ func TestRevgeocodeGetWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Revgeocode.Get(context.TODO(), nextbillionai.RevgeocodeGetParams{
+	_, err := client.Revgeocode.Get(context.TODO(), nextbillionsdk.RevgeocodeGetParams{
 		At:   "at=52.5308,13.3856",
 		Key:  "key=API_KEY",
-		In:   nextbillionai.String("in=countryCode:CAN,MEX,USA"),
-		Lang: nextbillionai.String("lang=en"),
+		In:   nextbillionsdk.String("in=countryCode:CAN,MEX,USA"),
+		Lang: nextbillionsdk.String("lang=en"),
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

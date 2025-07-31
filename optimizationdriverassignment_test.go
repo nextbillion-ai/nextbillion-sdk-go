@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai_test
+package nextbillionsdk_test
 
 import (
 	"context"
@@ -22,72 +22,72 @@ func TestOptimizationDriverAssignmentAssignWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Optimization.DriverAssignment.Assign(context.TODO(), nextbillionai.OptimizationDriverAssignmentAssignParams{
+	_, err := client.Optimization.DriverAssignment.Assign(context.TODO(), nextbillionsdk.OptimizationDriverAssignmentAssignParams{
 		Key: "key=API_KEY",
-		Filter: nextbillionai.OptimizationDriverAssignmentAssignParamsFilter{
-			DrivingDistance: nextbillionai.Float(0),
-			PickupEta:       nextbillionai.Int(0),
-			Radius:          nextbillionai.Float(0),
+		Filter: nextbillionsdk.OptimizationDriverAssignmentAssignParamsFilter{
+			DrivingDistance: nextbillionsdk.Float(0),
+			PickupEta:       nextbillionsdk.Int(0),
+			Radius:          nextbillionsdk.Float(0),
 		},
-		Orders: []nextbillionai.OptimizationDriverAssignmentAssignParamsOrder{{
+		Orders: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrder{{
 			ID: "id",
-			Pickup: nextbillionai.OptimizationDriverAssignmentAssignParamsOrderPickup{
-				Lat: nextbillionai.Float(0),
-				Lng: nextbillionai.Float(0),
+			Pickup: nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderPickup{
+				Lat: nextbillionsdk.Float(0),
+				Lng: nextbillionsdk.Float(0),
 			},
 			Attributes: map[string]interface{}{},
-			Dropoffs: []nextbillionai.OptimizationDriverAssignmentAssignParamsOrderDropoff{{
-				Lat: nextbillionai.Float(0),
-				Lng: nextbillionai.Float(0),
+			Dropoffs: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderDropoff{{
+				Lat: nextbillionsdk.Float(0),
+				Lng: nextbillionsdk.Float(0),
 			}},
-			Priority:    nextbillionai.Int(0),
-			ServiceTime: nextbillionai.Int(0),
-			VehiclePreferences: nextbillionai.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferences{
-				ExcludeAllOfAttributes: []nextbillionai.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesExcludeAllOfAttribute{{
+			Priority:    nextbillionsdk.Int(0),
+			ServiceTime: nextbillionsdk.Int(0),
+			VehiclePreferences: nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferences{
+				ExcludeAllOfAttributes: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesExcludeAllOfAttribute{{
 					Attribute: `"attribute": "driver_rating"`,
 					Operator:  `"operator":"<"`,
 					Value:     `"value": "4"`,
 				}},
-				RequiredAllOfAttributes: []nextbillionai.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAllOfAttribute{{
+				RequiredAllOfAttributes: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAllOfAttribute{{
 					Attribute: `"attribute": "driver_rating"`,
 					Operator:  `"operator":"=="`,
 					Value:     `"value": "4"`,
 				}},
-				RequiredAnyOfAttributes: []nextbillionai.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAnyOfAttribute{{
+				RequiredAnyOfAttributes: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAnyOfAttribute{{
 					Attribute: `"attribute": "driver_rating"`,
 					Operator:  `"operator":">"`,
 					Value:     `"value": "4"`,
 				}},
 			},
 		}},
-		Vehicles: []nextbillionai.VehicleParam{{
+		Vehicles: []nextbillionsdk.VehicleParam{{
 			ID: "id",
-			Location: nextbillionai.VehicleLocationParam{
-				Lat: nextbillionai.Float(0),
-				Lng: nextbillionai.Float(0),
+			Location: nextbillionsdk.VehicleLocationParam{
+				Lat: nextbillionsdk.Float(0),
+				Lng: nextbillionsdk.Float(0),
 			},
 			Attributes: "\"attributes\":{\n    \"driver_rating\": \"4.0\",\n    \"trip_types\": \"premium\"\n  }",
-			Priority:   nextbillionai.Int(0),
-			RemainingWaypoints: []nextbillionai.LocationParam{{
+			Priority:   nextbillionsdk.Int(0),
+			RemainingWaypoints: []nextbillionsdk.LocationParam{{
 				Lat: -90,
 				Lon: -180,
 			}},
 		}},
-		Options: nextbillionai.OptimizationDriverAssignmentAssignParamsOptions{
-			AlternateAssignments: nextbillionai.Int(0),
-			DropoffDetails:       nextbillionai.Bool(true),
-			OrderAttributePriorityMappings: []nextbillionai.OptimizationDriverAssignmentAssignParamsOptionsOrderAttributePriorityMapping{{
+		Options: nextbillionsdk.OptimizationDriverAssignmentAssignParamsOptions{
+			AlternateAssignments: nextbillionsdk.Int(0),
+			DropoffDetails:       nextbillionsdk.Bool(true),
+			OrderAttributePriorityMappings: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOptionsOrderAttributePriorityMapping{{
 				Attribute: `"attribute": "driver_rating"`,
 				Operator:  `"operator":"=="`,
 				Priority:  "priority",
 				Value:     `"value": "4"`,
 			}},
 			TravelCost: "driving_eta",
-			VehicleAttributePriorityMappings: []nextbillionai.OptimizationDriverAssignmentAssignParamsOptionsVehicleAttributePriorityMapping{{
+			VehicleAttributePriorityMappings: []nextbillionsdk.OptimizationDriverAssignmentAssignParamsOptionsVehicleAttributePriorityMapping{{
 				Attribute: `"attribute": "driver_rating"`,
 				Operator:  `"operator":"=="`,
 				Priority:  "priority",
@@ -96,7 +96,7 @@ func TestOptimizationDriverAssignmentAssignWithOptionalParams(t *testing.T) {
 		},
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

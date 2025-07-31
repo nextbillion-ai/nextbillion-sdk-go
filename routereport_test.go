@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai_test
+package nextbillionsdk_test
 
 import (
 	"context"
@@ -22,17 +22,17 @@ func TestRouteReportNew(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.RouteReport.New(context.TODO(), nextbillionai.RouteReportNewParams{
+	_, err := client.RouteReport.New(context.TODO(), nextbillionsdk.RouteReportNewParams{
 		Key:               "key=API_KEY",
-		OriginalShape:     "original_shape=sbp}_AlmgpFnLuToKmKviB{eDlcGhpFvj@qbAwoA_mA",
-		OriginalShapeType: nextbillionai.RouteReportNewParamsOriginalShapeTypePolyline,
+		OriginalShape:     "original_shape=sbp}_Almgp`FnLuToKmKviB{eDlcGhpFvj@qbAwoA_mA",
+		OriginalShapeType: nextbillionsdk.RouteReportNewParamsOriginalShapeTypePolyline,
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai_test
+package nextbillionsdk_test
 
 import (
 	"context"
@@ -22,16 +22,16 @@ func TestSkynetNamespacedApikeyNew(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.NamespacedApikeys.New(context.TODO(), nextbillionai.SkynetNamespacedApikeyNewParams{
+	_, err := client.Skynet.NamespacedApikeys.New(context.TODO(), nextbillionsdk.SkynetNamespacedApikeyNewParams{
 		Key:       "key=API_KEY",
 		Namespace: "namespace=test_name",
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -48,17 +48,17 @@ func TestSkynetNamespacedApikeyDelete(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.NamespacedApikeys.Delete(context.TODO(), nextbillionai.SkynetNamespacedApikeyDeleteParams{
+	_, err := client.Skynet.NamespacedApikeys.Delete(context.TODO(), nextbillionsdk.SkynetNamespacedApikeyDeleteParams{
 		Key:         "key=API_KEY",
 		KeyToDelete: "key_to_delete",
 		Namespace:   "namespace",
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

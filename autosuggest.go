@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai
+package nextbillionsdk
 
 import (
 	"context"
@@ -76,7 +76,7 @@ type AutosuggestSuggestResponseItem struct {
 	// meters.
 	Distance int64 `json:"distance"`
 	// The bounding box enclosing the geometric shape (area or line) that an individual
-	// result covers. place typed results have no mapView.
+	// result covers. `place` typed results have no `mapView`.
 	MapView MapView `json:"mapView"`
 	// Returns the operating hours of the place, if available.
 	OpeningHours AutosuggestSuggestResponseItemOpeningHours `json:"openingHours"`
@@ -204,10 +204,10 @@ func (r *AutosuggestSuggestResponseItemOpeningHoursTimeRangeStartTime) Unmarshal
 // Score of the result. A higher score indicates a closer match.
 type AutosuggestSuggestResponseItemScoring struct {
 	// A breakdown of how closely individual field of the result matched with the
-	// provided query q.
+	// provided query `q`.
 	FieldScore any `json:"fieldScore"`
 	// A score, out of 1, indicating how closely the result matches with the provided
-	// query q .
+	// query `q` .
 	QueryScore float64 `json:"queryScore"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -249,18 +249,18 @@ type AutosuggestSuggestParams struct {
 	//
 	//     The country codes are to be provided in all uppercase.
 	//
-	//     Format: countryCode:{countryCode}[,{countryCode}]
+	//     Format: `countryCode:{countryCode}[,{countryCode}]`
 	//
 	//   - a circular area, provided as latitude, longitude, and radius (an integer with
 	//     meters as unit)
 	//
-	//     Format: circle:{latitude},{longitude};r={radius}
+	//     Format: `circle:{latitude},{longitude};r={radius}`
 	//
 	//   - a bounding box, provided as _west longitude_, _south latitude_, _east
 	//     longitude_, _north latitude_
 	//
-	//     Format: bbox:{west longitude},{south latitude},{east longitude},{north
-	//     latitude}
+	//     Format:
+	//     `bbox:{west longitude},{south latitude},{east longitude},{north latitude}`
 	//
 	// Please provide one of 'at', 'in=circle' or 'in=bbox' input for a relevant
 	// result.
