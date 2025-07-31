@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai
+package nextbillionsdk
 
 import (
 	"context"
@@ -50,12 +50,12 @@ type SnapToRoadSnapResponse struct {
 	// The total distance of the snapped path in meters.
 	Distance int64 `json:"distance"`
 	// A GeoJSON object with details of the snapped path. This object is returned when
-	// the geometry field is set to geojson in the input request, otherwise it is not
-	// present in the response. The contents of this object follow the
+	// the `geometry` field is set to `geojson` in the input request, otherwise it is
+	// not present in the response. The contents of this object follow the
 	// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 	Geojson SnapToRoadSnapResponseGeojson `json:"geojson"`
 	// An array of strings containing the encoded geometries of snapped paths in
-	// polyline or polyline6 format.
+	// `polyline` or `polyline6` format.
 	Geometry []string `json:"geometry"`
 	// Displays the error message in case of a failed request or operation. Please note
 	// that this parameter is not returned in the response in case of a successful
@@ -64,11 +64,11 @@ type SnapToRoadSnapResponse struct {
 	// An object containing the maximum speed information for each road segment present
 	// in the route.
 	RoadInfo SnapToRoadSnapResponseRoadInfo `json:"road_info"`
-	// An array of objects. Each object provides the details of a path coordinate point
-	// snapped to the nearest road.
+	// An array of objects. Each object provides the details of a `path` coordinate
+	// point snapped to the nearest road.
 	SnappedPoints []SnapToRoadSnapResponseSnappedPoint `json:"snappedPoints"`
 	// A string indicating the state of the response. On normal responses, the value
-	// will be Ok. Indicative HTTP error codes are returned for different errors. See
+	// will be `Ok`. Indicative HTTP error codes are returned for different errors. See
 	// the [API Errors Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -92,8 +92,8 @@ func (r *SnapToRoadSnapResponse) UnmarshalJSON(data []byte) error {
 }
 
 // A GeoJSON object with details of the snapped path. This object is returned when
-// the geometry field is set to geojson in the input request, otherwise it is not
-// present in the response. The contents of this object follow the
+// the `geometry` field is set to `geojson` in the input request, otherwise it is
+// not present in the response. The contents of this object follow the
 // [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 type SnapToRoadSnapResponseGeojson struct {
 	// An object with details of the geoJSON geometry of the snapped path.
@@ -161,14 +161,14 @@ func (r *SnapToRoadSnapResponseRoadInfo) UnmarshalJSON(data []byte) error {
 }
 
 type SnapToRoadSnapResponseRoadInfoMaxSpeed struct {
-	// length refers to a sequence of 'n' consecutive vertices in the route geometry
-	// starting from the offset, forming a continuous section of route where the
-	// maximum speed is the same and is indicated in value.
+	// `length` refers to a sequence of 'n' consecutive vertices in the route geometry
+	// starting from the `offset`, forming a continuous section of route where the
+	// maximum speed is the same and is indicated in `value`.
 	Length int64 `json:"length"`
-	// offset is the index value of the vertex of route geometry, which is the starting
-	// point of the segment.
+	// `offset` is the index value of the vertex of route geometry, which is the
+	// starting point of the segment.
 	Offset int64 `json:"offset"`
-	// value denotes the maximum speed of this segment, in kilometers per hour.
+	// `value` denotes the maximum speed of this segment, in kilometers per hour.
 	//
 	//   - A value of "-1" indicates that the speed is unlimited for this road segment.
 	//   - A value of "0" indicates that there is no information about the maximum speed
@@ -192,9 +192,9 @@ func (r *SnapToRoadSnapResponseRoadInfoMaxSpeed) UnmarshalJSON(data []byte) erro
 
 type SnapToRoadSnapResponseSnappedPoint struct {
 	// The bearing, calculated as the angle from true north in clockwise direction, of
-	// the route leading to the next snapped point from the current snapped_point, in
-	// radians. In case of the last snapped_point of the route, the bearing indicates
-	// the direction of the route to the previous snapped_location.
+	// the route leading to the next snapped point from the current `snapped_point`, in
+	// radians. In case of the last `snapped_point` of the route, the bearing indicates
+	// the direction of the route to the previous `snapped_location`.
 	Bearing float64 `json:"bearing,required"`
 	// The distance of the snapped point from the original input coordinate in meters.
 	Distance float64 `json:"distance,required"`
@@ -202,7 +202,7 @@ type SnapToRoadSnapResponseSnappedPoint struct {
 	Location SnapToRoadSnapResponseSnappedPointLocation `json:"location,required"`
 	// The name of the street or road that the input coordinate snapped to.
 	Name string `json:"name,required"`
-	// The index of the input path coordinate point to which this snapped point
+	// The index of the input `path` coordinate point to which this snapped point
 	// corresponds to.
 	OriginalIndex int64 `json:"originalIndex,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -276,7 +276,7 @@ type SnapToRoadSnapParams struct {
 	// coordinate points provided in the "path" parameter. However, you can skip a
 	// coordinate and show its position in the list with the ";" separator.
 	//
-	// Any of "unrestricted", "curb".
+	// Any of "`unrestricted`", "`curb`".
 	Approaches SnapToRoadSnapParamsApproaches `query:"approaches,omitzero" json:"-"`
 	// Setting this will ensure the route avoids ferries, tolls, highways or nothing.
 	// Multiple values should be separated by a pipe (|). If "none" is provided along
@@ -293,7 +293,7 @@ type SnapToRoadSnapParams struct {
 	// selected as the input value, "polyline6" encoded geometry of the snapped path is
 	// returned along with a "geojson" object.
 	//
-	// Any of "polyline", "polyline6", "geojson".
+	// Any of "`polyline`", "`polyline6`", "`geojson`".
 	Geometry SnapToRoadSnapParamsGeometry `query:"geometry,omitzero" json:"-"`
 	// Set which driving mode the service should use to determine a route. For example,
 	// if you use "car", the API will return a route that a car can take. Using "truck"
@@ -307,7 +307,7 @@ type SnapToRoadSnapParams struct {
 	// [support@nextbillion.ai](mailto:support@nextbillion.ai) in case you need
 	// additional profiles.
 	//
-	// Any of "car", "truck".
+	// Any of "`car`", "`truck`".
 	Mode SnapToRoadSnapParamsMode `query:"mode,omitzero" json:"-"`
 	// Include this parameter in the request to return segment-wise speed information
 	// of the route returned in the response.
@@ -316,12 +316,12 @@ type SnapToRoadSnapParams struct {
 	// parameter, which is effective only when "option=flexible". However, the
 	// resultant route might not contain all the locations provided in "path" input.
 	//
-	// Any of "flexible".
+	// Any of "`flexible`".
 	Option SnapToRoadSnapParamsOption `query:"option,omitzero" json:"-"`
 	// Use this parameter to receive segment-wise maximum speed information of the
 	// route in the response. "max_speed" is the only allowed value.
 	//
-	// Any of "max_speed".
+	// Any of "`max_speed`".
 	RoadInfo SnapToRoadSnapParamsRoadInfo `query:"road_info,omitzero" json:"-"`
 	paramObj
 }
@@ -344,8 +344,8 @@ func (r SnapToRoadSnapParams) URLQuery() (v url.Values, err error) {
 type SnapToRoadSnapParamsApproaches string
 
 const (
-	SnapToRoadSnapParamsApproachesUnrestricted SnapToRoadSnapParamsApproaches = "unrestricted"
-	SnapToRoadSnapParamsApproachesCurb         SnapToRoadSnapParamsApproaches = "curb"
+	SnapToRoadSnapParamsApproachesUnrestricted SnapToRoadSnapParamsApproaches = "`unrestricted`"
+	SnapToRoadSnapParamsApproachesCurb         SnapToRoadSnapParamsApproaches = "`curb`"
 )
 
 // Setting this will ensure the route avoids ferries, tolls, highways or nothing.
@@ -371,9 +371,9 @@ const (
 type SnapToRoadSnapParamsGeometry string
 
 const (
-	SnapToRoadSnapParamsGeometryPolyline  SnapToRoadSnapParamsGeometry = "polyline"
-	SnapToRoadSnapParamsGeometryPolyline6 SnapToRoadSnapParamsGeometry = "polyline6"
-	SnapToRoadSnapParamsGeometryGeojson   SnapToRoadSnapParamsGeometry = "geojson"
+	SnapToRoadSnapParamsGeometryPolyline  SnapToRoadSnapParamsGeometry = "`polyline`"
+	SnapToRoadSnapParamsGeometryPolyline6 SnapToRoadSnapParamsGeometry = "`polyline6`"
+	SnapToRoadSnapParamsGeometryGeojson   SnapToRoadSnapParamsGeometry = "`geojson`"
 )
 
 // Set which driving mode the service should use to determine a route. For example,
@@ -390,8 +390,8 @@ const (
 type SnapToRoadSnapParamsMode string
 
 const (
-	SnapToRoadSnapParamsModeCar   SnapToRoadSnapParamsMode = "car"
-	SnapToRoadSnapParamsModeTruck SnapToRoadSnapParamsMode = "truck"
+	SnapToRoadSnapParamsModeCar   SnapToRoadSnapParamsMode = "`car`"
+	SnapToRoadSnapParamsModeTruck SnapToRoadSnapParamsMode = "`truck`"
 )
 
 // Include this parameter in the request to return segment-wise speed information
@@ -403,7 +403,7 @@ const (
 type SnapToRoadSnapParamsOption string
 
 const (
-	SnapToRoadSnapParamsOptionFlexible SnapToRoadSnapParamsOption = "flexible"
+	SnapToRoadSnapParamsOptionFlexible SnapToRoadSnapParamsOption = "`flexible`"
 )
 
 // Use this parameter to receive segment-wise maximum speed information of the
@@ -411,5 +411,5 @@ const (
 type SnapToRoadSnapParamsRoadInfo string
 
 const (
-	SnapToRoadSnapParamsRoadInfoMaxSpeed SnapToRoadSnapParamsRoadInfo = "max_speed"
+	SnapToRoadSnapParamsRoadInfoMaxSpeed SnapToRoadSnapParamsRoadInfo = "`max_speed`"
 )

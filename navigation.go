@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai
+package nextbillionsdk
 
 import (
 	"context"
@@ -56,7 +56,7 @@ type NavigationGetRouteResponse struct {
 	// location to the destination. Each object represents one route.
 	Routes []NavigationGetRouteResponseRoute `json:"routes"`
 	// A string indicating the state of the response. On normal responses, the value
-	// will be Ok. Indicative HTTP error codes are returned for different errors. See
+	// will be `Ok`. Indicative HTTP error codes are returned for different errors. See
 	// the [API Errors Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// warning when facing unexpected behaviour
@@ -90,12 +90,12 @@ type NavigationGetRouteResponseRoute struct {
 	EndLocation NavigationGetRouteResponseRouteEndLocation `json:"end_location"`
 	// The GeoJSON representation of the route.
 	Geojson NavigationGetRouteResponseRouteGeojson `json:"geojson"`
-	// Encoded geometry of the returned route as per the selected format in geometry
-	// and specified overview verbosity. Please note the overview will always be full
-	// when original_shape parameter is used in the input request.
+	// Encoded geometry of the returned route as per the selected format in `geometry`
+	// and specified `overview` verbosity. Please note the `overview` will always be
+	// `full` when `original_shape` parameter is used in the input request.
 	Geometry string `json:"geometry"`
-	// An array of objects returning the details about each leg of the route. waypoints
-	// split the route into legs.
+	// An array of objects returning the details about each `leg` of the route.
+	// `waypoints` split the route into legs.
 	Legs []NavigationGetRouteResponseRouteLeg `json:"legs"`
 	// The predicted duration of the route based on real-time traffic conditions.
 	PredictedDuration float64 `json:"predicted_duration"`
@@ -134,9 +134,9 @@ func (r *NavigationGetRouteResponseRoute) UnmarshalJSON(data []byte) error {
 
 // Location coordinates of the point where the route ends.
 type NavigationGetRouteResponseRouteEndLocation struct {
-	// Latitude of the end_location.
+	// Latitude of the `end_location`.
 	Latitude float64 `json:"latitude"`
-	// Longitude of the end_location.
+	// Longitude of the `end_location`.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -183,7 +183,7 @@ type NavigationGetRouteResponseRouteLeg struct {
 	Duration NavigationGetRouteResponseRouteLegDuration `json:"duration"`
 	// Location coordinates of the point where the leg ends.
 	EndLocation NavigationGetRouteResponseRouteLegEndLocation `json:"end_location"`
-	// The raw estimated duration of the leg in seconds.
+	// The raw estimated duration of the `leg` in seconds.
 	RawDuration any `json:"raw_duration"`
 	// Location coordinates of the point where the leg starts.
 	StartLocation NavigationGetRouteResponseRouteLegStartLocation `json:"start_location"`
@@ -244,9 +244,9 @@ func (r *NavigationGetRouteResponseRouteLegDuration) UnmarshalJSON(data []byte) 
 
 // Location coordinates of the point where the leg ends.
 type NavigationGetRouteResponseRouteLegEndLocation struct {
-	// Latitude of end_location of the leg.
+	// Latitude of `end_location` of the `leg`.
 	Latitude float64 `json:"latitude"`
-	// Longitude of end_location of the leg.
+	// Longitude of `end_location` of the `leg`.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -265,9 +265,9 @@ func (r *NavigationGetRouteResponseRouteLegEndLocation) UnmarshalJSON(data []byt
 
 // Location coordinates of the point where the leg starts.
 type NavigationGetRouteResponseRouteLegStartLocation struct {
-	// Latitude of start_location of the leg.
+	// Latitude of `start_location` of the `leg`.
 	Latitude float64 `json:"latitude"`
-	// Longitude of start_location of the leg.
+	// Longitude of `start_location` of the `leg`.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -292,26 +292,26 @@ type NavigationGetRouteResponseRouteLegStep struct {
 	DrivingSide string `json:"driving_side"`
 	// An object containing step duration value, in seconds.
 	Duration NavigationGetRouteResponseRouteLegStepDuration `json:"duration"`
-	// Location coordinates of the point where the step ends.
+	// Location coordinates of the point where the `step` ends.
 	EndLocation NavigationGetRouteResponseRouteLegStepEndLocation `json:"end_location"`
-	// The GeoJSON representation of the step.
+	// The GeoJSON representation of the `step`.
 	Geojson NavigationGetRouteResponseRouteLegStepGeojson `json:"geojson"`
-	// Encoded geometry of the step in the selected format.
+	// Encoded geometry of the `step` in the selected format.
 	Geometry string `json:"geometry"`
 	// An array of objects representing intersections (or cross-way) that the route
-	// passes by along the step. For every step, the very first intersection
-	// corresponds to the location of the maneuver. All intersections until the next
-	// maneuver are listed in this object.
+	// passes by along the `step`. For every `step`, the very first `intersection`
+	// corresponds to the location of the `maneuver`. All intersections until the next
+	// `maneuver` are listed in this object.
 	Intersections []NavigationGetRouteResponseRouteLegStepIntersection `json:"intersections"`
-	// An object with maneuver details for the step.
+	// An object with maneuver details for the `step`.
 	Maneuver NavigationGetRouteResponseRouteLegStepManeuver `json:"maneuver"`
-	// The name of the step.
+	// The name of the `step`.
 	Name string `json:"name"`
-	// A reference for the step.
+	// A reference for the `step`.
 	Reference string `json:"reference"`
 	// An object containing road shield information.
 	RoadShieldType NavigationGetRouteResponseRouteLegStepRoadShieldType `json:"road_shield_type"`
-	// Location coordinates of the point where the step starts.
+	// Location coordinates of the point where the `step` starts.
 	StartLocation NavigationGetRouteResponseRouteLegStepStartLocation `json:"start_location"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -372,11 +372,11 @@ func (r *NavigationGetRouteResponseRouteLegStepDuration) UnmarshalJSON(data []by
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Location coordinates of the point where the step ends.
+// Location coordinates of the point where the `step` ends.
 type NavigationGetRouteResponseRouteLegStepEndLocation struct {
-	// Latitude of the end_location of the step.
+	// Latitude of the `end_location` of the `step`.
 	Latitude float64 `json:"latitude"`
-	// Longitude of the end_location of the step.
+	// Longitude of the `end_location` of the `step`.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -393,7 +393,7 @@ func (r *NavigationGetRouteResponseRouteLegStepEndLocation) UnmarshalJSON(data [
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// The GeoJSON representation of the step.
+// The GeoJSON representation of the `step`.
 type NavigationGetRouteResponseRouteLegStepGeojson struct {
 	Geometry string `json:"geometry"`
 	Type     string `json:"type"`
@@ -414,24 +414,24 @@ func (r *NavigationGetRouteResponseRouteLegStepGeojson) UnmarshalJSON(data []byt
 
 type NavigationGetRouteResponseRouteLegStepIntersection struct {
 	// A list of bearing values (e.g. [0,90,180,270]) that are available at the
-	// intersection. The bearings describe all available roads at the intersection.
+	// intersection. The `bearings` describe all available roads at the intersection.
 	Bearings []int64 `json:"bearings"`
 	// An array of strings representing the classes or types of roads or paths at the
 	// intersection. The classes can indicate the road hierarchy, such as a motorway,
 	// primary road, secondary road, etc.
 	Classes []string `json:"classes"`
-	// A value of true indicates that the respective road could be entered on a valid
-	// route. false indicates that the turn onto the respective road would violate a
+	// A value of `true` indicates that the respective road could be entered on a valid
+	// route. `false` indicates that the turn onto the respective road would violate a
 	// restriction. Each entry value corresponds to the bearing angle at the same
 	// index.
 	Entry []bool `json:"entry"`
-	// The number of incoming roads or paths at the intersection.
+	// The number of incoming roads or paths at the `intersection`.
 	IntersectionIn int64 `json:"intersection_in"`
-	// The number of outgoing roads or paths from the intersection.
+	// The number of outgoing roads or paths from the `intersection`.
 	IntersectionOut int64 `json:"intersection_out"`
 	// An array of lane objects representing the lanes available at the intersection.
-	// If no lane information is available for an intersection, the lanes property will
-	// not be present.
+	// If no lane information is available for an `intersection`, the `lanes` property
+	// will not be present.
 	Lanes []NavigationGetRouteResponseRouteLegStepIntersectionLane `json:"lanes"`
 	// A [longitude, latitude] pair describing the location of the intersection.
 	Location NavigationGetRouteResponseRouteLegStepIntersectionLocation `json:"location"`
@@ -482,11 +482,11 @@ func (r *NavigationGetRouteResponseRouteLegStepIntersectionLane) UnmarshalJSON(d
 
 // A [longitude, latitude] pair describing the location of the intersection.
 type NavigationGetRouteResponseRouteLegStepIntersectionLocation struct {
-	// The latitude coordinate of the intersection.
+	// The latitude coordinate of the `intersection`.
 	Latitude float64 `json:"latitude"`
-	// The longitude coordinate of the intersection.
+	// The longitude coordinate of the `intersection`.
 	Longitude float64 `json:"longitude"`
-	// The name or description of the intersection.
+	// The name or description of the `intersection`.
 	Name string `json:"name"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -506,21 +506,21 @@ func (r *NavigationGetRouteResponseRouteLegStepIntersectionLocation) UnmarshalJS
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An object with maneuver details for the step.
+// An object with maneuver details for the `step`.
 type NavigationGetRouteResponseRouteLegStepManeuver struct {
 	// The clockwise angle from true north to the direction of travel immediately after
-	// the maneuver. Range of values is between 0-359.
+	// the `maneuver`. Range of values is between 0-359.
 	BearingAfter float64 `json:"bearing_after"`
 	// The clockwise angle from true north to the direction of travel immediately
-	// before the maneuver. Range of values is between 0-359.
+	// before the `maneuver`. Range of values is between 0-359.
 	BearingBefore float64 `json:"bearing_before"`
-	// A coordinate pair describing the location of the maneuver.
+	// A coordinate pair describing the location of the `maneuver`.
 	Coordinate NavigationGetRouteResponseRouteLegStepManeuverCoordinate `json:"coordinate"`
 	// A text instruction describing the maneuver to be performed. It provides guidance
 	// on the action to take at the maneuver location, such as "Turn left," "Go
 	// straight," "Exit the roundabout," etc.
 	Instruction string `json:"instruction"`
-	// A string indicating the type of maneuver.
+	// A string indicating the type of `maneuver`.
 	ManeuverType string `json:"maneuver_type"`
 	// A boolean value indicating whether the voice instruction for the maneuver should
 	// be muted or not.
@@ -529,10 +529,10 @@ type NavigationGetRouteResponseRouteLegStepManeuver struct {
 	// specific to roundabout maneuvers and indicates the count of roundabouts before
 	// the current one.
 	RoundaboutCount int64 `json:"roundabout_count"`
-	// An array of voice instruction objects associated with the maneuver. Each object
-	// provides additional details about the voice instruction, including the distance
-	// along the geometry where the instruction applies, the instruction text, and the
-	// unit of measurement.
+	// An array of voice instruction objects associated with the `maneuver`. Each
+	// object provides additional details about the voice instruction, including the
+	// distance along the geometry where the instruction applies, the instruction text,
+	// and the unit of measurement.
 	VoiceInstruction []NavigationGetRouteResponseRouteLegStepManeuverVoiceInstruction `json:"voice_instruction"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -555,11 +555,11 @@ func (r *NavigationGetRouteResponseRouteLegStepManeuver) UnmarshalJSON(data []by
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// A coordinate pair describing the location of the maneuver.
+// A coordinate pair describing the location of the `maneuver`.
 type NavigationGetRouteResponseRouteLegStepManeuverCoordinate struct {
-	// The latitude coordinate of the maneuver.
+	// The latitude coordinate of the `maneuver`.
 	Latitude float64 `json:"latitude"`
-	// The longitude coordinate of the maneuver.
+	// The longitude coordinate of the `maneuver`.
 	Longitude float64 `json:"longitude"`
 	// The name or description of the maneuver location.
 	Name string `json:"name"`
@@ -581,9 +581,9 @@ func (r *NavigationGetRouteResponseRouteLegStepManeuverCoordinate) UnmarshalJSON
 
 type NavigationGetRouteResponseRouteLegStepManeuverVoiceInstruction struct {
 	DistanceAlongGeometry int64 `json:"distance_along_geometry"`
-	// The guidance instructions for the upcoming maneuver
+	// The guidance instructions for the upcoming `maneuver`
 	Instruction string `json:"instruction"`
-	// Unit of the distance_along_geometry metric
+	// Unit of the `distance_along_geometry` metric
 	Unit string `json:"unit"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -625,11 +625,11 @@ func (r *NavigationGetRouteResponseRouteLegStepRoadShieldType) UnmarshalJSON(dat
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Location coordinates of the point where the step starts.
+// Location coordinates of the point where the `step` starts.
 type NavigationGetRouteResponseRouteLegStepStartLocation struct {
-	// Latitude of start_location of the step.
+	// Latitude of `start_location` of the `step`.
 	Latitude float64 `json:"latitude"`
-	// Longitude of start_location of the step.
+	// Longitude of `start_location` of the `step`.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -648,9 +648,9 @@ func (r *NavigationGetRouteResponseRouteLegStepStartLocation) UnmarshalJSON(data
 
 // Location coordinates of the point where the route starts.
 type NavigationGetRouteResponseRouteStartLocation struct {
-	// Latitude of thestart_location.
+	// Latitude of the`start_location`.
 	Latitude float64 `json:"latitude"`
-	// Longitude of the start_location.
+	// Longitude of the `start_location`.
 	Longitude float64 `json:"longitude"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -725,7 +725,7 @@ type NavigationGetRouteParams struct {
 	// "destination". However, you can skip a coordinate and show its position in the
 	// list with the ";" separator.
 	//
-	// Any of "unrestricted", "curb".
+	// Any of "`unrestricted`", "`curb`".
 	Approaches NavigationGetRouteParamsApproaches `query:"approaches,omitzero" json:"-"`
 	// Setting this will ensure the route avoids ferries, tolls, highways or nothing.
 	// Multiple values should be separated by a pipe (|). If "none" is provided along
@@ -742,7 +742,7 @@ type NavigationGetRouteParams struct {
 	// geometry is returned in the response along with the geojson details of the
 	// route.
 	//
-	// Any of "polyline", "polyline6", "geojson".
+	// Any of "`polyline`", "`polyline6`", "`geojson`".
 	Geometry NavigationGetRouteParamsGeometry `query:"geometry,omitzero" json:"-"`
 	// Set which driving mode the service should use to determine a route. For example,
 	// if you use "car", the API will return a route that a car can take. Using "truck"
@@ -769,7 +769,7 @@ type NavigationGetRouteParams struct {
 	// [support@nextbillion.ai](mailto:support@nextbillion.ai) in case you need
 	// additional profiles.
 	//
-	// Any of "car", "truck".
+	// Any of "`car`", "`truck`".
 	Mode NavigationGetRouteParamsMode `query:"mode,omitzero" json:"-"`
 	// Specify the encoding format of route geometry provided in the request using
 	// "original_shape" parameter. Please note that an error is returned when this
@@ -783,7 +783,7 @@ type NavigationGetRouteParams struct {
 	// of the full geometry is returned. No overview geometry is returned when set to
 	// "false".
 	//
-	// Any of "full", "simplified", "false".
+	// Any of "`full`", "`simplified`", "`false`".
 	Overview NavigationGetRouteParamsOverview `query:"overview,omitzero" json:"-"`
 	paramObj
 }
@@ -808,8 +808,8 @@ func (r NavigationGetRouteParams) URLQuery() (v url.Values, err error) {
 type NavigationGetRouteParamsApproaches string
 
 const (
-	NavigationGetRouteParamsApproachesUnrestricted NavigationGetRouteParamsApproaches = "unrestricted"
-	NavigationGetRouteParamsApproachesCurb         NavigationGetRouteParamsApproaches = "curb"
+	NavigationGetRouteParamsApproachesUnrestricted NavigationGetRouteParamsApproaches = "`unrestricted`"
+	NavigationGetRouteParamsApproachesCurb         NavigationGetRouteParamsApproaches = "`curb`"
 )
 
 // Setting this will ensure the route avoids ferries, tolls, highways or nothing.
@@ -835,9 +835,9 @@ const (
 type NavigationGetRouteParamsGeometry string
 
 const (
-	NavigationGetRouteParamsGeometryPolyline  NavigationGetRouteParamsGeometry = "polyline"
-	NavigationGetRouteParamsGeometryPolyline6 NavigationGetRouteParamsGeometry = "polyline6"
-	NavigationGetRouteParamsGeometryGeojson   NavigationGetRouteParamsGeometry = "geojson"
+	NavigationGetRouteParamsGeometryPolyline  NavigationGetRouteParamsGeometry = "`polyline`"
+	NavigationGetRouteParamsGeometryPolyline6 NavigationGetRouteParamsGeometry = "`polyline6`"
+	NavigationGetRouteParamsGeometryGeojson   NavigationGetRouteParamsGeometry = "`geojson`"
 )
 
 // Set which driving mode the service should use to determine a route. For example,
@@ -867,8 +867,8 @@ const (
 type NavigationGetRouteParamsMode string
 
 const (
-	NavigationGetRouteParamsModeCar   NavigationGetRouteParamsMode = "car"
-	NavigationGetRouteParamsModeTruck NavigationGetRouteParamsMode = "truck"
+	NavigationGetRouteParamsModeCar   NavigationGetRouteParamsMode = "`car`"
+	NavigationGetRouteParamsModeTruck NavigationGetRouteParamsMode = "`truck`"
 )
 
 // Specify the encoding format of route geometry provided in the request using
@@ -889,7 +889,7 @@ const (
 type NavigationGetRouteParamsOverview string
 
 const (
-	NavigationGetRouteParamsOverviewFull       NavigationGetRouteParamsOverview = "full"
-	NavigationGetRouteParamsOverviewSimplified NavigationGetRouteParamsOverview = "simplified"
-	NavigationGetRouteParamsOverviewFalse      NavigationGetRouteParamsOverview = "false"
+	NavigationGetRouteParamsOverviewFull       NavigationGetRouteParamsOverview = "`full`"
+	NavigationGetRouteParamsOverviewSimplified NavigationGetRouteParamsOverview = "`simplified`"
+	NavigationGetRouteParamsOverviewFalse      NavigationGetRouteParamsOverview = "`false`"
 )

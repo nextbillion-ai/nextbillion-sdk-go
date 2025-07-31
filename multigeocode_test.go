@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai_test
+package nextbillionsdk_test
 
 import (
 	"context"
@@ -22,28 +22,28 @@ func TestMultigeocodeSearchWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Multigeocode.Search(context.TODO(), nextbillionai.MultigeocodeSearchParams{
+	_, err := client.Multigeocode.Search(context.TODO(), nextbillionsdk.MultigeocodeSearchParams{
 		Key: "key=API_KEY",
-		At: nextbillionai.MultigeocodeSearchParamsAt{
+		At: nextbillionsdk.MultigeocodeSearchParamsAt{
 			Lat: 0,
 			Lng: 0,
 		},
 		Query:       "“query”: “Taj Mahal”",
-		City:        nextbillionai.String("“city”: “Glendale”"),
-		Country:     nextbillionai.String("“country”:”IND”"),
-		District:    nextbillionai.String("“district”: “City Center”"),
-		Limit:       nextbillionai.Int(0),
-		Radius:      nextbillionai.String("“radius”: “10m”"),
-		State:       nextbillionai.String("“state”: “California”"),
-		Street:      nextbillionai.String("“street”: “Americana Way”"),
-		SubDistrict: nextbillionai.String("“subDistrict”: “Golkonda”"),
+		City:        nextbillionsdk.String("“city”: “Glendale”"),
+		Country:     nextbillionsdk.String("“country”:”IND”"),
+		District:    nextbillionsdk.String("“district”: “City Center”"),
+		Limit:       nextbillionsdk.Int(0),
+		Radius:      nextbillionsdk.String("“radius”: “10m”"),
+		State:       nextbillionsdk.String("“state”: “California”"),
+		Street:      nextbillionsdk.String("“street”: “Americana Way”"),
+		SubDistrict: nextbillionsdk.String("“subDistrict”: “Golkonda”"),
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

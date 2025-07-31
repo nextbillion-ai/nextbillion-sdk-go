@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai
+package nextbillionsdk
 
 import (
 	"context"
@@ -64,28 +64,28 @@ func (r *PostalcodeGetCoordinatesResponse) UnmarshalJSON(data []byte) error {
 
 // An object that contains details about the place that was provided in the input.
 type PostalcodeGetCoordinatesResponsePlaces struct {
-	// Returns the address of the postalcode returned.
+	// Returns the address of the `postalcode` returned.
 	Address string `json:"address"`
 	// An object containing the boundary details of the postal code area. This object
 	// will not be returned in case the boundary information of the postal code
 	// provided is not available (only for selected countries).
 	//
-	// Please note the contents of this object will change based on the format field in
-	// the input. When the format field is not present in the input this object would
-	// contain multipolygon - polygon - points objects depending on the boundary of the
-	// given postal code. When the format field is present in the input, then the
-	// contents of this object would match the
+	// Please note the contents of this object will change based on the `format` field
+	// in the input. When the `format` field is not present in the input this object
+	// would contain `multipolygon` - `polygon` - `points` objects depending on the
+	// boundary of the given postal code. When the `format` field is present in the
+	// input, then the contents of this object would match the
 	// [geojson format and standard](https://datatracker.ietf.org/doc/html/rfc7946).
 	Boundary PostalcodeGetCoordinatesResponsePlacesBoundary `json:"boundary"`
 	// Name of the country containing the geographic coordinate point / postal code
 	// provided in the input request.
 	Country string `json:"country"`
 	// Returns the [alpha-3 ISO code](https://www.iban.com/country-codes) of the
-	// country containing the postalcode returned.
+	// country containing the `postalcode` returned.
 	CountryCode string `json:"countryCode"`
 	// This property is returned only when the API is requested to fetch the postal
-	// code containing the location coordinate provided in the at input parameter.
-	// distance denotes the straight line distance, in meters, from the requested
+	// code containing the location coordinate provided in the `at` input parameter.
+	// `distance` denotes the straight line distance, in meters, from the requested
 	// location coordinate to the postal code centroid.
 	Distance float64 `json:"distance"`
 	// Name of the district or region containing the geographic coordinate point /
@@ -130,29 +130,30 @@ func (r *PostalcodeGetCoordinatesResponsePlaces) UnmarshalJSON(data []byte) erro
 // will not be returned in case the boundary information of the postal code
 // provided is not available (only for selected countries).
 //
-// Please note the contents of this object will change based on the format field in
-// the input. When the format field is not present in the input this object would
-// contain multipolygon - polygon - points objects depending on the boundary of the
-// given postal code. When the format field is present in the input, then the
-// contents of this object would match the
+// Please note the contents of this object will change based on the `format` field
+// in the input. When the `format` field is not present in the input this object
+// would contain `multipolygon` - `polygon` - `points` objects depending on the
+// boundary of the given postal code. When the `format` field is present in the
+// input, then the contents of this object would match the
 // [geojson format and standard](https://datatracker.ietf.org/doc/html/rfc7946).
 type PostalcodeGetCoordinatesResponsePlacesBoundary struct {
 	// An object with geoJSON details of the boundary. This object is returned when the
-	// format field is set to geojson in the input request, otherwise it is not present
-	// in the response. The contents of this object follow the
+	// `format` field is set to `geojson` in the input request, otherwise it is not
+	// present in the response. The contents of this object follow the
 	// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 	Geometry PostalcodeGetCoordinatesResponsePlacesBoundaryGeometry `json:"geometry"`
 	// An array of objects containing information about all the polygons forming the
 	// postal code area. In case, the postal code area is formed by multiple polygons
-	// not containing each other, a matching count of polygon objects will be returned.
+	// not containing each other, a matching count of `polygon` objects will be
+	// returned.
 	//
-	// Please note that this object is returned only when format field is not specified
-	// in the input, otherwise it is not present in the response.
+	// Please note that this object is returned only when `format` field is not
+	// specified in the input, otherwise it is not present in the response.
 	Multipolygon []PostalcodeGetCoordinatesResponsePlacesBoundaryMultipolygon `json:"multipolygon"`
 	// Property associated with the geoJSON shape.
 	Properties string `json:"properties"`
-	// Type of the geoJSON object. This parameter is returned when the format field is
-	// set to geojson in the input request, otherwise it is not present in the
+	// Type of the geoJSON object. This parameter is returned when the `format` field
+	// is set to `geojson` in the input request, otherwise it is not present in the
 	// response. The contents of this object follow the
 	// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 	Type string `json:"type"`
@@ -174,8 +175,8 @@ func (r *PostalcodeGetCoordinatesResponsePlacesBoundary) UnmarshalJSON(data []by
 }
 
 // An object with geoJSON details of the boundary. This object is returned when the
-// format field is set to geojson in the input request, otherwise it is not present
-// in the response. The contents of this object follow the
+// `format` field is set to `geojson` in the input request, otherwise it is not
+// present in the response. The contents of this object follow the
 // [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
 type PostalcodeGetCoordinatesResponsePlacesBoundaryGeometry struct {
 	// An array of coordinates in the [longitude, latitude] format, representing the
@@ -201,7 +202,8 @@ func (r *PostalcodeGetCoordinatesResponsePlacesBoundaryGeometry) UnmarshalJSON(d
 type PostalcodeGetCoordinatesResponsePlacesBoundaryMultipolygon struct {
 	// An object containing the details of a single polygon that is a part of the
 	// postal code area. In case the postal code area contains other polygon(s), the
-	// details of such polygon(s) would be returned through an array of points object.
+	// details of such polygon(s) would be returned through an array of `points`
+	// object.
 	Polygon []PostalcodeGetCoordinatesResponsePlacesBoundaryMultipolygonPolygon `json:"polygon"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -220,7 +222,7 @@ func (r *PostalcodeGetCoordinatesResponsePlacesBoundaryMultipolygon) UnmarshalJS
 }
 
 type PostalcodeGetCoordinatesResponsePlacesBoundaryMultipolygonPolygon struct {
-	// Represents an array of geographic coordinates that define a polygon boundary.
+	// Represents an array of geographic coordinates that define a `polygon` boundary.
 	Points []PostalcodeGetCoordinatesResponsePlacesBoundaryMultipolygonPolygonPoint `json:"points"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -287,7 +289,7 @@ type PostalcodeGetCoordinatesParams struct {
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
 	// Country containing the postal code or the location. It is mandatory if
-	// postalcode is provided in the request. [See this example](#note).
+	// `postalcode` is provided in the request. [See this example](#note).
 	//
 	// Please check the [API Query Limits](#api-query-limits) section below for a list
 	// of the countries covered by the Geocode Postcode API. Users can provide either
@@ -296,18 +298,18 @@ type PostalcodeGetCoordinatesParams struct {
 	// covered by the API as input for this parameter.
 	Country param.Opt[string] `json:"country,omitzero"`
 	// Provide the postal code for which the information is needed. At least one of
-	// (postalcode + country) or at needs to be provided. Please note that only 1
+	// (`postalcode` + `country`) or `at` needs to be provided. Please note that only 1
 	// postal code can be requested. [See this example](#note).
 	Postalcode param.Opt[string] `json:"postalcode,omitzero"`
 	// Location coordinates that you want to get the postal code of. If not providing
-	// postalcode in the request, at becomes mandatory. Please note that only 1 point
-	// can be requested. [See this example](#note).
+	// `postalcode` in the request, `at` becomes mandatory. Please note that only 1
+	// point can be requested. [See this example](#note).
 	At PostalcodeGetCoordinatesParamsAt `json:"at,omitzero"`
 	// Specify the format in which the boundary details of the post code will be
-	// returned. When specified, the boundary details will be returned in the geojson
+	// returned. When specified, the boundary details will be returned in the `geojson`
 	// format. When not specified, the boundary details are returned in general format.
 	//
-	// Any of "geojson".
+	// Any of "`geojson`".
 	Format PostalcodeGetCoordinatesParamsFormat `json:"format,omitzero"`
 	paramObj
 }
@@ -330,8 +332,8 @@ func (r PostalcodeGetCoordinatesParams) URLQuery() (v url.Values, err error) {
 }
 
 // Location coordinates that you want to get the postal code of. If not providing
-// postalcode in the request, at becomes mandatory. Please note that only 1 point
-// can be requested. [See this example](#note).
+// `postalcode` in the request, `at` becomes mandatory. Please note that only 1
+// point can be requested. [See this example](#note).
 type PostalcodeGetCoordinatesParamsAt struct {
 	// Latitude of the location.
 	Lat param.Opt[float64] `json:"lat,omitzero"`
@@ -349,10 +351,10 @@ func (r *PostalcodeGetCoordinatesParamsAt) UnmarshalJSON(data []byte) error {
 }
 
 // Specify the format in which the boundary details of the post code will be
-// returned. When specified, the boundary details will be returned in the geojson
+// returned. When specified, the boundary details will be returned in the `geojson`
 // format. When not specified, the boundary details are returned in general format.
 type PostalcodeGetCoordinatesParamsFormat string
 
 const (
-	PostalcodeGetCoordinatesParamsFormatGeojson PostalcodeGetCoordinatesParamsFormat = "geojson"
+	PostalcodeGetCoordinatesParamsFormatGeojson PostalcodeGetCoordinatesParamsFormat = "`geojson`"
 )

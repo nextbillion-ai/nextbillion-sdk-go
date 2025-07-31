@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai_test
+package nextbillionsdk_test
 
 import (
 	"context"
@@ -22,19 +22,19 @@ func TestSkynetSubscribeWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Skynet.Subscribe(context.TODO(), nextbillionai.SkynetSubscribeParams{
-		Action: nextbillionai.SkynetSubscribeParamsActionTripSubscribe,
-		ID:     nextbillionai.String("id"),
-		Params: nextbillionai.SkynetSubscribeParamsParams{
+	_, err := client.Skynet.Subscribe(context.TODO(), nextbillionsdk.SkynetSubscribeParams{
+		Action: nextbillionsdk.SkynetSubscribeParamsActionTripSubscribe,
+		ID:     nextbillionsdk.String("id"),
+		Params: nextbillionsdk.SkynetSubscribeParamsParams{
 			ID: "id",
 		},
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

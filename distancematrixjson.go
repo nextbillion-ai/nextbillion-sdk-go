@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai
+package nextbillionsdk
 
 import (
 	"context"
@@ -65,7 +65,7 @@ type DistanceMatrixJsonGetResponse struct {
 	// Container object for a response with an array of arrays structure.
 	Rows []DistanceMatrixJsonGetResponseRow `json:"rows"`
 	// A string indicating the state of the response. On normal responses, the value
-	// will be Ok. Indicative HTTP error codes are returned for different errors. See
+	// will be `Ok`. Indicative HTTP error codes are returned for different errors. See
 	// the [API Errors Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -85,11 +85,11 @@ func (r *DistanceMatrixJsonGetResponse) UnmarshalJSON(data []byte) error {
 }
 
 type DistanceMatrixJsonGetResponseRow struct {
-	// An array of objects. Each elements array corresponds to a single origins
-	// coordinate and contains objects with distance and duration values for each of
-	// the destinations. The details in the first elements array correspond to the
-	// first origins point and the first object corresponds to the first destinations
-	// point and so on.
+	// An array of objects. Each `elements` array corresponds to a single `origins`
+	// coordinate and contains objects with `distance` and `duration` values for each
+	// of the `destinations`. The details in the first `elements` array correspond to
+	// the first `origins` point and the first object corresponds to the first
+	// `destinations` point and so on.
 	Elements []DistanceMatrixJsonGetResponseRowElement `json:"elements"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -173,7 +173,7 @@ type DistanceMatrixJsonGetParams struct {
 	// curbside restriction on the "destinations" points provided at the first and
 	// third index.
 	//
-	// Any of "unrestricted", "curb".
+	// Any of "`unrestricted`", "`curb`".
 	Approaches DistanceMatrixJsonGetParamsApproaches `query:"approaches,omitzero" json:"-"`
 	// Setting this will ensure the route avoids ferries, tolls, highways or nothing.
 	// Multiple values should be separated by a pipe (|). If "none" is provided along
@@ -210,7 +210,7 @@ type DistanceMatrixJsonGetParams struct {
 	// [support@nextbillion.ai](mailto:support@nextbillion.ai) in case you need
 	// additional profiles.
 	//
-	// Any of "car", "truck".
+	// Any of "`car`", "`truck`".
 	Mode DistanceMatrixJsonGetParamsMode `query:"mode,omitzero" json:"-"`
 	paramObj
 }
@@ -237,8 +237,8 @@ func (r DistanceMatrixJsonGetParams) URLQuery() (v url.Values, err error) {
 type DistanceMatrixJsonGetParamsApproaches string
 
 const (
-	DistanceMatrixJsonGetParamsApproachesUnrestricted DistanceMatrixJsonGetParamsApproaches = "unrestricted"
-	DistanceMatrixJsonGetParamsApproachesCurb         DistanceMatrixJsonGetParamsApproaches = "curb"
+	DistanceMatrixJsonGetParamsApproachesUnrestricted DistanceMatrixJsonGetParamsApproaches = "`unrestricted`"
+	DistanceMatrixJsonGetParamsApproachesCurb         DistanceMatrixJsonGetParamsApproaches = "`curb`"
 )
 
 // Setting this will ensure the route avoids ferries, tolls, highways or nothing.
@@ -284,6 +284,6 @@ const (
 type DistanceMatrixJsonGetParamsMode string
 
 const (
-	DistanceMatrixJsonGetParamsModeCar   DistanceMatrixJsonGetParamsMode = "car"
-	DistanceMatrixJsonGetParamsModeTruck DistanceMatrixJsonGetParamsMode = "truck"
+	DistanceMatrixJsonGetParamsModeCar   DistanceMatrixJsonGetParamsMode = "`car`"
+	DistanceMatrixJsonGetParamsModeTruck DistanceMatrixJsonGetParamsMode = "`truck`"
 )

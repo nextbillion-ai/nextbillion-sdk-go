@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai
+package nextbillionsdk
 
 import (
 	"context"
@@ -135,7 +135,7 @@ type SimpleResp struct {
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be Ok. Indicative error messages are returned for different errors.
+	// value will be `Ok`. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -154,13 +154,13 @@ func (r *SimpleResp) UnmarshalJSON(data []byte) error {
 }
 
 type SkynetAssetNewResponse struct {
-	// An object containing the ID of the asset created.
+	// An object containing the ID of the `asset` created.
 	Data SkynetAssetNewResponseData `json:"data"`
 	// Displays the error message in case of a failed request. If the request is
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be Ok. Indicative error messages are returned for different errors.
+	// value will be `Ok`. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -179,9 +179,9 @@ func (r *SkynetAssetNewResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An object containing the ID of the asset created.
+// An object containing the ID of the `asset` created.
 type SkynetAssetNewResponseData struct {
-	// Unique ID of the asset created. It will be the same as custom_id, if provided.
+	// Unique ID of the asset created. It will be the same as `custom_id`, if provided.
 	// Else it will be an auto generated UUID. Please note this ID cannot be updated.
 	ID string `json:"id"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -199,13 +199,13 @@ func (r *SkynetAssetNewResponseData) UnmarshalJSON(data []byte) error {
 }
 
 type SkynetAssetGetResponse struct {
-	// An object containing the information about the asset returned.
+	// An object containing the information about the `asset` returned.
 	Data SkynetAssetGetResponseData `json:"data"`
 	// Displays the error message in case of a failed request. If the request is
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be Ok. Indicative error messages are returned for different errors.
+	// value will be `Ok`. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -224,9 +224,9 @@ func (r *SkynetAssetGetResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An object containing the information about the asset returned.
+// An object containing the information about the `asset` returned.
 type SkynetAssetGetResponseData struct {
-	// An object with details of the asset properties.
+	// An object with details of the `asset` properties.
 	Asset AssetDetails `json:"asset"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -249,7 +249,7 @@ type SkynetAssetListResponse struct {
 	// successful, this field is not present in the response.
 	Message string `json:"message"`
 	// A string indicating the state of the response. On successful responses, the
-	// value will be Ok. Indicative error messages are returned for different errors.
+	// value will be `Ok`. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
 	Status string `json:"status"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -270,7 +270,7 @@ func (r *SkynetAssetListResponse) UnmarshalJSON(data []byte) error {
 
 // A data object containing the list of assets.
 type SkynetAssetListResponseData struct {
-	// An array of objects, with each object representing one asset.
+	// An array of objects, with each object representing one `asset`.
 	List []AssetDetails `json:"list"`
 	// An object with pagination details of the search results. Use this object to
 	// implement pagination in your application.
@@ -294,41 +294,43 @@ type SkynetAssetNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Set a unique ID for the new asset. If not provided, an ID will be automatically
-	// generated in UUID format. A valid custom*id can contain letters, numbers, "-", &
-	// "*" only.
+	// Set a unique ID for the new `asset`. If not provided, an ID will be
+	// automatically generated in UUID format. A valid `custom_id` can contain letters,
+	// numbers, "-", & "\_" only.
 	//
-	// Please note that the ID of an asset can not be changed once it is created.
+	// Please note that the ID of an `asset` can not be changed once it is created.
 	CustomID param.Opt[string] `json:"custom_id,omitzero"`
-	// Description for the asset.
+	// Description for the `asset`.
 	Description param.Opt[string] `json:"description,omitzero"`
-	// Name of the asset. Use this field to assign a meaningful, custom name to the
-	// asset being created.
+	// Name of the `asset`. Use this field to assign a meaningful, custom name to the
+	// `asset` being created.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
 	Cluster SkynetAssetNewParamsCluster `query:"cluster,omitzero" json:"-"`
-	// attributes can be used to store custom information about an asset in key:value
-	// format. Use attributes to add any useful information or context to your assets
-	// like the vehicle type, shift timing etc. Moreover, these attributes can be used
-	// to filter assets in **Search**, **Monitor**, and _Get Asset List_ queries.
+	// `attributes` can be used to store custom information about an asset in
+	// `key`:`value` format. Use `attributes` to add any useful information or context
+	// to your assets like the vehicle type, shift timing etc. Moreover, these
+	// attributes can be used to filter `assets` in **Search**, **Monitor**, and _Get
+	// Asset List_ queries.
 	//
-	// Please note that the maximum number of key:value pairs that can be added to an
-	// attributes object is 100. Also, the overall size of attributes object should not
-	// exceed 65kb.
+	// Please note that the maximum number of `key`:`value` pairs that can be added to
+	// an `attributes` object is 100. Also, the overall size of `attributes` object
+	// should not exceed 65kb.
 	Attributes any `json:"attributes,omitzero"`
 	// Any valid json object data. Can be used to save customized data. Max size is
 	// 65kb.
 	MetaData MetaData `json:"meta_data,omitzero"`
-	// **This parameter will be deprecated soon! Please use the attributes parameter to
-	// add labels or markers for the asset.**
+	// **This parameter will be deprecated soon! Please use the `attributes` parameter
+	// to add labels or markers for the asset.**
 	//
-	// Tags of the asset. tags can be used for filtering assets in operations like _Get
-	// Asset List_ and asset **Search** methods. They can also be used for monitoring
-	// of assets using the **Monitor** methods after linking tags and asset.
+	// Tags of the `asset`. `tags` can be used for filtering assets in operations like
+	// _Get Asset List_ and asset **Search** methods. They can also be used for
+	// monitoring of assets using the **Monitor** methods after linking `tags` and
+	// `asset`.
 	//
-	// Valid tags are strings consisting of alphanumeric characters (A-Z, a-z, 0-9)
+	// Valid `tags` are strings consisting of alphanumeric characters (A-Z, a-z, 0-9)
 	// along with the underscore ('\_') and hyphen ('-') symbols.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -387,36 +389,36 @@ type SkynetAssetUpdateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Use this param to update the description of an asset.
+	// Use this param to update the `description` of an `asset`.
 	Description param.Opt[string] `json:"description,omitzero"`
-	// Use this param to update the name of an asset. Users can assign meaningful
+	// Use this param to update the `name` of an `asset`. Users can assign meaningful
 	// custom names to their assets.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
 	Cluster SkynetAssetUpdateParamsCluster `query:"cluster,omitzero" json:"-"`
-	// Use this param to update the attributes of an asset in key:value format. Users
-	// can maintain any useful information or context about the assets by utilising
-	// this parameter.
+	// Use this param to update the `attributes` of an asset in `key`:`value` format.
+	// Users can maintain any useful information or context about the assets by
+	// utilising this parameter.
 	//
-	// Please be careful when using this parameter while updating an asset as the new
-	// attributes object provided will completely overwrite the old attributes object.
-	// Use the _Update Asset Attributes_ method to add new or modify existing
+	// Please be careful when using this parameter while updating an `asset` as the new
+	// `attributes` object provided will completely overwrite the old `attributes`
+	// object. Use the _Update Asset Attributes_ method to add new or modify existing
 	// attributes.
 	//
-	// Another point to note is that the overall size of the attributes object cannot
-	// exceed 65kb and the maximum number of key:value pairs that can be added to this
-	// object is 100.
+	// Another point to note is that the overall size of the `attributes` object cannot
+	// exceed 65kb and the maximum number of `key`:`value` pairs that can be added to
+	// this object is 100.
 	Attributes any `json:"attributes,omitzero"`
 	// Any valid json object data. Can be used to save customized data. Max size is
 	// 65kb.
 	MetaData MetaData `json:"meta_data,omitzero"`
-	// **This parameter will be deprecated soon! Please use the attributes parameter to
-	// add labels or markers for the asset.**
+	// **This parameter will be deprecated soon! Please use the `attributes` parameter
+	// to add labels or markers for the asset.**
 	//
-	// Use this param to update the tags of an asset. tags can be used to filter asset
-	// in _Get Asset List_, **Search** and **Monitor** queries.
+	// Use this param to update the `tags` of an `asset`. `tags` can be used to filter
+	// `asset` in _Get Asset List_, **Search** and **Monitor** queries.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
@@ -449,42 +451,42 @@ type SkynetAssetListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Use this parameter to filter the assets by their attributes. Only the assets
-	// having all the attributes added to this parameter, will be returned in the
-	// response. Multiple attributes can be separated using pipes (|).
+	// Use this parameter to filter the assets by their `attributes`. Only the assets
+	// having all the `attributes` added to this parameter, will be returned in the
+	// response. Multiple `attributes` can be separated using pipes (`|`).
 	//
 	// Please note the attributes are case sensitive. Also, this parameter can not be
-	// used in conjunction with include_any_of_attributes parameter.
+	// used in conjunction with `include_any_of_attributes` parameter.
 	IncludeAllOfAttributes param.Opt[string] `query:"include_all_of_attributes,omitzero" format:"key_1:value_1|key_2:value_2" json:"-"`
-	// Use this parameter to filter the assets by their attributes. Assets having at
-	// least one of the attributes added to this parameter, will be returned in the
-	// response. Multiple attributes can be separated using pipes (|).
+	// Use this parameter to filter the assets by their `attributes`. Assets having at
+	// least one of the `attributes` added to this parameter, will be returned in the
+	// response. Multiple `attributes` can be separated using pipes (`|`).
 	//
 	// Please note the attributes are case sensitive. Also, this parameter can not be
-	// used in conjunction with include_all_of_attributes parameter.
+	// used in conjunction with `include_all_of_attributes` parameter.
 	IncludeAnyOfAttributes param.Opt[string] `query:"include_any_of_attributes,omitzero" format:"key1:value1|key2:value2|..." json:"-"`
-	// Denotes page number. Use this along with the ps parameter to implement
+	// Denotes page number. Use this along with the `ps` parameter to implement
 	// pagination for your searched results. This parameter does not have a maximum
 	// limit but would return an empty response in case a higher value is provided when
 	// the result-set itself is smaller.
 	Pn param.Opt[int64] `query:"pn,omitzero" json:"-"`
-	// Denotes number of search results per page. Use this along with the pn parameter
-	// to implement pagination for your searched results.
+	// Denotes number of search results per page. Use this along with the `pn`
+	// parameter to implement pagination for your searched results.
 	Ps param.Opt[int64] `query:"ps,omitzero" json:"-"`
-	// Provide a single field to sort the results by. Only updated_at or created_at
+	// Provide a single field to sort the results by. Only `updated_at` or `created_at`
 	// fields can be selected for ordering the results.
 	//
-	// By default, the result is sorted by created_at field in the descending order.
-	// Allowed values for specifying the order are asc for ascending order and desc for
-	// descending order.
+	// By default, the result is sorted by `created_at` field in the descending order.
+	// Allowed values for specifying the order are `asc` for ascending order and `desc`
+	// for descending order.
 	Sort param.Opt[string] `query:"sort,omitzero" format:"field:order" json:"-"`
 	// **This parameter will be deprecated soon! Please use the
-	// include_all_of_attributes or include_any_of_attributes parameters to provide
+	// `include_all_of_attributes` or `include_any_of_attributes` parameters to provide
 	// labels or markers for the assets to be retrieved.**
 	//
-	// tags can be used to filter the assets. Only those assets which have all the tags
-	// provided, will be included in the result. In case multiple tags need to be
-	// specified, use , to separate them.
+	// `tags` can be used to filter the assets. Only those assets which have all the
+	// `tags` provided, will be included in the result. In case multiple `tags` need to
+	// be specified, use `,` to separate them.
 	Tags param.Opt[string] `query:"tags,omitzero" json:"-"`
 	// the cluster of the region you want to use
 	//
@@ -539,11 +541,11 @@ type SkynetAssetBindParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// Device ID to be linked to the asset identified by id.
+	// Device ID to be linked to the `asset` identified by `id`.
 	//
-	// Please note that the device needs to be linked to an asset before using it in
+	// Please note that the device needs to be linked to an `asset` before using it in
 	// the _Upload locations of an Asset_ method for sending GPS information about the
-	// asset.
+	// `asset`.
 	DeviceID string `json:"device_id,required"`
 	paramObj
 }
@@ -568,12 +570,13 @@ type SkynetAssetTrackParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// ID of the device used to upload the tracking information of the asset.
+	// ID of the device used to upload the tracking information of the `asset`.
 	//
-	// Please note that the device_id used here must already be linked to the asset.
-	// Use the _Bind Device to Asset_ method to link a device with your asset.
+	// Please note that the `device_id` used here must already be linked to the
+	// `asset`. Use the _Bind Device to Asset_ method to link a device with your
+	// `asset`.
 	DeviceID string `json:"device_id,required"`
-	// An array of objects to collect the location tracking information for an asset.
+	// An array of objects to collect the location tracking information for an `asset`.
 	// Each object must correspond to details of only one location.
 	Locations SkynetAssetTrackParamsLocations `json:"locations,omitzero,required"`
 	// the cluster of the region you want to use
@@ -599,7 +602,7 @@ func (r SkynetAssetTrackParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-// An array of objects to collect the location tracking information for an asset.
+// An array of objects to collect the location tracking information for an `asset`.
 // Each object must correspond to details of only one location.
 //
 // The properties Location, Timestamp are required.
@@ -614,27 +617,27 @@ type SkynetAssetTrackParamsLocations struct {
 	// Use this parameter to provide the accuracy of the GPS information at the tracked
 	// location. It is the estimated horizontal accuracy radius, in meters.
 	Accuracy param.Opt[float64] `json:"accuracy,omitzero"`
-	// Use this parameter to provide the altitude, in meters, of the asset at the
+	// Use this parameter to provide the altitude, in meters, of the `asset` at the
 	// tracked location.
 	Altitude param.Opt[float64] `json:"altitude,omitzero"`
 	// Use this parameter to provide the battery level of the GPS device, as a
 	// percentage, when the location is tracked. It should have a minimum value of 0
 	// and a maximum value of 100.
 	BatteryLevel param.Opt[int64] `json:"battery_level,omitzero"`
-	// Use this parameter to provide the heading of the asset, in radians, calculated
+	// Use this parameter to provide the heading of the `asset`, in radians, calculated
 	// from true north in clockwise direction. This should always be in the range of
 	// [0, 360).
 	Bearing param.Opt[float64] `json:"bearing,omitzero"`
-	// Use this parameter to provide the speed of the asset, in meters per second, at
+	// Use this parameter to provide the speed of the `asset`, in meters per second, at
 	// the tracked location.
 	Speed param.Opt[float64] `json:"speed,omitzero"`
 	// NB tracking mode.
 	TrackingMode param.Opt[string] `json:"tracking_mode,omitzero"`
 	// Use this object to add any custom data about the location that is being
-	// uploaded. Recommended to use the key:value format for adding the desired
+	// uploaded. Recommended to use the `key`:`value` format for adding the desired
 	// information.
 	//
-	// Please note that the maximum size of meta_data object should not exceed 65Kb.
+	// Please note that the maximum size of `meta_data` object should not exceed 65Kb.
 	MetaData any `json:"meta_data,omitzero"`
 	paramObj
 }
@@ -652,9 +655,9 @@ func (r *SkynetAssetTrackParamsLocations) UnmarshalJSON(data []byte) error {
 //
 // The properties Lat, Lon are required.
 type SkynetAssetTrackParamsLocationsLocation struct {
-	// Latitude of the tracked location of the asset.
+	// Latitude of the tracked location of the `asset`.
 	Lat float64 `json:"lat,required"`
-	// Longitude of the tracked location of the asset.
+	// Longitude of the tracked location of the `asset`.
 	Lon float64 `json:"lon,required"`
 	paramObj
 }
@@ -678,19 +681,20 @@ type SkynetAssetUpdateAttributesParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
 	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
-	// attributes can be used to add any useful information or context to your assets
+	// `attributes` can be used to add any useful information or context to your assets
 	// like the vehicle type, shift timing etc. These attributes can also be used to
 	// filter assets in **Search**, **Monitor**, and _Get Asset List_ queries.
 	//
-	// Provide the attributes to be added or updated, in key:value format. If an
-	// existing key is provided in the input, then the value will be modified as per
-	// the input value. If a new key is provided in the input, then the key would be
-	// added to the existing set. The contents of any value field are neither altered
-	// nor removed unless specifically referred to by its key in the input request.
+	// Provide the attributes to be added or updated, in `key`:`value` format. If an
+	// existing `key` is provided in the input, then the `value` will be modified as
+	// per the input value. If a new `key` is provided in the input, then the `key`
+	// would be added to the existing set. The contents of any `value` field are
+	// neither altered nor removed unless specifically referred to by its `key` in the
+	// input request.
 	//
-	// Please note that the maximum number of key:value pairs that can be added to an
-	// attributes object is 100. Also, the overall size of attributes object should not
-	// exceed 65kb.
+	// Please note that the maximum number of `key`:`value` pairs that can be added to
+	// an `attributes` object is 100. Also, the overall size of `attributes` object
+	// should not exceed 65kb.
 	Attributes any `json:"attributes,omitzero,required"`
 	paramObj
 }

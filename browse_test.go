@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai_test
+package nextbillionsdk_test
 
 import (
 	"context"
@@ -22,20 +22,20 @@ func TestBrowseSearchWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Browse.Search(context.TODO(), nextbillionai.BrowseSearchParams{
+	_, err := client.Browse.Search(context.TODO(), nextbillionsdk.BrowseSearchParams{
 		Key:        "key=API_KEY",
-		At:         nextbillionai.String("at=52.5308,13.3856"),
-		Categories: nextbillionai.String("categories: schools"),
-		In:         nextbillionai.String("in=countryCode:CAN,MEX,USA"),
-		Lang:       nextbillionai.String("lang=en"),
-		Limit:      nextbillionai.Int(0),
+		At:         nextbillionsdk.String("at=52.5308,13.3856"),
+		Categories: nextbillionsdk.String("categories: schools"),
+		In:         nextbillionsdk.String("in=countryCode:CAN,MEX,USA"),
+		Lang:       nextbillionsdk.String("lang=en"),
+		Limit:      nextbillionsdk.Int(0),
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
