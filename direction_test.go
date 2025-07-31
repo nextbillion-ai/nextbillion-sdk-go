@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai_test
+package nextbillionsdk_test
 
 import (
 	"context"
@@ -22,40 +22,40 @@ func TestDirectionComputeRouteWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Directions.ComputeRoute(context.TODO(), nextbillionai.DirectionComputeRouteParams{
+	_, err := client.Directions.ComputeRoute(context.TODO(), nextbillionsdk.DirectionComputeRouteParams{
 		Destination:     "41.349302,2.136480",
 		Origin:          "41.349302,2.136480",
-		Altcount:        nextbillionai.Int(1),
-		Alternatives:    nextbillionai.Bool(true),
-		Approaches:      nextbillionai.String("unrestricted;;curb;"),
-		Avoid:           nextbillionai.DirectionComputeRouteParamsAvoidToll,
-		Bearings:        nextbillionai.String("0,180;0,180"),
-		CrossBorder:     nextbillionai.Bool(true),
-		DepartureTime:   nextbillionai.Int(0),
-		DriveTimeLimits: nextbillionai.String("500,400,400"),
-		EmissionClass:   nextbillionai.DirectionComputeRouteParamsEmissionClassEuro0,
-		Exclude:         nextbillionai.DirectionComputeRouteParamsExcludeToll,
-		Geometry:        nextbillionai.DirectionComputeRouteParamsGeometryPolyline,
-		HazmatType:      nextbillionai.DirectionComputeRouteParamsHazmatTypeGeneral,
-		Mode:            nextbillionai.DirectionComputeRouteParamsModeCar,
-		Option:          nextbillionai.DirectionComputeRouteParamsOptionFast,
-		Overview:        nextbillionai.DirectionComputeRouteParamsOverviewFull,
-		RestTimes:       nextbillionai.String("500,300,100"),
-		RoadInfo:        nextbillionai.DirectionComputeRouteParamsRoadInfoMaxSpeed,
-		RouteType:       nextbillionai.DirectionComputeRouteParamsRouteTypeFastest,
-		Steps:           nextbillionai.Bool(true),
-		TruckAxleLoad:   nextbillionai.Float(0),
-		TruckSize:       nextbillionai.String("200,210,600"),
-		TruckWeight:     nextbillionai.Int(1),
-		TurnAngleRange:  nextbillionai.Int(0),
-		Waypoints:       nextbillionai.String("41.349302,2.136480|41.349303,2.136481|41.349304,2.136482"),
+		Altcount:        nextbillionsdk.Int(1),
+		Alternatives:    nextbillionsdk.Bool(true),
+		Approaches:      nextbillionsdk.String("unrestricted;;curb;"),
+		Avoid:           nextbillionsdk.DirectionComputeRouteParamsAvoidToll,
+		Bearings:        nextbillionsdk.String("0,180;0,180"),
+		CrossBorder:     nextbillionsdk.Bool(true),
+		DepartureTime:   nextbillionsdk.Int(0),
+		DriveTimeLimits: nextbillionsdk.String("500,400,400"),
+		EmissionClass:   nextbillionsdk.DirectionComputeRouteParamsEmissionClassEuro0,
+		Exclude:         nextbillionsdk.DirectionComputeRouteParamsExcludeToll,
+		Geometry:        nextbillionsdk.DirectionComputeRouteParamsGeometryPolyline,
+		HazmatType:      nextbillionsdk.DirectionComputeRouteParamsHazmatTypeGeneral,
+		Mode:            nextbillionsdk.DirectionComputeRouteParamsModeCar,
+		Option:          nextbillionsdk.DirectionComputeRouteParamsOptionFast,
+		Overview:        nextbillionsdk.DirectionComputeRouteParamsOverviewFull,
+		RestTimes:       nextbillionsdk.String("500,300,100"),
+		RoadInfo:        nextbillionsdk.DirectionComputeRouteParamsRoadInfoMaxSpeed,
+		RouteType:       nextbillionsdk.DirectionComputeRouteParamsRouteTypeFastest,
+		Steps:           nextbillionsdk.Bool(true),
+		TruckAxleLoad:   nextbillionsdk.Float(0),
+		TruckSize:       nextbillionsdk.String("200,210,600"),
+		TruckWeight:     nextbillionsdk.Int(1),
+		TurnAngleRange:  nextbillionsdk.Int(0),
+		Waypoints:       nextbillionsdk.String("41.349302,2.136480|41.349303,2.136481|41.349304,2.136482"),
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

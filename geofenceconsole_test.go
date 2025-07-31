@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai_test
+package nextbillionsdk_test
 
 import (
 	"context"
@@ -22,33 +22,33 @@ func TestGeofenceConsolePreviewWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geofence.Console.Preview(context.TODO(), nextbillionai.GeofenceConsolePreviewParams{
-		GeofenceEntityCreate: nextbillionai.GeofenceEntityCreateParam{
-			Type: nextbillionai.GeofenceEntityCreateTypeCircle,
-			Circle: nextbillionai.GeofenceEntityCreateCircleParam{
-				Center: nextbillionai.GeofenceEntityCreateCircleCenterParam{
+	_, err := client.Geofence.Console.Preview(context.TODO(), nextbillionsdk.GeofenceConsolePreviewParams{
+		GeofenceEntityCreate: nextbillionsdk.GeofenceEntityCreateParam{
+			Type: nextbillionsdk.GeofenceEntityCreateTypeCircle,
+			Circle: nextbillionsdk.GeofenceEntityCreateCircleParam{
+				Center: nextbillionsdk.GeofenceEntityCreateCircleCenterParam{
 					Lat: 0,
 					Lon: 0,
 				},
 				Radius: 0,
 			},
-			CustomID: nextbillionai.String("custom_id"),
-			Isochrone: nextbillionai.GeofenceEntityCreateIsochroneParam{
+			CustomID: nextbillionsdk.String("custom_id"),
+			Isochrone: nextbillionsdk.GeofenceEntityCreateIsochroneParam{
 				Coordinates:    `"coordinates": "13.25805884,77.91083661"`,
-				ContoursMeter:  nextbillionai.Int(0),
-				ContoursMinute: nextbillionai.Int(0),
-				Denoise:        nextbillionai.Float(0),
-				DepartureTime:  nextbillionai.Int(0),
-				Mode:           "car",
+				ContoursMeter:  nextbillionsdk.Int(0),
+				ContoursMinute: nextbillionsdk.Int(0),
+				Denoise:        nextbillionsdk.Float(0),
+				DepartureTime:  nextbillionsdk.Int(0),
+				Mode:           "`car`",
 			},
 			MetaData: "{\n  \"country\": \"USA\",\n  \"state\": \"California\"\n}",
-			Name:     nextbillionai.String(`"name":"Los Angeles Downtown"`),
-			Polygon: nextbillionai.GeofenceEntityCreatePolygonParam{
-				Geojson: nextbillionai.GeofenceEntityCreatePolygonGeojsonParam{
+			Name:     nextbillionsdk.String(`"name":"Los Angeles Downtown"`),
+			Polygon: nextbillionsdk.GeofenceEntityCreatePolygonParam{
+				Geojson: nextbillionsdk.GeofenceEntityCreatePolygonGeojsonParam{
 					Coordinates: [][]float64{{0}},
 					Type:        "type",
 				},
@@ -57,7 +57,7 @@ func TestGeofenceConsolePreviewWithOptionalParams(t *testing.T) {
 		},
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -74,15 +74,15 @@ func TestGeofenceConsoleSearch(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geofence.Console.Search(context.TODO(), nextbillionai.GeofenceConsoleSearchParams{
+	_, err := client.Geofence.Console.Search(context.TODO(), nextbillionsdk.GeofenceConsoleSearchParams{
 		Query: "query",
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

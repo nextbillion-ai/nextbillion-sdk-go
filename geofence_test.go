@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai_test
+package nextbillionsdk_test
 
 import (
 	"context"
@@ -22,34 +22,34 @@ func TestGeofenceNewWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geofence.New(context.TODO(), nextbillionai.GeofenceNewParams{
+	_, err := client.Geofence.New(context.TODO(), nextbillionsdk.GeofenceNewParams{
 		Key: "key=API_KEY",
-		GeofenceEntityCreate: nextbillionai.GeofenceEntityCreateParam{
-			Type: nextbillionai.GeofenceEntityCreateTypeCircle,
-			Circle: nextbillionai.GeofenceEntityCreateCircleParam{
-				Center: nextbillionai.GeofenceEntityCreateCircleCenterParam{
+		GeofenceEntityCreate: nextbillionsdk.GeofenceEntityCreateParam{
+			Type: nextbillionsdk.GeofenceEntityCreateTypeCircle,
+			Circle: nextbillionsdk.GeofenceEntityCreateCircleParam{
+				Center: nextbillionsdk.GeofenceEntityCreateCircleCenterParam{
 					Lat: 0,
 					Lon: 0,
 				},
 				Radius: 0,
 			},
-			CustomID: nextbillionai.String("custom_id"),
-			Isochrone: nextbillionai.GeofenceEntityCreateIsochroneParam{
+			CustomID: nextbillionsdk.String("custom_id"),
+			Isochrone: nextbillionsdk.GeofenceEntityCreateIsochroneParam{
 				Coordinates:    `"coordinates": "13.25805884,77.91083661"`,
-				ContoursMeter:  nextbillionai.Int(0),
-				ContoursMinute: nextbillionai.Int(0),
-				Denoise:        nextbillionai.Float(0),
-				DepartureTime:  nextbillionai.Int(0),
-				Mode:           "car",
+				ContoursMeter:  nextbillionsdk.Int(0),
+				ContoursMinute: nextbillionsdk.Int(0),
+				Denoise:        nextbillionsdk.Float(0),
+				DepartureTime:  nextbillionsdk.Int(0),
+				Mode:           "`car`",
 			},
 			MetaData: "{\n  \"country\": \"USA\",\n  \"state\": \"California\"\n}",
-			Name:     nextbillionai.String(`"name":"Los Angeles Downtown"`),
-			Polygon: nextbillionai.GeofenceEntityCreatePolygonParam{
-				Geojson: nextbillionai.GeofenceEntityCreatePolygonGeojsonParam{
+			Name:     nextbillionsdk.String(`"name":"Los Angeles Downtown"`),
+			Polygon: nextbillionsdk.GeofenceEntityCreatePolygonParam{
+				Geojson: nextbillionsdk.GeofenceEntityCreatePolygonGeojsonParam{
 					Coordinates: [][]float64{{0}},
 					Type:        "type",
 				},
@@ -58,7 +58,7 @@ func TestGeofenceNewWithOptionalParams(t *testing.T) {
 		},
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -75,19 +75,19 @@ func TestGeofenceGet(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Geofence.Get(
 		context.TODO(),
 		"id",
-		nextbillionai.GeofenceGetParams{
+		nextbillionsdk.GeofenceGetParams{
 			Key: "key=API_KEY",
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -104,44 +104,44 @@ func TestGeofenceUpdateWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Geofence.Update(
 		context.TODO(),
 		"id",
-		nextbillionai.GeofenceUpdateParams{
+		nextbillionsdk.GeofenceUpdateParams{
 			Key: "key=API_KEY",
-			Circle: nextbillionai.GeofenceUpdateParamsCircle{
-				Center: nextbillionai.GeofenceUpdateParamsCircleCenter{
-					Lat: nextbillionai.Float(0),
-					Lon: nextbillionai.Float(0),
+			Circle: nextbillionsdk.GeofenceUpdateParamsCircle{
+				Center: nextbillionsdk.GeofenceUpdateParamsCircleCenter{
+					Lat: nextbillionsdk.Float(0),
+					Lon: nextbillionsdk.Float(0),
 				},
-				Radius: nextbillionai.Float(0),
+				Radius: nextbillionsdk.Float(0),
 			},
-			Isochrone: nextbillionai.GeofenceUpdateParamsIsochrone{
-				ContoursMeter:  nextbillionai.Int(0),
-				ContoursMinute: nextbillionai.Int(0),
-				Coordinates:    nextbillionai.String(`"coordinates": "13.25805884388484,77.91083661048299"`),
-				Denoise:        nextbillionai.Float(0),
-				DepartureTime:  nextbillionai.Int(0),
-				Mode:           nextbillionai.String("“mode”:”car”"),
+			Isochrone: nextbillionsdk.GeofenceUpdateParamsIsochrone{
+				ContoursMeter:  nextbillionsdk.Int(0),
+				ContoursMinute: nextbillionsdk.Int(0),
+				Coordinates:    nextbillionsdk.String(`"coordinates": "13.25805884388484,77.91083661048299"`),
+				Denoise:        nextbillionsdk.Float(0),
+				DepartureTime:  nextbillionsdk.Int(0),
+				Mode:           nextbillionsdk.String("“mode”:”car”"),
 			},
 			MetaData: "",
-			Name:     nextbillionai.String(`"name":"Los Angeles Downtown"`),
-			Polygon: nextbillionai.GeofenceUpdateParamsPolygon{
-				Geojson: nextbillionai.GeofenceUpdateParamsPolygonGeojson{
+			Name:     nextbillionsdk.String(`"name":"Los Angeles Downtown"`),
+			Polygon: nextbillionsdk.GeofenceUpdateParamsPolygon{
+				Geojson: nextbillionsdk.GeofenceUpdateParamsPolygonGeojson{
 					Geometry: [][]float64{{0}},
-					Type:     nextbillionai.String("type"),
+					Type:     nextbillionsdk.String("type"),
 				},
 			},
 			Tags: []string{`"tags":["tags_1", "O69Am2Y4KL8q5Y5JuD-Fy-tdtEpkTRQo_ZYIK7"]`},
-			Type: nextbillionai.GeofenceUpdateParamsTypeCircle,
+			Type: nextbillionsdk.GeofenceUpdateParamsTypeCircle,
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -158,18 +158,18 @@ func TestGeofenceListWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geofence.List(context.TODO(), nextbillionai.GeofenceListParams{
+	_, err := client.Geofence.List(context.TODO(), nextbillionsdk.GeofenceListParams{
 		Key:  "key=API_KEY",
-		Pn:   nextbillionai.Int(0),
-		Ps:   nextbillionai.Int(100),
-		Tags: nextbillionai.String("tags=tags_1,O69Am2Y4KL8q5Y5JuD-Fy-tdtEpkTRQo_ZYIK7"),
+		Pn:   nextbillionsdk.Int(0),
+		Ps:   nextbillionsdk.Int(100),
+		Tags: nextbillionsdk.String("tags=tags_1,O69Am2Y4KL8q5Y5JuD-Fy-tdtEpkTRQo_ZYIK7"),
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -186,19 +186,19 @@ func TestGeofenceDelete(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Geofence.Delete(
 		context.TODO(),
 		"id",
-		nextbillionai.GeofenceDeleteParams{
+		nextbillionsdk.GeofenceDeleteParams{
 			Key: "key=API_KEY",
 		},
 	)
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -215,18 +215,18 @@ func TestGeofenceContainsWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Geofence.Contains(context.TODO(), nextbillionai.GeofenceContainsParams{
+	_, err := client.Geofence.Contains(context.TODO(), nextbillionsdk.GeofenceContainsParams{
 		Key:       "key=API_KEY",
 		Locations: "13.25805884388484,77.91083661048299|13.25805884388484,77.91083661048299",
-		Geofences: nextbillionai.String("geofences=80d1fa55-6287-4da0-93ac-2fc162d0a228,70d1fa55-1287-4da0-93ac-2fc162d0a228"),
-		Verbose:   nextbillionai.String("verbose=true"),
+		Geofences: nextbillionsdk.String("geofences=80d1fa55-6287-4da0-93ac-2fc162d0a228,70d1fa55-1287-4da0-93ac-2fc162d0a228"),
+		Verbose:   nextbillionsdk.String("verbose=true"),
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

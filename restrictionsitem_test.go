@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionai_test
+package nextbillionsdk_test
 
 import (
 	"context"
@@ -22,24 +22,24 @@ func TestRestrictionsItemListWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionai.NewClient(
+	client := nextbillionsdk.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.RestrictionsItems.List(context.TODO(), nextbillionai.RestrictionsItemListParams{
+	_, err := client.RestrictionsItems.List(context.TODO(), nextbillionsdk.RestrictionsItemListParams{
 		MaxLat:          0,
 		MaxLon:          0,
 		MinLat:          0,
 		MinLon:          0,
-		GroupID:         nextbillionai.Float(0),
-		Mode:            nextbillionai.RestrictionsItemListParamsMode0w,
-		RestrictionType: nextbillionai.RestrictionsItemListParamsRestrictionTypeTurn,
-		Source:          nextbillionai.String("source"),
-		State:           nextbillionai.RestrictionsItemListParamsStateEnabled,
-		Status:          nextbillionai.RestrictionsItemListParamsStatusActive,
+		GroupID:         nextbillionsdk.Float(0),
+		Mode:            nextbillionsdk.RestrictionsItemListParamsMode0w,
+		RestrictionType: nextbillionsdk.RestrictionsItemListParamsRestrictionTypeTurn,
+		Source:          nextbillionsdk.String("source"),
+		State:           nextbillionsdk.RestrictionsItemListParamsStateEnabled,
+		Status:          nextbillionsdk.RestrictionsItemListParamsStatusActive,
 	})
 	if err != nil {
-		var apierr *nextbillionai.Error
+		var apierr *nextbillionsdk.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
