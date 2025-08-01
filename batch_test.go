@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,18 +22,18 @@ func TestBatchNewWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Batch.New(context.TODO(), nextbillionsdk.BatchNewParams{
+	_, err := client.Batch.New(context.TODO(), nextbillionai.BatchNewParams{
 		Key: "key=API_KEY",
-		Requests: []nextbillionsdk.BatchNewParamsRequest{{
-			Query: nextbillionsdk.String("query"),
+		Requests: []nextbillionai.BatchNewParamsRequest{{
+			Query: nextbillionai.String("query"),
 		}},
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -50,16 +50,16 @@ func TestBatchGet(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Batch.Get(context.TODO(), nextbillionsdk.BatchGetParams{
+	_, err := client.Batch.Get(context.TODO(), nextbillionai.BatchGetParams{
 		Key:     "key=API_KEY",
 		TrackID: "track_id",
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

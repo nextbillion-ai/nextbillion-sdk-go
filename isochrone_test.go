@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nextbillionsdk_test
+package nextbillionai_test
 
 import (
 	"context"
@@ -22,24 +22,24 @@ func TestIsochroneComputeWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := nextbillionsdk.NewClient(
+	client := nextbillionai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Isochrone.Compute(context.TODO(), nextbillionsdk.IsochroneComputeParams{
+	_, err := client.Isochrone.Compute(context.TODO(), nextbillionai.IsochroneComputeParams{
 		ContoursMeters:  0,
 		ContoursMinutes: 0,
 		Coordinates:     "coordinates=1.29363713,103.8383112",
 		Key:             "key=API_KEY",
-		ContoursColors:  nextbillionsdk.String("contours_colors=ff0000,bf4040"),
-		Denoise:         nextbillionsdk.Float(0),
-		DepartureTime:   nextbillionsdk.Int(0),
-		Generalize:      nextbillionsdk.Float(0),
-		Mode:            nextbillionsdk.IsochroneComputeParamsModeCar,
-		Polygons:        nextbillionsdk.Bool(true),
+		ContoursColors:  nextbillionai.String("contours_colors=ff0000,bf4040"),
+		Denoise:         nextbillionai.Float(0),
+		DepartureTime:   nextbillionai.Int(0),
+		Generalize:      nextbillionai.Float(0),
+		Mode:            nextbillionai.IsochroneComputeParamsModeCar,
+		Polygons:        nextbillionai.Bool(true),
 	})
 	if err != nil {
-		var apierr *nextbillionsdk.Error
+		var apierr *nextbillionai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
