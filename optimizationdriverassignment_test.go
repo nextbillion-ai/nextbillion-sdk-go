@@ -66,9 +66,9 @@ func TestOptimizationDriverAssignmentAssignWithOptionalParams(t *testing.T) {
 		}},
 		Vehicles: []nextbillionai.VehicleParam{{
 			ID: "id",
-			Location: nextbillionai.VehicleLocationParam{
-				Lat: nextbillionai.Float(0),
-				Lng: nextbillionai.Float(0),
+			Location: nextbillionai.LocationParam{
+				Lat: -90,
+				Lon: -180,
 			},
 			Attributes: "\"attributes\":{\n    \"driver_rating\": \"4.0\",\n    \"trip_types\": \"premium\"\n  }",
 			Priority:   nextbillionai.Int(0),
