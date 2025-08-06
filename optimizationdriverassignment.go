@@ -99,7 +99,7 @@ type VehicleParam struct {
 	ID string `json:"id,required"`
 	// Specify the location coordinates where the vehicle is currently located. This
 	// input is mandatory for each vehicle.
-	Location VehicleLocationParam `json:"location,omitzero,required"`
+	Location LocationParam `json:"location,omitzero,required"`
 	// Specify the priority for this vehicle. A higher value indicates a higher
 	// priority. When specified, it will override any priority score deduced from
 	// vehicle_attribute_priority_mappings for this vehicle. Valid values are \[1, 10\]
@@ -128,24 +128,6 @@ func (r VehicleParam) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *VehicleParam) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Specify the location coordinates where the vehicle is currently located. This
-// input is mandatory for each vehicle.
-type VehicleLocationParam struct {
-	// Latitude of the vehicle's current location.
-	Lat param.Opt[float64] `json:"lat,omitzero"`
-	// Longitude of the vehicle's current location.
-	Lng param.Opt[float64] `json:"lng,omitzero"`
-	paramObj
-}
-
-func (r VehicleLocationParam) MarshalJSON() (data []byte, err error) {
-	type shadow VehicleLocationParam
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *VehicleLocationParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

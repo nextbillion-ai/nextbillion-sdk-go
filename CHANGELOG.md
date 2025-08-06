@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.11 (2025-08-06)
+
+Full Changelog: [v0.1.0-alpha.10...v0.1.0-alpha.11](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.10...v0.1.0-alpha.11)
+
+### Chores
+
+* **api:** dedupe location types ([b7405d8](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/b7405d886e1862a5d6ca5f7410d70282e70dd1ed))
+
 ## 0.1.0-alpha.10 (2025-07-31)
 
 Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
