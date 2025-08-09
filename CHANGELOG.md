@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.12 (2025-08-09)
+
+Full Changelog: [v0.1.0-alpha.11...v0.1.0-alpha.12](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.11...v0.1.0-alpha.12)
+
+### Features
+
+* **client:** support optional json html escaping ([b8f9a1b](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/b8f9a1bd201c592af80fcba6dd6357dc1dceef72))
+
+
+### Chores
+
+* update @stainless-api/prism-cli to v5.15.0 ([0bdd3a7](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/0bdd3a716f2f8b8a06d4743ad4f5e29ca30a854b))
+
 ## 0.1.0-alpha.11 (2025-08-06)
 
 Full Changelog: [v0.1.0-alpha.10...v0.1.0-alpha.11](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.10...v0.1.0-alpha.11)

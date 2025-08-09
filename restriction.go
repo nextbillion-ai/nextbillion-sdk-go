@@ -12,6 +12,7 @@ import (
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
+	shimjson "github.com/nextbillion-ai/nextbillion-sdk-go/internal/encoding/json"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
@@ -469,7 +470,7 @@ type RestrictionNewParams struct {
 }
 
 func (r RestrictionNewParams) MarshalJSON() (data []byte, err error) {
-	return json.Marshal(r.RichGroupRequest)
+	return shimjson.Marshal(r.RichGroupRequest)
 }
 func (r *RestrictionNewParams) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &r.RichGroupRequest)
@@ -525,7 +526,7 @@ type RestrictionUpdateParams struct {
 }
 
 func (r RestrictionUpdateParams) MarshalJSON() (data []byte, err error) {
-	return json.Marshal(r.RichGroupRequest)
+	return shimjson.Marshal(r.RichGroupRequest)
 }
 func (r *RestrictionUpdateParams) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &r.RichGroupRequest)

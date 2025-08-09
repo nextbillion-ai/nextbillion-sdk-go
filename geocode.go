@@ -10,6 +10,7 @@ import (
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
+	shimjson "github.com/nextbillion-ai/nextbillion-sdk-go/internal/encoding/json"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
@@ -790,7 +791,7 @@ type GeocodeBatchNewParams struct {
 }
 
 func (r GeocodeBatchNewParams) MarshalJSON() (data []byte, err error) {
-	return json.Marshal(r.Body)
+	return shimjson.Marshal(r.Body)
 }
 func (r *GeocodeBatchNewParams) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &r.Body)
