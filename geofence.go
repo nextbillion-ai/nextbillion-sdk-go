@@ -12,6 +12,7 @@ import (
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
+	shimjson "github.com/nextbillion-ai/nextbillion-sdk-go/internal/encoding/json"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/option"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/param"
@@ -658,7 +659,7 @@ type GeofenceNewParams struct {
 }
 
 func (r GeofenceNewParams) MarshalJSON() (data []byte, err error) {
-	return json.Marshal(r.GeofenceEntityCreate)
+	return shimjson.Marshal(r.GeofenceEntityCreate)
 }
 func (r *GeofenceNewParams) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &r.GeofenceEntityCreate)
