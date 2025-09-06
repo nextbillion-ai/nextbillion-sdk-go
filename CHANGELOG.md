@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.13 (2025-09-06)
+
+Full Changelog: [v0.1.0-alpha.12...v0.1.0-alpha.13](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.12...v0.1.0-alpha.13)
+
+### Bug Fixes
+
+* **internal:** unmarshal correctly when there are multiple discriminators ([60e8285](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/60e8285b9b90523742e4244fbfbd5a0effc8e798))
+
+
+### Chores
+
+* **internal:** codegen related update ([7d325c1](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/7d325c1a01b939da023ffc178537df96d65b1a0a))
+
 ## 0.1.0-alpha.12 (2025-08-29)
 
 Full Changelog: [v0.1.0-alpha.11...v0.1.0-alpha.12](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.11...v0.1.0-alpha.12)
