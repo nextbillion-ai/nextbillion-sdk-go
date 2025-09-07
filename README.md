@@ -1,6 +1,10 @@
 # Nextbillion SDK Go API Library
 
+<!-- x-release-please-start-version -->
+
 <a href="https://pkg.go.dev/github.com/nextbillion-ai/nextbillion-sdk-go"><img src="https://pkg.go.dev/badge/github.com/nextbillion-ai/nextbillion-sdk-go.svg" alt="Go Reference"></a>
+
+<!-- x-release-please-end -->
 
 The Nextbillion SDK Go library provides convenient access to the [Nextbillion SDK REST API](https://docs.nextbillion.ai)
 from applications written in Go.
@@ -24,7 +28,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nextbillion-ai/nextbillion-sdk-go@v0.1.0-alpha.12'
+go get -u 'github.com/nextbillion-ai/nextbillion-sdk-go@v0.1.0-alpha.13'
 ```
 
 <!-- x-release-please-end -->
