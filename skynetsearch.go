@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -38,7 +39,7 @@ func NewSkynetSearchService(opts ...option.RequestOption) (r SkynetSearchService
 
 // Around Search
 func (r *SkynetSearchService) Around(ctx context.Context, query SkynetSearchAroundParams, opts ...option.RequestOption) (res *SearchResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/search/around"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -46,7 +47,7 @@ func (r *SkynetSearchService) Around(ctx context.Context, query SkynetSearchArou
 
 // Bound Search
 func (r *SkynetSearchService) Bound(ctx context.Context, query SkynetSearchBoundParams, opts ...option.RequestOption) (res *SearchResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/search/bound"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

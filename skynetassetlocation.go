@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -38,7 +39,7 @@ func NewSkynetAssetLocationService(opts ...option.RequestOption) (r SkynetAssetL
 
 // Track locations of an asset
 func (r *SkynetAssetLocationService) List(ctx context.Context, id string, query SkynetAssetLocationListParams, opts ...option.RequestOption) (res *SkynetAssetLocationListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -50,7 +51,7 @@ func (r *SkynetAssetLocationService) List(ctx context.Context, id string, query 
 
 // Track the last location of an asset
 func (r *SkynetAssetLocationService) GetLast(ctx context.Context, id string, query SkynetAssetLocationGetLastParams, opts ...option.RequestOption) (res *SkynetAssetLocationGetLastResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return

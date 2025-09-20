@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -37,7 +38,7 @@ func NewGeofenceConsoleService(opts ...option.RequestOption) (r GeofenceConsoleS
 
 // preview geofence geojson
 func (r *GeofenceConsoleService) Preview(ctx context.Context, body GeofenceConsolePreviewParams, opts ...option.RequestOption) (res *GeofenceConsolePreviewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "geofence/console/preview"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -45,7 +46,7 @@ func (r *GeofenceConsoleService) Preview(ctx context.Context, body GeofenceConso
 
 // Console Geofence Search API
 func (r *GeofenceConsoleService) Search(ctx context.Context, query GeofenceConsoleSearchParams, opts ...option.RequestOption) (res *GeofenceConsoleSearchResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "geofence/console/search"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

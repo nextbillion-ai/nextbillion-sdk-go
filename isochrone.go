@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -38,7 +39,7 @@ func NewIsochroneService(opts ...option.RequestOption) (r IsochroneService) {
 // specified amount of time from a location, and returns the reachable regions as
 // contours of polygons or lines that you can display on a map.
 func (r *IsochroneService) Compute(ctx context.Context, query IsochroneComputeParams, opts ...option.RequestOption) (res *IsochroneComputeResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "isochrone/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

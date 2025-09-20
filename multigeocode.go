@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -43,7 +44,7 @@ func NewMultigeocodeService(opts ...option.RequestOption) (r MultigeocodeService
 // correct or even incomplete search texts. Results would be ranked based on the
 // search score of a place.
 func (r *MultigeocodeService) Search(ctx context.Context, params MultigeocodeSearchParams, opts ...option.RequestOption) (res *MultigeocodeSearchResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "multigeocode/search"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return

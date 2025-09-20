@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -36,7 +37,7 @@ func NewMdmService(opts ...option.RequestOption) (r MdmService) {
 
 // Create a massive distance matrix task
 func (r *MdmService) NewDistanceMatrix(ctx context.Context, params MdmNewDistanceMatrixParams, opts ...option.RequestOption) (res *MdmNewDistanceMatrixResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "mdm/create"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *MdmService) NewDistanceMatrix(ctx context.Context, params MdmNewDistanc
 
 // Get massive distance matrix task status
 func (r *MdmService) GetDistanceMatrixStatus(ctx context.Context, query MdmGetDistanceMatrixStatusParams, opts ...option.RequestOption) (res *MdmGetDistanceMatrixStatusResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "mdm/status"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

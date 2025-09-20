@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -38,7 +39,7 @@ func NewGeocodeService(opts ...option.RequestOption) (r GeocodeService) {
 
 // Geocode
 func (r *GeocodeService) Get(ctx context.Context, query GeocodeGetParams, opts ...option.RequestOption) (res *GeocodeGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "geocode"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -46,7 +47,7 @@ func (r *GeocodeService) Get(ctx context.Context, query GeocodeGetParams, opts .
 
 // Batch Geocode
 func (r *GeocodeService) BatchNew(ctx context.Context, params GeocodeBatchNewParams, opts ...option.RequestOption) (res *GeocodeBatchNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "geocode/batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -54,7 +55,7 @@ func (r *GeocodeService) BatchNew(ctx context.Context, params GeocodeBatchNewPar
 
 // Structured Geocode
 func (r *GeocodeService) StructuredGet(ctx context.Context, query GeocodeStructuredGetParams, opts ...option.RequestOption) (res *GeocodeStructuredGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "geocode/structured"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

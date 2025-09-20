@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -38,7 +39,7 @@ func NewSkynetAssetEventService(opts ...option.RequestOption) (r SkynetAssetEven
 
 // Event History of an Asset
 func (r *SkynetAssetEventService) List(ctx context.Context, id string, query SkynetAssetEventListParams, opts ...option.RequestOption) (res *SkynetAssetEventListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return

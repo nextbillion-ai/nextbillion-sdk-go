@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -38,7 +39,7 @@ func NewFleetifyDocumentTemplateService(opts ...option.RequestOption) (r Fleetif
 
 // Create Document template
 func (r *FleetifyDocumentTemplateService) New(ctx context.Context, params FleetifyDocumentTemplateNewParams, opts ...option.RequestOption) (res *FleetifyDocumentTemplateNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "fleetify/document_templates"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -46,7 +47,7 @@ func (r *FleetifyDocumentTemplateService) New(ctx context.Context, params Fleeti
 
 // Retrieve template by ID
 func (r *FleetifyDocumentTemplateService) Get(ctx context.Context, id string, query FleetifyDocumentTemplateGetParams, opts ...option.RequestOption) (res *FleetifyDocumentTemplateGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -58,7 +59,7 @@ func (r *FleetifyDocumentTemplateService) Get(ctx context.Context, id string, qu
 
 // Update a document template
 func (r *FleetifyDocumentTemplateService) Update(ctx context.Context, id string, params FleetifyDocumentTemplateUpdateParams, opts ...option.RequestOption) (res *FleetifyDocumentTemplateUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -70,7 +71,7 @@ func (r *FleetifyDocumentTemplateService) Update(ctx context.Context, id string,
 
 // Get all document templates
 func (r *FleetifyDocumentTemplateService) List(ctx context.Context, query FleetifyDocumentTemplateListParams, opts ...option.RequestOption) (res *FleetifyDocumentTemplateListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "fleetify/document_templates"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -78,7 +79,7 @@ func (r *FleetifyDocumentTemplateService) List(ctx context.Context, query Fleeti
 
 // Delete a document template
 func (r *FleetifyDocumentTemplateService) Delete(ctx context.Context, id string, body FleetifyDocumentTemplateDeleteParams, opts ...option.RequestOption) (res *FleetifyDocumentTemplateDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return

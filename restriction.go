@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
@@ -40,7 +41,7 @@ func NewRestrictionService(opts ...option.RequestOption) (r RestrictionService) 
 
 // Create a new restriction
 func (r *RestrictionService) New(ctx context.Context, restrictionType RestrictionNewParamsRestrictionType, params RestrictionNewParams, opts ...option.RequestOption) (res *RichGroupResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("restrictions/%v", restrictionType)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -48,7 +49,7 @@ func (r *RestrictionService) New(ctx context.Context, restrictionType Restrictio
 
 // Get a restriction by id
 func (r *RestrictionService) Get(ctx context.Context, id int64, query RestrictionGetParams, opts ...option.RequestOption) (res *RichGroupResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("restrictions/%v", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -56,7 +57,7 @@ func (r *RestrictionService) Get(ctx context.Context, id int64, query Restrictio
 
 // Update a restriction
 func (r *RestrictionService) Update(ctx context.Context, id int64, params RestrictionUpdateParams, opts ...option.RequestOption) (res *RichGroupResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("restrictions/%v", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, params, &res, opts...)
 	return
@@ -64,7 +65,7 @@ func (r *RestrictionService) Update(ctx context.Context, id int64, params Restri
 
 // Get the paginated list of restrictions
 func (r *RestrictionService) List(ctx context.Context, query RestrictionListParams, opts ...option.RequestOption) (res *RestrictionListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "restrictions/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -72,7 +73,7 @@ func (r *RestrictionService) List(ctx context.Context, query RestrictionListPara
 
 // Delete a restriction by ID
 func (r *RestrictionService) Delete(ctx context.Context, id int64, body RestrictionDeleteParams, opts ...option.RequestOption) (res *RestrictionDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("restrictions/%v", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return
@@ -80,7 +81,7 @@ func (r *RestrictionService) Delete(ctx context.Context, id int64, body Restrict
 
 // Get restrictions by bbox
 func (r *RestrictionService) ListByBbox(ctx context.Context, query RestrictionListByBboxParams, opts ...option.RequestOption) (res *[]RichGroupResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "restrictions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -88,7 +89,7 @@ func (r *RestrictionService) ListByBbox(ctx context.Context, query RestrictionLi
 
 // Set the state of a restriction by ID
 func (r *RestrictionService) SetState(ctx context.Context, id int64, params RestrictionSetStateParams, opts ...option.RequestOption) (res *RichGroupResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("restrictions/%v/state", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
 	return

@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -45,7 +46,7 @@ func NewMultigeocodePlaceService(opts ...option.RequestOption) (r MultigeocodePl
 // places dataset (s) - or, to a default dataset. Overcome inaccurate ‘POI’ details
 // from default search provider by creating custom, highly accurate ‘POIs’.
 func (r *MultigeocodePlaceService) New(ctx context.Context, params MultigeocodePlaceNewParams, opts ...option.RequestOption) (res *MultigeocodePlaceNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "multigeocode/place"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -54,7 +55,7 @@ func (r *MultigeocodePlaceService) New(ctx context.Context, params MultigeocodeP
 // Use this method to get the details of previously created custom places using its
 // NextBillion ID.
 func (r *MultigeocodePlaceService) Get(ctx context.Context, docID string, query MultigeocodePlaceGetParams, opts ...option.RequestOption) (res *MultigeocodePlaceGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if docID == "" {
 		err = errors.New("missing required docId parameter")
 		return
@@ -78,7 +79,7 @@ func (r *MultigeocodePlaceService) Get(ctx context.Context, docID string, query 
 // Alternatively, you can block places which are no longer needed by setting their
 // status: ‘disable’.
 func (r *MultigeocodePlaceService) Update(ctx context.Context, docID string, params MultigeocodePlaceUpdateParams, opts ...option.RequestOption) (res *MultigeocodePlaceUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if docID == "" {
 		err = errors.New("missing required docId parameter")
 		return
@@ -96,7 +97,7 @@ func (r *MultigeocodePlaceService) Update(ctx context.Context, docID string, par
 // place is deleted, the search API can still return valid results from the default
 // datasets or others, if present.
 func (r *MultigeocodePlaceService) Delete(ctx context.Context, docID string, body MultigeocodePlaceDeleteParams, opts ...option.RequestOption) (res *MultigeocodePlaceDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if docID == "" {
 		err = errors.New("missing required docId parameter")
 		return
