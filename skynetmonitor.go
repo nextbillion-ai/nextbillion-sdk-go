@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -38,7 +39,7 @@ func NewSkynetMonitorService(opts ...option.RequestOption) (r SkynetMonitorServi
 
 // Create a Monitor
 func (r *SkynetMonitorService) New(ctx context.Context, params SkynetMonitorNewParams, opts ...option.RequestOption) (res *SkynetMonitorNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/monitor"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -46,7 +47,7 @@ func (r *SkynetMonitorService) New(ctx context.Context, params SkynetMonitorNewP
 
 // Get a Monitor
 func (r *SkynetMonitorService) Get(ctx context.Context, id string, query SkynetMonitorGetParams, opts ...option.RequestOption) (res *SkynetMonitorGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -58,7 +59,7 @@ func (r *SkynetMonitorService) Get(ctx context.Context, id string, query SkynetM
 
 // Update a Monitor
 func (r *SkynetMonitorService) Update(ctx context.Context, id string, params SkynetMonitorUpdateParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -70,7 +71,7 @@ func (r *SkynetMonitorService) Update(ctx context.Context, id string, params Sky
 
 // Get Monitor List
 func (r *SkynetMonitorService) List(ctx context.Context, query SkynetMonitorListParams, opts ...option.RequestOption) (res *SkynetMonitorListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/monitor/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -78,7 +79,7 @@ func (r *SkynetMonitorService) List(ctx context.Context, query SkynetMonitorList
 
 // Delete a Monitor
 func (r *SkynetMonitorService) Delete(ctx context.Context, id string, body SkynetMonitorDeleteParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return

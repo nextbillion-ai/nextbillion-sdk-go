@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -35,7 +36,7 @@ func NewLookupService(opts ...option.RequestOption) (r LookupService) {
 
 // Lookup By ID
 func (r *LookupService) ByID(ctx context.Context, query LookupByIDParams, opts ...option.RequestOption) (res *LookupByIDResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "lookup"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

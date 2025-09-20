@@ -5,6 +5,7 @@ package nextbillionai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
@@ -46,7 +47,7 @@ func NewSkynetService(opts ...option.RequestOption) (r SkynetService) {
 
 // POST Action
 func (r *SkynetService) Subscribe(ctx context.Context, body SkynetSubscribeParams, opts ...option.RequestOption) (res *SkynetSubscribeResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/subscribe"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -44,7 +45,7 @@ func NewGeofenceService(opts ...option.RequestOption) (r GeofenceService) {
 
 // Create a geofence
 func (r *GeofenceService) New(ctx context.Context, params GeofenceNewParams, opts ...option.RequestOption) (res *GeofenceNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "geofence"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -52,7 +53,7 @@ func (r *GeofenceService) New(ctx context.Context, params GeofenceNewParams, opt
 
 // Get a Geofence
 func (r *GeofenceService) Get(ctx context.Context, id string, query GeofenceGetParams, opts ...option.RequestOption) (res *GeofenceGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -64,7 +65,7 @@ func (r *GeofenceService) Get(ctx context.Context, id string, query GeofenceGetP
 
 // Update a Geofence
 func (r *GeofenceService) Update(ctx context.Context, id string, params GeofenceUpdateParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -76,7 +77,7 @@ func (r *GeofenceService) Update(ctx context.Context, id string, params Geofence
 
 // Get Geofence List
 func (r *GeofenceService) List(ctx context.Context, query GeofenceListParams, opts ...option.RequestOption) (res *GeofenceListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "geofence/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -84,7 +85,7 @@ func (r *GeofenceService) List(ctx context.Context, query GeofenceListParams, op
 
 // Delete a Geofence
 func (r *GeofenceService) Delete(ctx context.Context, id string, body GeofenceDeleteParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -96,7 +97,7 @@ func (r *GeofenceService) Delete(ctx context.Context, id string, body GeofenceDe
 
 // Geofence Contains
 func (r *GeofenceService) Contains(ctx context.Context, query GeofenceContainsParams, opts ...option.RequestOption) (res *GeofenceContainsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "geofence/contain"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

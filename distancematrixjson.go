@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -36,7 +37,7 @@ func NewDistanceMatrixJsonService(opts ...option.RequestOption) (r DistanceMatri
 
 // asfd
 func (r *DistanceMatrixJsonService) New(ctx context.Context, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	path := "distancematrix/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, nil, opts...)
@@ -51,7 +52,7 @@ func (r *DistanceMatrixJsonService) New(ctx context.Context, opts ...option.Requ
 // (seconds) for each. The GET method can only handle up to 100 locations (1
 // location is either 1 origin or 1 destination).
 func (r *DistanceMatrixJsonService) Get(ctx context.Context, query DistanceMatrixJsonGetParams, opts ...option.RequestOption) (res *DistanceMatrixJsonGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "distancematrix/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

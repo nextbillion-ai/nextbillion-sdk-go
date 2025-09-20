@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -36,7 +37,7 @@ func NewSkynetNamespacedApikeyService(opts ...option.RequestOption) (r SkynetNam
 
 // Create namespace under a parent key
 func (r *SkynetNamespacedApikeyService) New(ctx context.Context, body SkynetNamespacedApikeyNewParams, opts ...option.RequestOption) (res *SkynetNamespacedApikeyNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/namespaced-apikeys"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *SkynetNamespacedApikeyService) New(ctx context.Context, body SkynetName
 
 // Delete namespace under a parent key
 func (r *SkynetNamespacedApikeyService) Delete(ctx context.Context, body SkynetNamespacedApikeyDeleteParams, opts ...option.RequestOption) (res *SkynetNamespacedApikeyDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/namespaced-apikeys"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return

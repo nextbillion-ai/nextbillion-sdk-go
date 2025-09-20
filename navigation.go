@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -41,7 +42,7 @@ func NewNavigationService(opts ...option.RequestOption) (r NavigationService) {
 // Alternatively, you can directly use Nextbillion.ai’s Navigation SDK for a
 // complete turn by turn navigation experience.
 func (r *NavigationService) GetRoute(ctx context.Context, query NavigationGetRouteParams, opts ...option.RequestOption) (res *NavigationGetRouteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "navigation/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

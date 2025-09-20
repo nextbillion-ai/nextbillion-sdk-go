@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -36,7 +37,7 @@ func NewAutocompleteService(opts ...option.RequestOption) (r AutocompleteService
 
 // Autocomplete
 func (r *AutocompleteService) Suggest(ctx context.Context, query AutocompleteSuggestParams, opts ...option.RequestOption) (res *AutocompleteSuggestResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "autocomplete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

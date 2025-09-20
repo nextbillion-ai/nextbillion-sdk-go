@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -42,7 +43,7 @@ func NewSkynetAssetService(opts ...option.RequestOption) (r SkynetAssetService) 
 
 // Create an Asset
 func (r *SkynetAssetService) New(ctx context.Context, params SkynetAssetNewParams, opts ...option.RequestOption) (res *SkynetAssetNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/asset"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -50,7 +51,7 @@ func (r *SkynetAssetService) New(ctx context.Context, params SkynetAssetNewParam
 
 // Get an Asset
 func (r *SkynetAssetService) Get(ctx context.Context, id string, query SkynetAssetGetParams, opts ...option.RequestOption) (res *SkynetAssetGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -62,7 +63,7 @@ func (r *SkynetAssetService) Get(ctx context.Context, id string, query SkynetAss
 
 // Update an Asset
 func (r *SkynetAssetService) Update(ctx context.Context, id string, params SkynetAssetUpdateParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -74,7 +75,7 @@ func (r *SkynetAssetService) Update(ctx context.Context, id string, params Skyne
 
 // Get Asset List
 func (r *SkynetAssetService) List(ctx context.Context, query SkynetAssetListParams, opts ...option.RequestOption) (res *SkynetAssetListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/asset/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -82,7 +83,7 @@ func (r *SkynetAssetService) List(ctx context.Context, query SkynetAssetListPara
 
 // Delete an Asset
 func (r *SkynetAssetService) Delete(ctx context.Context, id string, body SkynetAssetDeleteParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -94,7 +95,7 @@ func (r *SkynetAssetService) Delete(ctx context.Context, id string, body SkynetA
 
 // Bind asset to device
 func (r *SkynetAssetService) Bind(ctx context.Context, id string, params SkynetAssetBindParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -106,7 +107,7 @@ func (r *SkynetAssetService) Bind(ctx context.Context, id string, params SkynetA
 
 // Upload track info
 func (r *SkynetAssetService) Track(ctx context.Context, id string, params SkynetAssetTrackParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -118,7 +119,7 @@ func (r *SkynetAssetService) Track(ctx context.Context, id string, params Skynet
 
 // Update asset attributes. (add)
 func (r *SkynetAssetService) UpdateAttributes(ctx context.Context, id string, params SkynetAssetUpdateAttributesParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return

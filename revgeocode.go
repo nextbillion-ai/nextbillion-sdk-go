@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -36,7 +37,7 @@ func NewRevgeocodeService(opts ...option.RequestOption) (r RevgeocodeService) {
 
 // Reverse Geocode
 func (r *RevgeocodeService) Get(ctx context.Context, query RevgeocodeGetParams, opts ...option.RequestOption) (res *RevgeocodeGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "revgeocode"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
