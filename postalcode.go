@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -36,7 +37,7 @@ func NewPostalcodeService(opts ...option.RequestOption) (r PostalcodeService) {
 
 // Retrieve coordinates by postal code
 func (r *PostalcodeService) GetCoordinates(ctx context.Context, params PostalcodeGetCoordinatesParams, opts ...option.RequestOption) (res *PostalcodeGetCoordinatesResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "postalcode"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return

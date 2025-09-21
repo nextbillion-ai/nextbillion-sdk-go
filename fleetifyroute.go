@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -40,7 +41,7 @@ func NewFleetifyRouteService(opts ...option.RequestOption) (r FleetifyRouteServi
 
 // Dispatch a new route
 func (r *FleetifyRouteService) New(ctx context.Context, params FleetifyRouteNewParams, opts ...option.RequestOption) (res *FleetifyRouteNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "fleetify/routes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -48,7 +49,7 @@ func (r *FleetifyRouteService) New(ctx context.Context, params FleetifyRouteNewP
 
 // Re-dispatch route
 func (r *FleetifyRouteService) Redispatch(ctx context.Context, routeID string, params FleetifyRouteRedispatchParams, opts ...option.RequestOption) (res *FleetifyRouteRedispatchResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if routeID == "" {
 		err = errors.New("missing required routeID parameter")
 		return

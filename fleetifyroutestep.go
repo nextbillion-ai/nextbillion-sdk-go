@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -39,7 +40,7 @@ func NewFleetifyRouteStepService(opts ...option.RequestOption) (r FleetifyRouteS
 
 // Insert a new step
 func (r *FleetifyRouteStepService) New(ctx context.Context, routeID string, params FleetifyRouteStepNewParams, opts ...option.RequestOption) (res *FleetifyRouteStepNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if routeID == "" {
 		err = errors.New("missing required routeID parameter")
 		return
@@ -51,7 +52,7 @@ func (r *FleetifyRouteStepService) New(ctx context.Context, routeID string, para
 
 // Update a step
 func (r *FleetifyRouteStepService) Update(ctx context.Context, stepID string, params FleetifyRouteStepUpdateParams, opts ...option.RequestOption) (res *FleetifyRouteStepUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if params.RouteID == "" {
 		err = errors.New("missing required routeID parameter")
 		return
@@ -67,7 +68,7 @@ func (r *FleetifyRouteStepService) Update(ctx context.Context, stepID string, pa
 
 // Delete a step
 func (r *FleetifyRouteStepService) Delete(ctx context.Context, stepID string, params FleetifyRouteStepDeleteParams, opts ...option.RequestOption) (res *FleetifyRouteStepDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if params.RouteID == "" {
 		err = errors.New("missing required routeID parameter")
 		return
@@ -89,7 +90,7 @@ func (r *FleetifyRouteStepService) Delete(ctx context.Context, stepID string, pa
 //
 // Either Session Token must be provided to authenticate the request.
 func (r *FleetifyRouteStepService) Complete(ctx context.Context, stepID string, params FleetifyRouteStepCompleteParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if params.RouteID == "" {
 		err = errors.New("missing required routeID parameter")

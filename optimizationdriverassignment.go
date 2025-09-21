@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -38,7 +39,7 @@ func NewOptimizationDriverAssignmentService(opts ...option.RequestOption) (r Opt
 // Assigns available drivers (vehicles) to open orders based on specified criteria
 // and constraints.
 func (r *OptimizationDriverAssignmentService) Assign(ctx context.Context, params OptimizationDriverAssignmentAssignParams, opts ...option.RequestOption) (res *OptimizationDriverAssignmentAssignResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "optimization/driver-assignment/v1"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return

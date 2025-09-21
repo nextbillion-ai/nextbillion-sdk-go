@@ -5,6 +5,7 @@ package nextbillionai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewDirectionService(opts ...option.RequestOption) (r DirectionService) {
 
 // Directions API is a service that computes a route with given coordinates.
 func (r *DirectionService) ComputeRoute(ctx context.Context, body DirectionComputeRouteParams, opts ...option.RequestOption) (res *DirectionComputeRouteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "directions/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

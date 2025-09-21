@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -39,7 +40,7 @@ func NewSnapToRoadService(opts ...option.RequestOption) (r SnapToRoadService) {
 // roads where the trip took place. You can set various parameters, such as
 // timestamps or radius, to optimize the result.
 func (r *SnapToRoadService) Snap(ctx context.Context, query SnapToRoadSnapParams, opts ...option.RequestOption) (res *SnapToRoadSnapResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "snapToRoads/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

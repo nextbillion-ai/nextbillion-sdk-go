@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -36,7 +37,7 @@ func NewDiscoverService(opts ...option.RequestOption) (r DiscoverService) {
 
 // Discover matching places
 func (r *DiscoverService) Get(ctx context.Context, query DiscoverGetParams, opts ...option.RequestOption) (res *DiscoverGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "discover"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

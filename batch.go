@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -36,7 +37,7 @@ func NewBatchService(opts ...option.RequestOption) (r BatchService) {
 
 // Create Batch Routing
 func (r *BatchService) New(ctx context.Context, params BatchNewParams, opts ...option.RequestOption) (res *BatchNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *BatchService) New(ctx context.Context, params BatchNewParams, opts ...o
 
 // Get Batch Result
 func (r *BatchService) Get(ctx context.Context, query BatchGetParams, opts ...option.RequestOption) (res *BatchGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

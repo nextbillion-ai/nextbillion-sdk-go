@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -35,7 +36,7 @@ func NewAreaService(opts ...option.RequestOption) (r AreaService) {
 
 // Get available areas
 func (r *AreaService) List(ctx context.Context, query AreaListParams, opts ...option.RequestOption) (res *[]AreaListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "areas"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

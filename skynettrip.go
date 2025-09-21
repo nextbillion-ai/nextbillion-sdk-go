@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -38,7 +39,7 @@ func NewSkynetTripService(opts ...option.RequestOption) (r SkynetTripService) {
 
 // Retrieves detailed information about a specific trip.
 func (r *SkynetTripService) Get(ctx context.Context, id string, query SkynetTripGetParams, opts ...option.RequestOption) (res *SkynetTripGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -50,7 +51,7 @@ func (r *SkynetTripService) Get(ctx context.Context, id string, query SkynetTrip
 
 // Updates the data of a specified trip with the provided data.
 func (r *SkynetTripService) Update(ctx context.Context, id string, params SkynetTripUpdateParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -62,7 +63,7 @@ func (r *SkynetTripService) Update(ctx context.Context, id string, params Skynet
 
 // Deletes a specified trip from the system.
 func (r *SkynetTripService) Delete(ctx context.Context, id string, body SkynetTripDeleteParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -74,7 +75,7 @@ func (r *SkynetTripService) Delete(ctx context.Context, id string, body SkynetTr
 
 // End a trip
 func (r *SkynetTripService) End(ctx context.Context, params SkynetTripEndParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/trip/end"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -82,7 +83,7 @@ func (r *SkynetTripService) End(ctx context.Context, params SkynetTripEndParams,
 
 // Get summary of an ended trip
 func (r *SkynetTripService) GetSummary(ctx context.Context, id string, query SkynetTripGetSummaryParams, opts ...option.RequestOption) (res *SkynetTripGetSummaryResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -94,7 +95,7 @@ func (r *SkynetTripService) GetSummary(ctx context.Context, id string, query Sky
 
 // Add a new trip to the system with the provided data.
 func (r *SkynetTripService) Start(ctx context.Context, params SkynetTripStartParams, opts ...option.RequestOption) (res *SkynetTripStartResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/trip/start"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return

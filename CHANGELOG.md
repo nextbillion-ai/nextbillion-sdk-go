@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.0-alpha.14 (2025-09-20)
+
+Full Changelog: [v0.1.0-alpha.13...v0.1.0-alpha.14](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.13...v0.1.0-alpha.14)
+
+### Bug Fixes
+
+* use slices.Concat instead of sometimes modifying r.Options ([9b15082](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/9b150820514684fc9a123b919fd16a4aad321a50))
+
+
+### Chores
+
+* bump minimum go version to 1.22 ([d21763e](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/d21763e142558298519938c5caaffdcd8c2b67ce))
+* do not install brew dependencies in ./scripts/bootstrap by default ([a1dcbcc](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/a1dcbcc70b2d4f58e5ffe82aed8ea305f752bac4))
+* update more docs for 1.22 ([0d687fa](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/0d687fa2c19c682e930e0e8acffc7ca930655c9a))
+
 ## 0.1.0-alpha.13 (2025-09-06)
 
 Full Changelog: [v0.1.0-alpha.12...v0.1.0-alpha.13](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.12...v0.1.0-alpha.13)

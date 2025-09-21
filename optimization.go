@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -50,7 +51,7 @@ func NewOptimizationService(opts ...option.RequestOption) (r OptimizationService
 //
 // A list of all parameters is specified in the next section.
 func (r *OptimizationService) Compute(ctx context.Context, query OptimizationComputeParams, opts ...option.RequestOption) (res *OptimizationComputeResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "optimization/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -58,7 +59,7 @@ func (r *OptimizationService) Compute(ctx context.Context, query OptimizationCom
 
 // Re-optimization
 func (r *OptimizationService) ReOptimize(ctx context.Context, params OptimizationReOptimizeParams, opts ...option.RequestOption) (res *PostResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "optimization/re_optimization"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return

@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -36,7 +37,7 @@ func NewRestrictionsItemService(opts ...option.RequestOption) (r RestrictionsIte
 
 // Get restriction items by bbox
 func (r *RestrictionsItemService) List(ctx context.Context, query RestrictionsItemListParams, opts ...option.RequestOption) (res *[]RestrictionsItemListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "restrictions_items"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

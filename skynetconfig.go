@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -36,7 +37,7 @@ func NewSkynetConfigService(opts ...option.RequestOption) (r SkynetConfigService
 
 // Get webhook configuration
 func (r *SkynetConfigService) Get(ctx context.Context, query SkynetConfigGetParams, opts ...option.RequestOption) (res *SkynetConfigGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/config"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *SkynetConfigService) Get(ctx context.Context, query SkynetConfigGetPara
 
 // Update webhook configuration
 func (r *SkynetConfigService) Update(ctx context.Context, params SkynetConfigUpdateParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/config"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
 	return
@@ -52,7 +53,7 @@ func (r *SkynetConfigService) Update(ctx context.Context, params SkynetConfigUpd
 
 // Test webhook configurations
 func (r *SkynetConfigService) TestWebhook(ctx context.Context, body SkynetConfigTestWebhookParams, opts ...option.RequestOption) (res *SkynetConfigTestWebhookResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "skynet/config/testwebhook"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

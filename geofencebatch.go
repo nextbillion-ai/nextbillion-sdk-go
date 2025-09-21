@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apijson"
 	"github.com/nextbillion-ai/nextbillion-sdk-go/internal/apiquery"
@@ -36,7 +37,7 @@ func NewGeofenceBatchService(opts ...option.RequestOption) (r GeofenceBatchServi
 
 // Batch Creation of Geofence
 func (r *GeofenceBatchService) New(ctx context.Context, params GeofenceBatchNewParams, opts ...option.RequestOption) (res *GeofenceBatchNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "geofence/batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *GeofenceBatchService) New(ctx context.Context, params GeofenceBatchNewP
 
 // Batch Query of Geofence
 func (r *GeofenceBatchService) List(ctx context.Context, query GeofenceBatchListParams, opts ...option.RequestOption) (res *GeofenceBatchListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "geofence/batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -52,7 +53,7 @@ func (r *GeofenceBatchService) List(ctx context.Context, query GeofenceBatchList
 
 // Delete Batch Geofence
 func (r *GeofenceBatchService) Delete(ctx context.Context, params GeofenceBatchDeleteParams, opts ...option.RequestOption) (res *SimpleResp, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "geofence/batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, params, &res, opts...)
 	return
