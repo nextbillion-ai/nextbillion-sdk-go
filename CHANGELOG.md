@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.15 (2025-09-26)
+
+Full Changelog: [v0.1.0-alpha.14...v0.1.0-alpha.15](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.14...v0.1.0-alpha.15)
+
+### Bug Fixes
+
+* bugfix for setting JSON keys with special characters ([5c8da88](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/5c8da88feea95177dd4b163c83a305db3a08f303))
+
 ## 0.1.0-alpha.14 (2025-09-20)
 
 Full Changelog: [v0.1.0-alpha.13...v0.1.0-alpha.14](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.13...v0.1.0-alpha.14)
