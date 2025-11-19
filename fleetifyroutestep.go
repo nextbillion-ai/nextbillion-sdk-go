@@ -91,7 +91,7 @@ func (r *FleetifyRouteStepService) Delete(ctx context.Context, stepID string, pa
 // Either Session Token must be provided to authenticate the request.
 func (r *FleetifyRouteStepService) Complete(ctx context.Context, stepID string, params FleetifyRouteStepCompleteParams, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if params.RouteID == "" {
 		err = errors.New("missing required routeID parameter")
 		return
