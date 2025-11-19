@@ -38,7 +38,7 @@ func NewDistanceMatrixJsonService(opts ...option.RequestOption) (r DistanceMatri
 // asfd
 func (r *DistanceMatrixJsonService) New(ctx context.Context, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "distancematrix/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, nil, opts...)
 	return
