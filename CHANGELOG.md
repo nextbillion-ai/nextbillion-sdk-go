@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.16 (2025-11-19)
+
+Full Changelog: [v0.1.0-alpha.15...v0.1.0-alpha.16](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.15...v0.1.0-alpha.16)
+
+### Bug Fixes
+
+* **client:** correctly specify Accept header with */* instead of empty ([5fc3924](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/5fc3924160eebd3bb9744c4c2e1b944b69972cb9))
+
+
+### Chores
+
+* bump gjson version ([8c208a4](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/8c208a486b23b102c81091a725031cacb9c03fb6))
+* **internal:** grammar fix (it's -&gt; its) ([d2dfd27](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/d2dfd27bc716213fd7384182032a80fbbe0cb2a6))
+
 ## 0.1.0-alpha.15 (2025-09-26)
 
 Full Changelog: [v0.1.0-alpha.14...v0.1.0-alpha.15](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.14...v0.1.0-alpha.15)
