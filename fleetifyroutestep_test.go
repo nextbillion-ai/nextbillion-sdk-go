@@ -155,7 +155,7 @@ func TestFleetifyRouteStepCompleteWithOptionalParams(t *testing.T) {
 		nextbillionai.FleetifyRouteStepCompleteParams{
 			RouteID:  "routeID",
 			Key:      "key",
-			Document: map[string]interface{}{},
+			Document: map[string]any{},
 			Mode:     nextbillionai.String("mode"),
 			Status:   nextbillionai.String("status"),
 		},
