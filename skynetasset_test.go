@@ -32,7 +32,7 @@ func TestSkynetAssetNewWithOptionalParams(t *testing.T) {
 		Attributes:  "{\n  \"shift_timing\": \"0800-1700\",\n  \"driver_name\": \"John\"\n}",
 		CustomID:    nextbillionai.String("custom_id"),
 		Description: nextbillionai.String("description"),
-		MetaData:    map[string]interface{}{},
+		MetaData:    map[string]any{},
 		Name:        nextbillionai.String("name"),
 		Tags:        []string{"string"},
 	})
@@ -96,7 +96,7 @@ func TestSkynetAssetUpdateWithOptionalParams(t *testing.T) {
 			Cluster:     nextbillionai.SkynetAssetUpdateParamsClusterAmerica,
 			Attributes:  "{\n  \"shift_timing\": \"0800-1700\",\n  \"driver_name\": \"John\"\n}",
 			Description: nextbillionai.String("description"),
-			MetaData:    map[string]interface{}{},
+			MetaData:    map[string]any{},
 			Name:        nextbillionai.String("name"),
 			Tags:        []string{"string"},
 		},

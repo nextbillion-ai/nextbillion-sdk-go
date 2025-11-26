@@ -39,7 +39,7 @@ func TestOptimizationDriverAssignmentAssignWithOptionalParams(t *testing.T) {
 				Lat: nextbillionai.Float(0),
 				Lng: nextbillionai.Float(0),
 			},
-			Attributes: map[string]interface{}{},
+			Attributes: map[string]any{},
 			Dropoffs: []nextbillionai.OptimizationDriverAssignmentAssignParamsOrderDropoff{{
 				Lat: nextbillionai.Float(0),
 				Lng: nextbillionai.Float(0),

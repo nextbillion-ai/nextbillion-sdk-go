@@ -45,7 +45,7 @@ func TestSkynetMonitorNewWithOptionalParams(t *testing.T) {
 			IncludeAllOfAttributes: "{\n  \"asset_type\": \"delivery\",\n  \"area\": \"Los Angeles downtown\"\n}",
 			IncludeAnyOfAttributes: "{\n  \"asset_type\": \"delivery\",\n  \"area\": \"Los Angeles downtown\"\n}",
 		},
-		MetaData: map[string]interface{}{},
+		MetaData: map[string]any{},
 		Name:     nextbillionai.String("name"),
 		SpeedingConfig: nextbillionai.SkynetMonitorNewParamsSpeedingConfig{
 			CustomerSpeedLimit: nextbillionai.Int(0),
@@ -122,7 +122,7 @@ func TestSkynetMonitorUpdateWithOptionalParams(t *testing.T) {
 				IncludeAllOfAttributes: "{\n  \"asset_type\": \"delivery\",\n  \"area\": \"Los Angeles downtown\"\n}",
 				IncludeAnyOfAttributes: "{\n  \"asset_type\": \"delivery\",\n  \"area\": \"Los Angeles downtown\"\n}",
 			},
-			MetaData: map[string]interface{}{},
+			MetaData: map[string]any{},
 			Name:     nextbillionai.String(`"name":"warehouse_exit"`),
 			SpeedingConfig: nextbillionai.SkynetMonitorUpdateParamsSpeedingConfig{
 				CustomerSpeedLimit: nextbillionai.String(`"customer_speed_limit":8`),
