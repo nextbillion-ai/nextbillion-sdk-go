@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.1.0-alpha.17 (2025-12-12)
+
+Full Changelog: [v0.1.0-alpha.16...v0.1.0-alpha.17](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.16...v0.1.0-alpha.17)
+
+### Features
+
+* **encoder:** support bracket encoding form-data object members ([0e045d4](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/0e045d4ba5b8c5cb63eb15a355b23e5d37ada434))
+
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([a8ca0a1](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/a8ca0a1cf3d47bfce0a9add693424c0bfe22ed66))
+* rename param to avoid collision ([2e69f68](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/2e69f68e56f00df74c31567ee7dab64b48b58926))
+
+
+### Chores
+
+* elide duplicate aliases ([3125b39](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/3125b395e8d3443030f33152557e8e219aeaf905))
+* fix empty interfaces ([0effbf7](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/0effbf74fdcc286ed84e0a2d29a91f0236bceb44))
+* **internal:** codegen related update ([7765969](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/7765969501e45f8292c31d5ec11ed758e050816b))
+
 ## 0.1.0-alpha.16 (2025-11-19)
 
 Full Changelog: [v0.1.0-alpha.15...v0.1.0-alpha.16](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.15...v0.1.0-alpha.16)
