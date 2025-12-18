@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.18 (2025-12-18)
+
+Full Changelog: [v0.1.0-alpha.17...v0.1.0-alpha.18](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.17...v0.1.0-alpha.18)
+
+### Bug Fixes
+
+* skip usage tests that don't work with Prism ([0db880d](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/0db880dfa8f5ede576467e8f4de63a3d87a4c97e))
+
 ## 0.1.0-alpha.17 (2025-12-12)
 
 Full Changelog: [v0.1.0-alpha.16...v0.1.0-alpha.17](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.16...v0.1.0-alpha.17)
