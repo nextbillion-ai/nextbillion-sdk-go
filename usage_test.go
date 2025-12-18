@@ -24,6 +24,7 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
+	t.Skip("Prism tests are disabled")
 	response, err := client.Directions.ComputeRoute(context.TODO(), nextbillionai.DirectionComputeRouteParams{
 		Destination: "1.335368,103.785517",
 		Origin:      "1.312164,103.841063",
