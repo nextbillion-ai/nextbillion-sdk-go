@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.19 (2025-12-19)
+
+Full Changelog: [v0.1.0-alpha.18...v0.1.0-alpha.19](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.18...v0.1.0-alpha.19)
+
+### Chores
+
+* add float64 to valid types for RegisterFieldValidator ([26e2a05](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/26e2a05f83b00561d71ec71281ad2bf70d87fc2c))
+
 ## 0.1.0-alpha.18 (2025-12-18)
 
 Full Changelog: [v0.1.0-alpha.17...v0.1.0-alpha.18](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.17...v0.1.0-alpha.18)
