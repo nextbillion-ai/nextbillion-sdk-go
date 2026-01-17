@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.0-alpha.19 (2026-01-17)
+
+Full Changelog: [v0.1.0-alpha.18...v0.1.0-alpha.19](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.18...v0.1.0-alpha.19)
+
+### Bug Fixes
+
+* **docs:** add missing pointer prefix to api.md return types ([afed92d](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/afed92d2baded64d2d840caa0f5fea2281ec75de))
+
+
+### Chores
+
+* add float64 to valid types for RegisterFieldValidator ([26e2a05](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/26e2a05f83b00561d71ec71281ad2bf70d87fc2c))
+* **internal:** codegen related update ([d950a8c](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/d950a8c039194338c26f06117583e7105caf3d7d))
+* **internal:** update `actions/checkout` version ([013a0f1](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/013a0f19badeea875c4900b93a051e0a623c4d3d))
+
+
+### Documentation
+
+* prominently feature MCP server setup in root SDK readmes ([dab4837](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/dab48373c2b0c86b72e94bff83fba6145d851613))
+
 ## 0.1.0-alpha.18 (2025-12-18)
 
 Full Changelog: [v0.1.0-alpha.17...v0.1.0-alpha.18](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.17...v0.1.0-alpha.18)
