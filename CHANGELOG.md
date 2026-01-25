@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.20 (2026-01-24)
+
+Full Changelog: [v0.1.0-alpha.19...v0.1.0-alpha.20](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.19...v0.1.0-alpha.20)
+
+### Features
+
+* **client:** add a convenient param.SetJSON helper ([2d2e994](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/2d2e994392c219adda0b0327e8dc8e2a2380ba71))
+
 ## 0.1.0-alpha.19 (2026-01-17)
 
 Full Changelog: [v0.1.0-alpha.18...v0.1.0-alpha.19](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.18...v0.1.0-alpha.19)
