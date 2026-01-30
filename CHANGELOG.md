@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.21 (2026-01-29)
+
+Full Changelog: [v0.1.0-alpha.20...v0.1.0-alpha.21](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.20...v0.1.0-alpha.21)
+
+### Bug Fixes
+
+* **docs:** fix mcp installation instructions for remote servers ([30a6180](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/30a61803e1991fc3dc7a9aaace0de1e0cf54fa8a))
+
 ## 0.1.0-alpha.20 (2026-01-24)
 
 Full Changelog: [v0.1.0-alpha.19...v0.1.0-alpha.20](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.19...v0.1.0-alpha.20)
