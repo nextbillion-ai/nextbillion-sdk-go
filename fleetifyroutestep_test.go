@@ -30,7 +30,7 @@ func TestFleetifyRouteStepNewWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"routeID",
 		nextbillionai.FleetifyRouteStepNewParams{
-			Key:                "key",
+			Key:                "key=API_KEY",
 			Arrival:            0,
 			Location:           []float64{0},
 			Position:           0,
