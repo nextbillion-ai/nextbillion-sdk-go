@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.22 (2026-02-11)
+
+Full Changelog: [v0.1.0-alpha.21...v0.1.0-alpha.22](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.21...v0.1.0-alpha.22)
+
+### Bug Fixes
+
+* **encoder:** correctly serialize NullStruct ([14c45d9](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/14c45d9d88796444f09848a4cddbee00beea3727))
+
+
+### Chores
+
+* **api:** minor updates ([727cf62](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/727cf6227f99d6773e527219f05b3d8a029cd600))
+
 ## 0.1.0-alpha.21 (2026-01-29)
 
 Full Changelog: [v0.1.0-alpha.20...v0.1.0-alpha.21](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.20...v0.1.0-alpha.21)
