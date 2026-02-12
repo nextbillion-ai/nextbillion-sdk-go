@@ -525,7 +525,7 @@ func (r *FleetifyRouteStepDeleteResponse) UnmarshalJSON(data []byte) error {
 type FleetifyRouteStepNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" json:"-"`
+	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the scheduled arrival time of the driver, as an UNIX timestamp in
 	// seconds, at the step. Please note that:
 	//
