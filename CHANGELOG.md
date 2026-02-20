@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.23 (2026-02-20)
+
+Full Changelog: [v0.1.0-alpha.22...v0.1.0-alpha.23](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.22...v0.1.0-alpha.23)
+
+### Bug Fixes
+
+* allow canceling a request while it is waiting to retry ([9c3690a](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/9c3690a9c697cd94886a710d88b0b913798c9cb4))
+
+
+### Chores
+
+* **internal:** remove mock server code ([b78cd9f](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/b78cd9ff1cd3cd2ac7cefa1d101d2ecae167d6df))
+* update mock server docs ([eb0a113](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/eb0a11326471e7ee73fb0cc5c542a5b7b85914f6))
+
 ## 0.1.0-alpha.22 (2026-02-11)
 
 Full Changelog: [v0.1.0-alpha.21...v0.1.0-alpha.22](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.21...v0.1.0-alpha.22)
