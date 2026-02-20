@@ -14,7 +14,7 @@ import (
 )
 
 func TestFleetifyDocumentTemplateNew(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -58,7 +58,7 @@ func TestFleetifyDocumentTemplateNew(t *testing.T) {
 }
 
 func TestFleetifyDocumentTemplateGet(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -87,7 +87,7 @@ func TestFleetifyDocumentTemplateGet(t *testing.T) {
 }
 
 func TestFleetifyDocumentTemplateUpdateWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -135,7 +135,7 @@ func TestFleetifyDocumentTemplateUpdateWithOptionalParams(t *testing.T) {
 }
 
 func TestFleetifyDocumentTemplateList(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -160,7 +160,7 @@ func TestFleetifyDocumentTemplateList(t *testing.T) {
 }
 
 func TestFleetifyDocumentTemplateDelete(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
