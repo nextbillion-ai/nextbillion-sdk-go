@@ -130,12 +130,12 @@ func (r *MultigeocodeSearchResponseEntityDataSource) UnmarshalJSON(data []byte) 
 type MultigeocodeSearchParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the center of the search context expressed as coordinates.
-	At MultigeocodeSearchParamsAt `json:"at,omitzero,required"`
+	At MultigeocodeSearchParamsAt `json:"at,omitzero" api:"required"`
 	// A free-form, complete or incomplete string to be searched. It allows searching
 	// for places using keywords or names.
-	Query string `json:"query,required"`
+	Query string `json:"query" api:"required"`
 	// Specifies the primary city of the place.
 	City param.Opt[string] `json:"city,omitzero"`
 	// Country of the search context provided as comma-separated
@@ -184,9 +184,9 @@ func (r MultigeocodeSearchParams) URLQuery() (v url.Values, err error) {
 // The properties Lat, Lng are required.
 type MultigeocodeSearchParamsAt struct {
 	// Latitude coordinate of the location
-	Lat float64 `json:"lat,required"`
+	Lat float64 `json:"lat" api:"required"`
 	// Longitude coordinate of the location.
-	Lng float64 `json:"lng,required"`
+	Lng float64 `json:"lng" api:"required"`
 	paramObj
 }
 

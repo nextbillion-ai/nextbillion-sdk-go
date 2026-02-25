@@ -329,10 +329,10 @@ type OptimizationComputeParams struct {
 	// This is a pipe-separated list of coordinates.
 	//
 	// Minimum 3 pairs of coordinates and Maximum 12 pairs of coordinates are allowed.
-	Coordinates string `query:"coordinates,required" format:"latitude,longitude" json:"-"`
+	Coordinates string `query:"coordinates" api:"required" format:"latitude,longitude" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Indicates whether the returned route is a roundtrip.
 	Roundtrip param.Opt[bool] `query:"roundtrip,omitzero" json:"-"`
 	// Indicates whether the return geometry should be computed or not.
@@ -477,9 +477,9 @@ const (
 type OptimizationReOptimizeParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the unique request ID that needs to be re-optimized.
-	ExistingRequestID string `json:"existing_request_id,required"`
+	ExistingRequestID string `json:"existing_request_id" api:"required"`
 	// This section gathers information on modifications to the number of jobs or their
 	// individual requirements for re-optimization. Any job from the original solution
 	// not specified here will be re-planned without alteration during the

@@ -468,14 +468,14 @@ func (r *SkynetMonitorListResponseData) UnmarshalJSON(data []byte) error {
 type SkynetMonitorNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Use this parameter to add tags to the monitor. tags can be used for filtering
 	// monitors in the _Get Monitor List_ operation. They can also be used for easy
 	// identification of monitors.
 	//
 	// Please note that valid tags are strings, consisting of alphanumeric characters
 	// (A-Z, a-z, 0-9) along with the underscore ('\_') and hyphen ('-') symbols.
-	Tags []string `json:"tags,omitzero,required"`
+	Tags []string `json:"tags,omitzero" api:"required"`
 	// Specify the type of activity the monitor would detect.
 	//
 	// The monitor will be able to detect the specified type of activity and create
@@ -501,7 +501,7 @@ type SkynetMonitorNewParams struct {
 	// match_filter and geofence_config attributes respectively.
 	//
 	// Any of "enter", "exit", "enter_and_exit", "speeding", "idle".
-	Type SkynetMonitorNewParamsType `json:"type,omitzero,required"`
+	Type SkynetMonitorNewParamsType `json:"type,omitzero" api:"required"`
 	// Set a unique ID for the new monitor. If not provided, an ID will be
 	// automatically generated in UUID format. A valid custom*id can contain letters,
 	// numbers, "-", & "*" only.
@@ -627,7 +627,7 @@ type SkynetMonitorNewParamsGeofenceConfig struct {
 	// An array of strings to collect the geofence IDs that should be linked to the
 	// monitor. Please note geofence_ids are mandatory when using the geofence_config
 	// attribute.
-	GeofenceIDs []string `json:"geofence_ids,omitzero,required"`
+	GeofenceIDs []string `json:"geofence_ids,omitzero" api:"required"`
 	paramObj
 }
 
@@ -657,7 +657,7 @@ type SkynetMonitorNewParamsIdleConfig struct {
 	// Users can set an appropriate value for this parameter, along with appropriate
 	// time_tolerance value, to avoid triggering idle events when the asset is crossing
 	// a busy intersection or waiting at the traffic lights.
-	DistanceTolerance float64 `json:"distance_tolerance,required"`
+	DistanceTolerance float64 `json:"distance_tolerance" api:"required"`
 	// Use this parameter to configure a time duration for which the monitor would
 	// track the distance covered by an asset before triggering an idle event. The
 	// time_tolerance should be provided in milliseconds.
@@ -778,7 +778,7 @@ func (r *SkynetMonitorNewParamsSpeedingConfig) UnmarshalJSON(data []byte) error 
 type SkynetMonitorGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 
@@ -793,7 +793,7 @@ func (r SkynetMonitorGetParams) URLQuery() (v url.Values, err error) {
 type SkynetMonitorUpdateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Use this parameter to update the description of the monitor.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// Use this parameter to update the name of the monitor. Users can add meaningful
@@ -888,7 +888,7 @@ func (r SkynetMonitorUpdateParams) URLQuery() (v url.Values, err error) {
 type SkynetMonitorUpdateParamsGeofenceConfig struct {
 	// Use this array to update the geofence IDs that should be linked to the monitor.
 	// Please note geofence_ids are mandatory when using the geofence_config attribute.
-	GeofenceIDs []string `json:"geofence_ids,omitzero,required"`
+	GeofenceIDs []string `json:"geofence_ids,omitzero" api:"required"`
 	paramObj
 }
 
@@ -915,7 +915,7 @@ type SkynetMonitorUpdateParamsIdleConfig struct {
 	// meters.
 	//
 	// Please note distance_tolerance is mandatory when idle_config attribute is used.
-	DistanceTolerance float64 `json:"distance_tolerance,required"`
+	DistanceTolerance float64 `json:"distance_tolerance" api:"required"`
 	// Use this parameter to update the time duration for which the monitor would track
 	// the distance covered by an asset before triggering an idle event. The
 	// time_tolerance should be provided in milliseconds.
@@ -1060,7 +1060,7 @@ const (
 type SkynetMonitorListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Denotes page number. Use this along with the ps parameter to implement
 	// pagination for your searched results. This parameter does not have a maximum
 	// limit but would return an empty response in case a higher value is provided when
@@ -1106,7 +1106,7 @@ const (
 type SkynetMonitorDeleteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 

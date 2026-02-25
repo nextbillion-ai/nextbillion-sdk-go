@@ -71,7 +71,7 @@ func (r *AreaListResponse) UnmarshalJSON(data []byte) error {
 type AreaListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 

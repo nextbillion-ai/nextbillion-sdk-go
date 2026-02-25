@@ -44,23 +44,23 @@ func (r *RestrictionsItemService) List(ctx context.Context, query RestrictionsIt
 }
 
 type RestrictionsItemListResponse struct {
-	ID         float64                                `json:"id,required"`
-	Area       string                                 `json:"area,required"`
-	Coordinate RestrictionsItemListResponseCoordinate `json:"coordinate,required"`
-	GroupID    float64                                `json:"group_id,required"`
+	ID         float64                                `json:"id" api:"required"`
+	Area       string                                 `json:"area" api:"required"`
+	Coordinate RestrictionsItemListResponseCoordinate `json:"coordinate" api:"required"`
+	GroupID    float64                                `json:"group_id" api:"required"`
 	// Any of "segment", "turn".
-	GroupType RestrictionsItemListResponseGroupType `json:"group_type,required"`
+	GroupType RestrictionsItemListResponseGroupType `json:"group_type" api:"required"`
 	// Any of "0w", "1w", "2w", "3w", "4w", "6w".
-	Mode     []string `json:"mode,required"`
-	RepeatOn string   `json:"repeat_on,required"`
+	Mode     []string `json:"mode" api:"required"`
+	RepeatOn string   `json:"repeat_on" api:"required"`
 	// Any of "closure", "fixedspeed", "maxspeed", "turn", "truck".
-	RestrictionType RestrictionsItemListResponseRestrictionType `json:"restriction_type,required"`
+	RestrictionType RestrictionsItemListResponseRestrictionType `json:"restriction_type" api:"required"`
 	// Any of "rrt", "pbf".
-	Source RestrictionsItemListResponseSource `json:"source,required"`
+	Source RestrictionsItemListResponseSource `json:"source" api:"required"`
 	// Any of "enabled", "disabled", "deleted".
-	State RestrictionsItemListResponseState `json:"state,required"`
+	State RestrictionsItemListResponseState `json:"state" api:"required"`
 	// Any of "active", "inactive".
-	Status RestrictionsItemListResponseStatus `json:"status,required"`
+	Status RestrictionsItemListResponseStatus `json:"status" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID              respjson.Field
@@ -143,10 +143,10 @@ const (
 )
 
 type RestrictionsItemListParams struct {
-	MaxLat  float64            `query:"max_lat,required" json:"-"`
-	MaxLon  float64            `query:"max_lon,required" json:"-"`
-	MinLat  float64            `query:"min_lat,required" json:"-"`
-	MinLon  float64            `query:"min_lon,required" json:"-"`
+	MaxLat  float64            `query:"max_lat" api:"required" json:"-"`
+	MaxLon  float64            `query:"max_lon" api:"required" json:"-"`
+	MinLat  float64            `query:"min_lat" api:"required" json:"-"`
+	MinLon  float64            `query:"min_lon" api:"required" json:"-"`
 	GroupID param.Opt[float64] `query:"group_id,omitzero" json:"-"`
 	Source  param.Opt[string]  `query:"source,omitzero" json:"-"`
 	// Any of "0w", "1w", "2w", "3w", "4w", "6w".

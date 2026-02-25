@@ -228,12 +228,12 @@ func (r *AutosuggestSuggestResponseItemScoring) UnmarshalJSON(data []byte) error
 type AutosuggestSuggestParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the free-text search query.
 	//
 	// Please note that whitespace, urls, email addresses, or other out-of-scope
 	// queries will yield no results.
-	Q string `query:"q,required" json:"-"`
+	Q string `query:"q" api:"required" json:"-"`
 	// Specify the center of the search context expressed as coordinates.
 	//
 	// Please note that one of "at", "in=circle" or "in=bbox" should be provided for

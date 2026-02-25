@@ -540,8 +540,8 @@ func (r *DirectionComputeRouteResponseRouteStartLocation) UnmarshalJSON(data []b
 }
 
 type DirectionComputeRouteParams struct {
-	Destination string `json:"destination,required"`
-	Origin      string `json:"origin,required"`
+	Destination string `json:"destination" api:"required"`
+	Origin      string `json:"origin" api:"required"`
 	// Sets the number of alternative routes to return. It is effective only when
 	// alternatives=true. Default to 3.
 	//

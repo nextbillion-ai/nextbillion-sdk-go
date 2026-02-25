@@ -224,7 +224,7 @@ func (r *BrowseSearchResponseItemScoring) UnmarshalJSON(data []byte) error {
 type BrowseSearchParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the center of the search context expressed as coordinates.
 	//
 	// Please note that one of "at", "in=circle" or "in=bbox" should be provided for

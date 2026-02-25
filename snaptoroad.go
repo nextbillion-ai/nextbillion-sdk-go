@@ -196,16 +196,16 @@ type SnapToRoadSnapResponseSnappedPoint struct {
 	// the route leading to the next snapped point from the current snapped_point, in
 	// radians. In case of the last snapped_point of the route, the bearing indicates
 	// the direction of the route to the previous snapped_location.
-	Bearing float64 `json:"bearing,required"`
+	Bearing float64 `json:"bearing" api:"required"`
 	// The distance of the snapped point from the original input coordinate in meters.
-	Distance float64 `json:"distance,required"`
+	Distance float64 `json:"distance" api:"required"`
 	// The latitude and longitude coordinates of the snapped point.
-	Location SnapToRoadSnapResponseSnappedPointLocation `json:"location,required"`
+	Location SnapToRoadSnapResponseSnappedPointLocation `json:"location" api:"required"`
 	// The name of the street or road that the input coordinate snapped to.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The index of the input path coordinate point to which this snapped point
 	// corresponds to.
-	OriginalIndex int64 `json:"originalIndex,required"`
+	OriginalIndex int64 `json:"originalIndex" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Bearing       respjson.Field
@@ -227,9 +227,9 @@ func (r *SnapToRoadSnapResponseSnappedPoint) UnmarshalJSON(data []byte) error {
 // The latitude and longitude coordinates of the snapped point.
 type SnapToRoadSnapResponseSnappedPointLocation struct {
 	// Latitude of the snapped point.
-	Latitude float64 `json:"latitude,required"`
+	Latitude float64 `json:"latitude" api:"required"`
 	// Longitude of the snapped point.
-	Longitude float64 `json:"longitude,required"`
+	Longitude float64 `json:"longitude" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Latitude    respjson.Field
@@ -248,10 +248,10 @@ func (r *SnapToRoadSnapResponseSnappedPointLocation) UnmarshalJSON(data []byte) 
 type SnapToRoadSnapParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Pipe-separated list of coordinate points along a path which would be snapped to
 	// a road.
-	Path string `query:"path,required" format:"latitude_1,longitude_1|latitude_2,longitude_2|..." json:"-"`
+	Path string `query:"path" api:"required" format:"latitude_1,longitude_1|latitude_2,longitude_2|..." json:"-"`
 	// Pipe separated radiuses, in meters (m), up to which a coordinate point can be
 	// snapped. Please note, if no valid road is available within the specified radius,
 	// the API would snap the points to nearest, most viable road. When using this
