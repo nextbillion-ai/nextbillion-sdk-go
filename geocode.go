@@ -728,12 +728,12 @@ func (r *GeocodeStructuredGetResponseItemScoring) UnmarshalJSON(data []byte) err
 type GeocodeGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the free-text search query.
 	//
 	// Please note that whitespace, urls, email addresses, or other out-of-scope
 	// queries will yield no results.
-	Q string `query:"q,required" json:"-"`
+	Q string `query:"q" api:"required" json:"-"`
 	// Specify the center of the search context expressed as coordinates.
 	//
 	// Please note that one of "at", "in=circle" or "in=bbox" should be provided for
@@ -786,7 +786,7 @@ func (r GeocodeGetParams) URLQuery() (v url.Values, err error) {
 type GeocodeBatchNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key  string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key  string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	Body []GeocodeBatchNewParamsBody
 	paramObj
 }
@@ -810,7 +810,7 @@ func (r GeocodeBatchNewParams) URLQuery() (v url.Values, err error) {
 type GeocodeBatchNewParamsBody struct {
 	// Specify the free-text search query. Please note that whitespace, urls, email
 	// addresses, or other out-of-scope queries will yield no results.
-	Q string `json:"q,required"`
+	Q string `json:"q" api:"required"`
 	// Specify the center of the search context expressed as coordinates.
 	//
 	// Please note that one of "at", "in=circle" or "in=bbox" should be provided for
@@ -866,10 +866,10 @@ type GeocodeStructuredGetParams struct {
 	// [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country
 	// code in which the place being searched should be located. Please note that this
 	// is a case-sensitive field and the country code should be in all uppercase.
-	CountryCode string `query:"countryCode,required" json:"-"`
+	CountryCode string `query:"countryCode" api:"required" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the center of the search context expressed as coordinates.
 	//
 	// Please note that one of "at", "in=circle" or "in=bbox" should be provided for

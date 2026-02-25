@@ -226,10 +226,10 @@ type RevgeocodeGetParams struct {
 	//
 	// Please note that one of "at", "in=circle" or "in=bbox" should be provided for
 	// relevant results.
-	At string `query:"at,required" format:"latitude,longitude" json:"-"`
+	At string `query:"at" api:"required" format:"latitude,longitude" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Search within a geographic area. This is a hard filter. Results will be returned
 	// if they are located within the specified area.
 	//

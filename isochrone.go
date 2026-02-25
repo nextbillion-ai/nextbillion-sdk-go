@@ -175,17 +175,17 @@ type IsochroneComputeParams struct {
 	// The distances, in meters, to use for each isochrone contour. You can specify up
 	// to four contours. Distances must be in increasing order. The maximum distance
 	// that can be specified is 60000 meters (60 km).
-	ContoursMeters int64 `query:"contours_meters,required" json:"-"`
+	ContoursMeters int64 `query:"contours_meters" api:"required" json:"-"`
 	// The times, in minutes, to use for each isochrone contour. You can specify up to
 	// four contours. Times must be in increasing order. The maximum time that can be
 	// specified is 40 minutes.
-	ContoursMinutes int64 `query:"contours_minutes,required" json:"-"`
+	ContoursMinutes int64 `query:"contours_minutes" api:"required" json:"-"`
 	// The coordinates of the location which acts as the starting point for which the
 	// isochrone lines need to be determined.
-	Coordinates string `query:"coordinates,required" format:"latitude,longitude" json:"-"`
+	Coordinates string `query:"coordinates" api:"required" format:"latitude,longitude" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// The hex code of the color to fill isochrone contour. When requesting multiple
 	// contours, it is recommended to provide color codes for each of the requested
 	// contours, separated by a ",". If no colors are specified, the Isochrone API will

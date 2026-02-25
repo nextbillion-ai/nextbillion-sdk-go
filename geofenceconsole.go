@@ -112,11 +112,11 @@ func (r *GeofenceConsolePreviewResponseData) UnmarshalJSON(data []byte) error {
 }
 
 type GeofenceConsoleSearchResponse struct {
-	Data GeofenceConsoleSearchResponseData `json:"data,required"`
+	Data GeofenceConsoleSearchResponseData `json:"data" api:"required"`
 	// A string indicating the state of the response. On successful responses, the
 	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
-	Status string `json:"status,required"`
+	Status string `json:"status" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Data        respjson.Field
@@ -133,7 +133,7 @@ func (r *GeofenceConsoleSearchResponse) UnmarshalJSON(data []byte) error {
 }
 
 type GeofenceConsoleSearchResponseData struct {
-	Result []GeofenceConsoleSearchResponseDataResult `json:"result,required"`
+	Result []GeofenceConsoleSearchResponseDataResult `json:"result" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Result      respjson.Field
@@ -150,9 +150,9 @@ func (r *GeofenceConsoleSearchResponseData) UnmarshalJSON(data []byte) error {
 
 type GeofenceConsoleSearchResponseDataResult struct {
 	// ID of goefence. Could be empty string.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Name of goefence. Could be empty string.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -182,7 +182,7 @@ func (r *GeofenceConsolePreviewParams) UnmarshalJSON(data []byte) error {
 
 type GeofenceConsoleSearchParams struct {
 	// string to be searched, will used to match name or id of geofence.
-	Query string `query:"query,required" format:"key1=value&key" json:"-"`
+	Query string `query:"query" api:"required" format:"key1=value&key" json:"-"`
 	paramObj
 }
 

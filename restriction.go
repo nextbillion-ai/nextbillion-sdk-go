@@ -102,9 +102,9 @@ type RichGroupRequestParam struct {
 	// [NextBillion.ai](www.nextbillion.ai) support for the right value. Alternatively,
 	// users can invoke the _[Areas](#supported-areas)_ method to get a list of
 	// available areas for them.
-	Area string `json:"area,required"`
+	Area string `json:"area" api:"required"`
 	// Specify a custom, descriptive name for the restriction.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Use this parameter to add any custom information about the restriction being
 	// created.
 	Comment param.Opt[string] `json:"comment,omitzero"`
@@ -460,7 +460,7 @@ func (r *RestrictionDeleteResponse) UnmarshalJSON(data []byte) error {
 type RestrictionNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key              string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key              string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	RichGroupRequest RichGroupRequestParam
 	// Use this parameter to decide the format for specifying the geofence coordinates.
 	// If true, then the coordinates of geofence can be specified as
@@ -499,7 +499,7 @@ const (
 type RestrictionGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// a internal parameter
 	Transform param.Opt[bool] `query:"transform,omitzero" json:"-"`
 	paramObj
@@ -516,7 +516,7 @@ func (r RestrictionGetParams) URLQuery() (v url.Values, err error) {
 type RestrictionUpdateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key              string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key              string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	RichGroupRequest RichGroupRequestParam
 	// Use this parameter to decide the format for specifying the geofence coordinates.
 	// If true, then the coordinates of geofence can be specified as
@@ -546,21 +546,21 @@ type RestrictionListParams struct {
 	// Specify the area name. It represents a region where restrictions can be applied.
 	//
 	// _The area it belongs to. See Area API_
-	Area string `query:"area,required" json:"-"`
+	Area string `query:"area" api:"required" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// The number of restrictions to be returned in the response. Please note that if
 	// the limit is set to a number more than the total number of available
 	// restrictions, then all restrictions would be returned together.
-	Limit int64 `query:"limit,required" json:"-"`
+	Limit int64 `query:"limit" api:"required" json:"-"`
 	// An integer value indicating the number of items in the collection that need to
 	// be skipped in the response. Please note that the offset starts from 0, so the
 	// first item returned in the result would be the item at (offset + 1) position in
 	// collection.
 	//
 	// Users can use offset along with limit to implement paginated result.
-	Offset int64 `query:"offset,required" json:"-"`
+	Offset int64 `query:"offset" api:"required" json:"-"`
 	// The name of the restriction. This should be same as that provided while creating
 	// or updating the restriction.
 	Name param.Opt[string] `query:"name,omitzero" json:"-"`
@@ -666,7 +666,7 @@ const (
 type RestrictionDeleteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 
@@ -682,15 +682,15 @@ func (r RestrictionDeleteParams) URLQuery() (v url.Values, err error) {
 type RestrictionListByBboxParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specifies the maximum latitude value for the bounding box.
-	MaxLat float64 `query:"max_lat,required" json:"-"`
+	MaxLat float64 `query:"max_lat" api:"required" json:"-"`
 	// Specifies the maximum longitude value for the bounding box.
-	MaxLon float64 `query:"max_lon,required" json:"-"`
+	MaxLon float64 `query:"max_lon" api:"required" json:"-"`
 	// Specifies the minimum latitude value for the bounding box.
-	MinLat float64 `query:"min_lat,required" json:"-"`
+	MinLat float64 `query:"min_lat" api:"required" json:"-"`
 	// Specifies the minimum longitude value for the bounding box.
-	MinLon float64 `query:"min_lon,required" json:"-"`
+	MinLon float64 `query:"min_lon" api:"required" json:"-"`
 	// This is internal parameter with a default value as false.
 	Transform param.Opt[bool] `query:"transform,omitzero" json:"-"`
 	// Specify the modes of travel that the restriction pertains to.
@@ -791,13 +791,13 @@ const (
 type RestrictionSetStateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Use this field to specify the new state of the restriction. Please note that
 	// this method cannot update the state of restrictions that are currently in
 	// 'deleted' state.
 	//
 	// Any of "enabled", "disabled", "deleted".
-	State RestrictionSetStateParamsState `json:"state,omitzero,required"`
+	State RestrictionSetStateParamsState `json:"state,omitzero" api:"required"`
 	paramObj
 }
 

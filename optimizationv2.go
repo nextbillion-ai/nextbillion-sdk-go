@@ -54,13 +54,13 @@ func (r *OptimizationV2Service) Submit(ctx context.Context, params OptimizationV
 // The properties ID, LocationIndex are required.
 type JobParam struct {
 	// Provide an unique ID for the job. The IDs are case-sensitive.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// An integer denoting the index (in the location array) of the location
 	// coordinates where the job needs to be performed. The valid range of values is
 	// \[0, length of location array).
 	//
 	// Please note the location_index is mandatory when using the jobs object.
-	LocationIndex int64 `json:"location_index,required"`
+	LocationIndex int64 `json:"location_index" api:"required"`
 	// Add a custom description for the job.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// Specify whether the job route should follow LIFO (last in, first out). Use this
@@ -337,9 +337,9 @@ func init() {
 // The properties Delivery, Pickup are required.
 type ShipmentParam struct {
 	// Specify the details of the delivery step of the shipment.
-	Delivery ShipmentDeliveryParam `json:"delivery,omitzero,required"`
+	Delivery ShipmentDeliveryParam `json:"delivery,omitzero" api:"required"`
 	// Specify the details of the pickup step of the shipment.
-	Pickup ShipmentPickupParam `json:"pickup,omitzero,required"`
+	Pickup ShipmentPickupParam `json:"pickup,omitzero" api:"required"`
 	// Specify whether the shipment route should follow LIFO (last in, first out). Use
 	// this parameter when the loading or unloading sequence of cargo is important. The
 	// default value is \false\.
@@ -493,13 +493,13 @@ type ShipmentDeliveryParam struct {
 	// Indicate the ID of this shipment delivery step. An error will be reported if
 	// there are duplicate IDs for multiple shipment deliveries. The IDs are case
 	// sensitive. Please note id is mandatory when using the shipments attribute.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Indicate the index of location for this shipment delivery. The index references
 	// the locations present in the location array. The valid range of value is \[0,
 	// length of location array).
 	//
 	// Please note location_index is mandatory when using the shipment attribute.
-	LocationIndex int64 `json:"location_index,required"`
+	LocationIndex int64 `json:"location_index" api:"required"`
 	// Specify a custom description for the shipment delivery step.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// It determines the allowable delay, in seconds, to begin a shipment delivery
@@ -573,11 +573,11 @@ type ShipmentPickupParam struct {
 	// Indicate the ID of this shipment pickup step. An error will be reported if there
 	// are duplicate IDs for multiple shipment pick-ups. The IDs are case-sensitive.
 	// Please note id is mandatory when using the shipments attribute.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Indicate the index of the location for this shipment pickup. The index
 	// references the locations present in the location array. The valid range of value
 	// is \[0, length of location array).
-	LocationIndex int64 `json:"location_index,required"`
+	LocationIndex int64 `json:"location_index" api:"required"`
 	// Specify a custom description for the shipment pickup step.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// It determines the allowable delay, in seconds, to begin a shipment pickup after
@@ -1146,10 +1146,10 @@ const (
 type OptimizationV2GetResultParams struct {
 	// The unique ID that was returned on successful submission of the Optimization
 	// POST request.
-	ID string `query:"id,required" json:"-"`
+	ID string `query:"id" api:"required" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 
@@ -1165,15 +1165,15 @@ func (r OptimizationV2GetResultParams) URLQuery() (v url.Values, err error) {
 type OptimizationV2SubmitParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// The locations object is used to define all the locations that will be used
 	// during the optimization process. Read more about this attribute in the
 	// [Location Object](#location-object) section.
-	Locations OptimizationV2SubmitParamsLocations `json:"locations,omitzero,required"`
+	Locations OptimizationV2SubmitParamsLocations `json:"locations,omitzero" api:"required"`
 	// The vehicles attribute describes the characteristics and constraints of the
 	// vehicles that will be used for fulfilling the tasks. Read more about this
 	// attribute in the [Vehicle Object](#vehicle-object) section.
-	Vehicles []VehicleParam `json:"vehicles,omitzero,required"`
+	Vehicles []VehicleParam `json:"vehicles,omitzero" api:"required"`
 	// Define the optimization job using any custom message. This description is
 	// returned as is in the response.
 	Description param.Opt[string] `json:"description,omitzero"`
@@ -1339,7 +1339,7 @@ type OptimizationV2SubmitParamsLocations struct {
 	// location_index parameter in jobs, shipments, vehicles or other parts of the
 	// request. The length of this array determines the valid values for location_index
 	// parameter.
-	Location []string `json:"location,omitzero,required"`
+	Location []string `json:"location,omitzero" api:"required"`
 	// A unique ID for the set of locations. It should be a positive integer.
 	ID param.Opt[int64] `json:"id,omitzero"`
 	// Describe if the location is curbside. An array of strings indicates the side of
@@ -1364,14 +1364,14 @@ func (r *OptimizationV2SubmitParamsLocations) UnmarshalJSON(data []byte) error {
 // The properties ID, LocationIndex are required.
 type OptimizationV2SubmitParamsDepot struct {
 	// Provide an unique ID for the depot. The IDs are case sensitive.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Specify the index of coordinates (in the location array) denoting the depot’s
 	// location. The valid range of values is \[0, length of location array). If the
 	// location index exceeds the count of input locations in the location array, the
 	// API will report an error.
 	//
 	// Please note the location_index is mandatory when using the depots object.
-	LocationIndex int64 `json:"location_index,required"`
+	LocationIndex int64 `json:"location_index" api:"required"`
 	// Add a custom description for the depot.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// Specify the time duration, in seconds, needed to load or unload the vehicle each
@@ -1712,7 +1712,7 @@ type OptimizationV2SubmitParamsOptionsObjectiveCustom struct {
 	// Please note that type is mandatory only when using custom attribute.
 	//
 	// Any of "min", "min-max".
-	Type string `json:"type,omitzero,required"`
+	Type string `json:"type,omitzero" api:"required"`
 	// The value parameter accepts four inputs, two of them are valid for min type and
 	// other two are valid for min-max type custom objective. Let’s look at the values
 	// for min type objective:
@@ -1734,7 +1734,7 @@ type OptimizationV2SubmitParamsOptionsObjectiveCustom struct {
 	// approaches.
 	//
 	// Any of "vehicles", "completion_time", "travel_cost", "tasks".
-	Value string `json:"value,omitzero,required"`
+	Value string `json:"value,omitzero" api:"required"`
 	paramObj
 }
 
@@ -1903,7 +1903,7 @@ type OptimizationV2SubmitParamsRelation struct {
 	// and must be carried out in a manner defined in the type parameter. Please note
 	// you can add any number of steps here, except when relation type is precedence
 	// where only 2 tasks can be added.
-	Steps []OptimizationV2SubmitParamsRelationStep `json:"steps,omitzero,required"`
+	Steps []OptimizationV2SubmitParamsRelationStep `json:"steps,omitzero" api:"required"`
 	// Specifies the type of relation constraint. The following types are supported:
 	//
 	//   - in_same_route: Ensures that all steps are covered in the same route in
@@ -1926,7 +1926,7 @@ type OptimizationV2SubmitParamsRelation struct {
 	// Please note that the type field is mandatory when using the relations object.
 	//
 	// Any of "in_same_route", "in_sequence", "in_direct_sequence", "precedence".
-	Type string `json:"type,omitzero,required"`
+	Type string `json:"type,omitzero" api:"required"`
 	// **Deprecated! Please use the** vehicle **parameter to specify the vehicle ID.**
 	//
 	// Specifies the ID of the vehicle that would fulfil the steps. ID should be
@@ -1981,7 +1981,7 @@ type OptimizationV2SubmitParamsRelationStep struct {
 	// Please note that the type is mandatory when using the relations object.
 	//
 	// Any of "start", "end", "job", "pickup", "delivery".
-	Type string `json:"type,omitzero,required"`
+	Type string `json:"type,omitzero" api:"required"`
 	// This represents the ID of the task and should be consistent with the input IDs
 	// provided in the jobs or shipments objects for a given step. The id is required
 	// for all steps other than start and end.
@@ -2006,9 +2006,9 @@ func init() {
 // The properties Cost, Steps, Vehicle are required.
 type OptimizationV2SubmitParamsSolution struct {
 	// Specify the cost of the route.
-	Cost int64 `json:"cost,required"`
+	Cost int64 `json:"cost" api:"required"`
 	// Describe the steps in this route.
-	Steps []OptimizationV2SubmitParamsSolutionStep `json:"steps,omitzero,required"`
+	Steps []OptimizationV2SubmitParamsSolutionStep `json:"steps,omitzero" api:"required"`
 	// Specify the ID of the vehicle that was assigned to the route. This field is
 	// mandatory when using the solution attribute and providing an empty string would
 	// result in error. The IDs are case-sensitive.
@@ -2016,7 +2016,7 @@ type OptimizationV2SubmitParamsSolution struct {
 	// **Note:** Since the vehicles can be configured using either a string or an
 	// integer ID, please ensure that the same value type is provided for this field as
 	// was used in the original request.
-	Vehicle string `json:"vehicle,required"`
+	Vehicle string `json:"vehicle" api:"required"`
 	// Specify the description of the assigned vehicle.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// Specify the total distance of the route, in meters.
@@ -2065,18 +2065,18 @@ type OptimizationV2SubmitParamsSolutionStep struct {
 	// backward compatible and both integer and string type IDs are valid for this
 	// field, as long as they match the IDs of the jobs or shipments already
 	// configured.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Specify the time at which the vehicle arrives at the step location. If
 	// time_windows is provided, then arrival will be an UNIX timestamp expressed in
 	// seconds. Otherwise, it will be the total duration, in seconds, elapsed since the
 	// start of the route.
 	//
 	// Please note that arrival is mandatory when using the solution object.
-	Arrival int64 `json:"arrival,required"`
+	Arrival int64 `json:"arrival" api:"required"`
 	// Specify the type of the step.
 	//
 	// Any of "start", "end", "job", "pickup", "delivery", "break".
-	Type string `json:"type,omitzero,required"`
+	Type string `json:"type,omitzero" api:"required"`
 	// Specify the description of this step.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// Specify the distance covered, in meters, from the start of the route up until
@@ -2175,7 +2175,7 @@ func (r *OptimizationV2SubmitParamsUnassigned) UnmarshalJSON(data []byte) error 
 // The property ID is required.
 type OptimizationV2SubmitParamsZone struct {
 	// Provide an ID for the zone. This field is mandatory when adding zones.
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// Provide the ID of a pre-created geofence using the
 	// [Geofence API](https://docs.nextbillion.ai/docs/tracking/api/geofence).
 	//

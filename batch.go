@@ -137,7 +137,7 @@ func (r *BatchGetResponseResponse) UnmarshalJSON(data []byte) error {
 type BatchNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// An array of objects to collect the details of individual routing queries that
 	// will form a batch.
 	Requests []BatchNewParamsRequest `json:"requests,omitzero"`
@@ -181,10 +181,10 @@ func (r *BatchNewParamsRequest) UnmarshalJSON(data []byte) error {
 type BatchGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the track ID of the batch that was returned in the response after
 	// submitting a successful batch request.
-	TrackID string `query:"track_id,required" json:"-"`
+	TrackID string `query:"track_id" api:"required" json:"-"`
 	paramObj
 }
 

@@ -671,7 +671,7 @@ func (r *NavigationGetRouteResponseRouteStartLocation) UnmarshalJSON(data []byte
 type NavigationGetRouteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Sets the number of alternative routes to return. It is effective only when
 	// "alternatives" is "true". Please note that adding alternative route count does
 	// not guarantee matching number of routes to be returned if potential alternative

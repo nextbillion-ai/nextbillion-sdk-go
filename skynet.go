@@ -95,7 +95,7 @@ type SkynetSubscribeParams struct {
 	//     for more details.
 	//
 	// Any of "TRIP_SUBSCRIBE", "TRIP_UNSUBSCRIBE", "HEARTBEAT".
-	Action SkynetSubscribeParamsAction `json:"action,omitzero,required"`
+	Action SkynetSubscribeParamsAction `json:"action,omitzero" api:"required"`
 	// Specify a custom ID for the subscription. It can be used to reference a given
 	// subscription in the downstream applications / systems.
 	ID     param.Opt[string]           `json:"id,omitzero"`
@@ -137,7 +137,7 @@ type SkynetSubscribeParamsParams struct {
 	//
 	// This attribute is mandatory when action is set to either "TRIP_SUBSCRIBE" or
 	// "TRIP_UNSUBSCRIBE"
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	paramObj
 }
 

@@ -99,11 +99,11 @@ func (r *GeofenceBatchNewResponseData) UnmarshalJSON(data []byte) error {
 }
 
 type GeofenceBatchListResponse struct {
-	Data GeofenceBatchListResponseData `json:"data,required"`
+	Data GeofenceBatchListResponseData `json:"data" api:"required"`
 	// A string indicating the state of the response. On successful responses, the
 	// value will be Ok. Indicative error messages are returned for different errors.
 	// See the [API Error Codes](#api-error-codes) section below for more information.
-	Status string `json:"status,required"`
+	Status string `json:"status" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Data        respjson.Field
@@ -122,7 +122,7 @@ func (r *GeofenceBatchListResponse) UnmarshalJSON(data []byte) error {
 type GeofenceBatchListResponseData struct {
 	// An array of objects containing the details of the geofences returned matching
 	// the IDs provided. Each object represents one geofence.
-	List []Geofence `json:"list,required"`
+	List []Geofence `json:"list" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		List        respjson.Field
@@ -140,7 +140,7 @@ func (r *GeofenceBatchListResponseData) UnmarshalJSON(data []byte) error {
 type GeofenceBatchNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// An array of objects to collect the details of the multiple geofences that need
 	// to be created.
 	Geofences []GeofenceEntityCreateParam `json:"geofences,omitzero"`
@@ -165,10 +165,10 @@ func (r GeofenceBatchNewParams) URLQuery() (v url.Values, err error) {
 
 type GeofenceBatchListParams struct {
 	// Comma(,) separated list of IDs of the geofences to be searched.
-	IDs string `query:"ids,required" format:"ID_1,ID_2,ID_3,...." json:"-"`
+	IDs string `query:"ids" api:"required" format:"ID_1,ID_2,ID_3,...." json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 
@@ -184,7 +184,7 @@ func (r GeofenceBatchListParams) URLQuery() (v url.Values, err error) {
 type GeofenceBatchDeleteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// An array IDs of the geofence to be deleted. These are the IDs that were
 	// generated/provided at the time of creating the respective geofences.
 	IDs []string `json:"ids,omitzero"`

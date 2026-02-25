@@ -48,9 +48,9 @@ func (r *OptimizationDriverAssignmentService) Assign(ctx context.Context, params
 // Location info.
 type Location struct {
 	// Latitude of location.
-	Lat float64 `json:"lat,required"`
+	Lat float64 `json:"lat" api:"required"`
 	// Longitude of location.
-	Lon float64 `json:"lon,required"`
+	Lon float64 `json:"lon" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Lat         respjson.Field
@@ -80,9 +80,9 @@ func (r Location) ToParam() LocationParam {
 // The properties Lat, Lon are required.
 type LocationParam struct {
 	// Latitude of location.
-	Lat float64 `json:"lat,required"`
+	Lat float64 `json:"lat" api:"required"`
 	// Longitude of location.
-	Lon float64 `json:"lon,required"`
+	Lon float64 `json:"lon" api:"required"`
 	paramObj
 }
 
@@ -97,10 +97,10 @@ func (r *LocationParam) UnmarshalJSON(data []byte) error {
 // The properties ID, Location are required.
 type VehicleParam struct {
 	// Specify a unique ID for the vehicle.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Specify the location coordinates where the vehicle is currently located. This
 	// input is mandatory for each vehicle.
-	Location LocationParam `json:"location,omitzero,required"`
+	Location LocationParam `json:"location,omitzero" api:"required"`
 	// Specify the priority for this vehicle. A higher value indicates a higher
 	// priority. When specified, it will override any priority score deduced from
 	// vehicle_attribute_priority_mappings for this vehicle. Valid values are \[1, 10\]
@@ -359,18 +359,18 @@ func (r *OptimizationDriverAssignmentAssignResponseResultUnassignedOrder) Unmars
 type OptimizationDriverAssignmentAssignParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the filtering criterion for the vehicles with respect to each order's
 	// location. filter is a mandatory input for all requests.
-	Filter OptimizationDriverAssignmentAssignParamsFilter `json:"filter,omitzero,required"`
+	Filter OptimizationDriverAssignmentAssignParamsFilter `json:"filter,omitzero" api:"required"`
 	// Collects the details of open orders to be fulfilled. Each object represents one
 	// order. All requests must include orders as a mandatory input. A maximum of 200
 	// orders is allowed per request.
-	Orders []OptimizationDriverAssignmentAssignParamsOrder `json:"orders,omitzero,required"`
+	Orders []OptimizationDriverAssignmentAssignParamsOrder `json:"orders,omitzero" api:"required"`
 	// Collects the details of vehicles available to fulfill the orders. Each object
 	// represents one vehicle. All requests must include vehicles as a mandatory input.
 	// A maximum of 100 vehicles is allowed per request.
-	Vehicles []VehicleParam `json:"vehicles,omitzero,required"`
+	Vehicles []VehicleParam `json:"vehicles,omitzero" api:"required"`
 	// Configure the assignment constraints and response settings.
 	Options OptimizationDriverAssignmentAssignParamsOptions `json:"options,omitzero"`
 	paramObj
@@ -425,10 +425,10 @@ func (r *OptimizationDriverAssignmentAssignParamsFilter) UnmarshalJSON(data []by
 // The properties ID, Pickup are required.
 type OptimizationDriverAssignmentAssignParamsOrder struct {
 	// Specify a unique ID for the order.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Specify the location coordinates of the pickup location of the order. This input
 	// is mandatory for each order.
-	Pickup OptimizationDriverAssignmentAssignParamsOrderPickup `json:"pickup,omitzero,required"`
+	Pickup OptimizationDriverAssignmentAssignParamsOrderPickup `json:"pickup,omitzero" api:"required"`
 	// Specify the priority for this order. A higher value indicates a higher priority.
 	// When specified, it will override any priority score deduced from
 	// order_attribute_priority_mappings for this order. Valid values are \[1, 10\] and
@@ -562,7 +562,7 @@ func (r *OptimizationDriverAssignmentAssignParamsOrderVehiclePreferences) Unmars
 type OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesExcludeAllOfAttribute struct {
 	// Specify the name of the attribute. The attribute is compared to the keys (of
 	// each key:value pair) in vehicles.attributes during evaluation.
-	Attribute string `json:"attribute,required"`
+	Attribute string `json:"attribute" api:"required"`
 	// Specify the operator to denote the relation between attribute and the value
 	// specified above. The attribute , operator and value together constitute the
 	// condition that a vehicle must meet to be eligible for assignment. Currently, we
@@ -578,11 +578,11 @@ type OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesExcludeAllOf
 	// Please note that when using "contains" operator only one value can be specified
 	// and the corresponding attribute must contain multiple values when defined for a
 	// vehicle.
-	Operator string `json:"operator,required"`
+	Operator string `json:"operator" api:"required"`
 	// Specify the desired value of the attribute to be applied for this order. value
 	// provided here is compared to the values (of each key:value pair) in
 	// vehicles.attributes during evaluation.
-	Value string `json:"value,required"`
+	Value string `json:"value" api:"required"`
 	paramObj
 }
 
@@ -598,7 +598,7 @@ func (r *OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesExcludeA
 type OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAllOfAttribute struct {
 	// Specify the name of the attribute. The attribute is compared to the keys (of
 	// each key:value pair) in vehicles.attributes during evaluation.
-	Attribute string `json:"attribute,required"`
+	Attribute string `json:"attribute" api:"required"`
 	// Specify the operator to denote the relation between attribute and the value
 	// specified above. The attribute , operator and value together constitute the
 	// condition that a vehicle must meet to be eligible for assignment. Currently, we
@@ -614,11 +614,11 @@ type OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAllO
 	// Please note that when using "contains" operator only one value can be specified
 	// and the corresponding attribute must contain multiple values when defined for a
 	// vehicle.
-	Operator string `json:"operator,required"`
+	Operator string `json:"operator" api:"required"`
 	// Specify the desired value of the attribute to be applied for this order. value
 	// provided here is compared to the values (of each key:value pair) in
 	// vehicles.attributes during evaluation.
-	Value string `json:"value,required"`
+	Value string `json:"value" api:"required"`
 	paramObj
 }
 
@@ -634,7 +634,7 @@ func (r *OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequired
 type OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAnyOfAttribute struct {
 	// Specify the name of the attribute. The attribute is compared to the keys (of
 	// each key:value pair) in vehicles.attributes during evaluation.
-	Attribute string `json:"attribute,required"`
+	Attribute string `json:"attribute" api:"required"`
 	// Specify the operator to denote the relation between attribute and the value
 	// specified above. The attribute , operator and value together constitute the
 	// condition that a vehicle must meet to be eligible for assignment. Currently, we
@@ -650,11 +650,11 @@ type OptimizationDriverAssignmentAssignParamsOrderVehiclePreferencesRequiredAnyO
 	// Please note that when using "contains" operator only one value can be specified
 	// and the corresponding attribute must contain multiple values when defined for a
 	// vehicle.
-	Operator string `json:"operator,required"`
+	Operator string `json:"operator" api:"required"`
 	// Specify the desired value of the attribute to be applied for this order. value
 	// provided here is compared to the values (of each key:value pair) in
 	// vehicles.attributes during evaluation.
-	Value string `json:"value,required"`
+	Value string `json:"value" api:"required"`
 	paramObj
 }
 
@@ -719,7 +719,7 @@ func init() {
 type OptimizationDriverAssignmentAssignParamsOptionsOrderAttributePriorityMapping struct {
 	// Specify the name of the attribute. The attribute is compared to the keys (of
 	// each key:value pair) in orders.attributes during evaluation.
-	Attribute string `json:"attribute,required"`
+	Attribute string `json:"attribute" api:"required"`
 	// Specify the operator to denote the relation between attribute and the value
 	// specified above. The attribute , operator and value together constitute the
 	// condition that an order must meet to assume the specified priority. We support
@@ -735,15 +735,15 @@ type OptimizationDriverAssignmentAssignParamsOptionsOrderAttributePriorityMappin
 	// Please note that when using "contains" operator only one value can be specified
 	// and the corresponding attribute must contain multiple values when defined for an
 	// order.
-	Operator string `json:"operator,required"`
+	Operator string `json:"operator" api:"required"`
 	// Specify the priority score that should be assigned when an order qualifies the
 	// criteria specified above. A higher value indicates a higher priority. Valid
 	// values are \[1,10\].
-	Priority string `json:"priority,required"`
+	Priority string `json:"priority" api:"required"`
 	// Specify the desired value of the attribute to be applied for this order. value
 	// provided here is compared to the values (of each key:value pair) in
 	// orders.attributes during evaluation.
-	Value string `json:"value,required"`
+	Value string `json:"value" api:"required"`
 	paramObj
 }
 
@@ -759,7 +759,7 @@ func (r *OptimizationDriverAssignmentAssignParamsOptionsOrderAttributePriorityMa
 type OptimizationDriverAssignmentAssignParamsOptionsVehicleAttributePriorityMapping struct {
 	// Specify the name of the attribute. The attribute is compared to the keys (of
 	// each key:value pair) in vehicles.attributes during evaluation.
-	Attribute string `json:"attribute,required"`
+	Attribute string `json:"attribute" api:"required"`
 	// Specify the operator to denote the relation between attribute and the value
 	// specified above. The attribute , operator and value together constitute the
 	// condition that a vehicle must meet to assume the specified priority. We support
@@ -775,15 +775,15 @@ type OptimizationDriverAssignmentAssignParamsOptionsVehicleAttributePriorityMapp
 	// Please note that when using "contains" operator only one value can be specified
 	// and the corresponding attribute must contain multiple values when defined for a
 	// vehicle.
-	Operator string `json:"operator,required"`
+	Operator string `json:"operator" api:"required"`
 	// Specify the priority score that should be assigned when a vehicle qualifies the
 	// criteria specified above. A higher value indicates a higher priority. Valid
 	// values are \[1,10\].
-	Priority string `json:"priority,required"`
+	Priority string `json:"priority" api:"required"`
 	// Specify the desired value of the attribute to be applied for this vehicle. value
 	// provided here is compared to the values (of each key:value pair) in
 	// vehicles.attributes during evaluation.
-	Value string `json:"value,required"`
+	Value string `json:"value" api:"required"`
 	paramObj
 }
 

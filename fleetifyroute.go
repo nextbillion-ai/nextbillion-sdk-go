@@ -493,16 +493,16 @@ func (r *FleetifyRouteRedispatchResponseDataStepsMeta) UnmarshalJSON(data []byte
 type FleetifyRouteNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" json:"-"`
+	Key string `query:"key" api:"required" json:"-"`
 	// Specify the e-mail address of the driver who should receive the route. The
 	// e-mail address must be registered in
 	// [NextBillion.ai Cloud Console](https://console.nextbillion.ai/).
-	DriverEmail string `json:"driver_email,required"`
+	DriverEmail string `json:"driver_email" api:"required"`
 	// An array of objects to collect the details about the intermediate steps in the
 	// route to be dispatched. Each object corresponds to a single step. The array must
 	// begin with a start-type step and end with an end-type step, to form a valid
 	// route.
-	Steps []RouteStepsRequestParam `json:"steps,omitzero,required"`
+	Steps []RouteStepsRequestParam `json:"steps,omitzero" api:"required"`
 	// Specify the total distance, in meters, for an informative display in Driver's
 	// app. The distance specified here has no effect on the actual route that the
 	// service generates.
@@ -641,10 +641,10 @@ func init() {
 type FleetifyRouteRedispatchParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" json:"-"`
+	Key string `query:"key" api:"required" json:"-"`
 	// A collection of objects with details of the steps to be modified. Each object
 	// corresponds to a single step.
-	Operations []FleetifyRouteRedispatchParamsOperation `json:"operations,omitzero,required"`
+	Operations []FleetifyRouteRedispatchParamsOperation `json:"operations,omitzero" api:"required"`
 	// Specify the distance of the route.
 	Distance param.Opt[float64] `json:"distance,omitzero"`
 	paramObj
@@ -669,11 +669,11 @@ func (r FleetifyRouteRedispatchParams) URLQuery() (v url.Values, err error) {
 
 // The properties Data, Operation are required.
 type FleetifyRouteRedispatchParamsOperation struct {
-	Data FleetifyRouteRedispatchParamsOperationData `json:"data,omitzero,required"`
+	Data FleetifyRouteRedispatchParamsOperationData `json:"data,omitzero" api:"required"`
 	// Specify the type of operation to be performed for the step.
 	//
 	// Any of "create", "update", "delete".
-	Operation string `json:"operation,omitzero,required"`
+	Operation string `json:"operation,omitzero" api:"required"`
 	paramObj
 }
 

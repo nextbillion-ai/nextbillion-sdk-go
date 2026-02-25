@@ -229,7 +229,7 @@ type GeofenceEntityCreateParam struct {
 	// Specify the type of the geofence that is being created.
 	//
 	// Any of "circle", "polygon", "isochrone".
-	Type GeofenceEntityCreateType `json:"type,omitzero,required"`
+	Type GeofenceEntityCreateType `json:"type,omitzero" api:"required"`
 	// Set an unique ID for the new geofence. If not provided, an ID will be
 	// automatically generated in UUID format. A valid custom*id can contain letters,
 	// numbers, "-", & "*" only.
@@ -297,10 +297,10 @@ const (
 // The properties Center, Radius are required.
 type GeofenceEntityCreateCircleParam struct {
 	// Coordinate of the location which will act as the center of a circular geofence.
-	Center GeofenceEntityCreateCircleCenterParam `json:"center,omitzero,required"`
+	Center GeofenceEntityCreateCircleCenterParam `json:"center,omitzero" api:"required"`
 	// Radius of the circular geofence, in meters. Maximum value allowed is 50000
 	// meters.
-	Radius float64 `json:"radius,required"`
+	Radius float64 `json:"radius" api:"required"`
 	paramObj
 }
 
@@ -317,9 +317,9 @@ func (r *GeofenceEntityCreateCircleParam) UnmarshalJSON(data []byte) error {
 // The properties Lat, Lon are required.
 type GeofenceEntityCreateCircleCenterParam struct {
 	// Latitude of the center location.
-	Lat float64 `json:"lat,required"`
+	Lat float64 `json:"lat" api:"required"`
 	// Longitude of the center location.
-	Lon float64 `json:"lon,required"`
+	Lon float64 `json:"lon" api:"required"`
 	paramObj
 }
 
@@ -340,7 +340,7 @@ type GeofenceEntityCreateIsochroneParam struct {
 	// Coordinates of the location, in [latitude,longitude] format, which would act as
 	// the starting point for identifying the isochrone polygon or the boundary of
 	// reachable area. This parameter is mandatory when type is isochrone.
-	Coordinates string `json:"coordinates,required"`
+	Coordinates string `json:"coordinates" api:"required"`
 	// The distance, in meters, for which an isochrone polygon needs to be determined.
 	// When provided, the API would create a geofence representing the area that can be
 	// reached after driving the given number of meters starting from the point
@@ -412,7 +412,7 @@ type GeofenceEntityCreatePolygonParam struct {
 	// An object to collect geoJSON details of the geofence. The contents of this
 	// object follow the
 	// [geoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946).
-	Geojson GeofenceEntityCreatePolygonGeojsonParam `json:"geojson,omitzero,required"`
+	Geojson GeofenceEntityCreatePolygonGeojsonParam `json:"geojson,omitzero" api:"required"`
 	paramObj
 }
 
@@ -432,9 +432,9 @@ func (r *GeofenceEntityCreatePolygonParam) UnmarshalJSON(data []byte) error {
 type GeofenceEntityCreatePolygonGeojsonParam struct {
 	// An array of coordinates in the [longitude, latitude] format, representing the
 	// geofence boundary.
-	Coordinates [][]float64 `json:"coordinates,omitzero,required"`
+	Coordinates [][]float64 `json:"coordinates,omitzero" api:"required"`
 	// Type of the geoJSON geometry. Should always be Polygon.
-	Type string `json:"type,required"`
+	Type string `json:"type" api:"required"`
 	paramObj
 }
 
@@ -654,7 +654,7 @@ func (r *GeofenceContainsResponseDataResultListResult) UnmarshalJSON(data []byte
 type GeofenceNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key                  string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key                  string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	GeofenceEntityCreate GeofenceEntityCreateParam
 	paramObj
 }
@@ -677,7 +677,7 @@ func (r GeofenceNewParams) URLQuery() (v url.Values, err error) {
 type GeofenceGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 
@@ -692,7 +692,7 @@ func (r GeofenceGetParams) URLQuery() (v url.Values, err error) {
 type GeofenceUpdateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Use this parameter to update the name of a geofence. Users can assign meaningful
 	// custom names to their geofences.
 	Name param.Opt[string] `json:"name,omitzero"`
@@ -761,7 +761,7 @@ func (r GeofenceUpdateParams) URLQuery() (v url.Values, err error) {
 type GeofenceUpdateParamsCircle struct {
 	// Use this parameter to update the coordinate of the location which will act as
 	// the center of a circular geofence.
-	Center GeofenceUpdateParamsCircleCenter `json:"center,omitzero,required"`
+	Center GeofenceUpdateParamsCircleCenter `json:"center,omitzero" api:"required"`
 	// Use this parameter to update the radius of the circular geofence, in meters.
 	// Maximum value allowed is 50000 meters.
 	Radius param.Opt[float64] `json:"radius,omitzero"`
@@ -916,7 +916,7 @@ const (
 type GeofenceListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Denotes page number. Use this along with the ps parameter to implement
 	// pagination for your searched results. This parameter does not have a maximum
 	// limit but would return an empty response in case a higher value is provided when
@@ -945,7 +945,7 @@ func (r GeofenceListParams) URLQuery() (v url.Values, err error) {
 type GeofenceDeleteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 
@@ -960,10 +960,10 @@ func (r GeofenceDeleteParams) URLQuery() (v url.Values, err error) {
 type GeofenceContainsParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Pipe (|) separated coordinates, in [latitude,longitude] format, of the locations
 	// to be searched against the geofences.
-	Locations string `query:"locations,required" json:"-"`
+	Locations string `query:"locations" api:"required" json:"-"`
 	// A , separated list geofence IDs against which the locations will be searched. If
 	// not provided, then the 'locations' will be searched against all your existing
 	// geofences.
