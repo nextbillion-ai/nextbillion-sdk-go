@@ -53,7 +53,7 @@ func (r *SkynetSearchPolygonService) Get(ctx context.Context, query SkynetSearch
 type SkynetSearchPolygonNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// An object to collect geoJSON details of a custom polygon. Please ensure that:
 	//
 	//   - the polygon provided is enclosed. This can be achieved by making the last
@@ -67,7 +67,7 @@ type SkynetSearchPolygonNewParams struct {
 	//
 	// Please note that the maximum area of the search polygon allowed is 3000
 	// km<sup>2</sup>.
-	Polygon SkynetSearchPolygonNewParamsPolygon `json:"polygon,omitzero,required"`
+	Polygon SkynetSearchPolygonNewParamsPolygon `json:"polygon,omitzero" api:"required"`
 	// **tags parameter will be deprecated soon! Please use the
 	// include_any_of_attributes or include_all_of_attributes parameters to match
 	// assets based on their labels or markers.**
@@ -130,9 +130,9 @@ func (r SkynetSearchPolygonNewParams) URLQuery() (v url.Values, err error) {
 type SkynetSearchPolygonNewParamsPolygon struct {
 	// An array of coordinates in the [longitude, latitude] format, representing the
 	// polygon boundary.
-	Coordinates []float64 `json:"coordinates,omitzero,required"`
+	Coordinates []float64 `json:"coordinates,omitzero" api:"required"`
 	// Type of the geoJSON geometry. Should always be polygon.
-	Type string `json:"type,required"`
+	Type string `json:"type" api:"required"`
 	paramObj
 }
 
@@ -228,9 +228,9 @@ func init() {
 // The properties Lat, Lon are required.
 type SkynetSearchPolygonNewParamsSortSortDestination struct {
 	// Latitude of the destination location
-	Lat float64 `json:"lat,required"`
+	Lat float64 `json:"lat" api:"required"`
 	// Longitude of the destination location
-	Lon float64 `json:"lon,required"`
+	Lon float64 `json:"lon" api:"required"`
 	paramObj
 }
 
@@ -245,7 +245,7 @@ func (r *SkynetSearchPolygonNewParamsSortSortDestination) UnmarshalJSON(data []b
 type SkynetSearchPolygonGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Define a custom polygon enclosing the area to be searched. It should be a pipe
 	// (|) delimited list of location coordinates.
 	//
@@ -255,7 +255,7 @@ type SkynetSearchPolygonGetParams struct {
 	//
 	// Please note that the maximum area of the search polygon allowed is 3000
 	// km<sup>2</sup>.
-	Polygon string `query:"polygon,required" format:"latitude_1,longitude_1|latitude_2,longitude_2|..." json:"-"`
+	Polygon string `query:"polygon" api:"required" format:"latitude_1,longitude_1|latitude_2,longitude_2|..." json:"-"`
 	// **tags parameter will be deprecated soon! Please use the
 	// include_any_of_attributes or include_all_of_attributes parameters to match
 	// assets based on their labels or markers.**

@@ -129,17 +129,17 @@ const (
 type MdmNewDistanceMatrixParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Use this option to switch to truck-specific routing or time based routing or if
 	// you want to choose between the fastest and shortest route types.
 	//
 	// Any of "flexible".
-	Option MdmNewDistanceMatrixParamsOption `query:"option,omitzero,required" json:"-"`
+	Option MdmNewDistanceMatrixParamsOption `query:"option,omitzero" api:"required" json:"-"`
 	// origins are the starting point of your route. Ensure that origins are routable
 	// land locations. Multiple origins should be separated by a pipe symbol (|).
 	//
 	// **Format:** latitude_1,longitude_1|latitude_2,longitude_2|…
-	Origins string `json:"origins,required"`
+	Origins string `json:"origins" api:"required"`
 	// Specify if crossing an international border is expected for operations near
 	// border areas. When set to false, the API will prohibit routes going back & forth
 	// between countries. Consequently, routes within the same country will be
@@ -413,10 +413,10 @@ const (
 type MdmGetDistanceMatrixStatusParams struct {
 	// Provide the unique ID that was returned on successful submission of the
 	// Asynchronous Distance Matrix POST request.
-	ID string `query:"id,required" json:"-"`
+	ID string `query:"id" api:"required" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 

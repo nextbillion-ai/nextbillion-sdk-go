@@ -286,7 +286,7 @@ func (r *PostalcodeGetCoordinatesResponsePlacesGeopoint) UnmarshalJSON(data []by
 type PostalcodeGetCoordinatesParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Country containing the postal code or the location. It is mandatory if
 	// postalcode is provided in the request. [See this example](#note).
 	//

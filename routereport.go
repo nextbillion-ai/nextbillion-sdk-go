@@ -362,20 +362,20 @@ func (r *RouteReportNewResponseRoadSummarySummary) UnmarshalJSON(data []byte) er
 type RouteReportNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Takes a route geometry as input and returns the route details. Accepts polyline
 	// and polyline6 encoded geometry as input.
 	//
 	// **Note**: Route geometries generated from sources other than
 	// [NextBillion.ai](http://NextBillion.ai) services, are not supported in this
 	// version.
-	OriginalShape string `json:"original_shape,required"`
+	OriginalShape string `json:"original_shape" api:"required"`
 	// Specify the encoding type of route geometry provided in original_shape input.
 	// Please note that an error is returned when this parameter is not specified while
 	// an input is added to original_shape parameter.
 	//
 	// Any of "polyline", "polyline6".
-	OriginalShapeType RouteReportNewParamsOriginalShapeType `json:"original_shape_type,omitzero,required"`
+	OriginalShapeType RouteReportNewParamsOriginalShapeType `json:"original_shape_type,omitzero" api:"required"`
 	paramObj
 }
 

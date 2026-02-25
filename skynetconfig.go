@@ -146,7 +146,7 @@ func (r *SkynetConfigTestWebhookResponse) UnmarshalJSON(data []byte) error {
 type SkynetConfigGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
@@ -172,7 +172,7 @@ const (
 type SkynetConfigUpdateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
@@ -210,7 +210,7 @@ const (
 type SkynetConfigTestWebhookParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 

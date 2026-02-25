@@ -188,12 +188,12 @@ func (r *SearchResponseDataAssetRankingInfo) UnmarshalJSON(data []byte) error {
 type SkynetSearchAroundParams struct {
 	// Location coordinates of the point which would act as the center of the circular
 	// area to be searched.
-	Center string `query:"center,required" format:"latitude,longitude" json:"-"`
+	Center string `query:"center" api:"required" format:"latitude,longitude" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Radius, in meters, of the circular area to be searched.
-	Radius float64 `query:"radius,required" json:"-"`
+	Radius float64 `query:"radius" api:"required" json:"-"`
 	// **tags parameter will be deprecated soon! Please use the
 	// include_any_of_attributes or include_all_of_attributes parameters to match
 	// assets based on their labels or markers.**
@@ -295,10 +295,10 @@ type SkynetSearchBoundParams struct {
 	// of the bounding box area to be searched. The first one should be the southwest
 	// coordinate of the bounds and the second one should be the northeast coordinate
 	// of the bounds.
-	Bound string `query:"bound,required" format:"latitude_1,longitude_2|latitude_1,longitude_2" json:"-"`
+	Bound string `query:"bound" api:"required" format:"latitude_1,longitude_2|latitude_1,longitude_2" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// **tags parameter will be deprecated soon! Please use the
 	// include_any_of_attributes or include_all_of_attributes parameters to match
 	// assets based on their labels or markers.**

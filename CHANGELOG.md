@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.24 (2026-02-25)
+
+Full Changelog: [v0.1.0-alpha.23...v0.1.0-alpha.24](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.23...v0.1.0-alpha.24)
+
+### Chores
+
+* **internal:** move custom custom `json` tags to `api` ([ef4ed4c](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/ef4ed4c8ea2ff52e0dd6d1ec504cc0c63bcf9c0f))
+
 ## 0.1.0-alpha.23 (2026-02-20)
 
 Full Changelog: [v0.1.0-alpha.22...v0.1.0-alpha.23](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.22...v0.1.0-alpha.23)
