@@ -40,7 +40,7 @@ func (r *PostalcodeService) GetCoordinates(ctx context.Context, params Postalcod
 	opts = slices.Concat(r.Options, opts)
 	path := "postalcode"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type PostalcodeGetCoordinatesResponse struct {

@@ -41,7 +41,7 @@ func (r *GeofenceConsoleService) Preview(ctx context.Context, body GeofenceConso
 	opts = slices.Concat(r.Options, opts)
 	path := "geofence/console/preview"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Console Geofence Search API
@@ -49,7 +49,7 @@ func (r *GeofenceConsoleService) Search(ctx context.Context, query GeofenceConso
 	opts = slices.Concat(r.Options, opts)
 	path := "geofence/console/search"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // An object with geoJSON details of the geofence. The contents of this object

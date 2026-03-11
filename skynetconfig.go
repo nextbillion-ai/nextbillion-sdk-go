@@ -40,7 +40,7 @@ func (r *SkynetConfigService) Get(ctx context.Context, query SkynetConfigGetPara
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/config"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Update webhook configuration
@@ -48,7 +48,7 @@ func (r *SkynetConfigService) Update(ctx context.Context, params SkynetConfigUpd
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/config"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Test webhook configurations
@@ -56,7 +56,7 @@ func (r *SkynetConfigService) TestWebhook(ctx context.Context, body SkynetConfig
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/config/testwebhook"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type SkynetConfigGetResponse struct {

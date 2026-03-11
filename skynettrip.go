@@ -42,11 +42,11 @@ func (r *SkynetTripService) Get(ctx context.Context, id string, query SkynetTrip
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/trip/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Updates the data of a specified trip with the provided data.
@@ -54,11 +54,11 @@ func (r *SkynetTripService) Update(ctx context.Context, id string, params Skynet
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/trip/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Deletes a specified trip from the system.
@@ -66,11 +66,11 @@ func (r *SkynetTripService) Delete(ctx context.Context, id string, body SkynetTr
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/trip/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // End a trip
@@ -78,7 +78,7 @@ func (r *SkynetTripService) End(ctx context.Context, params SkynetTripEndParams,
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/trip/end"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get summary of an ended trip
@@ -86,11 +86,11 @@ func (r *SkynetTripService) GetSummary(ctx context.Context, id string, query Sky
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/trip/%s/summary", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Add a new trip to the system with the provided data.
@@ -98,7 +98,7 @@ func (r *SkynetTripService) Start(ctx context.Context, params SkynetTripStartPar
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/trip/start"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // An object with details of the asset properties.

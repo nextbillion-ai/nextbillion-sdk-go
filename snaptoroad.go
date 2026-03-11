@@ -45,7 +45,7 @@ func (r *SnapToRoadService) Snap(ctx context.Context, query SnapToRoadSnapParams
 	opts = slices.Concat(r.Options, opts)
 	path := "snapToRoads/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Response Body

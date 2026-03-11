@@ -42,7 +42,7 @@ func (r *RouteReportService) New(ctx context.Context, params RouteReportNewParam
 	opts = slices.Concat(r.Options, opts)
 	path := "route_report"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type RouteReportNewResponse struct {

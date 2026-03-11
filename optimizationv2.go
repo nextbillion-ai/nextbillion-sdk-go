@@ -40,7 +40,7 @@ func (r *OptimizationV2Service) GetResult(ctx context.Context, query Optimizatio
 	opts = slices.Concat(r.Options, opts)
 	path := "optimization/v2/result"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Flexible POST
@@ -48,7 +48,7 @@ func (r *OptimizationV2Service) Submit(ctx context.Context, params OptimizationV
 	opts = slices.Concat(r.Options, opts)
 	path := "optimization/v2"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // The properties ID, LocationIndex are required.

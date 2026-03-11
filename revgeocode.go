@@ -40,7 +40,7 @@ func (r *RevgeocodeService) Get(ctx context.Context, query RevgeocodeGetParams, 
 	opts = slices.Concat(r.Options, opts)
 	path := "revgeocode"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type RevgeocodeGetResponse struct {

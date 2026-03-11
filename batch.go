@@ -42,7 +42,7 @@ func (r *BatchService) New(ctx context.Context, params BatchNewParams, opts ...o
 	opts = slices.Concat(r.Options, opts)
 	path := "batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get Batch Result
@@ -50,7 +50,7 @@ func (r *BatchService) Get(ctx context.Context, query BatchGetParams, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	path := "batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type BatchNewResponse struct {

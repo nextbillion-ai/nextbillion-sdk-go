@@ -48,7 +48,7 @@ func (r *GeofenceService) New(ctx context.Context, params GeofenceNewParams, opt
 	opts = slices.Concat(r.Options, opts)
 	path := "geofence"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a Geofence
@@ -56,11 +56,11 @@ func (r *GeofenceService) Get(ctx context.Context, id string, query GeofenceGetP
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("geofence/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a Geofence
@@ -68,11 +68,11 @@ func (r *GeofenceService) Update(ctx context.Context, id string, params Geofence
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("geofence/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get Geofence List
@@ -80,7 +80,7 @@ func (r *GeofenceService) List(ctx context.Context, query GeofenceListParams, op
 	opts = slices.Concat(r.Options, opts)
 	path := "geofence/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a Geofence
@@ -88,11 +88,11 @@ func (r *GeofenceService) Delete(ctx context.Context, id string, body GeofenceDe
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("geofence/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Geofence Contains
@@ -100,7 +100,7 @@ func (r *GeofenceService) Contains(ctx context.Context, query GeofenceContainsPa
 	opts = slices.Concat(r.Options, opts)
 	path := "geofence/contain"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // An object with details of the geofence.

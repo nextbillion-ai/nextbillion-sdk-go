@@ -42,7 +42,7 @@ func (r *OptimizationDriverAssignmentService) Assign(ctx context.Context, params
 	opts = slices.Concat(r.Options, opts)
 	path := "optimization/driver-assignment/v1"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Location info.

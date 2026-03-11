@@ -40,7 +40,7 @@ func (r *BrowseService) Search(ctx context.Context, query BrowseSearchParams, op
 	opts = slices.Concat(r.Options, opts)
 	path := "browse"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type BrowseSearchResponse struct {

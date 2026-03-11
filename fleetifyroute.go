@@ -44,7 +44,7 @@ func (r *FleetifyRouteService) New(ctx context.Context, params FleetifyRouteNewP
 	opts = slices.Concat(r.Options, opts)
 	path := "fleetify/routes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Re-dispatch route
@@ -52,11 +52,11 @@ func (r *FleetifyRouteService) Redispatch(ctx context.Context, routeID string, p
 	opts = slices.Concat(r.Options, opts)
 	if routeID == "" {
 		err = errors.New("missing required routeID parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/routes/%s/redispatch", routeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // An object returning the routing characteristics that are used to generate the

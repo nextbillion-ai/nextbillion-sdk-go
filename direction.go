@@ -40,7 +40,7 @@ func (r *DirectionService) ComputeRoute(ctx context.Context, body DirectionCompu
 	opts = slices.Concat(r.Options, opts)
 	path := "directions/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type DirectionComputeRouteResponse struct {

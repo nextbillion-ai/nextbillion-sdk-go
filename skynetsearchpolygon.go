@@ -39,7 +39,7 @@ func (r *SkynetSearchPolygonService) New(ctx context.Context, params SkynetSearc
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/search/polygon"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Polygon Search
@@ -47,7 +47,7 @@ func (r *SkynetSearchPolygonService) Get(ctx context.Context, query SkynetSearch
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/search/polygon"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type SkynetSearchPolygonNewParams struct {

@@ -39,7 +39,7 @@ func (r *AreaService) List(ctx context.Context, query AreaListParams, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	path := "areas"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type AreaListResponse struct {

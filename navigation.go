@@ -47,7 +47,7 @@ func (r *NavigationService) GetRoute(ctx context.Context, query NavigationGetRou
 	opts = slices.Concat(r.Options, opts)
 	path := "navigation/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type NavigationGetRouteResponse struct {

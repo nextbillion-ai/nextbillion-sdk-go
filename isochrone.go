@@ -44,7 +44,7 @@ func (r *IsochroneService) Compute(ctx context.Context, query IsochroneComputePa
 	opts = slices.Concat(r.Options, opts)
 	path := "isochrone/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type IsochroneComputeResponse struct {

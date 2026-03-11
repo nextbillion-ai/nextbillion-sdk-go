@@ -36,5 +36,5 @@ func (r *MapService) NewSegment(ctx context.Context, opts ...option.RequestOptio
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "map/segments"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, nil, opts...)
-	return
+	return err
 }

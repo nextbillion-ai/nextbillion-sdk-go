@@ -46,7 +46,7 @@ func (r *SkynetAssetService) New(ctx context.Context, params SkynetAssetNewParam
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/asset"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get an Asset
@@ -54,11 +54,11 @@ func (r *SkynetAssetService) Get(ctx context.Context, id string, query SkynetAss
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Update an Asset
@@ -66,11 +66,11 @@ func (r *SkynetAssetService) Update(ctx context.Context, id string, params Skyne
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get Asset List
@@ -78,7 +78,7 @@ func (r *SkynetAssetService) List(ctx context.Context, query SkynetAssetListPara
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/asset/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete an Asset
@@ -86,11 +86,11 @@ func (r *SkynetAssetService) Delete(ctx context.Context, id string, body SkynetA
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Bind asset to device
@@ -98,11 +98,11 @@ func (r *SkynetAssetService) Bind(ctx context.Context, id string, params SkynetA
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s/bind", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Upload track info
@@ -110,11 +110,11 @@ func (r *SkynetAssetService) Track(ctx context.Context, id string, params Skynet
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s/track", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Update asset attributes. (add)
@@ -122,11 +122,11 @@ func (r *SkynetAssetService) UpdateAttributes(ctx context.Context, id string, pa
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s/attributes", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type MetaData = any

@@ -40,7 +40,7 @@ func (r *AutocompleteService) Suggest(ctx context.Context, query AutocompleteSug
 	opts = slices.Concat(r.Options, opts)
 	path := "autocomplete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type AutocompleteSuggestResponse struct {

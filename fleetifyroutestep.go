@@ -43,11 +43,11 @@ func (r *FleetifyRouteStepService) New(ctx context.Context, routeID string, para
 	opts = slices.Concat(r.Options, opts)
 	if routeID == "" {
 		err = errors.New("missing required routeID parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/routes/%s/steps", routeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a step
@@ -55,15 +55,15 @@ func (r *FleetifyRouteStepService) Update(ctx context.Context, stepID string, pa
 	opts = slices.Concat(r.Options, opts)
 	if params.RouteID == "" {
 		err = errors.New("missing required routeID parameter")
-		return
+		return nil, err
 	}
 	if stepID == "" {
 		err = errors.New("missing required stepID parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/routes/%s/steps/%s", params.RouteID, stepID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a step
@@ -71,15 +71,15 @@ func (r *FleetifyRouteStepService) Delete(ctx context.Context, stepID string, pa
 	opts = slices.Concat(r.Options, opts)
 	if params.RouteID == "" {
 		err = errors.New("missing required routeID parameter")
-		return
+		return nil, err
 	}
 	if stepID == "" {
 		err = errors.New("missing required stepID parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/routes/%s/steps/%s", params.RouteID, stepID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Complete a route step with document submission, or update the document of a
@@ -94,15 +94,15 @@ func (r *FleetifyRouteStepService) Complete(ctx context.Context, stepID string, 
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if params.RouteID == "" {
 		err = errors.New("missing required routeID parameter")
-		return
+		return err
 	}
 	if stepID == "" {
 		err = errors.New("missing required stepID parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("fleetify/routes/%s/steps/%s", params.RouteID, stepID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, params, nil, opts...)
-	return
+	return err
 }
 
 type DocumentSubmission = any
