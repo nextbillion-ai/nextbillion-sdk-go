@@ -42,7 +42,7 @@ func (r *GeocodeService) Get(ctx context.Context, query GeocodeGetParams, opts .
 	opts = slices.Concat(r.Options, opts)
 	path := "geocode"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Batch Geocode
@@ -50,7 +50,7 @@ func (r *GeocodeService) BatchNew(ctx context.Context, params GeocodeBatchNewPar
 	opts = slices.Concat(r.Options, opts)
 	path := "geocode/batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Structured Geocode
@@ -58,7 +58,7 @@ func (r *GeocodeService) StructuredGet(ctx context.Context, query GeocodeStructu
 	opts = slices.Concat(r.Options, opts)
 	path := "geocode/structured"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // An array returning the location coordinates of all the access points of the

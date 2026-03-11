@@ -39,7 +39,7 @@ func (r *LookupService) ByID(ctx context.Context, query LookupByIDParams, opts .
 	opts = slices.Concat(r.Options, opts)
 	path := "lookup"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type LookupByIDResponse struct {

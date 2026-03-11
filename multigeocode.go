@@ -47,7 +47,7 @@ func (r *MultigeocodeService) Search(ctx context.Context, params MultigeocodeSea
 	opts = slices.Concat(r.Options, opts)
 	path := "multigeocode/search"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type MultigeocodeSearchResponse struct {

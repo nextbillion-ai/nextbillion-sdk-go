@@ -42,7 +42,7 @@ func (r *SkynetSearchService) Around(ctx context.Context, query SkynetSearchArou
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/search/around"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Bound Search
@@ -50,7 +50,7 @@ func (r *SkynetSearchService) Bound(ctx context.Context, query SkynetSearchBound
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/search/bound"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type SearchResponse struct {

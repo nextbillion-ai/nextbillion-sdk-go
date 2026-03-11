@@ -40,7 +40,7 @@ func (r *DiscoverService) Get(ctx context.Context, query DiscoverGetParams, opts
 	opts = slices.Concat(r.Options, opts)
 	path := "discover"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type DiscoverGetResponse struct {

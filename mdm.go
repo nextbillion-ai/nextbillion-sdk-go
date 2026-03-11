@@ -42,7 +42,7 @@ func (r *MdmService) NewDistanceMatrix(ctx context.Context, params MdmNewDistanc
 	opts = slices.Concat(r.Options, opts)
 	path := "mdm/create"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get massive distance matrix task status
@@ -50,7 +50,7 @@ func (r *MdmService) GetDistanceMatrixStatus(ctx context.Context, query MdmGetDi
 	opts = slices.Concat(r.Options, opts)
 	path := "mdm/status"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type MdmNewDistanceMatrixResponse struct {

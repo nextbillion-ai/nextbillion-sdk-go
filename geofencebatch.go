@@ -40,7 +40,7 @@ func (r *GeofenceBatchService) New(ctx context.Context, params GeofenceBatchNewP
 	opts = slices.Concat(r.Options, opts)
 	path := "geofence/batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Batch Query of Geofence
@@ -48,7 +48,7 @@ func (r *GeofenceBatchService) List(ctx context.Context, query GeofenceBatchList
 	opts = slices.Concat(r.Options, opts)
 	path := "geofence/batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete Batch Geofence
@@ -56,7 +56,7 @@ func (r *GeofenceBatchService) Delete(ctx context.Context, params GeofenceBatchD
 	opts = slices.Concat(r.Options, opts)
 	path := "geofence/batch"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type GeofenceBatchNewResponse struct {

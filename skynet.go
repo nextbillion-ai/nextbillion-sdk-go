@@ -50,7 +50,7 @@ func (r *SkynetService) Subscribe(ctx context.Context, body SkynetSubscribeParam
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/subscribe"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type SkynetSubscribeResponse struct {

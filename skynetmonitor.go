@@ -42,7 +42,7 @@ func (r *SkynetMonitorService) New(ctx context.Context, params SkynetMonitorNewP
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/monitor"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a Monitor
@@ -50,11 +50,11 @@ func (r *SkynetMonitorService) Get(ctx context.Context, id string, query SkynetM
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/monitor/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a Monitor
@@ -62,11 +62,11 @@ func (r *SkynetMonitorService) Update(ctx context.Context, id string, params Sky
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/monitor/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get Monitor List
@@ -74,7 +74,7 @@ func (r *SkynetMonitorService) List(ctx context.Context, query SkynetMonitorList
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/monitor/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a Monitor
@@ -82,11 +82,11 @@ func (r *SkynetMonitorService) Delete(ctx context.Context, id string, body Skyne
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/monitor/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type Metadata = any

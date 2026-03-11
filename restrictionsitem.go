@@ -40,7 +40,7 @@ func (r *RestrictionsItemService) List(ctx context.Context, query RestrictionsIt
 	opts = slices.Concat(r.Options, opts)
 	path := "restrictions_items"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type RestrictionsItemListResponse struct {

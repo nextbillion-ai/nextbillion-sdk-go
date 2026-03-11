@@ -43,7 +43,7 @@ func (r *DistanceMatrixJsonService) New(ctx context.Context, opts ...option.Requ
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "distancematrix/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Nextbillion.ai Distance Matrix API computes distances and ETAs between a set of
@@ -57,7 +57,7 @@ func (r *DistanceMatrixJsonService) Get(ctx context.Context, query DistanceMatri
 	opts = slices.Concat(r.Options, opts)
 	path := "distancematrix/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type DistanceMatrixJsonGetResponse struct {

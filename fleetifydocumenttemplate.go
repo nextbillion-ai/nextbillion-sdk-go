@@ -42,7 +42,7 @@ func (r *FleetifyDocumentTemplateService) New(ctx context.Context, params Fleeti
 	opts = slices.Concat(r.Options, opts)
 	path := "fleetify/document_templates"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve template by ID
@@ -50,11 +50,11 @@ func (r *FleetifyDocumentTemplateService) Get(ctx context.Context, id string, qu
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/document_templates/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a document template
@@ -62,11 +62,11 @@ func (r *FleetifyDocumentTemplateService) Update(ctx context.Context, id string,
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/document_templates/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get all document templates
@@ -74,7 +74,7 @@ func (r *FleetifyDocumentTemplateService) List(ctx context.Context, query Fleeti
 	opts = slices.Concat(r.Options, opts)
 	path := "fleetify/document_templates"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a document template
@@ -82,11 +82,11 @@ func (r *FleetifyDocumentTemplateService) Delete(ctx context.Context, id string,
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/document_templates/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // An object to collect the details of form fields - data structures, validation

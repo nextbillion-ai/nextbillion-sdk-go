@@ -40,7 +40,7 @@ func (r *SkynetNamespacedApikeyService) New(ctx context.Context, body SkynetName
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/namespaced-apikeys"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete namespace under a parent key
@@ -48,7 +48,7 @@ func (r *SkynetNamespacedApikeyService) Delete(ctx context.Context, body SkynetN
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/namespaced-apikeys"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type SkynetNamespacedApikeyNewResponse struct {

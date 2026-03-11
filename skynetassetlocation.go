@@ -42,11 +42,11 @@ func (r *SkynetAssetLocationService) List(ctx context.Context, id string, query 
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s/location/list", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Track the last location of an asset
@@ -54,11 +54,11 @@ func (r *SkynetAssetLocationService) GetLast(ctx context.Context, id string, que
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s/location/last", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // An object with details of the tracked location. Please note that if there are no

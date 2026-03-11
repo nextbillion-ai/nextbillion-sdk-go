@@ -54,7 +54,7 @@ func (r *OptimizationService) Compute(ctx context.Context, query OptimizationCom
 	opts = slices.Concat(r.Options, opts)
 	path := "optimization/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Re-optimization
@@ -62,7 +62,7 @@ func (r *OptimizationService) ReOptimize(ctx context.Context, params Optimizatio
 	opts = slices.Concat(r.Options, opts)
 	path := "optimization/re_optimization"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type PostResponse struct {
