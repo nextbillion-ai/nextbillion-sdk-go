@@ -38,7 +38,7 @@ func TestUserAgentHeader(t *testing.T) {
 			},
 		}),
 	)
-	client.Directions.ComputeRoute(context.Background(), nextbillionai.DirectionComputeRouteParams{
+	_, _ = client.Directions.ComputeRoute(context.Background(), nextbillionai.DirectionComputeRouteParams{
 		Destination: "1.335368,103.785517",
 		Origin:      "1.312164,103.841063",
 	})
