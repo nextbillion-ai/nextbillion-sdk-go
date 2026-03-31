@@ -14,7 +14,8 @@ import (
 // the [NewDistanceMatrixService] method instead.
 type DistanceMatrixService struct {
 	Options []option.RequestOption
-	Json    DistanceMatrixJsonService
+	// <p>Get travel time and find optimal routes. Add guided navigation and gain trip data insights.</p>
+	Json DistanceMatrixJsonService
 }
 
 // NewDistanceMatrixService generates a new service that applies the given options

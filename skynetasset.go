@@ -46,7 +46,7 @@ func (r *SkynetAssetService) New(ctx context.Context, params SkynetAssetNewParam
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/asset"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get an Asset
@@ -54,11 +54,11 @@ func (r *SkynetAssetService) Get(ctx context.Context, id string, query SkynetAss
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Update an Asset
@@ -66,11 +66,11 @@ func (r *SkynetAssetService) Update(ctx context.Context, id string, params Skyne
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get Asset List
@@ -78,7 +78,7 @@ func (r *SkynetAssetService) List(ctx context.Context, query SkynetAssetListPara
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/asset/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete an Asset
@@ -86,11 +86,11 @@ func (r *SkynetAssetService) Delete(ctx context.Context, id string, body SkynetA
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Bind asset to device
@@ -98,11 +98,11 @@ func (r *SkynetAssetService) Bind(ctx context.Context, id string, params SkynetA
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s/bind", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Upload track info
@@ -110,11 +110,11 @@ func (r *SkynetAssetService) Track(ctx context.Context, id string, params Skynet
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s/track", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Update asset attributes. (add)
@@ -122,11 +122,11 @@ func (r *SkynetAssetService) UpdateAttributes(ctx context.Context, id string, pa
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s/attributes", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type MetaData = any
@@ -294,7 +294,7 @@ func (r *SkynetAssetListResponseData) UnmarshalJSON(data []byte) error {
 type SkynetAssetNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Set a unique ID for the new asset. If not provided, an ID will be automatically
 	// generated in UUID format. A valid custom*id can contain letters, numbers, "-", &
 	// "*" only.
@@ -361,7 +361,7 @@ const (
 type SkynetAssetGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
@@ -387,7 +387,7 @@ const (
 type SkynetAssetUpdateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Use this param to update the description of an asset.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// Use this param to update the name of an asset. Users can assign meaningful
@@ -449,7 +449,7 @@ const (
 type SkynetAssetListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Use this parameter to filter the assets by their attributes. Only the assets
 	// having all the attributes added to this parameter, will be returned in the
 	// response. Multiple attributes can be separated using pipes (|).
@@ -512,7 +512,7 @@ const (
 type SkynetAssetDeleteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
@@ -539,13 +539,13 @@ const (
 type SkynetAssetBindParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Device ID to be linked to the asset identified by id.
 	//
 	// Please note that the device needs to be linked to an asset before using it in
 	// the _Upload locations of an Asset_ method for sending GPS information about the
 	// asset.
-	DeviceID string `json:"device_id,required"`
+	DeviceID string `json:"device_id" api:"required"`
 	paramObj
 }
 
@@ -568,15 +568,15 @@ func (r SkynetAssetBindParams) URLQuery() (v url.Values, err error) {
 type SkynetAssetTrackParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// ID of the device used to upload the tracking information of the asset.
 	//
 	// Please note that the device_id used here must already be linked to the asset.
 	// Use the _Bind Device to Asset_ method to link a device with your asset.
-	DeviceID string `json:"device_id,required"`
+	DeviceID string `json:"device_id" api:"required"`
 	// An array of objects to collect the location tracking information for an asset.
 	// Each object must correspond to details of only one location.
-	Locations SkynetAssetTrackParamsLocations `json:"locations,omitzero,required"`
+	Locations SkynetAssetTrackParamsLocations `json:"locations,omitzero" api:"required"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
@@ -607,11 +607,11 @@ func (r SkynetAssetTrackParams) URLQuery() (v url.Values, err error) {
 type SkynetAssetTrackParamsLocations struct {
 	// An object to collect the coordinate details of the tracked location. Please note
 	// this field is mandatory when uploading locations for an asset.
-	Location SkynetAssetTrackParamsLocationsLocation `json:"location,omitzero,required"`
+	Location SkynetAssetTrackParamsLocationsLocation `json:"location,omitzero" api:"required"`
 	// Use this parameter to provide the time, expressed as UNIX epoch timestamp in
 	// milliseconds, when the location was tracked. Please note this field is mandatory
 	// when uploading locations for an asset.
-	Timestamp int64 `json:"timestamp,required"`
+	Timestamp int64 `json:"timestamp" api:"required"`
 	// Use this parameter to provide the accuracy of the GPS information at the tracked
 	// location. It is the estimated horizontal accuracy radius, in meters.
 	Accuracy param.Opt[float64] `json:"accuracy,omitzero"`
@@ -654,9 +654,9 @@ func (r *SkynetAssetTrackParamsLocations) UnmarshalJSON(data []byte) error {
 // The properties Lat, Lon are required.
 type SkynetAssetTrackParamsLocationsLocation struct {
 	// Latitude of the tracked location of the asset.
-	Lat float64 `json:"lat,required"`
+	Lat float64 `json:"lat" api:"required"`
 	// Longitude of the tracked location of the asset.
-	Lon float64 `json:"lon,required"`
+	Lon float64 `json:"lon" api:"required"`
 	paramObj
 }
 
@@ -678,7 +678,7 @@ const (
 type SkynetAssetUpdateAttributesParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// attributes can be used to add any useful information or context to your assets
 	// like the vehicle type, shift timing etc. These attributes can also be used to
 	// filter assets in **Search**, **Monitor**, and _Get Asset List_ queries.
@@ -692,7 +692,7 @@ type SkynetAssetUpdateAttributesParams struct {
 	// Please note that the maximum number of key:value pairs that can be added to an
 	// attributes object is 100. Also, the overall size of attributes object should not
 	// exceed 65kb.
-	Attributes any `json:"attributes,omitzero,required"`
+	Attributes any `json:"attributes,omitzero" api:"required"`
 	paramObj
 }
 

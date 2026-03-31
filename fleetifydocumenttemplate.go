@@ -42,7 +42,7 @@ func (r *FleetifyDocumentTemplateService) New(ctx context.Context, params Fleeti
 	opts = slices.Concat(r.Options, opts)
 	path := "fleetify/document_templates"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve template by ID
@@ -50,11 +50,11 @@ func (r *FleetifyDocumentTemplateService) Get(ctx context.Context, id string, qu
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/document_templates/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a document template
@@ -62,11 +62,11 @@ func (r *FleetifyDocumentTemplateService) Update(ctx context.Context, id string,
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/document_templates/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get all document templates
@@ -74,7 +74,7 @@ func (r *FleetifyDocumentTemplateService) List(ctx context.Context, query Fleeti
 	opts = slices.Concat(r.Options, opts)
 	path := "fleetify/document_templates"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a document template
@@ -82,11 +82,11 @@ func (r *FleetifyDocumentTemplateService) Delete(ctx context.Context, id string,
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/document_templates/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // An object to collect the details of form fields - data structures, validation
@@ -97,13 +97,13 @@ func (r *FleetifyDocumentTemplateService) Delete(ctx context.Context, id string,
 type DocumentTemplateContentRequestParam struct {
 	// Specify the label or the name of the field. The label specified here can be used
 	// as field name when rendering the document in the Driver app.
-	Label string `json:"label,required"`
+	Label string `json:"label" api:"required"`
 	// Specify the data type of the field. It corresponds to the type of information
 	// that the driver needs to collect.
 	//
 	// Any of "string", "number", "date_time", "photos", "multi_choices", "signature",
 	// "barcode", "single_choice".
-	Type DocumentTemplateContentRequestType `json:"type,omitzero,required"`
+	Type DocumentTemplateContentRequestType `json:"type,omitzero" api:"required"`
 	// Specify the name of the document field. A field'sname can be used for internal
 	// references to the document field.
 	Name param.Opt[string] `json:"name,omitzero"`
@@ -149,7 +149,7 @@ const (
 type DocumentTemplateContentRequestMetaParam struct {
 	// An array of objects to define options for a multi_choices or single_choice type
 	// document field. Each object represents one option.
-	Options []DocumentTemplateContentRequestMetaOptionParam `json:"options,omitzero,required"`
+	Options []DocumentTemplateContentRequestMetaOptionParam `json:"options,omitzero" api:"required"`
 	paramObj
 }
 
@@ -164,10 +164,10 @@ func (r *DocumentTemplateContentRequestMetaParam) UnmarshalJSON(data []byte) err
 // The properties Label, Value are required.
 type DocumentTemplateContentRequestMetaOptionParam struct {
 	// Specify the label or name for the option.
-	Label string `json:"label,required"`
+	Label string `json:"label" api:"required"`
 	// Specify the value associated with the option. This value will be submitted when
 	// the option is checked in the Driver app.
-	Value string `json:"value,required"`
+	Value string `json:"value" api:"required"`
 	paramObj
 }
 
@@ -554,13 +554,13 @@ func (r *FleetifyDocumentTemplateDeleteResponse) UnmarshalJSON(data []byte) erro
 type FleetifyDocumentTemplateNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" json:"-"`
+	Key string `query:"key" api:"required" json:"-"`
 	// A form field that drivers must complete when executing a route step. Defines the
 	// data structure and validation rules for collecting required information during
 	// route execution.
-	Content []DocumentTemplateContentRequestParam `json:"content,omitzero,required"`
+	Content []DocumentTemplateContentRequestParam `json:"content,omitzero" api:"required"`
 	// Specify a name for the document template to be created.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	paramObj
 }
 
@@ -584,7 +584,7 @@ func (r FleetifyDocumentTemplateNewParams) URLQuery() (v url.Values, err error) 
 type FleetifyDocumentTemplateGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" json:"-"`
+	Key string `query:"key" api:"required" json:"-"`
 	paramObj
 }
 
@@ -600,7 +600,7 @@ func (r FleetifyDocumentTemplateGetParams) URLQuery() (v url.Values, err error) 
 type FleetifyDocumentTemplateUpdateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" json:"-"`
+	Key string `query:"key" api:"required" json:"-"`
 	// Specify the document template name to be updated.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// An object to collect the details of form fields to be updated - data structures,
@@ -630,7 +630,7 @@ func (r FleetifyDocumentTemplateUpdateParams) URLQuery() (v url.Values, err erro
 type FleetifyDocumentTemplateListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" json:"-"`
+	Key string `query:"key" api:"required" json:"-"`
 	paramObj
 }
 
@@ -646,7 +646,7 @@ func (r FleetifyDocumentTemplateListParams) URLQuery() (v url.Values, err error)
 type FleetifyDocumentTemplateDeleteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" json:"-"`
+	Key string `query:"key" api:"required" json:"-"`
 	paramObj
 }
 

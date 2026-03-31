@@ -49,7 +49,7 @@ func (r *MultigeocodePlaceService) New(ctx context.Context, params MultigeocodeP
 	opts = slices.Concat(r.Options, opts)
 	path := "multigeocode/place"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Use this method to get the details of previously created custom places using its
@@ -58,11 +58,11 @@ func (r *MultigeocodePlaceService) Get(ctx context.Context, docID string, query 
 	opts = slices.Concat(r.Options, opts)
 	if docID == "" {
 		err = errors.New("missing required docId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("multigeocode/place/%s", docID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // The "Update Place" method allows businesses to update the attributes of an
@@ -82,11 +82,11 @@ func (r *MultigeocodePlaceService) Update(ctx context.Context, docID string, par
 	opts = slices.Concat(r.Options, opts)
 	if docID == "" {
 		err = errors.New("missing required docId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("multigeocode/place/%s", docID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // The "Delete Place" method enables businesses to delete a previously created
@@ -100,11 +100,11 @@ func (r *MultigeocodePlaceService) Delete(ctx context.Context, docID string, bod
 	opts = slices.Concat(r.Options, opts)
 	if docID == "" {
 		err = errors.New("missing required docId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("multigeocode/place/%s", docID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type PlaceItem struct {
@@ -417,10 +417,10 @@ func (r *MultigeocodePlaceDeleteResponse) UnmarshalJSON(data []byte) error {
 type MultigeocodePlaceNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// This parameter represents the place details, including geographical information,
 	// address and other related information.
-	Place []MultigeocodePlaceNewParamsPlace `json:"place,omitzero,required"`
+	Place []MultigeocodePlaceNewParamsPlace `json:"place,omitzero" api:"required"`
 	// When 2 places are located within 100 meters of each other and have more than 90%
 	// of matching attributes (at least 11 out of 12 attributes in the “place” object),
 	// they will be considered duplicates and any requests to add such a new place
@@ -462,7 +462,7 @@ func (r MultigeocodePlaceNewParams) URLQuery() (v url.Values, err error) {
 type MultigeocodePlaceNewParamsPlace struct {
 	// This parameter represents the geographical coordinates of the place. It includes
 	// the latitude and longitude values.
-	Geopoint MultigeocodePlaceNewParamsPlaceGeopoint `json:"geopoint,omitzero,required"`
+	Geopoint MultigeocodePlaceNewParamsPlaceGeopoint `json:"geopoint,omitzero" api:"required"`
 	// This parameter represents the complete address of the place, including the
 	// street, city, state, postal code and country.
 	Address param.Opt[string] `json:"address,omitzero"`
@@ -571,7 +571,7 @@ func init() {
 type MultigeocodePlaceGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 
@@ -587,7 +587,7 @@ func (r MultigeocodePlaceGetParams) URLQuery() (v url.Values, err error) {
 type MultigeocodePlaceUpdateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Search score of the place. This is calculated based on how ‘richly’ the place is
 	// defined. For instance, a place with street name, city, state and country
 	// attributes set might be ranked lower than a place which has values of house,
@@ -661,7 +661,7 @@ func init() {
 type MultigeocodePlaceDeleteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 

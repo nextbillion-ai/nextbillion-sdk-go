@@ -42,11 +42,11 @@ func (r *SkynetTripService) Get(ctx context.Context, id string, query SkynetTrip
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/trip/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Updates the data of a specified trip with the provided data.
@@ -54,11 +54,11 @@ func (r *SkynetTripService) Update(ctx context.Context, id string, params Skynet
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/trip/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Deletes a specified trip from the system.
@@ -66,11 +66,11 @@ func (r *SkynetTripService) Delete(ctx context.Context, id string, body SkynetTr
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/trip/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // End a trip
@@ -78,7 +78,7 @@ func (r *SkynetTripService) End(ctx context.Context, params SkynetTripEndParams,
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/trip/end"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get summary of an ended trip
@@ -86,11 +86,11 @@ func (r *SkynetTripService) GetSummary(ctx context.Context, id string, query Sky
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/trip/%s/summary", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Add a new trip to the system with the provided data.
@@ -98,7 +98,7 @@ func (r *SkynetTripService) Start(ctx context.Context, params SkynetTripStartPar
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/trip/start"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // An object with details of the asset properties.
@@ -557,7 +557,7 @@ func (r *SkynetTripStartResponseData) UnmarshalJSON(data []byte) error {
 type SkynetTripGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
@@ -583,12 +583,12 @@ const (
 type SkynetTripUpdateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Use this param to update the ID of the asset which made this trip. Please be
 	// cautious when using this field as providing an ID other than what was provided
 	// at the time of starting the trip, will link a new asset to the trip and un-link
 	// the original asset, even if the trip is still active.
-	AssetID string `json:"asset_id,required"`
+	AssetID string `json:"asset_id" api:"required"`
 	// Use this parameter to update the custom description of the trip.
 	Description param.Opt[string] `json:"description,omitzero"`
 	// Use this property to update the name of the trip.
@@ -670,7 +670,7 @@ func (r *SkynetTripUpdateParamsStop) UnmarshalJSON(data []byte) error {
 type SkynetTripDeleteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
@@ -696,9 +696,9 @@ const (
 type SkynetTripEndParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the ID of the trip to be ended.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
@@ -732,7 +732,7 @@ const (
 type SkynetTripGetSummaryParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
@@ -759,10 +759,10 @@ const (
 type SkynetTripStartParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the ID of the asset which is making this trip. The asset will be linked
 	// to this trip.
-	AssetID string `json:"asset_id,required"`
+	AssetID string `json:"asset_id" api:"required"`
 	// Set a unique ID for the new trip. If not provided, an ID will be automatically
 	// generated in UUID format. A valid custom_id can contain letters, numbers, “-”, &
 	// “\_” only.

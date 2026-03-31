@@ -40,7 +40,7 @@ func (r *SkynetConfigService) Get(ctx context.Context, query SkynetConfigGetPara
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/config"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Update webhook configuration
@@ -48,7 +48,7 @@ func (r *SkynetConfigService) Update(ctx context.Context, params SkynetConfigUpd
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/config"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Test webhook configurations
@@ -56,7 +56,7 @@ func (r *SkynetConfigService) TestWebhook(ctx context.Context, body SkynetConfig
 	opts = slices.Concat(r.Options, opts)
 	path := "skynet/config/testwebhook"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type SkynetConfigGetResponse struct {
@@ -146,7 +146,7 @@ func (r *SkynetConfigTestWebhookResponse) UnmarshalJSON(data []byte) error {
 type SkynetConfigGetParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
@@ -172,7 +172,7 @@ const (
 type SkynetConfigUpdateParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".
@@ -210,7 +210,7 @@ const (
 type SkynetConfigTestWebhookParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 

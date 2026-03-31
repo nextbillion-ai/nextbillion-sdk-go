@@ -16,6 +16,8 @@ import (
 	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
 )
 
+// <p>Get travel time and find optimal routes. Add guided navigation and gain trip data insights.</p>
+//
 // NavigationService contains methods and other services that help with interacting
 // with the nextbillion-sdk API.
 //
@@ -45,7 +47,7 @@ func (r *NavigationService) GetRoute(ctx context.Context, query NavigationGetRou
 	opts = slices.Concat(r.Options, opts)
 	path := "navigation/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type NavigationGetRouteResponse struct {
@@ -671,7 +673,7 @@ func (r *NavigationGetRouteResponseRouteStartLocation) UnmarshalJSON(data []byte
 type NavigationGetRouteParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Sets the number of alternative routes to return. It is effective only when
 	// "alternatives" is "true". Please note that adding alternative route count does
 	// not guarantee matching number of routes to be returned if potential alternative

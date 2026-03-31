@@ -16,6 +16,8 @@ import (
 	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
 )
 
+// <p>Get travel time and find optimal routes. Add guided navigation and gain trip data insights.</p>
+//
 // DistanceMatrixJsonService contains methods and other services that help with
 // interacting with the nextbillion-sdk API.
 //
@@ -41,7 +43,7 @@ func (r *DistanceMatrixJsonService) New(ctx context.Context, opts ...option.Requ
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "distancematrix/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Nextbillion.ai Distance Matrix API computes distances and ETAs between a set of
@@ -55,7 +57,7 @@ func (r *DistanceMatrixJsonService) Get(ctx context.Context, query DistanceMatri
 	opts = slices.Concat(r.Options, opts)
 	path := "distancematrix/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type DistanceMatrixJsonGetResponse struct {
@@ -130,14 +132,14 @@ type DistanceMatrixJsonGetParams struct {
 	// "destinations" are the ending coordinates of your route. Ensure that
 	// "destinations" are routable land locations. Multiple "destinations" should be
 	// separated by a pipe symbol "|".
-	Destinations string `query:"destinations,required" format:"latitude_1, longitue_1|latitude_2, longitude_2|..." json:"-"`
+	Destinations string `query:"destinations" api:"required" format:"latitude_1, longitue_1|latitude_2, longitude_2|..." json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// "origins" are the starting point of your route. Ensure that "origins" are
 	// routable land locations. Multiple "origins" should be separated by a pipe symbol
 	// "|".
-	Origins string `query:"origins,required" format:"latitude_1,longitude_1|latitude_2,longitude_2|..." json:"-"`
+	Origins string `query:"origins" api:"required" format:"latitude_1,longitude_1|latitude_2,longitude_2|..." json:"-"`
 	// Limits the search to segments with given bearing in degrees towards true north
 	// in clockwise direction. Each "bearing" should be in the format of
 	// "degree,range", where the "degree" should be a value between \[0, 360\] and

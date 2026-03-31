@@ -42,11 +42,11 @@ func (r *SkynetAssetEventService) List(ctx context.Context, id string, query Sky
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s/event/list", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type SkynetAssetEventListResponse struct {
@@ -281,7 +281,7 @@ func (r *SkynetAssetEventListResponseDataListTriggeredLocationLocation) Unmarsha
 type SkynetAssetEventListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Time before which the events triggered by the asset need to be retrieved.
 	EndTime param.Opt[int64] `query:"end_time,omitzero" json:"-"`
 	// Filter the events by monitor_id. When provided, only the events triggered by the

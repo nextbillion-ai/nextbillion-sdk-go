@@ -40,7 +40,7 @@ func (r *RevgeocodeService) Get(ctx context.Context, query RevgeocodeGetParams, 
 	opts = slices.Concat(r.Options, opts)
 	path := "revgeocode"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type RevgeocodeGetResponse struct {
@@ -226,10 +226,10 @@ type RevgeocodeGetParams struct {
 	//
 	// Please note that one of "at", "in=circle" or "in=bbox" should be provided for
 	// relevant results.
-	At string `query:"at,required" format:"latitude,longitude" json:"-"`
+	At string `query:"at" api:"required" format:"latitude,longitude" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Search within a geographic area. This is a hard filter. Results will be returned
 	// if they are located within the specified area.
 	//

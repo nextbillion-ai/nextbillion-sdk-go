@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.1.0-alpha.24 (2026-03-28)
+
+Full Changelog: [v0.1.0-alpha.23...v0.1.0-alpha.24](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.23...v0.1.0-alpha.24)
+
+### Features
+
+* **internal:** support comma format in multipart form encoding ([1154c3f](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/1154c3f10326f6347a4be9b30164c3b751a9ac61))
+
+
+### Bug Fixes
+
+* prevent duplicate ? in query params ([41de914](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/41de9147f3bdc41eb8d45f30d0bf6f466413fcf4))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([4a49c27](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/4a49c27c965aa422c1659cbf50f03320be18edd3))
+* **ci:** skip uploading artifacts on stainless-internal branches ([9236351](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/923635127cccb0eb748506d1247f10144337c506))
+* **ci:** support opting out of skipping builds on metadata-only commits ([0486070](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/048607089a6d0c9a71c07bb92b672bb06addbd54))
+* **client:** fix multipart serialisation of Default() fields ([b3edf6d](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/b3edf6d59210dc4d25b24efa1d748ee4cf66ff7f))
+* **internal:** codegen related update ([0dbf4cb](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/0dbf4cb930cc581529236e0ee6695a0d29691102))
+* **internal:** codegen related update ([dc2a5e2](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/dc2a5e277ec038f48df6aee341f4a3cf21ee73ef))
+* **internal:** minor cleanup ([01d9921](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/01d9921ebc908ecc5211f5d8a1bdd9cc04f2c68c))
+* **internal:** move custom custom `json` tags to `api` ([ef4ed4c](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/ef4ed4c8ea2ff52e0dd6d1ec504cc0c63bcf9c0f))
+* **internal:** support default value struct tag ([43a492d](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/43a492d184a50f7d928869408b55f63d150d677e))
+* **internal:** tweak CI branches ([092475b](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/092475b92fd9c7ed1b4f5654589319f9882d73c4))
+* **internal:** update gitignore ([7d217b4](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/7d217b4e706f06afa51c59276e8642e9657c7cf7))
+* **internal:** use explicit returns ([ffe53cb](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/ffe53cbd9e4f0174414db00094121e0b40226220))
+* **internal:** use explicit returns in more places ([b272538](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/b2725382682954f438456f6c5abbc1cfe026810c))
+* remove unnecessary error check for url parsing ([c33a61a](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/c33a61af035105cd09ee515d28f2f8d30bfb7c2f))
+* update docs for api:"required" ([6738c1e](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/6738c1efd42309093a8b763a77263f056b431057))
+
 ## 0.1.0-alpha.23 (2026-02-20)
 
 Full Changelog: [v0.1.0-alpha.22...v0.1.0-alpha.23](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.22...v0.1.0-alpha.23)

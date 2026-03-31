@@ -42,11 +42,11 @@ func (r *SkynetAssetLocationService) List(ctx context.Context, id string, query 
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s/location/list", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Track the last location of an asset
@@ -54,11 +54,11 @@ func (r *SkynetAssetLocationService) GetLast(ctx context.Context, id string, que
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("skynet/asset/%s/location/last", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // An object with details of the tracked location. Please note that if there are no
@@ -357,7 +357,7 @@ func (r *SkynetAssetLocationGetLastResponseData) UnmarshalJSON(data []byte) erro
 type SkynetAssetLocationListParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Describe the geometry characteristics through a , separated list of properties.
 	//
 	// Setting mapmatch to 1 returns the geometry of the tracked points, snapped to the
@@ -429,7 +429,7 @@ const (
 type SkynetAssetLocationGetLastParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// the cluster of the region you want to use
 	//
 	// Any of "america".

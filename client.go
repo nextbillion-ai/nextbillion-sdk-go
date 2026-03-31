@@ -16,32 +16,39 @@ import (
 // interacting with the nextbillion-sdk API. You should not instantiate this client
 // directly, and instead use the [NewClient] method instead.
 type Client struct {
-	Options           []option.RequestOption
-	Fleetify          FleetifyService
-	Skynet            SkynetService
-	Geocode           GeocodeService
-	Optimization      OptimizationService
-	Geofence          GeofenceService
-	Discover          DiscoverService
-	Browse            BrowseService
-	Mdm               MdmService
+	Options      []option.RequestOption
+	Fleetify     FleetifyService
+	Skynet       SkynetService
+	Geocode      GeocodeService
+	Optimization OptimizationService
+	Geofence     GeofenceService
+	Discover     DiscoverService
+	Browse       BrowseService
+	// <p>Get travel time and find optimal routes. Add guided navigation and gain trip data insights.</p>
+	Mdm MdmService
+	// <p>Get travel time and find optimal routes. Add guided navigation and gain trip data insights.</p>
 	Isochrone         IsochroneService
 	Restrictions      RestrictionService
 	RestrictionsItems RestrictionsItemService
 	DistanceMatrix    DistanceMatrixService
 	Autocomplete      AutocompleteService
-	Navigation        NavigationService
-	Map               MapService
-	Autosuggest       AutosuggestService
-	Directions        DirectionService
-	Batch             BatchService
-	Multigeocode      MultigeocodeService
-	Revgeocode        RevgeocodeService
-	RouteReport       RouteReportService
-	SnapToRoads       SnapToRoadService
-	Postalcode        PostalcodeService
-	Lookup            LookupService
-	Areas             AreaService
+	// <p>Get travel time and find optimal routes. Add guided navigation and gain trip data insights.</p>
+	Navigation  NavigationService
+	Map         MapService
+	Autosuggest AutosuggestService
+	// <p>Get travel time and find optimal routes. Add guided navigation and gain trip data insights.</p>
+	Directions DirectionService
+	// <p>Get travel time and find optimal routes. Add guided navigation and gain trip data insights.</p>
+	Batch        BatchService
+	Multigeocode MultigeocodeService
+	Revgeocode   RevgeocodeService
+	// <p>Get travel time and find optimal routes. Add guided navigation and gain trip data insights.</p>
+	RouteReport RouteReportService
+	// <p>Get travel time and find optimal routes. Add guided navigation and gain trip data insights.</p>
+	SnapToRoads SnapToRoadService
+	Postalcode  PostalcodeService
+	Lookup      LookupService
+	Areas       AreaService
 }
 
 // DefaultClientOptions read from the environment (NEXTBILLION_SDK_API_KEY,

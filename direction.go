@@ -14,6 +14,8 @@ import (
 	"github.com/nextbillion-ai/nextbillion-sdk-go/packages/respjson"
 )
 
+// <p>Get travel time and find optimal routes. Add guided navigation and gain trip data insights.</p>
+//
 // DirectionService contains methods and other services that help with interacting
 // with the nextbillion-sdk API.
 //
@@ -38,7 +40,7 @@ func (r *DirectionService) ComputeRoute(ctx context.Context, body DirectionCompu
 	opts = slices.Concat(r.Options, opts)
 	path := "directions/json"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type DirectionComputeRouteResponse struct {
@@ -540,8 +542,8 @@ func (r *DirectionComputeRouteResponseRouteStartLocation) UnmarshalJSON(data []b
 }
 
 type DirectionComputeRouteParams struct {
-	Destination string `json:"destination,required"`
-	Origin      string `json:"origin,required"`
+	Destination string `json:"destination" api:"required"`
+	Origin      string `json:"origin" api:"required"`
 	// Sets the number of alternative routes to return. It is effective only when
 	// alternatives=true. Default to 3.
 	//

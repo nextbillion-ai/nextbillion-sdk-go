@@ -39,7 +39,7 @@ func (r *LookupService) ByID(ctx context.Context, query LookupByIDParams, opts .
 	opts = slices.Concat(r.Options, opts)
 	path := "lookup"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type LookupByIDResponse struct {
@@ -103,10 +103,10 @@ func (r *LookupByIDResponseItem) UnmarshalJSON(data []byte) error {
 type LookupByIDParams struct {
 	// Specify the unique identifier of a specific POI, Street, Geography, Point
 	// Address or other entities to retrieve its details.
-	ID string `query:"id,required" json:"-"`
+	ID string `query:"id" api:"required" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	paramObj
 }
 

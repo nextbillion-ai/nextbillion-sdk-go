@@ -43,11 +43,11 @@ func (r *FleetifyRouteStepService) New(ctx context.Context, routeID string, para
 	opts = slices.Concat(r.Options, opts)
 	if routeID == "" {
 		err = errors.New("missing required routeID parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/routes/%s/steps", routeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a step
@@ -55,15 +55,15 @@ func (r *FleetifyRouteStepService) Update(ctx context.Context, stepID string, pa
 	opts = slices.Concat(r.Options, opts)
 	if params.RouteID == "" {
 		err = errors.New("missing required routeID parameter")
-		return
+		return nil, err
 	}
 	if stepID == "" {
 		err = errors.New("missing required stepID parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/routes/%s/steps/%s", params.RouteID, stepID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a step
@@ -71,15 +71,15 @@ func (r *FleetifyRouteStepService) Delete(ctx context.Context, stepID string, pa
 	opts = slices.Concat(r.Options, opts)
 	if params.RouteID == "" {
 		err = errors.New("missing required routeID parameter")
-		return
+		return nil, err
 	}
 	if stepID == "" {
 		err = errors.New("missing required stepID parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("fleetify/routes/%s/steps/%s", params.RouteID, stepID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Complete a route step with document submission, or update the document of a
@@ -94,15 +94,15 @@ func (r *FleetifyRouteStepService) Complete(ctx context.Context, stepID string, 
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if params.RouteID == "" {
 		err = errors.New("missing required routeID parameter")
-		return
+		return err
 	}
 	if stepID == "" {
 		err = errors.New("missing required stepID parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("fleetify/routes/%s/steps/%s", params.RouteID, stepID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, params, nil, opts...)
-	return
+	return err
 }
 
 type DocumentSubmission = any
@@ -202,16 +202,16 @@ type RouteStepsRequestParam struct {
 	//   - Past times can not be provided.
 	//   - The time provided is used only for informative display on the driver app and
 	//     it does not impact or get affected by the route generated.
-	Arrival int64 `json:"arrival,required"`
+	Arrival int64 `json:"arrival" api:"required"`
 	// Specify the location coordinates where the steps should be performed in
 	// [latitude, longitude].
-	Location []float64 `json:"location,omitzero,required"`
+	Location []float64 `json:"location,omitzero" api:"required"`
 	// Specify the step type. It can belong to one of the following: start, job ,
 	// pickup, delivery, end. A duration is mandatory when the step type is either
 	// layover or a break.
 	//
 	// Any of "start", "job", "pickup", "delivery", "break", "layover", "end".
-	Type RouteStepsRequestType `json:"type,omitzero,required"`
+	Type RouteStepsRequestType `json:"type,omitzero" api:"required"`
 	// Specify the postal address for the step.
 	Address param.Opt[string] `json:"address,omitzero"`
 	// Specify the ID of the document template to be used for collecting proof of
@@ -525,7 +525,7 @@ func (r *FleetifyRouteStepDeleteResponse) UnmarshalJSON(data []byte) error {
 type FleetifyRouteStepNewParams struct {
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" format:"32 character alphanumeric string" json:"-"`
+	Key string `query:"key" api:"required" format:"32 character alphanumeric string" json:"-"`
 	// Specify the scheduled arrival time of the driver, as an UNIX timestamp in
 	// seconds, at the step. Please note that:
 	//
@@ -534,19 +534,19 @@ type FleetifyRouteStepNewParams struct {
 	//   - Past times can not be provided.
 	//   - The time provided is used only for informative display on the driver app and
 	//     it does not impact or get affected by the route generated.
-	Arrival int64 `json:"arrival,required"`
+	Arrival int64 `json:"arrival" api:"required"`
 	// Specify the location coordinates where the steps should be performed in
 	// [latitude, longitude].
-	Location []float64 `json:"location,omitzero,required"`
+	Location []float64 `json:"location,omitzero" api:"required"`
 	// Indicates the index at which to insert the step, starting from 0 up to the total
 	// number of steps in the route.
-	Position int64 `json:"position,required"`
+	Position int64 `json:"position" api:"required"`
 	// Specify the step type. It can belong to one of the following: start, job ,
 	// pickup, delivery, end. A duration is mandatory when the step type is either
 	// layover or a break.
 	//
 	// Any of "start", "job", "pickup", "delivery", "break", "layover", "end".
-	Type FleetifyRouteStepNewParamsType `json:"type,omitzero,required"`
+	Type FleetifyRouteStepNewParamsType `json:"type,omitzero" api:"required"`
 	// Specify the postal address for the step.
 	Address param.Opt[string] `json:"address,omitzero"`
 	// Specify the ID of the document template to be used for collecting proof of
@@ -641,10 +641,10 @@ func (r *FleetifyRouteStepNewParamsMeta) UnmarshalJSON(data []byte) error {
 }
 
 type FleetifyRouteStepUpdateParams struct {
-	RouteID string `path:"routeID,required" json:"-"`
+	RouteID string `path:"routeID" api:"required" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" json:"-"`
+	Key string `query:"key" api:"required" json:"-"`
 	// Specify the scheduled arrival time of the driver, as an UNIX timestamp in
 	// seconds, at the step. Please note that:
 	//
@@ -653,10 +653,10 @@ type FleetifyRouteStepUpdateParams struct {
 	//   - Past times can not be provided.
 	//   - The time provided is used only for informative display on the driver app and
 	//     it does not impact or get affected by the route generated.
-	Arrival int64 `json:"arrival,required"`
+	Arrival int64 `json:"arrival" api:"required"`
 	// Specify the new position of the step. Provide a position different from the
 	// current position of the step to update sequence in which the step get completed.
-	Position int64 `json:"position,required"`
+	Position int64 `json:"position" api:"required"`
 	// Specify the postal address for the step.
 	Address param.Opt[string] `json:"address,omitzero"`
 	// Update the ID of the document template to be used for collecting proof of
@@ -755,10 +755,10 @@ const (
 )
 
 type FleetifyRouteStepDeleteParams struct {
-	RouteID string `path:"routeID,required" json:"-"`
+	RouteID string `path:"routeID" api:"required" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" json:"-"`
+	Key string `query:"key" api:"required" json:"-"`
 	paramObj
 }
 
@@ -772,10 +772,10 @@ func (r FleetifyRouteStepDeleteParams) URLQuery() (v url.Values, err error) {
 }
 
 type FleetifyRouteStepCompleteParams struct {
-	RouteID string `path:"routeID,required" json:"-"`
+	RouteID string `path:"routeID" api:"required" json:"-"`
 	// A key is a unique identifier that is required to authenticate a request to the
 	// API.
-	Key string `query:"key,required" json:"-"`
+	Key string `query:"key" api:"required" json:"-"`
 	// Sets the status of the route step. Currently only completed is supported.
 	//
 	// Note: once marked completed, a step cannot transition to other statuses. You can
