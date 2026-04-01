@@ -4,7 +4,6 @@ package nextbillionai
 
 import (
 	"context"
-	"encoding/json"
 	"net/http"
 	"net/url"
 	"slices"
@@ -177,7 +176,7 @@ func (r GeofenceConsolePreviewParams) MarshalJSON() (data []byte, err error) {
 	return shimjson.Marshal(r.GeofenceEntityCreate)
 }
 func (r *GeofenceConsolePreviewParams) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &r.GeofenceEntityCreate)
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type GeofenceConsoleSearchParams struct {
