@@ -4,7 +4,6 @@ package nextbillionai
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -663,7 +662,7 @@ func (r GeofenceNewParams) MarshalJSON() (data []byte, err error) {
 	return shimjson.Marshal(r.GeofenceEntityCreate)
 }
 func (r *GeofenceNewParams) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &r.GeofenceEntityCreate)
+	return apijson.UnmarshalRoot(data, r)
 }
 
 // URLQuery serializes [GeofenceNewParams]'s query parameters as `url.Values`.

@@ -4,7 +4,6 @@ package nextbillionai
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -474,7 +473,7 @@ func (r RestrictionNewParams) MarshalJSON() (data []byte, err error) {
 	return shimjson.Marshal(r.RichGroupRequest)
 }
 func (r *RestrictionNewParams) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &r.RichGroupRequest)
+	return apijson.UnmarshalRoot(data, r)
 }
 
 // URLQuery serializes [RestrictionNewParams]'s query parameters as `url.Values`.
@@ -530,7 +529,7 @@ func (r RestrictionUpdateParams) MarshalJSON() (data []byte, err error) {
 	return shimjson.Marshal(r.RichGroupRequest)
 }
 func (r *RestrictionUpdateParams) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &r.RichGroupRequest)
+	return apijson.UnmarshalRoot(data, r)
 }
 
 // URLQuery serializes [RestrictionUpdateParams]'s query parameters as
