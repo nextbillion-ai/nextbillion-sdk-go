@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.25 (2026-04-01)
+
+Full Changelog: [v0.1.0-alpha.24...v0.1.0-alpha.25](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.24...v0.1.0-alpha.25)
+
+### Bug Fixes
+
+* fix issue with unmarshaling in some cases ([8114afe](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/8114afe99c97c97e979d0edd1ff90a465fd38b9d))
+
 ## 0.1.0-alpha.24 (2026-03-28)
 
 Full Changelog: [v0.1.0-alpha.23...v0.1.0-alpha.24](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.23...v0.1.0-alpha.24)
