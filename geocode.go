@@ -4,7 +4,6 @@ package nextbillionai
 
 import (
 	"context"
-	"encoding/json"
 	"net/http"
 	"net/url"
 	"slices"
@@ -795,7 +794,7 @@ func (r GeocodeBatchNewParams) MarshalJSON() (data []byte, err error) {
 	return shimjson.Marshal(r.Body)
 }
 func (r *GeocodeBatchNewParams) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &r.Body)
+	return apijson.UnmarshalRoot(data, r)
 }
 
 // URLQuery serializes [GeocodeBatchNewParams]'s query parameters as `url.Values`.
