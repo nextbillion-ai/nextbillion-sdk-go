@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.26 (2026-04-23)
+
+Full Changelog: [v0.1.0-alpha.25...v0.1.0-alpha.26](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.25...v0.1.0-alpha.26)
+
+### Chores
+
+* **internal:** more robust bootstrap script ([686e101](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/686e101756ba7a087ac806f8694272f83c66691e))
+
 ## 0.1.0-alpha.25 (2026-04-01)
 
 Full Changelog: [v0.1.0-alpha.24...v0.1.0-alpha.25](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.24...v0.1.0-alpha.25)
