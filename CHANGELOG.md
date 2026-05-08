@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.27 (2026-05-08)
+
+Full Changelog: [v0.1.0-alpha.26...v0.1.0-alpha.27](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.26...v0.1.0-alpha.27)
+
+### Bug Fixes
+
+* **go:** avoid panic when http.DefaultTransport is wrapped ([16673f3](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/16673f3201951f07975d01322f51962e2ba8fc3f))
+
+
+### Chores
+
+* avoid embedding reflect.Type for dead code elimination ([b01df9b](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/b01df9b9ac9c000240bc0f1ac5457c8650e536c0))
+* redact api-key headers in debug logs ([7c219dd](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/7c219dd9ae85fc37abffabe5a91d77724470ae44))
+
 ## 0.1.0-alpha.26 (2026-04-28)
 
 Full Changelog: [v0.1.0-alpha.25...v0.1.0-alpha.26](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.25...v0.1.0-alpha.26)
