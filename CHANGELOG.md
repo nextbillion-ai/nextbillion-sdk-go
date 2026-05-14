@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.28 (2026-05-14)
+
+Full Changelog: [v0.1.0-alpha.27...v0.1.0-alpha.28](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.27...v0.1.0-alpha.28)
+
+### Features
+
+* **client:** optimize json encoder for internal types ([dd790df](https://github.com/nextbillion-ai/nextbillion-sdk-go/commit/dd790dfa52a90d08b9224588260ae9c9a209fd90))
+
 ## 0.1.0-alpha.27 (2026-05-08)
 
 Full Changelog: [v0.1.0-alpha.26...v0.1.0-alpha.27](https://github.com/nextbillion-ai/nextbillion-sdk-go/compare/v0.1.0-alpha.26...v0.1.0-alpha.27)
